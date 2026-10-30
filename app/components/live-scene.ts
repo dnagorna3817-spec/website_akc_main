@@ -17,6 +17,7 @@ export class LiveScene {
   private environment: THREE.WebGLRenderTarget | null = null;
   private key = new THREE.DirectionalLight("#a8c8ff", 1.3);
   private sweep = new THREE.PointLight("#3d7bff", 3.5, 12);
+  private studioStrip = new THREE.DirectionalLight("#b2d9ff", 0.65);
   private motion = { progress: 0, tiltX: 0, tiltY: 0 };
   private tween: gsap.core.Timeline | null = null;
   private mode: Mode = "home";
@@ -50,6 +51,8 @@ export class LiveScene {
     const edgeLight = new THREE.DirectionalLight("#187cff", .8);
     edgeLight.position.set(4, -1, 3);
     this.scene.add(edgeLight);
+    this.studioStrip.position.set(-4, 5, 7);
+    this.scene.add(this.studioStrip);
     this.createEnvironment();
     this.rotateX = gsap.quickTo(this.motion, "tiltX", { duration: .55, ease: "power3.out", onUpdate: this.invalidate });
     this.rotateY = gsap.quickTo(this.motion, "tiltY", { duration: .55, ease: "power3.out", onUpdate: this.invalidate });
@@ -215,6 +218,10 @@ export class LiveScene {
     this.canvas.style.opacity = String(mix(reveal, 1, p));
     const t = this.reduced.matches ? 0 : now / 1000;
     this.key.position.x = 5 + (ambient ? Math.sin(t * .22) * .4 : 0);
+    // A restrained studio-light sweep follows the existing first-load intro.
+    // No extra geometry, screen-space glow, or changes to Claude navigation.
+    this.studioStrip.position.x = -4 + this.introGlow.intensity * 8;
+    this.studioStrip.intensity = .65 + this.introGlow.intensity * 1.1;
     this.key.intensity = 1.3 + (ambient ? Math.sin(t * .3) * .09 : 0);
     const pulse = document.querySelector<HTMLElement>(".logo-light-pulse");
     const pulseAmount = this.mode === "home" && pulse ? Number(getComputedStyle(pulse).opacity) : 0;
