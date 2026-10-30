@@ -353,7 +353,7 @@
 }
 .overview .serviceList a:hover,
 .overview .serviceList a:focus-visible {
-  background: transparent;
+  background: linear-gradient(90deg, rgba(22, 105, 160, .14), rgba(22, 105, 160, .08) 65%, rgba(22, 105, 160, 0));
   color: #a9ddff;
 }
 .overview .serviceList a:focus-visible {
