@@ -59,13 +59,12 @@ export function createAKCModel() {
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
-    color: "#254b78",
-    metalness: .92,
-    roughness: .39,
-    roughnessMap: microtexture,
+    color: "#446c97",
+    metalness: .78,
+    roughness: .31,
     bumpMap: microtexture,
-    bumpScale: .006,
-    envMapIntensity: .9,
+    bumpScale: .0015,
+    envMapIntensity: 1.4,
     clearcoat: .08,
     clearcoatRoughness: .3,
     side: THREE.DoubleSide,
@@ -77,12 +76,12 @@ export function createAKCModel() {
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
-  model.add(new THREE.Mesh(geometry, [metal, sides]), edgeLines);
+  model.add(new THREE.Mesh(geometry, metal), edgeLines);
   // Retain the existing public API for callers, but never replace the
   // physically based surface with a baked flat photograph.
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#254b78");
-  const detailColor = new THREE.Color("#1c3d67");
+  const homeColor = new THREE.Color("#446c97");
+  const detailColor = new THREE.Color("#355981");
   return {
     model,
     applyTexture,
