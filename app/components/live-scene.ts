@@ -24,6 +24,9 @@ export class LiveScene {
   private dirty = true;
   private last = 0;
   private homeUntil = 0;
+  private intro: gsap.core.Timeline | null = null;
+  private introPlayed = false;
+  private introGlow = { intensity: 0 };
   private home: Rect = { x: 0, y: 0, width: 400, height: 400 };
   private reduced = matchMedia("(prefers-reduced-motion: reduce)");
   private pointer = matchMedia("(hover: hover) and (pointer: fine)");
@@ -85,6 +88,8 @@ export class LiveScene {
   private motionChanged = () => {
     if (this.reduced.matches) {
       this.tween?.progress(1);
+      this.intro?.kill();
+      this.introGlow.intensity = 0;
       this.rotateX(0); this.rotateY(0);
     }
     this.invalidate();
@@ -113,6 +118,8 @@ export class LiveScene {
   };
   setMode(mode: Mode, animate = false, complete?: () => void) {
     this.tween?.kill();
+    this.intro?.kill();
+    this.introGlow.intensity = 0;
     this.mode = mode;
     this.canvas.dataset.mode = animate ? "transitioning" : mode;
     this.canvas.style.visibility = mode === "inactive" ? "hidden" : "visible";
@@ -123,6 +130,17 @@ export class LiveScene {
     if (mode === "inactive") return;
     const progress = mode === "expertise" ? 1 : 0;
     this.rotateX(0); this.rotateY(0);
+    // One restrained introductory glint and 3D tilt, only on first home reveal.
+    // Never compete with route transitions or reduced-motion preferences.
+    if (mode === "home" && !this.introPlayed && !this.reduced.matches) {
+      this.introPlayed = true;
+      this.intro = gsap.timeline({ delay: 1.25, onUpdate: this.invalidate })
+        .to(this.motion, { tiltY: .11, tiltX: -.045, duration: .55, ease: "power2.out" })
+        .to(this.introGlow, { intensity: 1, duration: .32, ease: "power2.out" }, "<")
+        .to(this.motion, { tiltY: -.075, tiltX: .025, duration: .75, ease: "sine.inOut" })
+        .to(this.introGlow, { intensity: 0, duration: .7, ease: "power2.inOut" }, "<")
+        .to(this.motion, { tiltY: 0, tiltX: 0, duration: .6, ease: "power2.out" });
+    }
     if (animate && !this.reduced.matches) {
       this.tween = gsap.timeline({ onComplete: () => {
         this.canvas.dataset.mode = mode;
@@ -200,7 +218,7 @@ export class LiveScene {
     this.key.intensity = 1.3 + (ambient ? Math.sin(t * .3) * .09 : 0);
     const pulse = document.querySelector<HTMLElement>(".logo-light-pulse");
     const pulseAmount = this.mode === "home" && pulse ? Number(getComputedStyle(pulse).opacity) : 0;
-    this.sweep.intensity = 3.5 + pulseAmount * 8;
+    this.sweep.intensity = 3.5 + pulseAmount * 8 + this.introGlow.intensity * 3;
     this.sweep.position.set(this.object.position.x + 2.5, this.object.position.y + .5, 2);
     // Scissor follows the layout slot, interpolating continuously during the approach.
     // It crops only the oversized 3D artwork, never the page's content.
@@ -219,7 +237,7 @@ export class LiveScene {
   };
   dispose() {
     this.active = false;
-    this.tween?.kill(); this.rotateX.tween.kill(); this.rotateY.tween.kill();
+    this.tween?.kill(); this.intro?.kill(); this.rotateX.tween.kill(); this.rotateY.tween.kill();
     gsap.ticker.remove(this.tick);
     this.observer.disconnect();
     window.removeEventListener("resize", this.resize);
