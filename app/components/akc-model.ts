@@ -73,14 +73,14 @@ export function createAKCModel() {
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
-    color: "#40546b",
-    metalness: .76,
-    roughness: .32,
+    color: "#173755",
+    metalness: .72,
+    roughness: .48,
     anisotropy: .35,
     anisotropyRotation: Math.PI / 2,
     normalMap: normalTexture,
     normalScale: new THREE.Vector2(.11, .11),
-    envMapIntensity: 1.65,
+    envMapIntensity: .52,
     clearcoat: .06,
     clearcoatRoughness: .62,
     side: THREE.DoubleSide,
@@ -90,31 +90,31 @@ export function createAKCModel() {
   // to the bevel and side walls. Keep the same blue family on both,
   // while reducing grey/white environment reflections on the walls.
   const sideMetal = new THREE.MeshPhysicalMaterial({
-    color: "#101f32",
-    metalness: .78,
-    roughness: .34,
+    color: "#10263d",
+    metalness: .7,
+    roughness: .51,
     anisotropy: .3,
     anisotropyRotation: Math.PI / 2,
     normalMap: normalTexture,
     normalScale: new THREE.Vector2(.10, .10),
-    envMapIntensity: 1.25,
+    envMapIntensity: .42,
     clearcoat: .04,
     clearcoatRoughness: .65,
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
-  const sideHomeColor = new THREE.Color("#101f32");
-  const sideDetailColor = new THREE.Color("#122338");
+  const sideHomeColor = new THREE.Color("#10263d");
+  const sideDetailColor = new THREE.Color("#102238");
   const rim = new THREE.LineBasicMaterial({
-    color: "#b5dfff", transparent: true, opacity: .7,
+    color: "#7aadd4", transparent: true, opacity: .23,
     blending: THREE.AdditiveBlending,
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, [metal, sideMetal]), edgeLines);
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#40546b");
-  const detailColor = new THREE.Color("#33475e");
+  const homeColor = new THREE.Color("#173755");
+  const detailColor = new THREE.Color("#19334d");
   return {
     model,
     applyTexture,
@@ -127,7 +127,7 @@ export function createAKCModel() {
       // No wireframe or diagonal contour lines over the page text.
       // Only the large clipped 3D metal face remains on the expertise route.
       edgeLines.visible = progress < .015;
-      rim.opacity = .7 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
+      rim.opacity = .23 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
       geometry.dispose(); edges.dispose(); normalTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
