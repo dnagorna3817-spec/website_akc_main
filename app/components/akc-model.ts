@@ -129,7 +129,44 @@ export function createAKCModel() {
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, [metal, sideMetal]), edgeLines);
-  const applyTexture = (_url: string) => {};
+  // Use the user's supplied photo as the source for the metal surface itself,
+  // not as a separate screen-space image. Crop a blue-metal region rather than
+  // mapping the photo's black background and diagonal silhouette onto the logo.
+  const photoMaterial = new THREE.MeshBasicMaterial({
+    color: "#ffffff", transparent: true, opacity: 0, depthWrite: false,
+    polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1,
+    side: THREE.DoubleSide, clippingPlanes: [clipPlane],
+  });
+  const hiddenSides = new THREE.MeshBasicMaterial({ visible: false });
+  const photoSurface = new THREE.Mesh(geometry, [photoMaterial, hiddenSides]);
+  photoSurface.renderOrder = 2;
+  model.add(photoSurface);
+  let photoTexture: THREE.CanvasTexture | null = null;
+  let disposed = false;
+  const applyTexture = (url: string) => {
+    const image = new Image();
+    image.onload = () => {
+      if (disposed) return;
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 512;
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      // Region inside the blue brushed-metal face in the supplied 793px image.
+      context.drawImage(image, image.width * .565, image.height * .38,
+        image.width * .12, image.height * .12, 0, 0, 512, 512);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(1.5, 1.5);
+      texture.anisotropy = 8;
+      photoTexture?.dispose();
+      photoTexture = texture;
+      photoMaterial.map = texture;
+      photoMaterial.needsUpdate = true;
+    };
+    image.src = url;
+  };
+  applyTexture("/akc-expertise-metal.png");
   const homeColor = new THREE.Color("#12304d");
   const detailColor = new THREE.Color("#07539a");
   return {
@@ -149,6 +186,9 @@ export function createAKCModel() {
       sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, THREE.MathUtils.smoothstep(progress, .12, .88));
       sideMetal.roughness = THREE.MathUtils.lerp(.58, .7, progress);
       sideMetal.envMapIntensity = THREE.MathUtils.lerp(.42, .18, progress);
+      // Same mesh and same silhouette throughout the transition: only the
+      // photo-derived surface material fades in as the camera approaches.
+      photoMaterial.opacity = photoTexture ? THREE.MathUtils.smoothstep(progress, .45, .94) : 0;
       // Claude starts clipping after 0.95s of a 1.75s transition.
       const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
       clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
@@ -158,7 +198,8 @@ export function createAKCModel() {
       rim.opacity = .23 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); normalTexture.dispose(); roughnessTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
+      disposed = true;
+      geometry.dispose(); edges.dispose(); normalTexture.dispose(); roughnessTexture.dispose(); photoTexture?.dispose(); photoMaterial.dispose(); hiddenSides.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
     },
   };
 }
