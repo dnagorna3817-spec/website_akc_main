@@ -39,13 +39,13 @@ export function createAKCModel() {
     return seed / 4294967296;
   };
   const grain = new Float32Array(textureSize);
-  for (let x = 0; x < textureSize; x++) grain[x] = random() * 24 - 12;
+  for (let x = 0; x < textureSize; x++) grain[x] = random() * 5 - 2.5;
   for (let y = 0; y < textureSize; y++) {
-    const horizontal = Math.sin(y * .37) * 1.8;
+    const horizontal = Math.sin(y * .37) * .35;
     for (let x = 0; x < textureSize; x++) {
       const i = (y * textureSize + x) * 4;
-      const fine = grain[x] + horizontal + (random() - .5) * 5;
-      const v = Math.max(0, Math.min(255, Math.round(150 + fine)));
+      const fine = grain[x] + horizontal + (random() - .5) * 1.2;
+      const v = Math.max(0, Math.min(255, Math.round(128 + fine)));
       image.data[i] = image.data[i + 1] = image.data[i + 2] = v;
       image.data[i + 3] = 255;
     }
@@ -53,33 +53,33 @@ export function createAKCModel() {
   ctx.putImageData(image, 0, 0);
   const microtexture = new THREE.CanvasTexture(surface);
   microtexture.wrapS = microtexture.wrapT = THREE.RepeatWrapping;
-  microtexture.repeat.set(3, 3);
+  microtexture.repeat.set(5, 5);
   microtexture.anisotropy = 8;
   microtexture.generateMipmaps = true;
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
-    color: "#446c97",
-    metalness: .78,
-    roughness: .31,
+    color: "#6286ab",
+    metalness: .55,
+    roughness: .67,
     bumpMap: microtexture,
-    bumpScale: .0015,
-    envMapIntensity: 1.4,
-    clearcoat: .08,
+    bumpScale: .00035,
+    envMapIntensity: .65,
+    clearcoat: 0,
     clearcoatRoughness: .3,
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
   const rim = new THREE.LineBasicMaterial({
-    color: "#4da3ff", transparent: true, opacity: .55,
+    color: "#8bb7d6", transparent: true, opacity: .38,
     blending: THREE.AdditiveBlending,
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, metal), edgeLines);
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#446c97");
-  const detailColor = new THREE.Color("#355981");
+  const homeColor = new THREE.Color("#6286ab");
+  const detailColor = new THREE.Color("#476c91");
   return {
     model,
     applyTexture,
@@ -91,7 +91,7 @@ export function createAKCModel() {
       // No wireframe or diagonal contour lines over the page text.
       // Only the large clipped 3D metal face remains on the expertise route.
       edgeLines.visible = progress < .015;
-      rim.opacity = .55 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
+      rim.opacity = .38 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
       geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); rim.dispose();
