@@ -24,29 +24,52 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
-  // Project the supplied 1050x1024 transparent logo directly onto the
-  // extruded front/back faces. The texture's silhouette and holes stay aligned.
-  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
-  const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
-  for (const group of geometry.groups) {
-    if (group.materialIndex !== 0) continue;
-    for (let i = group.start; i < group.start + group.count; i++) {
-      const x = pos.getX(i), y = pos.getY(i);
-      uv.setXY(i, (x * 180 + 510) / 1050, 1 - (443 - y * 180) / 1024);
+  // Physically shaded titanium: no photographic logo overlay.
+  // Fine, deterministic brushed micro-grooves modulate roughness and normals,
+  // while the metallic highlights come from the scene's environment.
+  const textureSize = 512;
+  const surface = document.createElement("canvas");
+  surface.width = surface.height = textureSize;
+  const ctx = surface.getContext("2d");
+  if (!ctx) throw new Error("Unable to create AKC titanium microtexture");
+  const image = ctx.createImageData(textureSize, textureSize);
+  let seed = 3817;
+  const random = () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  const grain = new Float32Array(textureSize);
+  for (let x = 0; x < textureSize; x++) grain[x] = random() * 24 - 12;
+  for (let y = 0; y < textureSize; y++) {
+    const horizontal = Math.sin(y * .37) * 1.8;
+    for (let x = 0; x < textureSize; x++) {
+      const i = (y * textureSize + x) * 4;
+      const fine = grain[x] + horizontal + (random() - .5) * 5;
+      const v = Math.max(0, Math.min(255, Math.round(150 + fine)));
+      image.data[i] = image.data[i + 1] = image.data[i + 2] = v;
+      image.data[i + 3] = 255;
     }
   }
-  uv.needsUpdate = true;
+  ctx.putImageData(image, 0, 0);
+  const microtexture = new THREE.CanvasTexture(surface);
+  microtexture.wrapS = microtexture.wrapT = THREE.RepeatWrapping;
+  microtexture.repeat.set(3, 3);
+  microtexture.anisotropy = 8;
+  microtexture.generateMipmaps = true;
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
-  const metal = new THREE.MeshStandardMaterial({
-    color: "#ffffff", metalness: .32, roughness: .72, envMapIntensity: .25,
-    side: THREE.DoubleSide, clippingPlanes: [clipPlane],
-    transparent: true, alphaTest: .04,
-  });
-  // Keep bevels and extruded walls physically three-dimensional.
-  const sides = new THREE.MeshStandardMaterial({
-    color: "#183458", metalness: .65, roughness: .48, envMapIntensity: .55,
-    side: THREE.DoubleSide, clippingPlanes: [clipPlane],
+  const metal = new THREE.MeshPhysicalMaterial({
+    color: "#254b78",
+    metalness: .92,
+    roughness: .39,
+    roughnessMap: microtexture,
+    bumpMap: microtexture,
+    bumpScale: .006,
+    envMapIntensity: .9,
+    clearcoat: .08,
+    clearcoatRoughness: .3,
+    side: THREE.DoubleSide,
+    clippingPlanes: [clipPlane],
   });
   const rim = new THREE.LineBasicMaterial({
     color: "#4da3ff", transparent: true, opacity: .55,
@@ -55,32 +78,16 @@ export function createAKCModel() {
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, [metal, sides]), edgeLines);
-  let texture: THREE.Texture | null = null;
-  let disposed = false;
-  let requestId = 0;
-  const applyTexture = (url: string) => {
-    const current = ++requestId;
-    new THREE.TextureLoader().load(url, loaded => {
-      if (disposed || current !== requestId) { loaded.dispose(); return; }
-      texture?.dispose();
-      texture = loaded;
-      loaded.colorSpace = THREE.SRGBColorSpace;
-      loaded.wrapS = loaded.wrapT = THREE.ClampToEdgeWrapping;
-      loaded.anisotropy = 8;
-      metal.map = loaded;
-      metal.needsUpdate = true;
-    }, undefined, () => {
-      // If the PNG has not been copied to public/ yet, keep the solid model.
-    });
-  };
-  applyTexture("/akc-logo-metal-overlay.png");
-  const homeColor = new THREE.Color("#25477d");
-  const detailColor = new THREE.Color("#102a56");
+  // Retain the existing public API for callers, but never replace the
+  // physically based surface with a baked flat photograph.
+  const applyTexture = (_url: string) => {};
+  const homeColor = new THREE.Color("#254b78");
+  const detailColor = new THREE.Color("#1c3d67");
   return {
     model,
     applyTexture,
     setExpertise: (progress: number) => {
-      if (!texture) metal.color.copy(homeColor).lerp(detailColor, progress);
+      metal.color.copy(homeColor).lerp(detailColor, progress);
       // Claude starts clipping after 0.95s of a 1.75s transition.
       const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
       clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
@@ -90,8 +97,7 @@ export function createAKCModel() {
       rim.opacity = .55 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      disposed = true; requestId++;
-      geometry.dispose(); edges.dispose(); texture?.dispose(); metal.dispose(); sides.dispose(); rim.dispose();
+      geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); rim.dispose();
     },
   };
 }
