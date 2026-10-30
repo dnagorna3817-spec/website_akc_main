@@ -183,7 +183,7 @@ export class LiveScene {
     // Match the exact /expertise camera composition in the Claude prototype.
     // Keep the homepage's DOM-aligned framing until the zoom begins.
     const aspect = innerWidth / innerHeight;
-    const endDistance = 1.05 * Math.max(1, 1.6 / aspect);
+    const endDistance = 3.1 * Math.max(1, 1.6 / aspect);
     const z = mix(10.5, endDistance, p);
     const yaw = mix(0, -.3, p);
     const pitch = mix(0, -.08, p);
@@ -230,9 +230,12 @@ export class LiveScene {
     this.sweep.position.set(this.object.position.x + 2.5, this.object.position.y + .5, 2);
     // Scissor follows the layout slot, interpolating continuously during the approach.
     // It crops only the oversized 3D artwork, never the page's content.
-    // Claude uses a full-viewport canvas and an oblique model clipping plane,
-    // rather than a rectangular scissor restricted to the artwork slot.
-    const clip = { x: 0, y: 0, right: innerWidth, bottom: innerHeight };
+    // Unlike the original full-viewport prototype, the final artwork is bounded
+    // to the right so its enlarged geometry cannot cover the service list.
+    // Keep expertise artwork within the right-side design region.
+    // The scissor affects only the WebGL logo, never page text or controls.
+    const leftBoundary = destination.x;
+    const clip = { x: leftBoundary * p, y: 0, right: innerWidth, bottom: innerHeight };
     this.renderer.setScissorTest(false);
     this.renderer.clear();
     this.renderer.setScissor(clip.x, innerHeight - clip.bottom, Math.max(0, clip.right - clip.x), Math.max(0, clip.bottom - clip.y));
