@@ -70,13 +70,30 @@ export function createAKCModel() {
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
+  // ExtrudeGeometry assigns material 0 to the flat caps and material 1
+  // to the bevel and side walls. Keep the same blue family on both,
+  // while reducing grey/white environment reflections on the walls.
+  const sideMetal = new THREE.MeshPhysicalMaterial({
+    color: "#17365d",
+    metalness: .62,
+    roughness: .37,
+    bumpMap: microtexture,
+    bumpScale: .00012,
+    envMapIntensity: .38,
+    clearcoat: .08,
+    clearcoatRoughness: .45,
+    side: THREE.DoubleSide,
+    clippingPlanes: [clipPlane],
+  });
+  const sideHomeColor = new THREE.Color("#17365d");
+  const sideDetailColor = new THREE.Color("#122a4a");
   const rim = new THREE.LineBasicMaterial({
     color: "#438cff", transparent: true, opacity: .58,
     blending: THREE.AdditiveBlending,
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
-  model.add(new THREE.Mesh(geometry, metal), edgeLines);
+  model.add(new THREE.Mesh(geometry, [metal, sideMetal]), edgeLines);
   const applyTexture = (_url: string) => {};
   const homeColor = new THREE.Color("#142b51");
   const detailColor = new THREE.Color("#102344");
@@ -85,6 +102,7 @@ export function createAKCModel() {
     applyTexture,
     setExpertise: (progress: number) => {
       metal.color.copy(homeColor).lerp(detailColor, progress);
+      sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, progress);
       // Claude starts clipping after 0.95s of a 1.75s transition.
       const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
       clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
@@ -94,7 +112,7 @@ export function createAKCModel() {
       rim.opacity = .58 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); rim.dispose();
+      geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
     },
   };
 }
