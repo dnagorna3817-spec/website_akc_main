@@ -59,27 +59,27 @@ export function createAKCModel() {
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
-    color: "#6286ab",
-    metalness: .55,
-    roughness: .67,
+    color: "#142b51",
+    metalness: .88,
+    roughness: .24,
     bumpMap: microtexture,
-    bumpScale: .00035,
-    envMapIntensity: .65,
-    clearcoat: 0,
+    bumpScale: .00018,
+    envMapIntensity: 1.1,
+    clearcoat: .22,
     clearcoatRoughness: .3,
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
   const rim = new THREE.LineBasicMaterial({
-    color: "#8bb7d6", transparent: true, opacity: .38,
+    color: "#438cff", transparent: true, opacity: .58,
     blending: THREE.AdditiveBlending,
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, metal), edgeLines);
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#6286ab");
-  const detailColor = new THREE.Color("#476c91");
+  const homeColor = new THREE.Color("#142b51");
+  const detailColor = new THREE.Color("#102344");
   return {
     model,
     applyTexture,
@@ -91,7 +91,7 @@ export function createAKCModel() {
       // No wireframe or diagonal contour lines over the page text.
       // Only the large clipped 3D metal face remains on the expertise route.
       edgeLines.visible = progress < .015;
-      rim.opacity = .38 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
+      rim.opacity = .58 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
       geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); rim.dispose();
