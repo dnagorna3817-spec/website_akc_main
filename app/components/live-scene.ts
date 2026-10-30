@@ -15,8 +15,8 @@ export class LiveScene {
   private asset = createAKCModel();
   private object = new THREE.Group();
   private environment: THREE.WebGLRenderTarget | null = null;
-  private key = new THREE.DirectionalLight("#9dcbff", 1.7);
-  private sweep = new THREE.PointLight("#7cc9ff", 0, 15, 2);
+  private key = new THREE.DirectionalLight("#a8c8ff", 1.3);
+  private sweep = new THREE.PointLight("#3d7bff", 3.5, 12);
   private motion = { progress: 0, tiltX: 0, tiltY: 0 };
   private tween: gsap.core.Timeline | null = null;
   private mode: Mode = "home";
@@ -24,6 +24,9 @@ export class LiveScene {
   private dirty = true;
   private last = 0;
   private homeUntil = 0;
+  private intro: gsap.core.Timeline | null = null;
+  private introPlayed = false;
+  private introGlow = { intensity: 0 };
   private home: Rect = { x: 0, y: 0, width: 400, height: 400 };
   private reduced = matchMedia("(prefers-reduced-motion: reduce)");
   private pointer = matchMedia("(hover: hover) and (pointer: fine)");
@@ -37,13 +40,14 @@ export class LiveScene {
     if (!context) throw new Error("WebGL2 unavailable");
     this.renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: "high-performance" });
     this.renderer.setClearColor(0x010910, 0);
+    this.renderer.localClippingEnabled = true;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1;
     this.object.add(this.asset.model);
     this.scene.add(this.object);
-    this.key.position.set(-3, 4, 6);
-    this.scene.add(this.key, this.sweep, new THREE.HemisphereLight("#94c8ff", "#010916", .6));
-    const edgeLight = new THREE.DirectionalLight("#187cff", 3);
+    this.key.position.set(5, 6, 6);
+    this.scene.add(this.key, this.sweep, new THREE.AmbientLight("#20366a", .5));
+    const edgeLight = new THREE.DirectionalLight("#187cff", .8);
     edgeLight.position.set(4, -1, 3);
     this.scene.add(edgeLight);
     this.createEnvironment();
@@ -84,6 +88,8 @@ export class LiveScene {
   private motionChanged = () => {
     if (this.reduced.matches) {
       this.tween?.progress(1);
+      this.intro?.kill();
+      this.introGlow.intensity = 0;
       this.rotateX(0); this.rotateY(0);
     }
     this.invalidate();
@@ -112,6 +118,8 @@ export class LiveScene {
   };
   setMode(mode: Mode, animate = false, complete?: () => void) {
     this.tween?.kill();
+    this.intro?.kill();
+    this.introGlow.intensity = 0;
     this.mode = mode;
     this.canvas.dataset.mode = animate ? "transitioning" : mode;
     this.canvas.style.visibility = mode === "inactive" ? "hidden" : "visible";
@@ -122,11 +130,22 @@ export class LiveScene {
     if (mode === "inactive") return;
     const progress = mode === "expertise" ? 1 : 0;
     this.rotateX(0); this.rotateY(0);
+    // One restrained introductory glint and 3D tilt, only on first home reveal.
+    // Never compete with route transitions or reduced-motion preferences.
+    if (mode === "home" && !this.introPlayed && !this.reduced.matches) {
+      this.introPlayed = true;
+      this.intro = gsap.timeline({ delay: 1.25, onUpdate: this.invalidate })
+        .to(this.motion, { tiltY: .11, tiltX: -.045, duration: .55, ease: "power2.out" })
+        .to(this.introGlow, { intensity: 1, duration: .32, ease: "power2.out" }, "<")
+        .to(this.motion, { tiltY: -.075, tiltX: .025, duration: .75, ease: "sine.inOut" })
+        .to(this.introGlow, { intensity: 0, duration: .7, ease: "power2.inOut" }, "<")
+        .to(this.motion, { tiltY: 0, tiltX: 0, duration: .6, ease: "power2.out" });
+    }
     if (animate && !this.reduced.matches) {
       this.tween = gsap.timeline({ onComplete: () => {
         this.canvas.dataset.mode = mode;
         complete?.();
-      } }).to(this.motion, { progress, duration: 1.55, ease: "power3.inOut", onUpdate: this.invalidate });
+      } }).to(this.motion, { progress, duration: 1.75, ease: "power3.inOut", onUpdate: this.invalidate });
     } else {
       this.motion.progress = progress;
       complete?.();
@@ -158,36 +177,54 @@ export class LiveScene {
       reveal = Number(style.opacity);
       revealScale = new DOMMatrixReadOnly(style.transform).a;
     }
-    const z = mix(8.5, 4.6, p);
-    this.camera.position.set(0, 0, z);
-    this.camera.lookAt(0, 0, 0);
+    // Match the exact /expertise camera composition in the Claude prototype.
+    // Keep the homepage's DOM-aligned framing until the zoom begins.
+    const aspect = innerWidth / innerHeight;
+    const endDistance = 1.05 * Math.max(1, 1.6 / aspect);
+    const z = mix(10.5, endDistance, p);
+    const yaw = mix(0, -.3, p);
+    const pitch = mix(0, -.08, p);
+    const target = new THREE.Vector3(mix(0, .563, p), mix(0, .628, p), mix(0, .15, p));
+    this.camera.position.set(
+      target.x + z * Math.sin(yaw) * Math.cos(pitch),
+      target.y + z * Math.sin(pitch),
+      target.z + z * Math.cos(yaw) * Math.cos(pitch),
+    );
+    this.camera.lookAt(target);
+    this.camera.rotateZ(mix(0, 1.0, p));
+    const shift = mix(0, innerWidth < 700 ? .27 : aspect < 1.5 ? .30 : .32, p);
+    this.camera.clearViewOffset();
+    if (shift > 0) this.camera.setViewOffset(innerWidth, innerHeight, -shift * innerWidth, 0, innerWidth, innerHeight);
     const viewHeight = 2 * z * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
     const unit = viewHeight / innerHeight;
     const homeSize = this.home.height * .72 * revealScale;
-    const finalSize = destination.height * (mobile ? 2.5 : 5.2);
+    const finalSize = destination.height * (mobile ? 3.4 : 7.2);
     const size = mix(homeSize, finalSize, p);
-    const cx = mix(this.home.x + this.home.width / 2, destination.x + destination.width * (mobile ? .96 : 2.1), p);
+    const cx = mix(this.home.x + this.home.width / 2, destination.x + destination.width * (mobile ? 1.05 : 1.7), p);
     const cy = mix(this.home.y + this.home.height / 2, destination.y + destination.height * (mobile ? .73 : .65), p);
-    this.object.position.set((cx - innerWidth / 2) * unit, (innerHeight / 2 - cy) * unit, 0);
-    this.object.scale.setScalar(size / 1.8 * unit);
-    this.object.rotation.set(mix(this.motion.tiltX + .04, .12, p), mix(this.motion.tiltY - .06, -.34, p), -.22 * p);
+    // On the detail page the prototype moves the camera, NOT the object.
+    this.object.position.set(
+      mix((cx - innerWidth / 2) * unit, 0, p),
+      mix((innerHeight / 2 - cy) * unit, 0, p),
+      0,
+    );
+    this.object.scale.setScalar(mix(size / 3.55 * unit, 1, p));
+    // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
+    this.object.rotation.set(this.motion.tiltX * (1 - p), this.motion.tiltY * (1 - p), 0);
     this.asset.setExpertise(p);
     this.canvas.style.opacity = String(mix(reveal, 1, p));
     const t = this.reduced.matches ? 0 : now / 1000;
-    this.key.position.x = -3 + (ambient ? Math.sin(t * .22) * .4 : 0);
-    this.key.intensity = 1.7 + (ambient ? Math.sin(t * .3) * .09 : 0);
+    this.key.position.x = 5 + (ambient ? Math.sin(t * .22) * .4 : 0);
+    this.key.intensity = 1.3 + (ambient ? Math.sin(t * .3) * .09 : 0);
     const pulse = document.querySelector<HTMLElement>(".logo-light-pulse");
     const pulseAmount = this.mode === "home" && pulse ? Number(getComputedStyle(pulse).opacity) : 0;
-    this.sweep.intensity = pulseAmount * 18;
-    this.sweep.position.set(this.object.position.x + Math.sin(t * 2) * 2, this.object.position.y + 2, 3);
+    this.sweep.intensity = 3.5 + pulseAmount * 8 + this.introGlow.intensity * 3;
+    this.sweep.position.set(this.object.position.x + 2.5, this.object.position.y + .5, 2);
     // Scissor follows the layout slot, interpolating continuously during the approach.
     // It crops only the oversized 3D artwork, never the page's content.
-    const clip = {
-      x: mix(0, Math.max(0, destination.x), p),
-      y: mix(0, Math.max(0, destination.y), p),
-      right: mix(innerWidth, Math.min(innerWidth, destination.x + destination.width), p),
-      bottom: mix(innerHeight, Math.min(innerHeight, destination.y + destination.height), p),
-    };
+    // Claude uses a full-viewport canvas and an oblique model clipping plane,
+    // rather than a rectangular scissor restricted to the artwork slot.
+    const clip = { x: 0, y: 0, right: innerWidth, bottom: innerHeight };
     this.renderer.setScissorTest(false);
     this.renderer.clear();
     this.renderer.setScissor(clip.x, innerHeight - clip.bottom, Math.max(0, clip.right - clip.x), Math.max(0, clip.bottom - clip.y));
@@ -200,7 +237,7 @@ export class LiveScene {
   };
   dispose() {
     this.active = false;
-    this.tween?.kill(); this.rotateX.tween.kill(); this.rotateY.tween.kill();
+    this.tween?.kill(); this.intro?.kill(); this.rotateX.tween.kill(); this.rotateY.tween.kill();
     gsap.ticker.remove(this.tick);
     this.observer.disconnect();
     window.removeEventListener("resize", this.resize);
