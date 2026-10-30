@@ -136,6 +136,13 @@ export function createAKCModel() {
     model,
     applyTexture,
     setExpertise: (progress: number) => {
+      // Scale-aware brushing: larger visible grain on the small home logo,
+      // fine micro-scratches when the camera zooms into the expertise surface.
+      const grainRepeat = THREE.MathUtils.lerp(.48, 1.4, progress);
+      normalTexture.repeat.set(grainRepeat, grainRepeat);
+      roughnessTexture.repeat.set(grainRepeat, grainRepeat);
+      metal.normalScale.setScalar(THREE.MathUtils.lerp(.72, .38, progress));
+      sideMetal.normalScale.setScalar(THREE.MathUtils.lerp(.4, .24, progress));
       metal.color.copy(homeColor).lerp(detailColor, progress);
       sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, progress);
       // Claude starts clipping after 0.95s of a 1.75s transition.
