@@ -321,3 +321,93 @@
     margin-top: 0;
   }
 }
+
+/* Interactive service navigation: the whole row is a clear, accessible target. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.overview .serviceList {
+  width: min(calc(505 * var(--frame-unit, 1px)), 100%);
+}
+.overview .serviceList li {
+  border-bottom: 1px solid rgba(117, 157, 184, .42);
+}
+.overview .serviceList li:first-child {
+  border-top: 1px solid rgba(117, 157, 184, .42);
+}
+.overview .serviceList li:last-child {
+  border-bottom: 1px solid rgba(117, 157, 184, .42);
+}
+.overview .serviceList a {
+  position: relative;
+  border-radius: 2px;
+  transition: background-color .2s ease, color .2s ease, padding .2s ease;
+}
+.overview .serviceList a:hover,
+.overview .serviceList a:focus-visible {
+  background: rgba(22, 105, 160, .22);
+  color: #a9ddff;
+}
+.overview .serviceList a:focus-visible {
+  outline: 2px solid #69c6ff;
+  outline-offset: -2px;
+}
+.overview .serviceAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  color: #80bfe9;
+  white-space: nowrap;
+}
+.overview .serviceAction > span {
+  font-size: 12px;
+  letter-spacing: .025em;
+  opacity: .78;
+}
+.overview .serviceAction svg {
+  transition: transform .2s ease;
+}
+.overview .serviceList a:hover .serviceAction svg,
+.overview .serviceList a:focus-visible .serviceAction svg {
+  transform: translateX(5px);
+}
+@media (min-width: 1101px) {
+  .overview .serviceList {
+    width: calc(505 * var(--frame-unit));
+  }
+  .overview .serviceList a,
+  .overview .serviceList li:first-child a,
+  .overview .serviceList li:last-child a {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0 calc(12 * var(--frame-unit));
+    min-height: calc(61 * var(--frame-unit));
+    height: calc(61 * var(--frame-unit));
+  }
+}
+@media (max-width: 767px) {
+  .overview .serviceList {
+    width: 100%;
+  }
+  .overview .serviceList a {
+    padding: 12px 10px;
+    min-height: 64px;
+  }
+  .overview .serviceAction > span {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overview .serviceList a,
+  .overview .serviceAction svg {
+    transition: none;
+  }
+}
