@@ -178,3 +178,64 @@
 @media (prefers-reduced-motion: reduce) {
   .serviceList svg { transition: none; }
 }
+
+/* Expertise overview refinements: smaller artwork and precise service rows. */
+.overview .main::before {
+  background-size: auto 88%;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.overview .content h1,
+.overview .content h1:focus,
+.overview .content h1:focus-visible {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+.overview .serviceList { list-style: none; }
+.overview .serviceList li {
+  border-bottom: 1px solid rgba(208, 214, 218, .78);
+}
+.overview .serviceList li:last-child { border-bottom: 0; }
+.overview .serviceList a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+.overview .serviceLabel {
+  display: block;
+  min-width: 0;
+  margin-left: 0;
+}
+.overview .serviceList svg {
+  justify-self: end;
+  align-self: center;
+  margin: 0;
+}
+@media (min-width: 1101px) {
+  .overview .serviceList {
+    width: calc(430 * var(--frame-unit));
+  }
+  .overview .serviceList a {
+    padding: calc(8 * var(--frame-unit)) 0;
+    min-height: calc(66 * var(--frame-unit));
+  }
+  .overview .serviceList li:first-child a,
+  .overview .serviceList li:last-child a {
+    min-height: calc(66 * var(--frame-unit));
+    padding: calc(8 * var(--frame-unit)) 0;
+  }
+  .overview .serviceList {
+    margin-top: calc(28 * var(--frame-unit));
+    margin-bottom: calc(12 * var(--frame-unit));
+  }
+}
+@media (max-width: 767px) {
+  .overview .main::before {
+    background-size: auto 230px;
+    background-position: right top;
+  }
+}
