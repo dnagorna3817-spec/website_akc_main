@@ -48,9 +48,10 @@ export function createAKCModel() {
   // The original prototype's dark-blue metallic finish, without displacement.
   // UV-mapped brushed JPEG is retained in the user's original export and can
   // be introduced as a separate optimized asset after visual verification.
+  const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshStandardMaterial({
     color: "#16305e", metalness: .7, roughness: .48, envMapIntensity: .8,
-    side: THREE.DoubleSide,
+    side: THREE.DoubleSide, clippingPlanes: [clipPlane],
   });
   const rim = new THREE.LineBasicMaterial({
     color: "#4da3ff", transparent: true, opacity: .55,
@@ -81,6 +82,9 @@ export function createAKCModel() {
     applyTexture,
     setExpertise: (progress: number) => {
       if (!texture) metal.color.copy(homeColor).lerp(detailColor, progress);
+      // Claude starts clipping after 0.95s of a 1.75s transition.
+      const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
+      clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
       rim.opacity = THREE.MathUtils.lerp(.55, .8, Math.sin(Math.PI * progress));
     },
     dispose: () => {
