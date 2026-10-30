@@ -68,11 +68,26 @@ export default function ExpertiseTransition({ children }: { children: ReactNode 
     busy.current = true;
     setPhase("transitioning");
     resume.current = request.freeze();
+    // Start the camera move before routing, just as the Claude prototype does.
+    // Keep the same persistent WebGL scene throughout the Next.js navigation.
+    scene.current.setMode("expertise", true, () => {
+      busy.current = false;
+      setPhase("expertise");
+      const content = document.querySelector<HTMLElement>("[data-expertise-content]");
+      if (content) {
+        gsap.fromTo(content, { autoAlpha: 0, y: 14 }, {
+          autoAlpha: 1, y: 0, duration: .6, ease: "power2.out",
+          onComplete: () => content.querySelector<HTMLElement>("h1")?.focus({ preventScroll: true }),
+        });
+      }
+    });
     outgoing.current = gsap.context(() => {
-      gsap.to(request.root.querySelectorAll(".nav-list, .hero-bottom, .logo-glow"), {
-        opacity: 0, duration: .2, ease: "power2.out",
-        onComplete: () => router.push("/expertise", { scroll: false }),
-      });
+      const timeline = gsap.timeline();
+      timeline.to(request.root.querySelectorAll(".nav-list, .hero-bottom, .logo-glow"), {
+        opacity: 0, duration: .38, ease: "power2.out",
+      }, 0);
+      // The destination mounts during the camera move, not before it starts.
+      timeline.call(() => router.push("/expertise", { scroll: false }), [], .95);
     }, request.root);
     watchdog.current = setTimeout(() => {
       busy.current = false;
@@ -83,26 +98,16 @@ export default function ExpertiseTransition({ children }: { children: ReactNode 
 
   useEffect(() => {
     const mode = pathname === "/" ? "home" : pathname === "/expertise" ? "expertise" : "inactive";
-    let ctx: gsap.Context | undefined;
     const frame = requestAnimationFrame(() => {
-      const animate = mode === "expertise" && busy.current && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // A click-driven transition already owns the GSAP camera timeline.
+      // Route mounting must not restart it or reveal content prematurely.
+      if (mode === "expertise" && busy.current) return;
       cancelOutgoing();
-      scene.current?.setMode(mode, animate, () => {
-        busy.current = false;
-        setPhase(mode);
-      });
-      if (!animate) { busy.current = false; setPhase(mode); }
-      if (animate) {
-        const content = document.querySelector("[data-expertise-content]");
-        if (content) ctx = gsap.context(() => {
-          gsap.fromTo(content, { autoAlpha: 0, y: 14 }, {
-            autoAlpha: 1, y: 0, delay: .95, duration: .6, ease: "power2.out",
-            onComplete: () => document.querySelector<HTMLElement>("[data-expertise-content] h1")?.focus({ preventScroll: true }),
-          });
-        });
-      }
+      scene.current?.setMode(mode, false, () => setPhase(mode));
+      busy.current = false;
+      setPhase(mode);
     });
-    return () => { cancelAnimationFrame(frame); ctx?.revert(); };
+    return () => { cancelAnimationFrame(frame); };
   }, [pathname, ready, cancelOutgoing]);
 
   useEffect(() => {
