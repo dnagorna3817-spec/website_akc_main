@@ -48,10 +48,7 @@
   max-width: none;
   z-index: -1;
   pointer-events: none;
-  background-image: url("/akc-expertise-metal.png");
-  background-size: cover;
-  background-position: center top;
-  opacity: var(--akc-expertise-photo-blend, 0);
+  /* No static photo: show the live 3D scene for frame capture. */
 }
 .content { position: relative; padding: 142px 0 34px 48px; width: 60%; }
 .eyebrow { color: #527791; font-size: 20px; line-height: 1.4; margin: 0 0 24px; }
