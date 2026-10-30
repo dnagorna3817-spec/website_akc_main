@@ -220,17 +220,8 @@ export class LiveScene {
     // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
     this.object.rotation.set(this.motion.tiltX * (1 - p), this.motion.tiltY * (1 - p), 0);
     this.asset.setExpertise(p);
-    // Avoid a double silhouette: the photographic composition does not share
-    // the WebGL camera projection. Fade the 3D scene completely into the dark
-    // background before bringing in the photo, with no overlap of contours.
-    // Timing is normalized to the existing 1.75s Claude transition.
-    const handoff = this.motion.photo;
-    // The photo remains absent during camera motion. A controlled dissolve
-    // follows after the model has stopped, avoiding the previous 100ms pop.
-    const modelFade = 1 - THREE.MathUtils.smoothstep(handoff, 0, .75);
-    const photoReveal = THREE.MathUtils.smoothstep(handoff, .25, 1);
-    document.documentElement.style.setProperty("--akc-expertise-photo-blend", String(photoReveal));
-    this.canvas.style.opacity = String(mix(reveal, 1, p) * modelFade);
+    // Screenshot capture: retain the actual 3D surface at the final frame.
+    this.canvas.style.opacity = String(mix(reveal, 1, p));
     const t = this.reduced.matches ? 0 : now / 1000;
     this.key.position.x = 5 + (ambient ? Math.sin(t * .22) * .4 : 0);
     // A restrained studio-light sweep follows the existing first-load intro.
