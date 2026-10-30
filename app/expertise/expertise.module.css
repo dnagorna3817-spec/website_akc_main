@@ -1,0 +1,166 @@
+.page {
+  min-height: 100svh;
+  background: #010910;
+  color: #f5f7f8;
+  font-weight: 300;
+}
+.page * { box-sizing: border-box; }
+.page a { color: inherit; text-decoration: none; }
+.page a:focus-visible, .page summary:focus-visible {
+  outline: 2px solid #62b8f5;
+  outline-offset: 6px;
+}
+.header {
+  height: 94px;
+  padding: 0 8.4% 0 32px;
+  border-bottom: 1px solid #bec7cb;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3.2vw, 46px);
+  position: relative;
+  z-index: 5;
+  background: #010910;
+  font-size: 20px;
+}
+.brand { display: flex; align-items: center; gap: 15px; flex-shrink: 0; font-weight: 400; }
+.brand img { width: 57px; height: 56px; object-fit: contain; }
+.nav { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 28px; white-space: nowrap; }
+.nav .active { color: #64a6d8; font-weight: 600; }
+.nav a:hover { color: #8ed0ff; }
+.contacts { display: flex; gap: 16px; align-items: center; border: 3px solid #273e4d; border-radius: 22px; padding: 5px 9px; white-space: nowrap; }
+.contacts svg { width: 38px; height: 32px; }
+.mobileMenu { display: none; }
+.main {
+  position: relative;
+  z-index: 3;
+  min-height: max(806px, calc(100svh - 94px));
+  isolation: isolate;
+  /* Only decorative artwork is cropped; all content participates in flow. */
+  overflow: clip;
+}
+.geometry {
+  position: absolute;
+  left: 44.93%;
+  top: 84px;
+  width: 55.07%;
+  height: auto;
+  aspect-ratio: 793 / 816;
+  max-width: none;
+  z-index: -1;
+  pointer-events: none;
+}
+.content { position: relative; padding: 142px 0 34px 48px; width: 60%; }
+.eyebrow { color: #527791; font-size: 20px; line-height: 1.4; margin: 0 0 24px; }
+.content h1 { margin: 0; font-size: clamp(44px, 4.45vw, 64px); line-height: 1.15; font-weight: 400; letter-spacing: .07em; white-space: nowrap; }
+.serviceList { padding: 0; margin: 46px 0 16px; width: 388px; list-style: none; }
+.serviceList li { border-bottom: 1px solid #d0d6da; }
+.serviceList li:last-child { border: 0; }
+.serviceList a { min-height: 67px; display: flex; align-items: flex-start; gap: 20px; padding: 9px 28px 11px 0; font-size: 20px; line-height: 1.2; }
+.serviceLabel { flex: 1; margin-left: -13px; }
+.number { margin-right: 8px; font-variant-numeric: tabular-nums; }
+.serviceList svg { flex-shrink: 0; margin-top: -4px; transition: transform .25s ease; }
+.serviceList a:hover { color: #80c8ff; }
+.serviceList a:hover svg { transform: translateX(5px); }
+.calculatorWrap { width: 520px; max-width: 100%; }
+.calculator { text-align: left; width: 100%; min-height: 104px; border: 1px solid #008ed2; border-left-width: 4px; background: #03202c; padding: 19px 50px 19px 18px; position: relative; color: #e6eff3; font-family: inherit; font-size: 18px; font-weight: 400; cursor: not-allowed; }
+.calculator small { display: block; margin-top: 13px; color: #79909d; font-size: 14px; font-weight: 300; }
+.calculator svg { position: absolute; right: 27px; top: 38px; }
+.availability { margin: 8px 0 0; font-size: 12px; color: #79909d; }
+.serviceMain { max-width: 1600px; margin: auto; padding: 0 32px 40px; }
+.serviceColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 7%; }
+.serviceIntro { padding-top: 40px; min-width: 0; }
+.serviceIntro h1 { font-size: clamp(30px, 3vw, 48px); line-height: 1.12; font-weight: 500; border-left: 3px solid #287fba; padding-left: 14px; margin: 25px 0; text-wrap: balance; }
+.serviceIntro > p { max-width: 520px; color: #93a4af; line-height: 1.5; }
+.serviceCard { border: 1px solid #294451; background: #031219; padding: 24px; margin: 32px 0; }
+.serviceCard h2 { font-size: 26px; font-weight: 400; margin-bottom: 22px; }
+.serviceCard p { color: #93a4af; line-height: 1.6; }
+.serviceItems { list-style: none; padding: 0; margin: 24px 0; }
+.serviceItems li { border-bottom: 1px solid #294451; padding: 15px 0; line-height: 1.4; display: flex; gap: 16px; }
+.serviceItems span { font-size: 12px; color: #59a5d7; padding-top: 3px; }
+.serviceArt { width: 100%; height: 300px; object-fit: cover; object-position: center 38%; }
+.serviceAside { min-width: 0; }
+.asideCaption { color: #5298c7; font-size: 12px; text-transform: uppercase; margin: 24px 0; letter-spacing: .08em; }
+.outcome { border: 1px solid #2f7da9; background: #031219; padding: 24px; margin-top: 24px; }
+.outcome h2 { font-size: 24px; font-weight: 500; margin-bottom: 16px; }
+.outcome a { display: inline-flex; align-items: center; gap: 18px; color: #9dc8e4; padding: 12px 0; }
+.details { margin: 36px 0; scroll-margin-top: 30px; }
+.details h2 { font-size: 22px; font-weight: 500; margin-bottom: 20px; }
+.detailList { display: flex; flex-wrap: wrap; list-style: none; gap: 24px; padding: 0; }
+.detailList li { flex: 1 1 120px; font-size: 15px; color: #9caeb9; }
+.detailList span { display: block; color: #5690b7; margin-bottom: 8px; font-size: 12px; }
+.serviceFooter { border-top: 1px solid #294451; margin-top: 48px; padding-top: 24px; }
+.serviceFooter a { display: inline-flex; align-items: center; gap: 30px; border: 1px solid #367fa9; padding: 16px 20px; }
+@media (max-width: 1300px) {
+  .header { padding-right: 24px; gap: 24px; font-size: 16px; }
+  .nav { gap: 20px; }
+  .brand { gap: 10px; }
+}
+@media (max-width: 1100px) {
+  .nav, .contacts { display: none; }
+  .header { justify-content: space-between; }
+  .mobileMenu { display: block; font-size: 16px; }
+  .mobileMenu summary { cursor: pointer; list-style: none; padding: 12px 0 12px 12px; }
+  .mobileMenu summary span { margin-left: 10px; }
+  .mobileMenu nav { position: absolute; right: 20px; top: 80%; width: min(300px, calc(100vw - 40px)); padding: 16px; background: #031723; border: 1px solid #315164; display: flex; flex-direction: column; }
+  .mobileMenu nav a { padding: 14px; }
+  .content { width: 75%; padding: 90px 0 40px 32px; }
+  .content h1 { white-space: normal; max-width: 650px; }
+  .geometry { left: 51%; width: 72%; top: 100px; }
+  .serviceColumns { gap: 4%; }
+}
+/* The supplied desktop frame is 1440 × 994. Scale its measured spacing
+   together; viewport height must not move the content independently. */
+@media (min-width: 1101px) {
+  .overview { --frame-unit: calc(100vw / 1440); }
+  .overview .header { height: calc(94 * var(--frame-unit)); padding: 0 8.4% 0 calc(32 * var(--frame-unit)); gap: calc(46 * var(--frame-unit)); font-size: calc(20 * var(--frame-unit)); }
+  .overview .brand { gap: calc(15 * var(--frame-unit)); }
+  .overview .brand img { width: calc(57 * var(--frame-unit)); height: calc(56 * var(--frame-unit)); }
+  .overview .nav { gap: calc(28 * var(--frame-unit)); }
+  .overview .contacts { gap: calc(16 * var(--frame-unit)); border-width: calc(3 * var(--frame-unit)); padding: calc(5 * var(--frame-unit)) calc(9 * var(--frame-unit)); }
+  .overview .contacts svg { width: calc(38 * var(--frame-unit)); height: calc(32 * var(--frame-unit)); }
+  .main { min-height: max(calc(900 * var(--frame-unit)), calc(100svh - 94 * var(--frame-unit))); }
+  .geometry { top: calc(84 * var(--frame-unit)); }
+  .content { padding: calc(142 * var(--frame-unit)) 0 calc(34 * var(--frame-unit)) calc(48 * var(--frame-unit)); }
+  .eyebrow { font-size: calc(20 * var(--frame-unit)); margin-bottom: calc(24 * var(--frame-unit)); }
+  .content h1 { font-size: calc(64 * var(--frame-unit)); }
+  .serviceList { width: calc(388 * var(--frame-unit)); margin: calc(46 * var(--frame-unit)) 0 calc(16 * var(--frame-unit)); }
+  .serviceList a { min-height: calc(68 * var(--frame-unit)); font-size: calc(20 * var(--frame-unit)); padding: calc(2 * var(--frame-unit)) calc(28 * var(--frame-unit)) calc(11 * var(--frame-unit)) 0; gap: calc(20 * var(--frame-unit)); }
+  .serviceList li:first-child a { min-height: calc(75 * var(--frame-unit)); padding-top: calc(9 * var(--frame-unit)); }
+  .serviceList li:last-child a { min-height: calc(56 * var(--frame-unit)); }
+  .serviceLabel { margin-left: calc(-13 * var(--frame-unit)); }
+  .serviceList svg { width: calc(28 * var(--frame-unit)); height: calc(28 * var(--frame-unit)); }
+  .overview .calculatorWrap { width: calc(520 * var(--frame-unit)); }
+  .overview .calculator { min-height: calc(104 * var(--frame-unit)); padding: calc(19 * var(--frame-unit)) calc(50 * var(--frame-unit)) calc(19 * var(--frame-unit)) calc(18 * var(--frame-unit)); font-size: calc(18 * var(--frame-unit)); }
+  .overview .calculator small { font-size: calc(14 * var(--frame-unit)); margin-top: calc(13 * var(--frame-unit)); }
+  .overview .calculator svg { right: calc(27 * var(--frame-unit)); top: calc(38 * var(--frame-unit)); width: calc(28 * var(--frame-unit)); }
+}
+@media (max-width: 767px) {
+  .header { height: 80px; padding: 0 18px; gap: 12px; }
+  .brand { max-width: 245px; font-size: 15px; gap: 9px; line-height: 1.2; }
+  .brand img { width: 38px; height: 42px; }
+  .brand span { max-width: 155px; }
+  .mobileMenu summary { font-size: 0; }
+  .mobileMenu summary span { font-size: 22px; }
+  .main { min-height: calc(100svh - 80px); }
+  .geometry { width: 100%; height: 230px; left: 0; top: 0; object-fit: cover; object-position: center 28%; }
+  .content { width: 100%; padding: 262px 24px 32px; }
+  .eyebrow { font-size: 16px; margin-bottom: 18px; }
+  .content h1 { font-size: clamp(30px, 8.5vw, 44px); letter-spacing: .035em; }
+  .serviceList { margin-top: 30px; width: 100%; }
+  .serviceList a { font-size: 16px; min-height: 65px; padding: 18px 4px 18px 0; align-items: center; gap: 14px; }
+  .serviceLabel { margin-left: 0; }
+  .serviceList svg { width: 24px; margin: 0; }
+  .calculator { font-size: 15px; padding: 18px 44px 18px 14px; }
+  .calculator small { font-size: 12px; line-height: 1.4; }
+  .calculator svg { right: 12px; }
+  .serviceMain { padding: 0 24px 32px; }
+  .serviceColumns { grid-template-columns: 1fr; }
+  .serviceIntro { padding-top: 28px; }
+  .serviceIntro h1 { font-size: 32px; }
+  .serviceCard { padding: 20px; }
+  .serviceArt { height: 220px; }
+  .serviceFooter { margin-top: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .serviceList svg { transition: none; }
+}
