@@ -127,7 +127,7 @@ export class LiveScene {
       this.tween = gsap.timeline({ onComplete: () => {
         this.canvas.dataset.mode = mode;
         complete?.();
-      } }).to(this.motion, { progress, duration: 1.55, ease: "power3.inOut", onUpdate: this.invalidate });
+      } }).to(this.motion, { progress, duration: 1.75, ease: "power3.inOut", onUpdate: this.invalidate });
     } else {
       this.motion.progress = progress;
       complete?.();
