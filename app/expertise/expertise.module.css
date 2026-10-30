@@ -239,3 +239,35 @@
     background-position: right top;
   }
 }
+
+/* Desktop rhythm: move the complete copy up and give each service a
+   consistent row box, including the two-line qualification label. */
+@media (min-width: 1101px) {
+  .overview .content {
+    padding-top: calc(112 * var(--frame-unit));
+  }
+  .overview .eyebrow {
+    margin-bottom: calc(19 * var(--frame-unit));
+  }
+  .overview .serviceList {
+    margin-top: calc(30 * var(--frame-unit));
+    margin-bottom: calc(16 * var(--frame-unit));
+  }
+  .overview .serviceList li,
+  .overview .serviceList li:first-child,
+  .overview .serviceList li:last-child {
+    margin: 0;
+    padding: 0;
+  }
+  .overview .serviceList a,
+  .overview .serviceList li:first-child a,
+  .overview .serviceList li:last-child a {
+    height: calc(72 * var(--frame-unit));
+    min-height: calc(72 * var(--frame-unit));
+    padding: 0;
+    align-items: center;
+  }
+  .overview .serviceLabel {
+    line-height: 1.2;
+  }
+}
