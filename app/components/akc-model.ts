@@ -24,6 +24,20 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
+  // Front/back UVs use the original 1050 x 1024 AKC logo coordinates.
+  // ExtrudeGeometry material group 0 contains caps; group 1 contains bevels
+  // and side walls. The image is never stretched across the side walls.
+  const positions = geometry.getAttribute("position") as THREE.BufferAttribute;
+  const uvs = geometry.getAttribute("uv") as THREE.BufferAttribute;
+  for (const group of geometry.groups) {
+    if (group.materialIndex !== 0) continue;
+    for (let i = group.start; i < group.start + group.count; i++) {
+      const x = positions.getX(i);
+      const y = positions.getY(i);
+      uvs.setXY(i, (x * 180 + 510) / 1050, 1 - (443 - y * 180) / 1024);
+    }
+  }
+  uvs.needsUpdate = true;
   // Physically shaded titanium: no photographic logo overlay.
   // Fine, deterministic brushed micro-grooves modulate roughness and normals,
   // while the metallic highlights come from the scene's environment.
@@ -76,10 +90,42 @@ export function createAKCModel() {
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
-  model.add(new THREE.Mesh(geometry, metal), edgeLines);
-  // Retain the existing public API for callers, but never replace the
-  // physically based surface with a baked flat photograph.
-  const applyTexture = (_url: string) => {};
+  const front = metal.clone();
+  front.color.set("#ffffff");
+  front.metalness = .16;
+  front.roughness = .78;
+  front.bumpMap = null;
+  front.clearcoat = 0;
+  const side = metal;
+  model.add(new THREE.Mesh(geometry, [front, side]), edgeLines);
+  let imageTexture: THREE.Texture | null = null;
+  let disposed = false;
+  const loader = new THREE.TextureLoader();
+  loader.load("/akc-premium-metal-front.png", loaded => {
+    if (disposed) { loaded.dispose(); return; }
+    loaded.colorSpace = THREE.SRGBColorSpace;
+    loaded.wrapS = loaded.wrapT = THREE.ClampToEdgeWrapping;
+    loaded.anisotropy = 8;
+    imageTexture = loaded;
+    front.map = loaded;
+    front.needsUpdate = true;
+  }, undefined, () => {
+    // Keep the blue metal fallback if the PNG has not been copied to public/.
+    front.color.set("#446c97");
+  });
+  // Optional explicit replacement, preserving the existing API.
+  const applyTexture = (url: string) => {
+    loader.load(url, loaded => {
+      if (disposed) { loaded.dispose(); return; }
+      imageTexture?.dispose();
+      imageTexture = loaded;
+      loaded.colorSpace = THREE.SRGBColorSpace;
+      loaded.wrapS = loaded.wrapT = THREE.ClampToEdgeWrapping;
+      front.color.set("#ffffff");
+      front.map = loaded;
+      front.needsUpdate = true;
+    });
+  };
   const homeColor = new THREE.Color("#446c97");
   const detailColor = new THREE.Color("#355981");
   return {
@@ -96,7 +142,8 @@ export function createAKCModel() {
       rim.opacity = .55 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); microtexture.dispose(); metal.dispose(); rim.dispose();
+      disposed = true;
+      geometry.dispose(); edges.dispose(); microtexture.dispose(); imageTexture?.dispose(); front.dispose(); metal.dispose(); rim.dispose();
     },
   };
 }
