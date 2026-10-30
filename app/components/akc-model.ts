@@ -71,6 +71,8 @@ export function createAKCModel() {
       metal.needsUpdate = true;
     });
   };
+  // Compact preview sampled from the original Claude JPEG (not a synthetic substitute).
+  applyTexture("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAsICAoIBwsKCQoNDAsNERwSEQ8PESIZGhQcKSQrKigkJyctMkA3LTA9MCcnOEw5PUNFSElIKzZPVU5GVEBHSEX/2wBDAQwNDREPESESEiFFLicuRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUX/wAARCABgADYDASIAAhEBAxEB/8QAGwAAAwEBAAMAAAAAAAAAAAAAAwQFAAIBBgf/xAAnEAACAwABAwIGAwAAAAAAAAAAAQIDESEEBTESQQYTIiNRYTIzkf/EABcBAQEBAQAAAAAAAAAAAAAAAAMCBAH/xAAYEQEBAQEBAAAAAAAAAAAAAAAAASECEf/aAAwDAQACEQMRAD8A+ZbrOkuTmPlhEhhjVrkZitAVx4G6o8i8jpimPCbLvbYeqSj+yRSv4l7tMduXGC8jpn4jz5PTr2Rjj4hk5xp1+DFJfN4hYrkHDgNFcmSNNHqi2PUw1C1KKHTx1Z+RuR9C1rlZ7F7tP92+CPXD0yRd7YlDZfhCQdD+I5Y6eDC3frVKda0x1x6HBDEEAgMQzTLGim6Sh0/gnwa4Q7TLP8F5HVCtJzWe5V6eXook35wjU2bNc+xT+dlD5EiKl95u2yJhPudnqsRjluuyPXoMPGWPRaL8hoPUZoenaZaN0yWsRqlmIYql9Qso6fpm/Vg/Zb9h/sk1S2Y3bZnTlyosS+tnthgHVT2RiLdXJiamEi+APuEiDC01VIZrlz5EoPyHqlyi5UWH6mvXuhuonlOCdMloTqJ/bElxFTr5bIwKx6zB2rkKpnUWDR3EIg0XwHrlmCyYWLLlTTlU85PPUT+jyAhI83y4L9xHmlJvkxzJ8mI9W//Z");
   const homeColor = metal.color.clone();
   const detailColor = new THREE.Color("#102a56");
 
@@ -78,7 +80,7 @@ export function createAKCModel() {
     model,
     applyTexture,
     setExpertise: (progress: number) => {
-      metal.color.copy(homeColor).lerp(detailColor, progress);
+      if (!texture) metal.color.copy(homeColor).lerp(detailColor, progress);
       rim.opacity = THREE.MathUtils.lerp(.55, .8, Math.sin(Math.PI * progress));
     },
     dispose: () => {
