@@ -170,7 +170,8 @@ export class LiveScene {
     const cy = mix(this.home.y + this.home.height / 2, destination.y + destination.height * (mobile ? .73 : .65), p);
     this.object.position.set((cx - innerWidth / 2) * unit, (innerHeight / 2 - cy) * unit, 0);
     this.object.scale.setScalar(size / 3.55 * unit);
-    // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.\n    this.object.rotation.set(mix(this.motion.tiltX, .08, p), mix(this.motion.tiltY, .3, p), 1.0 * p);
+    // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
+    this.object.rotation.set(mix(this.motion.tiltX, .08, p), mix(this.motion.tiltY, .3, p), 1.0 * p);
     this.asset.setExpertise(p);
     this.canvas.style.opacity = String(mix(reveal, 1, p));
     const t = this.reduced.matches ? 0 : now / 1000;
