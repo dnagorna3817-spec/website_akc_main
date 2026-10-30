@@ -120,8 +120,8 @@ export function createAKCModel() {
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
-  const sideHomeColor = new THREE.Color("#10263d");
-  const sideDetailColor = new THREE.Color("#102238");
+  const sideHomeColor = new THREE.Color("#0c2138");
+  const sideDetailColor = new THREE.Color("#06162d");
   const rim = new THREE.LineBasicMaterial({
     color: "#7aadd4", transparent: true, opacity: .23,
     blending: THREE.AdditiveBlending,
@@ -130,8 +130,8 @@ export function createAKCModel() {
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, [metal, sideMetal]), edgeLines);
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#173755");
-  const detailColor = new THREE.Color("#19334d");
+  const homeColor = new THREE.Color("#12304d");
+  const detailColor = new THREE.Color("#07539a");
   return {
     model,
     applyTexture,
@@ -143,8 +143,12 @@ export function createAKCModel() {
       roughnessTexture.repeat.set(grainRepeat, grainRepeat);
       metal.normalScale.setScalar(THREE.MathUtils.lerp(.72, .38, progress));
       sideMetal.normalScale.setScalar(THREE.MathUtils.lerp(.4, .24, progress));
-      metal.color.copy(homeColor).lerp(detailColor, progress);
-      sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, progress);
+      metal.color.copy(homeColor).lerp(detailColor, THREE.MathUtils.smoothstep(progress, .12, .88));
+      metal.roughness = THREE.MathUtils.lerp(.56, .65, progress);
+      metal.envMapIntensity = THREE.MathUtils.lerp(.52, .24, progress);
+      sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, THREE.MathUtils.smoothstep(progress, .12, .88));
+      sideMetal.roughness = THREE.MathUtils.lerp(.58, .7, progress);
+      sideMetal.envMapIntensity = THREE.MathUtils.lerp(.42, .18, progress);
       // Claude starts clipping after 0.95s of a 1.75s transition.
       const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
       clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
