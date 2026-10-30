@@ -201,9 +201,10 @@ export class LiveScene {
     const viewHeight = 2 * z * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
     const unit = viewHeight / innerHeight;
     const homeSize = this.home.height * .72 * revealScale;
-    const finalSize = destination.height * (mobile ? 3.4 : 7.2);
+    // Keep the enlarged logo as a right-side decorative detail, not a full-screen overlay.
+    const finalSize = destination.height * (mobile ? 1.65 : 2.4);
     const size = mix(homeSize, finalSize, p);
-    const cx = mix(this.home.x + this.home.width / 2, destination.x + destination.width * (mobile ? 1.05 : 1.7), p);
+    const cx = mix(this.home.x + this.home.width / 2, destination.x + destination.width * (mobile ? 1.28 : 1.65), p);
     const cy = mix(this.home.y + this.home.height / 2, destination.y + destination.height * (mobile ? .73 : .65), p);
     // On the detail page the prototype moves the camera, NOT the object.
     this.object.position.set(
