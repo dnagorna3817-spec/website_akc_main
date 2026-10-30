@@ -24,33 +24,28 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
-  // UV projection from the Claude export: diagonal on front faces,
-  // edge-aligned on bevel and side walls.
+  // Project the supplied 1050x1024 transparent logo directly onto the
+  // extruded front/back faces. The texture's silhouette and holes stay aligned.
   const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
   const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
-  const a = new THREE.Vector3(), b = new THREE.Vector3(), d = new THREE.Vector3();
-  const n = new THREE.Vector3();
-  for (let i = 0; i < pos.count; i += 3) {
-    a.fromBufferAttribute(pos, i);
-    b.fromBufferAttribute(pos, i + 1);
-    d.fromBufferAttribute(pos, i + 2);
-    n.crossVectors(b.clone().sub(a), d.clone().sub(a)).normalize();
-    const wall = Math.abs(n.z) < .5;
-    for (let j = 0; j < 3; j++) {
-      const x = pos.getX(i + j), y = pos.getY(i + j), z = pos.getZ(i + j);
-      const u = wall ? (z + .15) / .9 + .8 : .97 + ((x * .8745 + y * .4849) - .889) / .9;
-      const v = wall ? (x * -n.y + y * n.x) / .9 : (x * .481 - y * .877) / .9;
-      uv.setXY(i + j, u, v);
+  for (const group of geometry.groups) {
+    if (group.materialIndex !== 0) continue;
+    for (let i = group.start; i < group.start + group.count; i++) {
+      const x = pos.getX(i), y = pos.getY(i);
+      uv.setXY(i, (x * 180 + 510) / 1050, 1 - (443 - y * 180) / 1024);
     }
   }
   uv.needsUpdate = true;
 
-  // The original prototype's dark-blue metallic finish, without displacement.
-  // UV-mapped brushed JPEG is retained in the user's original export and can
-  // be introduced as a separate optimized asset after visual verification.
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshStandardMaterial({
-    color: "#16305e", metalness: .7, roughness: .48, envMapIntensity: .8,
+    color: "#ffffff", metalness: .32, roughness: .72, envMapIntensity: .25,
+    side: THREE.DoubleSide, clippingPlanes: [clipPlane],
+    transparent: true, alphaTest: .04,
+  });
+  // Keep bevels and extruded walls physically three-dimensional.
+  const sides = new THREE.MeshStandardMaterial({
+    color: "#183458", metalness: .65, roughness: .48, envMapIntensity: .55,
     side: THREE.DoubleSide, clippingPlanes: [clipPlane],
   });
   const rim = new THREE.LineBasicMaterial({
@@ -59,27 +54,28 @@ export function createAKCModel() {
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   const edgeLines = new THREE.LineSegments(edges, rim);
-  model.add(new THREE.Mesh(geometry, metal), edgeLines);
+  model.add(new THREE.Mesh(geometry, [metal, sides]), edgeLines);
   let texture: THREE.Texture | null = null;
+  let disposed = false;
+  let requestId = 0;
   const applyTexture = (url: string) => {
+    const current = ++requestId;
     new THREE.TextureLoader().load(url, loaded => {
+      if (disposed || current !== requestId) { loaded.dispose(); return; }
       texture?.dispose();
       texture = loaded;
       loaded.colorSpace = THREE.SRGBColorSpace;
-      loaded.wrapS = loaded.wrapT = THREE.MirroredRepeatWrapping;
+      loaded.wrapS = loaded.wrapT = THREE.ClampToEdgeWrapping;
       loaded.anisotropy = 8;
       metal.map = loaded;
-      metal.color.set("#ffffff");
       metal.needsUpdate = true;
-    }, undefined, () => { /* Preserve the bundled preview if the optional full-resolution asset is missing. */ });
+    }, undefined, () => {
+      // If the PNG has not been copied to public/ yet, keep the solid model.
+    });
   };
-  // Compact preview sampled from the original Claude JPEG (not a synthetic substitute).
-  applyTexture("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAsICAoIBwsKCQoNDAsNERwSEQ8PESIZGhQcKSQrKigkJyctMkA3LTA9MCcnOEw5PUNFSElIKzZPVU5GVEBHSEX/2wBDAQwNDREPESESEiFFLicuRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUX/wAARCABgADYDASIAAhEBAxEB/8QAGwAAAwEBAAMAAAAAAAAAAAAAAwQFAAIBBgf/xAAnEAACAwABAwIGAwAAAAAAAAAAAQIDESEEBTESQQYTIiNRYTIzkf/EABcBAQEBAQAAAAAAAAAAAAAAAAMCBAH/xAAYEQEBAQEBAAAAAAAAAAAAAAAAASECEf/aAAwDAQACEQMRAD8A+ZbrOkuTmPlhEhhjVrkZitAVx4G6o8i8jpimPCbLvbYeqSj+yRSv4l7tMduXGC8jpn4jz5PTr2Rjj4hk5xp1+DFJfN4hYrkHDgNFcmSNNHqi2PUw1C1KKHTx1Z+RuR9C1rlZ7F7tP92+CPXD0yRd7YlDZfhCQdD+I5Y6eDC3frVKda0x1x6HBDEEAgMQzTLGim6Sh0/gnwa4Q7TLP8F5HVCtJzWe5V6eXook35wjU2bNc+xT+dlD5EiKl95u2yJhPudnqsRjluuyPXoMPGWPRaL8hoPUZoenaZaN0yWsRqlmIYql9Qso6fpm/Vg/Zb9h/sk1S2Y3bZnTlyosS+tnthgHVT2RiLdXJiamEi+APuEiDC01VIZrlz5EoPyHqlyi5UWH6mvXuhuonlOCdMloTqJ/bElxFTr5bIwKx6zB2rkKpnUWDR3EIg0XwHrlmCyYWLLlTTlU85PPUT+jyAhI83y4L9xHmlJvkxzJ8mI9W//Z");
-  // The supplied full-resolution material is served from public/ when installed.
-  applyTexture("/akc-brushed-blue-metal.png");
-  const homeColor = metal.color.clone();
+  applyTexture("/akc-logo-metal-overlay.png");
+  const homeColor = new THREE.Color("#25477d");
   const detailColor = new THREE.Color("#102a56");
-
   return {
     model,
     applyTexture,
@@ -94,7 +90,8 @@ export function createAKCModel() {
       rim.opacity = .55 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); texture?.dispose(); metal.dispose(); rim.dispose();
+      disposed = true; requestId++;
+      geometry.dispose(); edges.dispose(); texture?.dispose(); metal.dispose(); sides.dispose(); rim.dispose();
     },
   };
 }
