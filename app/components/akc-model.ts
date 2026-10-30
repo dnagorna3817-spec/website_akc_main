@@ -24,6 +24,26 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
+  // UV projection from the Claude export: diagonal on front faces,
+  // edge-aligned on bevel and side walls.
+  const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
+  const uv = geometry.getAttribute("uv") as THREE.BufferAttribute;
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), d = new THREE.Vector3();
+  const n = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i += 3) {
+    a.fromBufferAttribute(pos, i);
+    b.fromBufferAttribute(pos, i + 1);
+    d.fromBufferAttribute(pos, i + 2);
+    n.crossVectors(b.clone().sub(a), d.clone().sub(a)).normalize();
+    const wall = Math.abs(n.z) < .5;
+    for (let j = 0; j < 3; j++) {
+      const x = pos.getX(i + j), y = pos.getY(i + j), z = pos.getZ(i + j);
+      const u = wall ? (z + .15) / .9 + .8 : .97 + ((x * .8745 + y * .4849) - .889) / .9;
+      const v = wall ? (x * -n.y + y * n.x) / .9 : (x * .481 - y * .877) / .9;
+      uv.setXY(i + j, u, v);
+    }
+  }
+  uv.needsUpdate = true;
 
   // The original prototype's dark-blue metallic finish, without displacement.
   // UV-mapped brushed JPEG is retained in the user's original export and can
@@ -38,17 +58,31 @@ export function createAKCModel() {
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
   model.add(new THREE.Mesh(geometry, metal), new THREE.LineSegments(edges, rim));
+  let texture: THREE.Texture | null = null;
+  const applyTexture = (url: string) => {
+    new THREE.TextureLoader().load(url, loaded => {
+      texture?.dispose();
+      texture = loaded;
+      loaded.colorSpace = THREE.SRGBColorSpace;
+      loaded.wrapS = loaded.wrapT = THREE.MirroredRepeatWrapping;
+      loaded.anisotropy = 8;
+      metal.map = loaded;
+      metal.color.set("#ffffff");
+      metal.needsUpdate = true;
+    });
+  };
   const homeColor = metal.color.clone();
   const detailColor = new THREE.Color("#102a56");
 
   return {
     model,
+    applyTexture,
     setExpertise: (progress: number) => {
       metal.color.copy(homeColor).lerp(detailColor, progress);
       rim.opacity = THREE.MathUtils.lerp(.55, .8, Math.sin(Math.PI * progress));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); metal.dispose(); rim.dispose();
+      geometry.dispose(); edges.dispose(); texture?.dispose(); metal.dispose(); rim.dispose();
     },
   };
 }
