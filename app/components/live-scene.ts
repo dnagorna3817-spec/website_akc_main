@@ -158,9 +158,24 @@ export class LiveScene {
       reveal = Number(style.opacity);
       revealScale = new DOMMatrixReadOnly(style.transform).a;
     }
-    const z = mix(10.5, 3.6, p);
-    this.camera.position.set(0, 0, z);
-    this.camera.lookAt(0, 0, 0);
+    // Match the exact /expertise camera composition in the Claude prototype.
+    // Keep the homepage's DOM-aligned framing until the zoom begins.
+    const aspect = innerWidth / innerHeight;
+    const endDistance = 1.05 * Math.max(1, 1.6 / aspect);
+    const z = mix(10.5, endDistance, p);
+    const yaw = mix(0, -.3, p);
+    const pitch = mix(0, -.08, p);
+    const target = new THREE.Vector3(mix(0, .563, p), mix(0, .628, p), mix(0, .15, p));
+    this.camera.position.set(
+      target.x + z * Math.sin(yaw) * Math.cos(pitch),
+      target.y + z * Math.sin(pitch),
+      target.z + z * Math.cos(yaw) * Math.cos(pitch),
+    );
+    this.camera.lookAt(target);
+    this.camera.rotateZ(mix(0, 1.0, p));
+    const shift = mix(0, innerWidth < 700 ? .27 : aspect < 1.5 ? .30 : .32, p);
+    this.camera.clearViewOffset();
+    if (shift > 0) this.camera.setViewOffset(innerWidth, innerHeight, -shift * innerWidth, 0, innerWidth, innerHeight);
     const viewHeight = 2 * z * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
     const unit = viewHeight / innerHeight;
     const homeSize = this.home.height * .72 * revealScale;
@@ -168,10 +183,15 @@ export class LiveScene {
     const size = mix(homeSize, finalSize, p);
     const cx = mix(this.home.x + this.home.width / 2, destination.x + destination.width * (mobile ? 1.05 : 1.7), p);
     const cy = mix(this.home.y + this.home.height / 2, destination.y + destination.height * (mobile ? .73 : .65), p);
-    this.object.position.set((cx - innerWidth / 2) * unit, (innerHeight / 2 - cy) * unit, 0);
-    this.object.scale.setScalar(size / 3.55 * unit);
+    // On the detail page the prototype moves the camera, NOT the object.
+    this.object.position.set(
+      mix((cx - innerWidth / 2) * unit, 0, p),
+      mix((innerHeight / 2 - cy) * unit, 0, p),
+      0,
+    );
+    this.object.scale.setScalar(mix(size / 3.55 * unit, 1, p));
     // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
-    this.object.rotation.set(mix(this.motion.tiltX, .08, p), mix(this.motion.tiltY, .3, p), 1.0 * p);
+    this.object.rotation.set(this.motion.tiltX * (1 - p), this.motion.tiltY * (1 - p), 0);
     this.asset.setExpertise(p);
     this.canvas.style.opacity = String(mix(reveal, 1, p));
     const t = this.reduced.matches ? 0 : now / 1000;
@@ -183,12 +203,9 @@ export class LiveScene {
     this.sweep.position.set(this.object.position.x + 2.5, this.object.position.y + .5, 2);
     // Scissor follows the layout slot, interpolating continuously during the approach.
     // It crops only the oversized 3D artwork, never the page's content.
-    const clip = {
-      x: mix(0, Math.max(0, destination.x), p),
-      y: mix(0, Math.max(0, destination.y), p),
-      right: mix(innerWidth, Math.min(innerWidth, destination.x + destination.width), p),
-      bottom: mix(innerHeight, Math.min(innerHeight, destination.y + destination.height), p),
-    };
+    // Claude uses a full-viewport canvas and an oblique model clipping plane,
+    // rather than a rectangular scissor restricted to the artwork slot.
+    const clip = { x: 0, y: 0, right: innerWidth, bottom: innerHeight };
     this.renderer.setScissorTest(false);
     this.renderer.clear();
     this.renderer.setScissor(clip.x, innerHeight - clip.bottom, Math.max(0, clip.right - clip.x), Math.max(0, clip.bottom - clip.y));
