@@ -58,7 +58,8 @@ export function createAKCModel() {
     blending: THREE.AdditiveBlending,
   });
   const edges = new THREE.EdgesGeometry(geometry, 28);
-  model.add(new THREE.Mesh(geometry, metal), new THREE.LineSegments(edges, rim));
+  const edgeLines = new THREE.LineSegments(edges, rim);
+  model.add(new THREE.Mesh(geometry, metal), edgeLines);
   let texture: THREE.Texture | null = null;
   const applyTexture = (url: string) => {
     new THREE.TextureLoader().load(url, loaded => {
@@ -70,10 +71,12 @@ export function createAKCModel() {
       metal.map = loaded;
       metal.color.set("#ffffff");
       metal.needsUpdate = true;
-    });
+    }, undefined, () => { /* Preserve the bundled preview if the optional full-resolution asset is missing. */ });
   };
   // Compact preview sampled from the original Claude JPEG (not a synthetic substitute).
   applyTexture("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAsICAoIBwsKCQoNDAsNERwSEQ8PESIZGhQcKSQrKigkJyctMkA3LTA9MCcnOEw5PUNFSElIKzZPVU5GVEBHSEX/2wBDAQwNDREPESESEiFFLicuRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUX/wAARCABgADYDASIAAhEBAxEB/8QAGwAAAwEBAAMAAAAAAAAAAAAAAwQFAAIBBgf/xAAnEAACAwABAwIGAwAAAAAAAAAAAQIDESEEBTESQQYTIiNRYTIzkf/EABcBAQEBAQAAAAAAAAAAAAAAAAMCBAH/xAAYEQEBAQEBAAAAAAAAAAAAAAAAASECEf/aAAwDAQACEQMRAD8A+ZbrOkuTmPlhEhhjVrkZitAVx4G6o8i8jpimPCbLvbYeqSj+yRSv4l7tMduXGC8jpn4jz5PTr2Rjj4hk5xp1+DFJfN4hYrkHDgNFcmSNNHqi2PUw1C1KKHTx1Z+RuR9C1rlZ7F7tP92+CPXD0yRd7YlDZfhCQdD+I5Y6eDC3frVKda0x1x6HBDEEAgMQzTLGim6Sh0/gnwa4Q7TLP8F5HVCtJzWe5V6eXook35wjU2bNc+xT+dlD5EiKl95u2yJhPudnqsRjluuyPXoMPGWPRaL8hoPUZoenaZaN0yWsRqlmIYql9Qso6fpm/Vg/Zb9h/sk1S2Y3bZnTlyosS+tnthgHVT2RiLdXJiamEi+APuEiDC01VIZrlz5EoPyHqlyi5UWH6mvXuhuonlOCdMloTqJ/bElxFTr5bIwKx6zB2rkKpnUWDR3EIg0XwHrlmCyYWLLlTTlU85PPUT+jyAhI83y4L9xHmlJvkxzJ8mI9W//Z");
+  // The supplied full-resolution material is served from public/ when installed.
+  applyTexture("/akc-brushed-blue-metal.png");
   const homeColor = metal.color.clone();
   const detailColor = new THREE.Color("#102a56");
 
@@ -85,7 +88,10 @@ export function createAKCModel() {
       // Claude starts clipping after 0.95s of a 1.75s transition.
       const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
       clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
-      rim.opacity = THREE.MathUtils.lerp(.55, .8, Math.sin(Math.PI * progress));
+      // No wireframe or diagonal contour lines over the page text.
+      // Only the large clipped 3D metal face remains on the expertise route.
+      edgeLines.visible = progress < .015;
+      rim.opacity = .55 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
       geometry.dispose(); edges.dispose(); texture?.dispose(); metal.dispose(); rim.dispose();
