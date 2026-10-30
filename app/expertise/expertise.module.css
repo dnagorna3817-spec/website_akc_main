@@ -38,6 +38,7 @@
   /* Only decorative artwork is cropped; all content participates in flow. */
   overflow: clip;
 }
+.main::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url("/akc-expertise-new.webp") center top / cover no-repeat; opacity: var(--akc-expertise-photo-blend, 0); }
 .geometry {
   position: absolute;
   left: 44.93%;
