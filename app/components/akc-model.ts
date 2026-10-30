@@ -24,72 +24,62 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
-  // Physically shaded titanium: no photographic logo overlay.
-  // Fine, deterministic brushed micro-grooves modulate roughness and normals,
-  // while the metallic highlights come from the scene's environment.
-  const textureSize = 512;
-  const surface = document.createElement("canvas");
-  surface.width = surface.height = textureSize;
-  const ctx = surface.getContext("2d");
-  if (!ctx) throw new Error("Unable to create AKC titanium microtexture");
-  const image = ctx.createImageData(textureSize, textureSize);
+  // Stable, non-periodic micro-scratch normal map. No sinusoidal bands.
+  // A flat normal map (128,128,255) is perturbed by many short, faint,
+  // randomly placed scratches. Keep the same texel density on every face.
+  const textureSize = 1024;
+  const scratchCanvas = document.createElement("canvas");
+  scratchCanvas.width = scratchCanvas.height = textureSize;
+  const ctx = scratchCanvas.getContext("2d");
+  if (!ctx) throw new Error("Unable to create AKC metal texture");
   let seed = 3817;
   const random = () => {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
     return seed / 4294967296;
   };
-  const grain = new Float32Array(textureSize);
-  // Horizontal micro-scratches with slow variation along their length.
-  for (let y = 0; y < textureSize; y++) grain[y] = random() * 5 - 2.5;
-  for (let y = 0; y < textureSize; y++) {
-    const horizontal = grain[y] + Math.sin(y * .93) * 1.2;
-    for (let x = 0; x < textureSize; x++) {
-      const i = (y * textureSize + x) * 4;
-      const fine = horizontal + (random() - .5) * 4;
-      const v = Math.max(0, Math.min(255, Math.round(128 + fine * 2.1)));
-      image.data[i] = image.data[i + 1] = image.data[i + 2] = v;
-      image.data[i + 3] = 255;
-    }
+  ctx.fillStyle = "rgb(128,128,255)";
+  ctx.fillRect(0, 0, textureSize, textureSize);
+  // Fine interrupted grain, not long lines that read as stripes on zoom.
+  for (let i = 0; i < 24000; i++) {
+    const x = random() * textureSize;
+    const y = random() * textureSize;
+    const length = 1 + random() * 12;
+    const alpha = .018 + random() * .035;
+    ctx.strokeStyle = `rgba(174,122,248,${alpha})`;
+    ctx.lineWidth = .35 + random() * .4;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + length, y + (random() - .5) * 1.1);
+    ctx.stroke();
   }
-  ctx.putImageData(image, 0, 0);
-  const microtexture = new THREE.CanvasTexture(surface);
-  microtexture.wrapS = microtexture.wrapT = THREE.RepeatWrapping;
-  microtexture.repeat.set(7, 7);
-  microtexture.anisotropy = 8;
-  microtexture.generateMipmaps = true;
+  const normalTexture = new THREE.CanvasTexture(scratchCanvas);
+  normalTexture.wrapS = normalTexture.wrapT = THREE.RepeatWrapping;
+  normalTexture.repeat.set(1, 1);
+  normalTexture.anisotropy = 8;
+  normalTexture.colorSpace = THREE.NoColorSpace;
 
-  // Directional satin grain: subtle roughness variation on every surface.
-  // The neutral bump texture alone cannot reproduce polished metal reflections.
-  const roughCanvas = document.createElement("canvas");
-  roughCanvas.width = roughCanvas.height = textureSize;
-  const roughCtx = roughCanvas.getContext("2d");
-  if (!roughCtx) throw new Error("Unable to create AKC roughness texture");
-  const roughData = roughCtx.createImageData(textureSize, textureSize);
-  for (let y = 0; y < textureSize; y++) {
-    const line = grain[y] * 3.2 + Math.sin(y * .43) * 2;
-    for (let x = 0; x < textureSize; x++) {
-      const i = (y * textureSize + x) * 4;
-      const value = Math.max(0, Math.min(255, 210 + line + (random() - .5) * 8));
-      roughData.data[i] = roughData.data[i + 1] = roughData.data[i + 2] = value;
-      roughData.data[i + 3] = 255;
+  // Correct the extruded caps' UVs to use world-sized mapping. The original
+  // ExtrudeGeometry sidewall UVs are retained for continuous perimeter mapping.
+  // Non-indexed triangles have independent vertices, so this is safe.
+  const pos = geometry.getAttribute("position");
+  const uv = geometry.getAttribute("uv");
+  for (const group of geometry.groups) {
+    if (group.materialIndex !== 0) continue;
+    for (let i = group.start; i < group.start + group.count; i++) {
+      uv.setXY(i, pos.getX(i) * .8, pos.getY(i) * .8);
     }
   }
-  roughCtx.putImageData(roughData, 0, 0);
-  const roughnessTexture = new THREE.CanvasTexture(roughCanvas);
-  roughnessTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
-  roughnessTexture.repeat.set(7, 7);
-  roughnessTexture.anisotropy = 8;
+  uv.needsUpdate = true;
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
-    color: "#20436e",
+    color: "#193b65",
     metalness: .82,
-    roughness: .42,
-    anisotropy: .36,
+    roughness: .36,
+    anisotropy: .22,
     anisotropyRotation: Math.PI / 2,
-    roughnessMap: roughnessTexture,
-    bumpMap: microtexture,
-    bumpScale: .0012,
+    normalMap: normalTexture,
+    normalScale: new THREE.Vector2(.18, .18),
     envMapIntensity: .9,
     clearcoat: .14,
     clearcoatRoughness: .3,
@@ -100,21 +90,20 @@ export function createAKCModel() {
   // to the bevel and side walls. Keep the same blue family on both,
   // while reducing grey/white environment reflections on the walls.
   const sideMetal = new THREE.MeshPhysicalMaterial({
-    color: "#1b3c65",
+    color: "#17375e",
     metalness: .8,
-    roughness: .46,
-    anisotropy: .3,
+    roughness: .4,
+    anisotropy: .18,
     anisotropyRotation: Math.PI / 2,
-    roughnessMap: roughnessTexture,
-    bumpMap: microtexture,
-    bumpScale: .0009,
+    normalMap: normalTexture,
+    normalScale: new THREE.Vector2(.18, .18),
     envMapIntensity: .8,
     clearcoat: .12,
     clearcoatRoughness: .45,
     side: THREE.DoubleSide,
     clippingPlanes: [clipPlane],
   });
-  const sideHomeColor = new THREE.Color("#1b3c65");
+  const sideHomeColor = new THREE.Color("#17375e");
   const sideDetailColor = new THREE.Color("#173253");
   const rim = new THREE.LineBasicMaterial({
     color: "#4b9fff", transparent: true, opacity: .44,
@@ -124,7 +113,7 @@ export function createAKCModel() {
   const edgeLines = new THREE.LineSegments(edges, rim);
   model.add(new THREE.Mesh(geometry, [metal, sideMetal]), edgeLines);
   const applyTexture = (_url: string) => {};
-  const homeColor = new THREE.Color("#20436e");
+  const homeColor = new THREE.Color("#193b65");
   const detailColor = new THREE.Color("#183557");
   return {
     model,
@@ -141,7 +130,7 @@ export function createAKCModel() {
       rim.opacity = .44 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); microtexture.dispose(); roughnessTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
+      geometry.dispose(); edges.dispose(); normalTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
     },
   };
 }
