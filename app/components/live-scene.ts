@@ -215,7 +215,11 @@ export class LiveScene {
     // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
     this.object.rotation.set(this.motion.tiltX * (1 - p), this.motion.tiltY * (1 - p), 0);
     this.asset.setExpertise(p);
-    this.canvas.style.opacity = String(mix(reveal, 1, p));
+    // Crossfade the 3D model into the supplied photographic metal close-up.
+    // Preserve all camera, geometry, and route-transition motion.
+    const photoBlend = THREE.MathUtils.smoothstep(p, .78, .98);
+    document.documentElement.style.setProperty("--akc-expertise-photo-blend", String(photoBlend));
+    this.canvas.style.opacity = String(mix(reveal, 1, p) * (1 - photoBlend));
     const t = this.reduced.matches ? 0 : now / 1000;
     this.key.position.x = 5 + (ambient ? Math.sin(t * .22) * .4 : 0);
     // A restrained studio-light sweep follows the existing first-load intro.
