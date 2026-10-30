@@ -77,8 +77,8 @@ export default function ExpertiseView({ preview = false }: { preview?: boolean }
             {services.map((service, index) => (
               <li key={service.slug}>
                 <Link href={`/expertise/${service.slug}`}>
+                  <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
                   <span className={styles.serviceLabel}>
-                    <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
                     {service.slug === "qualification" ? <>ПІДВИЩЕННЯ<br />ПРОФЕСІЙНОЇ КВАЛІФІКАЦІЇ</> : service.label}
                   </span>
                   <span className={styles.serviceAction} aria-hidden="true"><Arrow /></span>
