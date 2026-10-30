@@ -40,12 +40,12 @@ export function createAKCModel() {
   };
   const grain = new Float32Array(textureSize);
   // Horizontal micro-scratches with slow variation along their length.
-  for (let y = 0; y < textureSize; y++) grain[y] = random() * 15 - 7.5;
+  for (let y = 0; y < textureSize; y++) grain[y] = random() * 2 - 1;
   for (let y = 0; y < textureSize; y++) {
-    const horizontal = Math.sin(y * .41) * 2.2 + grain[y];
+    const horizontal = grain[y];
     for (let x = 0; x < textureSize; x++) {
       const i = (y * textureSize + x) * 4;
-      const fine = horizontal + Math.sin(x * .025 + y * .07) * .8 + (random() - .5) * 2;
+      const fine = horizontal + (random() - .5) * 1.5;
       const v = Math.max(0, Math.min(255, Math.round(128 + fine)));
       image.data[i] = image.data[i + 1] = image.data[i + 2] = v;
       image.data[i + 3] = 255;
@@ -54,7 +54,7 @@ export function createAKCModel() {
   ctx.putImageData(image, 0, 0);
   const microtexture = new THREE.CanvasTexture(surface);
   microtexture.wrapS = microtexture.wrapT = THREE.RepeatWrapping;
-  microtexture.repeat.set(4, 4);
+  microtexture.repeat.set(12, 12);
   microtexture.anisotropy = 8;
   microtexture.generateMipmaps = true;
 
@@ -66,10 +66,10 @@ export function createAKCModel() {
   if (!roughCtx) throw new Error("Unable to create AKC roughness texture");
   const roughData = roughCtx.createImageData(textureSize, textureSize);
   for (let y = 0; y < textureSize; y++) {
-    const line = Math.sin(y * .12) * 18 + Math.sin(y * .71) * 7 + grain[y] * 1.1;
+    const line = grain[y] * 1.5;
     for (let x = 0; x < textureSize; x++) {
       const i = (y * textureSize + x) * 4;
-      const value = Math.max(0, Math.min(255, 202 + line + (random() - .5) * 6));
+      const value = Math.max(0, Math.min(255, 220 + line + (random() - .5) * 2));
       roughData.data[i] = roughData.data[i + 1] = roughData.data[i + 2] = value;
       roughData.data[i + 3] = 255;
     }
@@ -77,7 +77,7 @@ export function createAKCModel() {
   roughCtx.putImageData(roughData, 0, 0);
   const roughnessTexture = new THREE.CanvasTexture(roughCanvas);
   roughnessTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
-  roughnessTexture.repeat.set(4, 4);
+  roughnessTexture.repeat.set(12, 12);
   roughnessTexture.anisotropy = 8;
 
   const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
@@ -85,11 +85,11 @@ export function createAKCModel() {
     color: "#20436e",
     metalness: .82,
     roughness: .42,
-    anisotropy: .72,
+    anisotropy: .28,
     anisotropyRotation: Math.PI / 2,
     roughnessMap: roughnessTexture,
     bumpMap: microtexture,
-    bumpScale: .00065,
+    bumpScale: .00008,
     envMapIntensity: .9,
     clearcoat: .14,
     clearcoatRoughness: .3,
@@ -103,11 +103,11 @@ export function createAKCModel() {
     color: "#1b3c65",
     metalness: .8,
     roughness: .46,
-    anisotropy: .55,
+    anisotropy: .22,
     anisotropyRotation: Math.PI / 2,
     roughnessMap: roughnessTexture,
     bumpMap: microtexture,
-    bumpScale: .00055,
+    bumpScale: .00007,
     envMapIntensity: .8,
     clearcoat: .12,
     clearcoatRoughness: .45,
