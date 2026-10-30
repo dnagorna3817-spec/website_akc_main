@@ -113,14 +113,26 @@
 /* The supplied desktop frame is 1440 × 994. Scale its measured spacing
    together; viewport height must not move the content independently. */
 @media (min-width: 1101px) {
-  .overview { --frame-unit: calc(100vw / 1440); }
+  /* Fit the complete overview into the visible viewport, including its header.
+     Use the shorter dimension as the limiting scale; other service pages
+     retain their natural document height and scrolling. */
+  .overview {
+    --frame-unit: min(calc(100vw / 1440), calc(100svh / 994));
+    height: 100svh;
+    overflow: clip;
+  }
+  .overview .main {
+    height: calc(100svh - 94 * var(--frame-unit));
+    min-height: 0;
+    overflow: clip;
+  }
   .overview .header { height: calc(94 * var(--frame-unit)); padding: 0 8.4% 0 calc(32 * var(--frame-unit)); gap: calc(46 * var(--frame-unit)); font-size: calc(20 * var(--frame-unit)); }
   .overview .brand { gap: calc(15 * var(--frame-unit)); }
   .overview .brand img { width: calc(57 * var(--frame-unit)); height: calc(56 * var(--frame-unit)); }
   .overview .nav { gap: calc(28 * var(--frame-unit)); }
   .overview .contacts { gap: calc(16 * var(--frame-unit)); border-width: calc(3 * var(--frame-unit)); padding: calc(5 * var(--frame-unit)) calc(9 * var(--frame-unit)); }
   .overview .contacts svg { width: calc(38 * var(--frame-unit)); height: calc(32 * var(--frame-unit)); }
-  .main { min-height: max(calc(900 * var(--frame-unit)), calc(100svh - 94 * var(--frame-unit))); }
+  .overview .main { min-height: 0; }
   .geometry { top: calc(84 * var(--frame-unit)); }
   .content { padding: calc(142 * var(--frame-unit)) 0 calc(34 * var(--frame-unit)) calc(48 * var(--frame-unit)); }
   .eyebrow { font-size: calc(20 * var(--frame-unit)); margin-bottom: calc(24 * var(--frame-unit)); }
