@@ -53,7 +53,7 @@ export function CalculatorPlaceholder({ preview = false }: { preview?: boolean }
         <small>Попередній розрахунок за 1–2 хвилини</small>
         <Arrow />
       </button>
-      <p id={statusId} className={styles.availability}>Калькулятор готується до запуску.</p>
+      <span id={statusId} className={styles.srOnly}>Калькулятор наразі недоступний.</span>
     </div>
   );
 }
@@ -81,7 +81,7 @@ export default function ExpertiseView({ preview = false }: { preview?: boolean }
                     <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
                     {service.slug === "qualification" ? <>ПІДВИЩЕННЯ<br />ПРОФЕСІЙНОЇ КВАЛІФІКАЦІЇ</> : service.label}
                   </span>
-                  <Arrow />
+                  <span className={styles.serviceAction} aria-hidden="true"><span>Детальніше</span><Arrow /></span>
                 </Link>
               </li>
             ))}
