@@ -37,6 +37,7 @@ export class LiveScene {
     if (!context) throw new Error("WebGL2 unavailable");
     this.renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: "high-performance" });
     this.renderer.setClearColor(0x010910, 0);
+    this.renderer.localClippingEnabled = true;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1;
     this.object.add(this.asset.model);
