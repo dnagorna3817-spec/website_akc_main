@@ -18,7 +18,7 @@ export class LiveScene {
   private key = new THREE.DirectionalLight("#a8c8ff", 1.3);
   private sweep = new THREE.PointLight("#3d7bff", 3.5, 12);
   private studioStrip = new THREE.DirectionalLight("#d0e2f2", 0.65);
-  private motion = { progress: 0, tiltX: 0, tiltY: 0 };
+  private motion = { progress: 0, tiltX: 0, tiltY: 0, photo: 0 };
   private tween: gsap.core.Timeline | null = null;
   private mode: Mode = "home";
   private active = true;
@@ -124,6 +124,9 @@ export class LiveScene {
     this.intro?.kill();
     this.introGlow.intensity = 0;
     this.mode = mode;
+    // Keep the 3D model throughout the camera move; switch only once settled.
+    // A longer darkened dissolve hides mismatched photographic perspective.
+    if (mode === "home") this.motion.photo = 0;
     this.canvas.dataset.mode = animate ? "transitioning" : mode;
     this.canvas.style.visibility = mode === "inactive" ? "hidden" : "visible";
     this.homeUntil = performance.now() + 9000;
@@ -148,9 +151,11 @@ export class LiveScene {
       this.tween = gsap.timeline({ onComplete: () => {
         this.canvas.dataset.mode = mode;
         complete?.();
-      } }).to(this.motion, { progress, duration: 1.75, ease: "power3.inOut", onUpdate: this.invalidate });
+      } }).to(this.motion, { progress, duration: 1.75, ease: "power3.inOut", onUpdate: this.invalidate })
+        .to(this.motion, { photo: mode === "expertise" ? 1 : 0, duration: .85, ease: "sine.inOut", onUpdate: this.invalidate });
     } else {
       this.motion.progress = progress;
+      this.motion.photo = mode === "expertise" ? 1 : 0;
       complete?.();
     }
     this.invalidate();
@@ -215,8 +220,17 @@ export class LiveScene {
     // Claude reference: camera yaw ≈ -0.3, pitch ≈ -0.08 and roll ≈ 1.0.\n    // Apply the corresponding object rotation while preserving the shared camera.
     this.object.rotation.set(this.motion.tiltX * (1 - p), this.motion.tiltY * (1 - p), 0);
     this.asset.setExpertise(p);
-    // One 3D mesh throughout; no screen-space photo swap or canvas fade.
-    this.canvas.style.opacity = String(mix(reveal, 1, p));
+    // Avoid a double silhouette: the photographic composition does not share
+    // the WebGL camera projection. Fade the 3D scene completely into the dark
+    // background before bringing in the photo, with no overlap of contours.
+    // Timing is normalized to the existing 1.75s Claude transition.
+    const handoff = this.motion.photo;
+    // The photo remains absent during camera motion. A controlled dissolve
+    // follows after the model has stopped, avoiding the previous 100ms pop.
+    const modelFade = 1 - THREE.MathUtils.smoothstep(handoff, 0, .75);
+    const photoReveal = THREE.MathUtils.smoothstep(handoff, .25, 1);
+    document.documentElement.style.setProperty("--akc-expertise-photo-blend", String(photoReveal));
+    this.canvas.style.opacity = String(mix(reveal, 1, p) * modelFade);
     const t = this.reduced.matches ? 0 : now / 1000;
     this.key.position.x = 5 + (ambient ? Math.sin(t * .22) * .4 : 0);
     // A restrained studio-light sweep follows the existing first-load intro.
