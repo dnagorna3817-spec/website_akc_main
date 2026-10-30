@@ -48,8 +48,11 @@
   max-width: none;
   z-index: -1;
   pointer-events: none;
-}
-.content { position: relative; padding: 142px 0 34px 48px; width: 60%; }
+  background-image: url("/akc-expertise-metal.png");
+  background-size: cover;
+  background-position: center top;
+  opacity: var(--akc-expertise-photo-blend, 0);
+}\n.content { position: relative; padding: 142px 0 34px 48px; width: 60%; }
 .eyebrow { color: #527791; font-size: 20px; line-height: 1.4; margin: 0 0 24px; }
 .content h1 { margin: 0; font-size: clamp(44px, 4.45vw, 64px); line-height: 1.15; font-weight: 400; letter-spacing: .07em; white-space: nowrap; }
 .serviceList { padding: 0; margin: 46px 0 16px; width: 388px; list-style: none; }
