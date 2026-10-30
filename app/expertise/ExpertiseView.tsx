@@ -81,7 +81,7 @@ export default function ExpertiseView({ preview = false }: { preview?: boolean }
                     <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
                     {service.slug === "qualification" ? <>ПІДВИЩЕННЯ<br />ПРОФЕСІЙНОЇ КВАЛІФІКАЦІЇ</> : service.label}
                   </span>
-                  <span className={styles.serviceAction} aria-hidden="true"><span>Детальніше</span><Arrow /></span>
+                  <span className={styles.serviceAction} aria-hidden="true"><Arrow /></span>
                 </Link>
               </li>
             ))}
