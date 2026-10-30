@@ -71,7 +71,6 @@ export function createAKCModel() {
   }
   uv.needsUpdate = true;
 
-  const clipPlane = new THREE.Plane(new THREE.Vector3(.8745, .4849, 0), 3);
   const metal = new THREE.MeshPhysicalMaterial({
     color: "#193b65",
     metalness: .82,
@@ -84,7 +83,6 @@ export function createAKCModel() {
     clearcoat: .14,
     clearcoatRoughness: .3,
     side: THREE.DoubleSide,
-    clippingPlanes: [clipPlane],
   });
   // ExtrudeGeometry assigns material 0 to the flat caps and material 1
   // to the bevel and side walls. Keep the same blue family on both,
@@ -101,7 +99,6 @@ export function createAKCModel() {
     clearcoat: .12,
     clearcoatRoughness: .45,
     side: THREE.DoubleSide,
-    clippingPlanes: [clipPlane],
   });
   const sideHomeColor = new THREE.Color("#17375e");
   const sideDetailColor = new THREE.Color("#173253");
@@ -121,9 +118,7 @@ export function createAKCModel() {
     setExpertise: (progress: number) => {
       metal.color.copy(homeColor).lerp(detailColor, progress);
       sideMetal.color.copy(sideHomeColor).lerp(sideDetailColor, progress);
-      // Claude starts clipping after 0.95s of a 1.75s transition.
-      const cut = THREE.MathUtils.smoothstep(progress, .54, 1);
-      clipPlane.constant = THREE.MathUtils.lerp(3, -.665, cut);
+      // Preserve complete 3D side walls during zoom; no oblique clipping plane.
       // No wireframe or diagonal contour lines over the page text.
       // Only the large clipped 3D metal face remains on the expertise route.
       edgeLines.visible = progress < .015;
