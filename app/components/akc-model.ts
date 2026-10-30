@@ -24,14 +24,17 @@ export function createAKCModel() {
   });
   geometry.translate(0, 0, -.15);
   geometry.computeVertexNormals();
-  // Stable, non-periodic micro-scratch normal map. No sinusoidal bands.
-  // A flat normal map (128,128,255) is perturbed by many short, faint,
-  // randomly placed scratches. Keep the same texel density on every face.
+  // Procedural directional titanium brushing: two physically distinct maps.
+  // Roughness variation makes the grain visible in reflections; the normal
+  // map adds fine relief without introducing broad repeating stripes.
   const textureSize = 1024;
   const scratchCanvas = document.createElement("canvas");
+  const roughnessCanvas = document.createElement("canvas");
   scratchCanvas.width = scratchCanvas.height = textureSize;
+  roughnessCanvas.width = roughnessCanvas.height = textureSize;
   const ctx = scratchCanvas.getContext("2d");
-  if (!ctx) throw new Error("Unable to create AKC metal texture");
+  const roughCtx = roughnessCanvas.getContext("2d");
+  if (!ctx || !roughCtx) throw new Error("Unable to create AKC titanium texture");
   let seed = 3817;
   const random = () => {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
@@ -39,24 +42,36 @@ export function createAKCModel() {
   };
   ctx.fillStyle = "rgb(128,128,255)";
   ctx.fillRect(0, 0, textureSize, textureSize);
-  // Fine interrupted grain, not long lines that read as stripes on zoom.
-  for (let i = 0; i < 24000; i++) {
+  roughCtx.fillStyle = "rgb(185,185,185)";
+  roughCtx.fillRect(0, 0, textureSize, textureSize);
+  // Interrupted hairline scratches: directionally aligned, varying lengths,
+  // low contrast, and seeded for stable rendering between page transitions.
+  for (let i = 0; i < 35000; i++) {
     const x = random() * textureSize;
     const y = random() * textureSize;
-    const length = 1 + random() * 12;
-    const alpha = .018 + random() * .035;
-    ctx.strokeStyle = `rgba(174,122,248,${alpha})`;
-    ctx.lineWidth = .35 + random() * .4;
+    const length = 3 + Math.pow(random(), 2) * 65;
+    const bright = random() > .5;
+    ctx.strokeStyle = bright ? "rgba(150,128,255,0.16)" : "rgba(108,128,255,0.13)";
+    ctx.lineWidth = .35 + random() * .55;
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x + length, y + (random() - .5) * 1.1);
+    ctx.lineTo(x + length, y + (random() - .5) * .55);
     ctx.stroke();
+    roughCtx.strokeStyle = bright ? "rgba(245,245,245,0.23)" : "rgba(80,80,80,0.19)";
+    roughCtx.lineWidth = .4 + random() * .8;
+    roughCtx.beginPath();
+    roughCtx.moveTo(x, y);
+    roughCtx.lineTo(x + length, y);
+    roughCtx.stroke();
   }
   const normalTexture = new THREE.CanvasTexture(scratchCanvas);
-  normalTexture.wrapS = normalTexture.wrapT = THREE.RepeatWrapping;
-  normalTexture.repeat.set(1, 1);
-  normalTexture.anisotropy = 8;
-  normalTexture.colorSpace = THREE.NoColorSpace;
+  const roughnessTexture = new THREE.CanvasTexture(roughnessCanvas);
+  for (const texture of [normalTexture, roughnessTexture]) {
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(1.4, 1.4);
+    texture.anisotropy = 8;
+    texture.colorSpace = THREE.NoColorSpace;
+  }
 
   // Correct the extruded caps' UVs to use world-sized mapping. The original
   // ExtrudeGeometry sidewall UVs are retained for continuous perimeter mapping.
@@ -75,11 +90,12 @@ export function createAKCModel() {
   const metal = new THREE.MeshPhysicalMaterial({
     color: "#173755",
     metalness: .72,
-    roughness: .48,
-    anisotropy: .35,
+    roughness: .54,
+    roughnessMap: roughnessTexture,
+    anisotropy: .55,
     anisotropyRotation: Math.PI / 2,
     normalMap: normalTexture,
-    normalScale: new THREE.Vector2(.11, .11),
+    normalScale: new THREE.Vector2(.38, .38),
     envMapIntensity: .52,
     clearcoat: .06,
     clearcoatRoughness: .62,
@@ -92,11 +108,12 @@ export function createAKCModel() {
   const sideMetal = new THREE.MeshPhysicalMaterial({
     color: "#10263d",
     metalness: .7,
-    roughness: .51,
-    anisotropy: .3,
+    roughness: .58,
+    roughnessMap: roughnessTexture,
+    anisotropy: .4,
     anisotropyRotation: Math.PI / 2,
     normalMap: normalTexture,
-    normalScale: new THREE.Vector2(.10, .10),
+    normalScale: new THREE.Vector2(.24, .24),
     envMapIntensity: .42,
     clearcoat: .04,
     clearcoatRoughness: .65,
@@ -130,7 +147,7 @@ export function createAKCModel() {
       rim.opacity = .23 * (1 - THREE.MathUtils.smoothstep(progress, 0, .15));
     },
     dispose: () => {
-      geometry.dispose(); edges.dispose(); normalTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
+      geometry.dispose(); edges.dispose(); normalTexture.dispose(); roughnessTexture.dispose(); metal.dispose(); sideMetal.dispose(); rim.dispose();
     },
   };
 }
