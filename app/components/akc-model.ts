@@ -4,22 +4,10 @@ import * as THREE from "three";
 export function createAKCModel() {
   const model = new THREE.Group();
   model.name = "AKC-metal-symbol";
-  const pixels = new Uint8Array(128 * 128 * 4);
-  let seed = 2718;
-  for (let i = 0; i < pixels.length; i += 4) {
-    seed = (1664525 * seed + 1013904223) >>> 0;
-    const value = 220 + (seed % 26);
-    pixels.set([value, value, value, 255], i);
-  }
-  const grain = new THREE.DataTexture(pixels, 128, 128);
-  grain.wrapS = grain.wrapT = THREE.RepeatWrapping;
-  grain.repeat.set(6, 6);
-  grain.needsUpdate = true;
   const front = new THREE.MeshPhysicalMaterial({
-    color: "#084486", metalness: .9, roughness: .38,
-    clearcoat: .15, clearcoatRoughness: .3,
-    bumpMap: grain, bumpScale: .0004, roughnessMap: grain,
-    envMapIntensity: .65,
+    color: "#12558f", metalness: .72, roughness: .54,
+    clearcoat: .06, clearcoatRoughness: .65,
+    envMapIntensity: .55,
   });
   const side = new THREE.MeshPhysicalMaterial({
     color: "#02132c", metalness: .55, roughness: .45, clearcoat: 0, envMapIntensity: .05,
@@ -61,45 +49,30 @@ export function createAKCModel() {
   geometries.push(centreGeometry, centreEdges);
   // Centre the physical bounding box, keeping the official triangular proportions.
   model.position.y = -.1;
-  // Keep the home material intact; the close-up uses a blue rim and finer,
-  // brushed microtexture instead of magnifying the home grain into pixels.
-  const closePixels = new Uint8Array(512 * 512 * 4);
-  for (let y = 0; y < 512; y++) {
-    for (let x = 0; x < 512; x++) {
-      seed = (1664525 * seed + 1013904223) >>> 0;
-      const value = 190 + (seed % 32) + Math.round(10 * Math.sin(y * 2.7));
-      closePixels.set([value, value, value, 255], (y * 512 + x) * 4);
-    }
-  }
-  const closeGrain = new THREE.DataTexture(closePixels, 512, 512);
-  closeGrain.wrapS = closeGrain.wrapT = THREE.RepeatWrapping;
-  closeGrain.repeat.set(14, 14);
-  closeGrain.needsUpdate = true;
+  // Keep the same physically smooth surface at every zoom level.
+  // Brushed texture can later be added as a properly UV-mapped color map,
+  // without noisy bump/displacement or a sudden mid-transition texture swap.
   const homeColor = front.color.clone();
   const closeColor = new THREE.Color("#155783");
   const homeSide = side.color.clone();
   const closeSide = new THREE.Color("#012953");
-  let closeTexture = false;
   return {
     model,
     setExpertise: (progress: number) => {
       front.color.copy(homeColor).lerp(closeColor, progress);
-      front.envMapIntensity = THREE.MathUtils.lerp(.65, .18, progress);
+      front.envMapIntensity = THREE.MathUtils.lerp(.55, .32, progress);
+      front.roughness = THREE.MathUtils.lerp(.54, .62, progress);
+      front.metalness = THREE.MathUtils.lerp(.72, .76, progress);
       side.color.copy(homeSide).lerp(closeSide, progress);
       side.metalness = THREE.MathUtils.lerp(.55, 1, progress);
       side.roughness = THREE.MathUtils.lerp(.45, .65, progress);
       side.envMapIntensity = .05 * (1 - progress);
       rim.opacity = THREE.MathUtils.lerp(.36, .7, progress);
-      const nextClose = progress > .5;
-      if (nextClose !== closeTexture) {
-        closeTexture = nextClose;
-        front.bumpMap = front.roughnessMap = nextClose ? closeGrain : grain;
-        front.needsUpdate = true;
-      }
+
     },
     dispose: () => {
       geometries.forEach(geometry => geometry.dispose());
-      front.dispose(); side.dispose(); rim.dispose(); grain.dispose(); closeGrain.dispose();
+      front.dispose(); side.dispose(); rim.dispose();
     },
   };
 }
