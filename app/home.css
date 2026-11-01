@@ -1369,41 +1369,29 @@ html { scroll-padding-top: 72px; }
 }
 
 
-/* Independent mobile hamburger lives directly under body, above all hero layers. */
-.mobile-menu-trigger { display: none; }
+/* Restore the original header hamburger and give it a reliable touch target.
+   The menu panel/backdrop remain portaled to body. */
 @media (max-width: 767px) {
-  .brand > .menu-button { visibility: hidden !important; pointer-events: none !important; }
-  body > .mobile-menu-trigger {
+  .brand > .menu-button {
     display: flex !important;
-    position: fixed !important;
-    top: calc(12px + env(safe-area-inset-top, 0px)) !important;
-    right: 5.5vw !important;
-    width: 48px !important;
-    height: 48px !important;
-    padding: 12px 9px !important;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 5px;
-    border: 0;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
+    visibility: visible !important;
+    opacity: 1 !important;
     pointer-events: auto !important;
+    position: relative !important;
+    z-index: 100 !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    cursor: pointer !important;
     touch-action: manipulation;
-    z-index: 10002 !important;
-    -webkit-tap-highlight-color: transparent;
   }
-  body > .mobile-menu-trigger span {
-    display: block;
-    width: 27px;
-    height: 2px;
-    flex: 0 0 2px;
-    border-radius: 2px;
-    background: #dce8f3;
-    transition: transform 180ms ease, opacity 180ms ease;
+  .brand > .menu-button span {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1;
+    background: #dce8f3 !important;
   }
-  body > .mobile-menu-trigger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body > .mobile-menu-trigger.is-open span:nth-child(2) { opacity: 0; }
-  body > .mobile-menu-trigger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .brand > .menu-button.is-open span:nth-child(2) { opacity: 0 !important; }
+  .akc-page .brand { z-index: 10001 !important; }
 }
