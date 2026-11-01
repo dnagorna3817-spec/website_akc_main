@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import { useExpertiseTransition } from "./components/ExpertiseTransition";
+import LogoIntro from "./components/LogoIntro";
 
 const directions = [
   { id: "about", label: "ПРО АКЦ", href: "#about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
@@ -74,82 +75,49 @@ export default function Home() {
 
     const motion = gsap.matchMedia();
     motion.add("(prefers-reduced-motion: no-preference)", () => {
-      let removeImageListeners = () => {};
-
+      let removeIntroListener = () => {};
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
         intro.current = tl;
 
-        tl.from(".brand", { opacity: 0, y: -12, duration: 0.8 })
-          .from(".logo-stage", {
-            opacity: 0,
-            scale: 0.86,
-            duration: 1.15,
-          }, 0.25)
-          .set(".logo-light-pulse", {
-            autoAlpha: 0,
-            backgroundPosition: "110% 0%",
-          })
-          .to(".logo-light-pulse", {
-            autoAlpha: 0.78,
-            backgroundPosition: "-110% 0%",
-            duration: 1.15,
-            ease: "power2.inOut",
-          })
-          .to(".logo-light-pulse", {
-            autoAlpha: 0,
-            duration: 0.35,
-            ease: "power1.out",
-          })
-          .from(".nav-line", {
+        tl.from(".nav-line", {
             scaleX: 0,
             opacity: 0,
-            duration: 0.65,
-            stagger: 0.12,
+            duration: 0.4,
+            stagger: 0.035,
             transformOrigin: "left center",
-          })
+          }, 0)
           .from(".nav-dot", {
             scale: 0,
             opacity: 0,
-            duration: 0.35,
-            stagger: 0.1,
-          })
+            duration: 0.2,
+            stagger: 0.035,
+          }, 0.15)
           .from(".nav-label", {
             opacity: 0,
-            y: 10,
-            duration: 0.6,
-            stagger: 0.1,
-          })
+            y: 8,
+            duration: 0.35,
+            stagger: 0.035,
+          }, 0.18)
           .from(".hero-bottom", {
             opacity: 0,
-            y: 15,
-            duration: 0.7,
-          }, "-=0.25");
+            y: 12,
+            duration: 0.4,
+          }, 0.2);
 
-        // Wait for the shared WebGL scene (or its accessible fallback) before revealing.
-        const startReveal = () => { if (!transitioning.current) tl.play(0); };
-        if (document.documentElement.dataset.akcSceneReady === "true") {
-          startReveal();
-        } else {
-          window.addEventListener("akc:scene-ready", startReveal, { once: true });
-          removeImageListeners = () => {
-            window.removeEventListener("akc:scene-ready", startReveal);
-          };
-        }
-
-        gsap.to(".logo-glow-core", {
-          opacity: 0.56,
-          scale: 1.025,
-          duration: 3.2,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
+        const revealNavigation = (event: Event) => {
+          if (transitioning.current) return;
+          const animateMenu = (event as CustomEvent<{ animateMenu?: boolean }>).detail?.animateMenu;
+          if (animateMenu) tl.play(0);
+          else tl.progress(1).pause();
+        };
+        window.addEventListener("akc:intro-ready", revealNavigation);
+        removeIntroListener = () => window.removeEventListener("akc:intro-ready", revealNavigation);
 
       }, root);
 
       return () => {
-        removeImageListeners();
+        removeIntroListener();
         ctx.revert();
         intro.current = null;
       };
@@ -161,6 +129,7 @@ export default function Home() {
 
   return (
     <main className="akc-page" ref={scene}>
+      <LogoIntro />
       <header className="brand">
         <a className="brand-symbol" href="#home" aria-label="АКЦ">
           △
@@ -177,12 +146,6 @@ export default function Home() {
         <div className="network-frame" ref={sceneFrame}>
           <div className="network-scale">
             <div className="network" ref={network} aria-label="Напрями Аудит Консалтинг Центру">
-            <div className="logo-glow" aria-hidden="true">
-              <div className="logo-glow-motion">
-                <div className="logo-glow-core" />
-              </div>
-            </div>
-
             <div className="nav-list">
               {directions.map((item) => (
                 <div
@@ -233,14 +196,6 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="logo-position" role="img" aria-label="Тривимірний знак АКЦ">
-              <div className="logo-tilt">
-                <div className="logo-stage">
-                  <span data-scene-fallback>3D-відображення недоступне</span>
-                  <div className="logo-light-pulse" aria-hidden="true" />
-                </div>
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -336,6 +291,31 @@ export default function Home() {
           display: block;
         }
 
+        .logo-intro-layer {
+          position: absolute;
+          z-index: 0;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          background: #010411;
+        }
+
+        .logo-intro-poster,
+        .logo-intro-poster img,
+        .logo-intro-video {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .logo-intro-video {
+          z-index: 1;
+          background: transparent;
+        }
+
         .hero {
           height: calc(100dvh - var(--header-height));
           min-height: calc(100svh - var(--header-height));
@@ -343,6 +323,7 @@ export default function Home() {
           display: grid;
           grid-template-rows: minmax(0, 1fr) auto;
           overflow: visible;
+          z-index: 1;
         }
 
         .network {
@@ -372,67 +353,6 @@ export default function Home() {
           transform: translateX(-50%) scale(var(--scene-scale));
           transform-origin: top center;
           will-change: transform;
-        }
-
-        .logo-glow {
-          position: absolute;
-          z-index: 0;
-          top: 50%;
-          left: 50%;
-          width: clamp(360px, 50vw, 530px);
-          aspect-ratio: 1;
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-          will-change: transform;
-        }
-
-        .logo-glow-core {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          opacity: 0.46;
-          background: radial-gradient(circle, rgba(0, 137, 255, 0.28), rgba(0, 86, 187, 0.1) 43%, transparent 72%);
-          filter: blur(12px);
-        }
-
-        .logo-glow-motion {
-          width: 100%;
-          height: 100%;
-          will-change: transform;
-        }
-
-        .logo-position {
-          position: absolute;
-          z-index: 2;
-          top: 50%;
-          left: 50%;
-          width: clamp(310px, 40vw, 440px);
-          aspect-ratio: 1270 / 1239;
-          transform: translate(-50%, -50%);
-        }
-
-        .logo-tilt {
-          width: 100%;
-          height: 100%;
-          transform-style: preserve-3d;
-          will-change: transform;
-        }
-
-        .logo-stage {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          background: transparent;
-          transform-style: preserve-3d;
-        }
-
-        /* Timeline driver only: the sweep itself is a light in the shared 3D scene. */
-        .logo-light-pulse {
-          position: absolute;
-          z-index: 1;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0;
         }
 
         .nav-node {
@@ -553,16 +473,6 @@ export default function Home() {
             min-height: 580px;
           }
 
-          .logo-position {
-            width: clamp(567px, 48.6vw, 729px);
-            top: 54%;
-          }
-
-          .logo-glow {
-            width: clamp(575px, 51.75vw, 736px);
-            top: 54%;
-          }
-
           .nav-node--about .nav-line,
           .nav-node--about .nav-dot {
             top: 13% !important;
@@ -588,13 +498,6 @@ export default function Home() {
             min-height: 500px;
           }
 
-          .logo-position {
-            width: clamp(340px, calc(58vw - 113px), 583px);
-          }
-
-          .logo-glow {
-            width: clamp(390px, 50vw, 520px);
-          }
         }
 
         @media (max-width: 767px) {
@@ -619,14 +522,6 @@ export default function Home() {
 
           .network-frame {
             align-self: center;
-          }
-
-          .logo-glow {
-            width: 330px;
-          }
-
-          .logo-position {
-            width: 250px;
           }
 
           .nav-label {
