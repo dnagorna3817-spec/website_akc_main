@@ -184,6 +184,19 @@ export default function Home() {
           <span />
           <span />
         </button>
+        <details className="mobile-native-menu">
+          <summary className="mobile-native-menu-toggle" aria-label="Відкрити мобільне меню">
+            <span /><span /><span />
+          </summary>
+          <nav className="mobile-native-menu-panel" aria-label="Мобільне меню">
+            {directions.map((item) => (
+              <Link key={item.id} href={item.href} className="mobile-native-menu-link">
+                {item.label}
+              </Link>
+            ))}
+            <a className="mobile-native-menu-link" href="#contacts">НАШІ КОНТАКТИ</a>
+          </nav>
+        </details>
       </header>
       {menuOpen && mounted && createPortal(
         <>
