@@ -1367,3 +1367,43 @@ html { scroll-padding-top: 72px; }
     z-index: 10000 !important;
   }
 }
+
+
+/* Independent mobile hamburger lives directly under body, above all hero layers. */
+.mobile-menu-trigger { display: none; }
+@media (max-width: 767px) {
+  .brand > .menu-button { visibility: hidden !important; pointer-events: none !important; }
+  body > .mobile-menu-trigger {
+    display: flex !important;
+    position: fixed !important;
+    top: calc(12px + env(safe-area-inset-top, 0px)) !important;
+    right: 5.5vw !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 12px 9px !important;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    z-index: 10002 !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body > .mobile-menu-trigger span {
+    display: block;
+    width: 27px;
+    height: 2px;
+    flex: 0 0 2px;
+    border-radius: 2px;
+    background: #dce8f3;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+  body > .mobile-menu-trigger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body > .mobile-menu-trigger.is-open span:nth-child(2) { opacity: 0; }
+  body > .mobile-menu-trigger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
