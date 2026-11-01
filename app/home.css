@@ -1325,3 +1325,25 @@ html { scroll-padding-top: 72px; }
     height: 8px !important;
   }
 }
+
+
+/* Safari recovery: navigation must never be permanently hidden.
+   GSAP's existing intro timeline still handles the reveal when available. */
+@media (max-width: 767px) {
+  .nav-list,
+  .nav-list[data-mobile-intro-ready="false"],
+  .nav-list[data-mobile-intro-ready="true"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .nav-node,
+  .nav-node .nav-label,
+  .nav-node .nav-dot,
+  .nav-node .nav-line,
+  .nav-node::after {
+    visibility: visible !important;
+  }
+  .nav-node .nav-label { opacity: 1 !important; }
+  .nav-node .nav-dot { opacity: 1 !important; }
+  .nav-node::after { opacity: 1 !important; }
+}
