@@ -756,3 +756,45 @@
   .nav-node--industries, .nav-node--insights { top: 72%; }
   .hero-bottom h1 { font-size: 20px; }
 }
+
+/* Complete responsive homepage and real scroll destinations. */
+html { scroll-padding-top: 72px; }
+.akc-page { height: auto; min-height: 100svh; overflow: visible; }
+.akc-page::before { bottom: auto; height: 100svh; }
+.hero { min-height: calc(100svh - var(--header-height)); }
+.logo-intro-layer { height: 100svh; bottom: auto; }
+.akc-sections { position: relative; z-index: 2; background: #020810; }
+.akc-content-section { min-height: 52vh; padding: clamp(70px, 10vw, 140px) max(6vw, 24px); border-top: 1px solid rgba(148,189,226,.12); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+.akc-eyebrow { font-size: 12px; letter-spacing: .18em; color: #83b8e2; margin: 0 0 24px; }
+.akc-content-section h2 { margin: 0 0 22px; font-size: clamp(30px, 5vw, 64px); font-weight: 300; letter-spacing: -.045em; }
+.akc-content-section p:not(.akc-eyebrow) { max-width: 660px; color: #b2c2d2; line-height: 1.7; font-size: clamp(16px, 1.7vw, 20px); }
+.akc-section-link { display: inline-flex; gap: 20px; margin-top: 28px; padding: 12px 0; color: #d3eaff; text-decoration: none; border-bottom: 1px solid #508cb7; }
+.akc-section-link:hover, .akc-section-link:focus-visible { color: white; border-color: white; }
+.akc-footer { display: flex; justify-content: space-between; gap: 20px; padding: 32px max(6vw,24px); color: #8da4ba; font-size: 13px; }
+.akc-footer a { color: #d3eaff; text-decoration: none; }
+@media (max-width: 767px) {
+  .akc-page { overflow: visible; height: auto; min-height: 100svh; }
+  .brand { position: relative; z-index: 12; }
+  .logo-intro-layer { position: absolute; inset: 64px 0 auto; height: calc(100svh - 64px); overflow: hidden; }
+  .logo-intro-poster img { object-fit: contain; transform: translateY(-12%) scale(1.04); }
+  .logo-intro-video { object-fit: contain; transform: translateY(-12%) scale(1.04); }
+  .hero { min-height: calc(100svh - 64px); height: calc(100dvh - 64px); }
+  .network-frame { inset: 0 0 100px; }
+  .nav-node--about { left: 50%; top: 28%; }
+  .nav-node--about .nav-label { top: -22px !important; }
+  .nav-node--expertise { left: 17%; top: 46%; }
+  .nav-node--expertise .nav-label { left: 0 !important; top: -36px !important; font-size: clamp(11px,3vw,14px); }
+  .nav-node--qualification { left: 83%; top: 46%; }
+  .nav-node--qualification .nav-label { left: 0 !important; top: -44px !important; width: 136px; font-size: clamp(11px,2.8vw,14px); }
+  .nav-node--industries { left: 17%; top: 67%; }
+  .nav-node--industries .nav-label { top: 27px !important; }
+  .nav-node--insights { left: 83%; top: 67%; }
+  .nav-node--insights .nav-label { top: 27px !important; }
+  .nav-label { padding: 9px 3px; touch-action: manipulation; }
+  .hero-bottom { bottom: 0; }
+  .akc-content-section { min-height: 48vh; padding: 74px 24px; }
+  .akc-footer { flex-direction: column; }
+  .menu-panel { position: fixed; z-index: 30; }
+  .menu-backdrop { z-index: 28; }
+  .brand:has(.menu-button.is-open) { z-index: 31; }
+}
