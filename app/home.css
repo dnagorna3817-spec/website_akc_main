@@ -1279,3 +1279,19 @@ html { scroll-padding-top: 72px; }
     height: clamp(12px, 3.7vw, 19px) !important;
   }
 }
+
+
+/* Hard stop: keep mobile elbow connectors entirely outside the triangle.
+   At phone widths, the left/right dots sit at 17%/83%; paths end within
+   the outer 12% of the viewport, well before the logo edges. */
+@media (max-width: 767px) {
+  .nav-node--expertise::after,
+  .nav-node--industries::after,
+  .nav-node--qualification::after,
+  .nav-node--insights::after {
+    width: 12vw !important;
+    max-width: 52px !important;
+    height: 13px !important;
+    background-size: 100% 100% !important;
+  }
+}
