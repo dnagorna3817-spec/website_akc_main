@@ -52,8 +52,8 @@ export default function LogoIntro() {
       }
 
       setVideoSource(window.matchMedia("(max-width: 767px)").matches
-        ? "/media/akc-intro/mobile.mp4"
-        : "/media/akc-intro/desktop.mp4");
+        ? "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4"
+        : "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4");
       setMode("playing");
       safetyTimer.current = setTimeout(() => finish(true), 6000);
     });
@@ -66,9 +66,9 @@ export default function LogoIntro() {
   return (
     <div className="logo-intro-layer" data-intro-mode={mode} role="img" aria-label="Металевий знак АКЦ">
       <picture className="logo-intro-poster">
-        <source media="(max-width: 767px)" srcSet="/media/akc-intro/mobile-poster.png" />
+        <source media="(max-width: 767px)" srcSet="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/56e9b386-1869-49ea-9167-84568b64e7a7.png" />
         <img
-          src="/media/akc-intro/desktop-poster.png"
+          src="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/56e9b386-1869-49ea-9167-84568b64e7a7.png"
           alt=""
           width={1920}
           height={1080}
