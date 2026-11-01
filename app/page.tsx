@@ -94,7 +94,7 @@ export default function Home() {
     if (!root) return;
 
     const motion = gsap.matchMedia();
-    motion.add("(prefers-reduced-motion: no-preference)", () => {
+    motion.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
       let removeIntroListener = () => {};
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
