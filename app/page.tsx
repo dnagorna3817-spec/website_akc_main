@@ -194,7 +194,7 @@ export default function Home() {
             </button>
             {showContacts && (
               <div className="menu-contact-info">
-                Контактні дані АКЦ ще не додані до цього розділу.
+                Контактні дані будуть опубліковані тут після підтвердження.
               </div>
             )}
           </nav>
@@ -271,8 +271,41 @@ export default function Home() {
           <span className="hero-index">01 / 06</span>
         </div>
       </section>
-
-
+      <div className="akc-sections">
+        <section id="about" className="akc-content-section">
+          <p className="akc-eyebrow">01 / ПРО АКЦ</p>
+          <h2>Аудит Консалтинг Центр</h2>
+          <p>Аудит, облік і консалтинг — напрями, у яких важливі точність, відповідальність і зрозумілі рішення.</p>
+          <a href="#expertise-section" className="akc-section-link">Переглянути напрями діяльності <span aria-hidden="true">↗</span></a>
+        </section>
+        <section id="expertise-section" className="akc-content-section">
+          <p className="akc-eyebrow">02 / ЕКСПЕРТИЗА</p>
+          <h2>Наші напрями</h2>
+          <p>Ознайомтеся з послугами та професійними напрямами АКЦ.</p>
+          <Link href="/expertise" className="akc-section-link">Перейти до експертизи <span aria-hidden="true">↗</span></Link>
+        </section>
+        <section id="qualification" className="akc-content-section">
+          <p className="akc-eyebrow">03 / КВАЛІФІКАЦІЙНИЙ ЦЕНТР</p>
+          <h2>Професійна кваліфікація</h2>
+          <p>Інформація про кваліфікаційний напрям та відповідні матеріали.</p>
+          <a href="#contacts" className="akc-section-link">Перейти до контактного розділу <span aria-hidden="true">↗</span></a>
+        </section>
+        <section id="industries" className="akc-content-section">
+          <p className="akc-eyebrow">04 / ГАЛУЗІ</p>
+          <h2>Рішення для різних сфер</h2>
+          <p>Підхід до роботи залежить від задач організації, галузі та нормативних вимог.</p>
+          <a href="#contacts" className="akc-section-link">Обговорити вашу задачу <span aria-hidden="true">↗</span></a>
+        </section>
+        <section id="insights" className="akc-content-section">
+          <p className="akc-eyebrow">05 / НОВИНИ</p>
+          <h2>Новини та матеріали</h2>
+          <p>Тут з’являтимуться оновлення та корисні матеріали АКЦ.</p>
+        </section>
+        <footer id="contacts" className="akc-footer">
+          <span>АКЦ · Аудит Консалтинг Центр</span>
+          <a href="#home">Повернутися нагору ↑</a>
+        </footer>
+      </div>
     </main>
   );
 }
