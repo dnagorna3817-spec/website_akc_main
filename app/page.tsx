@@ -172,17 +172,15 @@ export default function Home() {
         <>
           <button className="menu-backdrop" type="button" aria-label="Закрити меню" onClick={() => { setMenuOpen(false); setShowContacts(false); }} />
           <nav ref={menuPanel} id="akc-navigation-menu" className="menu-panel" aria-label="Меню сайту">
-            <div className="menu-heading">НАВІГАЦІЯ <span>АКЦ</span></div>
-            {directions.map((item, index) => (
+            <div className="menu-heading">МЕНЮ <span>АКЦ</span></div>
+            {directions.map((item) => (
               <Link
                 key={item.id}
                 className="menu-link"
                 href={item.href}
                 onClick={() => { setMenuOpen(false); setShowContacts(false); }}
               >
-                <span className="menu-index">{String(index + 1).padStart(2, "0")}</span>
                 <span>{item.label}</span>
-                <span aria-hidden="true" className="menu-arrow">↗</span>
               </Link>
             ))}
             <button
@@ -191,9 +189,7 @@ export default function Home() {
               aria-expanded={showContacts}
               onClick={() => setShowContacts((value) => !value)}
             >
-              <span className="menu-index">06</span>
               <span>НАШІ КОНТАКТИ</span>
-              <span aria-hidden="true" className="menu-arrow">{showContacts ? "−" : "+"}</span>
             </button>
             {showContacts && (
               <div className="menu-contact-info">
@@ -349,8 +345,9 @@ export default function Home() {
           inset: 0;
           z-index: 8;
           border: 0;
-          background: rgba(0, 5, 17, 0.55);
+          background: rgba(0, 5, 17, 0.34);
           cursor: default;
+          animation: akc-menu-dim 380ms ease both;
         }
 
         .brand:has(.menu-button.is-open) {
@@ -360,16 +357,19 @@ export default function Home() {
         .menu-panel {
           position: fixed;
           z-index: 10;
-          top: var(--header-height);
-          right: 0;
-          width: min(440px, 100vw);
-          max-height: calc(100dvh - var(--header-height));
+          top: calc(var(--header-height) + 12px);
+          right: clamp(12px, 4vw, 64px);
+          width: min(440px, calc(100vw - 24px));
+          max-height: calc(100dvh - var(--header-height) - 28px);
           overflow-y: auto;
-          padding: 24px clamp(22px, 4vw, 40px) 40px;
-          background: linear-gradient(155deg, #071d35, #020914 85%);
-          border-left: 1px solid rgba(125, 193, 255, 0.19);
-          border-top: 1px solid rgba(125, 193, 255, 0.12);
-          box-shadow: -20px 18px 65px rgba(0, 0, 0, 0.42);
+          padding: 28px clamp(24px, 3vw, 38px) 34px;
+          background: linear-gradient(145deg, rgba(28, 66, 102, 0.56), rgba(4, 16, 36, 0.68) 75%);
+          -webkit-backdrop-filter: blur(30px) saturate(155%);
+          backdrop-filter: blur(30px) saturate(155%);
+          border: 1px solid rgba(177, 222, 255, 0.24);
+          border-radius: 22px;
+          box-shadow: 0 22px 70px rgba(0, 5, 20, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+          animation: akc-menu-float-in 540ms cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .menu-heading {
@@ -383,11 +383,11 @@ export default function Home() {
 
         .menu-link {
           display: grid;
-          grid-template-columns: 36px minmax(0, 1fr) 24px;
+          grid-template-columns: minmax(0, 1fr);
           align-items: center;
           width: 100%;
           gap: 10px;
-          min-height: 65px;
+          min-height: 62px;
           padding: 12px 0;
           border: 0;
           border-bottom: 1px solid rgba(155, 199, 236, 0.17);
@@ -408,20 +408,32 @@ export default function Home() {
           padding-left: 5px;
         }
 
-        .menu-index {
-          color: #648bad;
-          font-size: 12px;
-          letter-spacing: 0.06em;
-        }
+        .menu-panel .menu-link { animation: akc-menu-item-in 520ms both; }
+        .menu-panel .menu-link:nth-of-type(1) { animation-delay: 70ms; }
+        .menu-panel .menu-link:nth-of-type(2) { animation-delay: 110ms; }
+        .menu-panel .menu-link:nth-of-type(3) { animation-delay: 150ms; }
+        .menu-panel .menu-link:nth-of-type(4) { animation-delay: 190ms; }
+        .menu-panel .menu-link:nth-of-type(5) { animation-delay: 230ms; }
+        .menu-panel .menu-link:nth-of-type(6) { animation-delay: 270ms; }
 
-        .menu-arrow {
-          justify-self: end;
-          color: #77b9e8;
-          font-size: 22px;
+        @keyframes akc-menu-float-in {
+          from { opacity: 0; transform: translate3d(24px, -12px, 0) scale(0.96); filter: blur(6px); }
+          to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+        }
+        @keyframes akc-menu-item-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes akc-menu-dim {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .menu-panel, .menu-backdrop, .menu-panel .menu-link { animation: none !important; }
         }
 
         .menu-contact-info {
-          padding: 18px 0 8px 46px;
+          padding: 18px 0 8px;
           color: #a9c4db;
           font-size: 14px;
           line-height: 1.6;
