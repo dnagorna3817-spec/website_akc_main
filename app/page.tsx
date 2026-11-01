@@ -366,9 +366,9 @@ export default function Home() {
           background: rgba(9, 19, 34, 0.78);
           -webkit-backdrop-filter: blur(24px);
           backdrop-filter: blur(24px);
-          border: 1px solid rgba(225, 236, 248, 0.13);
-          border-radius: 7px;
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+          border: 0;
+          border-radius: 4px;
+          box-shadow: 0 20px 65px rgba(0, 0, 0, 0.22);
           animation: akc-menu-float-in 540ms cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
@@ -390,22 +390,49 @@ export default function Home() {
           min-height: 62px;
           padding: 12px 0;
           border: 0;
-          border-bottom: 1px solid rgba(225, 236, 248, 0.1);
+          border-bottom: 0;
+          position: relative;
+          isolation: isolate;
           background: transparent;
-          color: #e6f0fc;
+          color: rgba(230, 240, 252, 0.86);
           text-align: left;
           font: inherit;
           font-size: clamp(15px, 1.3vw, 18px);
           line-height: 1.4;
           text-decoration: none;
           cursor: pointer;
-          transition: color 180ms ease, padding-left 180ms ease;
+          transition: color 260ms ease, padding-left 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .menu-link::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          inset: 5px -14px;
+          border-radius: 3px;
+          background: rgba(187, 218, 246, 0.075);
+          opacity: 0;
+          transform: scaleX(0.94);
+          transform-origin: left center;
+          transition: opacity 300ms ease, transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+          pointer-events: none;
         }
 
         .menu-link:hover,
         .menu-link:focus-visible {
           color: #ffffff;
-          padding-left: 5px;
+          padding-left: 8px;
+        }
+
+        .menu-link:hover::before,
+        .menu-link:focus-visible::before {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+
+        .menu-link:focus-visible {
+          outline: 1px solid rgba(196, 223, 248, 0.65);
+          outline-offset: 3px;
         }
 
         .menu-panel .menu-link { animation: akc-menu-item-in 520ms both; }
