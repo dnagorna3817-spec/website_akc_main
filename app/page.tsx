@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
@@ -17,6 +17,10 @@ const directions = [
 ];
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showContacts, setShowContacts] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const menuPanel = useRef<HTMLElement>(null);
   const scene = useRef<HTMLElement>(null);
   const hero = useRef<HTMLElement>(null);
   const sceneFrame = useRef<HTMLDivElement>(null);
@@ -128,6 +132,20 @@ export default function Home() {
     return () => motion.revert();
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setShowContacts(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    menuPanel.current?.querySelector<HTMLAnchorElement>("a, button")?.focus();
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
   return (
     <main className="akc-page" ref={scene}>
       <LogoIntro />
@@ -136,12 +154,55 @@ export default function Home() {
           <Image src="/akc-brand-white.png" width={40} height={40} alt="" priority />
         </a>
         <span>Аудит Консалтинг Центр</span>
-        <button className="menu-button" type="button" aria-label="Відкрити меню">
+        <button
+          ref={menuButton}
+          className={`menu-button${menuOpen ? " is-open" : ""}`}
+          type="button"
+          aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}
+          aria-expanded={menuOpen}
+          aria-controls="akc-navigation-menu"
+          onClick={() => { setMenuOpen((open) => !open); setShowContacts(false); }}
+        >
           <span />
           <span />
           <span />
         </button>
       </header>
+      {menuOpen && (
+        <>
+          <button className="menu-backdrop" type="button" aria-label="Закрити меню" onClick={() => { setMenuOpen(false); setShowContacts(false); }} />
+          <nav ref={menuPanel} id="akc-navigation-menu" className="menu-panel" aria-label="Меню сайту">
+            <div className="menu-heading">НАВІГАЦІЯ <span>АКЦ</span></div>
+            {directions.map((item, index) => (
+              <Link
+                key={item.id}
+                className="menu-link"
+                href={item.href}
+                onClick={() => { setMenuOpen(false); setShowContacts(false); }}
+              >
+                <span className="menu-index">{String(index + 1).padStart(2, "0")}</span>
+                <span>{item.label}</span>
+                <span aria-hidden="true" className="menu-arrow">↗</span>
+              </Link>
+            ))}
+            <button
+              className="menu-link menu-contact-link"
+              type="button"
+              aria-expanded={showContacts}
+              onClick={() => setShowContacts((value) => !value)}
+            >
+              <span className="menu-index">06</span>
+              <span>НАШІ КОНТАКТИ</span>
+              <span aria-hidden="true" className="menu-arrow">{showContacts ? "−" : "+"}</span>
+            </button>
+            {showContacts && (
+              <div className="menu-contact-info">
+                Контактні дані АКЦ ще не додані до цього розділу.
+              </div>
+            )}
+          </nav>
+        </>
+      )}
 
       <section className="hero" id="home" ref={hero}>
         <div className="network-frame" ref={sceneFrame}>
@@ -283,6 +344,99 @@ export default function Home() {
           object-fit: contain;
         }
 
+        .menu-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 8;
+          border: 0;
+          background: rgba(0, 5, 17, 0.55);
+          cursor: default;
+        }
+
+        .brand:has(.menu-button.is-open) {
+          z-index: 11;
+        }
+
+        .menu-panel {
+          position: fixed;
+          z-index: 10;
+          top: var(--header-height);
+          right: 0;
+          width: min(440px, 100vw);
+          max-height: calc(100dvh - var(--header-height));
+          overflow-y: auto;
+          padding: 24px clamp(22px, 4vw, 40px) 40px;
+          background: linear-gradient(155deg, #071d35, #020914 85%);
+          border-left: 1px solid rgba(125, 193, 255, 0.19);
+          border-top: 1px solid rgba(125, 193, 255, 0.12);
+          box-shadow: -20px 18px 65px rgba(0, 0, 0, 0.42);
+        }
+
+        .menu-heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          color: #92acc6;
+          font-size: 12px;
+          letter-spacing: 0.18em;
+        }
+
+        .menu-link {
+          display: grid;
+          grid-template-columns: 36px minmax(0, 1fr) 24px;
+          align-items: center;
+          width: 100%;
+          gap: 10px;
+          min-height: 65px;
+          padding: 12px 0;
+          border: 0;
+          border-bottom: 1px solid rgba(155, 199, 236, 0.17);
+          background: transparent;
+          color: #e6f0fc;
+          text-align: left;
+          font: inherit;
+          font-size: clamp(15px, 1.3vw, 18px);
+          line-height: 1.4;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 180ms ease, padding-left 180ms ease;
+        }
+
+        .menu-link:hover,
+        .menu-link:focus-visible {
+          color: #79caff;
+          padding-left: 5px;
+        }
+
+        .menu-index {
+          color: #648bad;
+          font-size: 12px;
+          letter-spacing: 0.06em;
+        }
+
+        .menu-arrow {
+          justify-self: end;
+          color: #77b9e8;
+          font-size: 22px;
+        }
+
+        .menu-contact-info {
+          padding: 18px 0 8px 46px;
+          color: #a9c4db;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+
+        .menu-button.is-open span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .menu-button.is-open span:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-button.is-open span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
         .menu-button {
           margin-left: auto;
           display: flex;
@@ -295,6 +449,7 @@ export default function Home() {
         }
 
         .menu-button span {
+          transition: transform 180ms ease, opacity 180ms ease;
           width: 27px;
           height: 2px;
           background: #dce8f3;
