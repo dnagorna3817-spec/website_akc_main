@@ -545,7 +545,7 @@ export default function Home() {
 
           /* Compact navigation for narrow screens: keep links clear of the logo. */
           .network {
-            width: min(100vw - 32px, 500px);
+            width: min(calc(100vw - 32px), 500px);
             height: min(56vh, 430px);
           }
 
