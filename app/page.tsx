@@ -77,9 +77,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // The video event is primary. A fallback ensures links never stay hidden
+    // if Safari drops an ended/error event or the media is already complete.
     const ready = () => setMobileNavReady(true);
     window.addEventListener("akc:intro-ready", ready);
-    return () => window.removeEventListener("akc:intro-ready", ready);
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const fallback = mobile ? window.setTimeout(ready, 5200) : null;
+    return () => {
+      window.removeEventListener("akc:intro-ready", ready);
+      if (fallback !== null) window.clearTimeout(fallback);
+    };
   }, []);
 
   useLayoutEffect(() => {
