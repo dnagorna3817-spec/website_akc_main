@@ -881,3 +881,27 @@ html { scroll-padding-top: 72px; }
   }
   .logo-intro-layer { opacity: 1 !important; visibility: visible !important; }
 }
+
+
+/* Mobile video polish: blend the portrait asset into the hero without touching desktop. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    isolation: isolate;
+  }
+
+  .logo-intro-layer .logo-intro-video--mobile {
+    /* Expand the emblem while keeping its proportions and avoiding crop. */
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(1.18) !important;
+    transform-origin: center center !important;
+
+    /* Fade the video's darker edges into the site's background. */
+    -webkit-mask-image: radial-gradient(ellipse 66% 43% at 50% 50%,
+      #000 0%, #000 57%, rgba(0,0,0,.86) 73%, transparent 100%);
+    mask-image: radial-gradient(ellipse 66% 43% at 50% 50%,
+      #000 0%, #000 57%, rgba(0,0,0,.86) 73%, transparent 100%);
+  }
+}
