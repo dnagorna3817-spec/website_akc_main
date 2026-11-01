@@ -3,6 +3,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { useExpertiseTransition } from "./components/ExpertiseTransition";
@@ -19,6 +20,7 @@ const directions = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [mobileNavReady, setMobileNavReady] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -183,7 +185,7 @@ export default function Home() {
           <span />
         </button>
       </header>
-      {menuOpen && (
+      {menuOpen && mounted && createPortal(
         <>
           <button className="menu-backdrop" type="button" aria-label="Закрити меню" onClick={() => { setMenuOpen(false); setShowContacts(false); }} />
           <nav ref={menuPanel} id="akc-navigation-menu" className="menu-panel" aria-label="Меню сайту">
@@ -212,7 +214,8 @@ export default function Home() {
               </div>
             )}
           </nav>
-        </>
+        </>,
+        document.body
       )}
 
       <section className="hero" id="home" ref={hero}>
