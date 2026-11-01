@@ -19,6 +19,7 @@ const directions = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileNavReady, setMobileNavReady] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const menuPanel = useRef<HTMLElement>(null);
@@ -73,6 +74,12 @@ export default function Home() {
       window.visualViewport?.removeEventListener("resize", updateScale);
       window.removeEventListener("load", updateScale);
     };
+  }, []);
+
+  useEffect(() => {
+    const ready = () => setMobileNavReady(true);
+    window.addEventListener("akc:intro-ready", ready);
+    return () => window.removeEventListener("akc:intro-ready", ready);
   }, []);
 
   useLayoutEffect(() => {
@@ -205,7 +212,7 @@ export default function Home() {
         <div className="network-frame" ref={sceneFrame}>
           <div className="network-scale">
             <div className="network" ref={network} aria-label="Напрями Аудит Консалтинг Центру">
-            <div className="nav-list">
+            <div className="nav-list" data-mobile-intro-ready={mobileNavReady ? "true" : "false"}>
               {directions.map((item) => (
                 <div
                   key={item.label}
