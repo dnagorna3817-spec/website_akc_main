@@ -40,7 +40,7 @@ export default function LogoIntro() {
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const skipIntro = reducedMotion || wasIntroSeen();
+    const skipIntro = reducedMotion;
     const frame = requestAnimationFrame(() => {
       if (skipIntro) {
         finished.current = true;
@@ -55,7 +55,7 @@ export default function LogoIntro() {
         ? "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4"
         : "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4");
       setMode("playing");
-      safetyTimer.current = setTimeout(() => finish(true), 6000);
+      safetyTimer.current = setTimeout(() => finish(true), 8000);
     });
     return () => {
       cancelAnimationFrame(frame);
@@ -86,6 +86,10 @@ export default function LogoIntro() {
           playsInline
           preload="auto"
           aria-hidden="true"
+          onCanPlay={(event) => {
+            const video = event.currentTarget;
+            if (video.paused) video.play().catch(() => finish(false));
+          }}
           onEnded={() => finish(true)}
           onError={() => finish(true)}
         />
