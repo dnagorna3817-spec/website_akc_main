@@ -172,7 +172,7 @@ export default function Home() {
         <>
           <button className="menu-backdrop" type="button" aria-label="Закрити меню" onClick={() => { setMenuOpen(false); setShowContacts(false); }} />
           <nav ref={menuPanel} id="akc-navigation-menu" className="menu-panel" aria-label="Меню сайту">
-            <div className="menu-heading">МЕНЮ <span>АКЦ</span></div>
+            
             {directions.map((item) => (
               <Link
                 key={item.id}
@@ -362,12 +362,12 @@ export default function Home() {
           width: min(440px, calc(100vw - 24px));
           max-height: calc(100dvh - var(--header-height) - 28px);
           overflow-y: auto;
-          padding: 28px clamp(24px, 3vw, 38px) 34px;
+          padding: 22px clamp(24px, 3vw, 38px) 28px;
           background: rgba(9, 19, 34, 0.78);
           -webkit-backdrop-filter: blur(24px);
           backdrop-filter: blur(24px);
           border: 1px solid rgba(225, 236, 248, 0.13);
-          border-radius: 16px;
+          border-radius: 7px;
           box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
           animation: akc-menu-float-in 540ms cubic-bezier(0.16, 1, 0.3, 1) both;
         }
