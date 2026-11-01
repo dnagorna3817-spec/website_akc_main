@@ -850,3 +850,14 @@ html { scroll-padding-top: 72px; }
  .akc-intro-replay { bottom: 14%; right: 5%; font-size: 20px; padding: 7px 10px; }
  .akc-intro-replay span { display: none; }
 }
+
+/* Mobile uses the portrait MP4 only. Never show the desktop landscape poster. */
+@media (max-width: 767px) {
+ .logo-intro-poster { display: none !important; }
+ .logo-intro-layer .logo-intro-video {
+   object-fit: contain !important;
+   object-position: center center !important;
+   transform: scale(.86) !important;
+ }
+ .logo-intro-layer { background: transparent; }
+}
