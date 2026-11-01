@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const DESKTOP_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4";
+const MOBILE_LOGO_IMAGE = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/99e60122-094c-44fd-8aaf-3c97990035d3.png";
 
 export default function LogoIntro() {
-  const mobileRef = useRef<HTMLVideoElement>(null);
   const desktopRef = useRef<HTMLVideoElement>(null);
   const finished = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [playing, setPlaying] = useState(true);
+  const [mobileReplayKey, setMobileReplayKey] = useState(0);
 
   const finish = useCallback((animateMenu: boolean) => {
     if (finished.current) return;
@@ -31,21 +32,22 @@ export default function LogoIntro() {
   }, [finish]);
 
   useEffect(() => {
-    if (isMobile === null) return;
-    const video = isMobile ? mobileRef.current : desktopRef.current;
+    if (isMobile !== false) return;
+    const video = desktopRef.current;
     if (!video) return;
     video.muted = true;
-    video.play().catch(() => {
-      // The user can start playback with the replay button.
-      finish(false);
-    });
+    video.play().catch(() => finish(false));
   }, [isMobile, finish]);
 
   const replay = () => {
-    const video = isMobile ? mobileRef.current : desktopRef.current;
-    if (!video) return;
     finished.current = false;
     setPlaying(true);
+    if (isMobile) {
+      setMobileReplayKey((key) => key + 1);
+      return;
+    }
+    const video = desktopRef.current;
+    if (!video) return;
     video.pause();
     video.currentTime = 0;
     video.play().catch(() => finish(false));
@@ -53,17 +55,15 @@ export default function LogoIntro() {
 
   return (
     <div className="logo-intro-layer" data-intro-mode={playing ? "playing" : "static"} aria-label="Анімований логотип АКЦ">
-      <video
-        ref={mobileRef}
-        className="logo-intro-video logo-intro-video--mobile"
-        src={DESKTOP_VIDEO}
-        muted
-        autoPlay
-        playsInline
-        preload="auto"
-        onEnded={() => finish(true)}
-        aria-hidden="true"
-      />
+      <div className="akc-mobile-still" aria-hidden="true">
+        <img
+          key={mobileReplayKey}
+          className={playing ? "akc-mobile-logo-animate" : "akc-mobile-logo-static"}
+          src={MOBILE_LOGO_IMAGE}
+          alt=""
+          onAnimationEnd={() => finish(true)}
+        />
+      </div>
       <video
         ref={desktopRef}
         className="logo-intro-video logo-intro-video--desktop"
