@@ -484,15 +484,16 @@ export default function Home() {
 
           .nav-node--about .nav-line,
           .nav-node--about .nav-dot {
-            top: 13% !important;
+            top: 8% !important;
           }
 
           .nav-node--about .nav-line {
-            width: 34px !important;
+            width: 28px !important;
+            transform: rotate(90deg) !important;
           }
 
           .nav-node--about .nav-label {
-            top: 5% !important;
+            top: 0% !important;
           }
 
           .nav-label-wide {
