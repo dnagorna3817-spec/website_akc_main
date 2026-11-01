@@ -1297,19 +1297,30 @@ html { scroll-padding-top: 72px; }
 }
 
 
-/* Mobile: a definite gap between ALL decorative connector strokes and the emblem.
-   Lower connectors are intentionally short; no diagonal reaches the lower corners. */
+/* Stable iPhone reveal: no JS visibility gate or competing GSAP timeline.
+   4.1s matches the portrait intro duration; opacity animation works in Safari. */
+@keyframes akc-mobile-reveal {
+  0%, 1% { opacity: 0; }
+  100% { opacity: 1; }
+}
 @media (max-width: 767px) {
-  .nav-list[data-mobile-intro-ready="false"] {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
+  .nav-list,
+  .nav-list[data-mobile-intro-ready="false"],
   .nav-list[data-mobile-intro-ready="true"] {
+    display: block !important;
+    visibility: visible !important;
     opacity: 1;
-    visibility: visible;
-    transition: opacity 500ms ease;
+    animation: akc-mobile-reveal 650ms ease-out 4.1s both !important;
   }
+  .nav-node,
+  .nav-node .nav-label,
+  .nav-node .nav-dot,
+  .nav-node .nav-line,
+  .nav-node::after {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .nav-node .nav-label { pointer-events: auto !important; }
   .nav-node--industries::after,
   .nav-node--insights::after {
     width: 6.5vw !important;
@@ -1325,68 +1336,6 @@ html { scroll-padding-top: 72px; }
     height: 8px !important;
   }
 }
-
-
-/* Safari recovery: navigation must never be permanently hidden.
-   GSAP's existing intro timeline still handles the reveal when available. */
-@media (max-width: 767px) {
-  .nav-list,
-  .nav-list[data-mobile-intro-ready="false"],
-  .nav-list[data-mobile-intro-ready="true"] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  .nav-node,
-  .nav-node .nav-label,
-  .nav-node .nav-dot,
-  .nav-node .nav-line,
-  .nav-node::after {
-    visibility: visible !important;
-  }
-  .nav-node .nav-label { opacity: 1 !important; }
-  .nav-node .nav-dot { opacity: 1 !important; }
-  .nav-node::after { opacity: 1 !important; }
-}
-
-
-/* Mobile intro choreography: show the navigation only after the video finishes.
-   The event-driven ready state is backed by a 5.2s Safari fallback in page.tsx.
-   Override the earlier emergency always-visible rule without hiding the UI forever. */
-@keyframes akc-mobile-nav-appear {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@media (max-width: 767px) {
-  .nav-list[data-mobile-intro-ready="false"] {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-  .nav-list[data-mobile-intro-ready="true"] {
-    visibility: visible !important;
-    opacity: 1 !important;
-    animation: akc-mobile-nav-appear 850ms ease-out both;
-  }
-}
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
-  .nav-list[data-mobile-intro-ready="true"] { animation: none !important; }
-}
-
-
-/* Mobile uses a single CSS reveal; desktop GSAP is isolated above 767px.
-   Avoid hiding descendants with a paused GSAP timeline. */
-@media (max-width: 767px) {
-  .nav-list[data-mobile-intro-ready="true"] .nav-label,
-  .nav-list[data-mobile-intro-ready="true"] .nav-dot,
-  .nav-list[data-mobile-intro-ready="true"] .nav-line,
-  .nav-list[data-mobile-intro-ready="true"] .nav-node::after {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  .nav-list[data-mobile-intro-ready="true"] {
-    pointer-events: none;
-  }
-  .nav-list[data-mobile-intro-ready="true"] .nav-label {
-    pointer-events: auto !important;
-  }
+  .nav-list { animation: none !important; }
 }
