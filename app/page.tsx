@@ -4,6 +4,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
+import Image from "next/image";
 import { useExpertiseTransition } from "./components/ExpertiseTransition";
 import LogoIntro from "./components/LogoIntro";
 
@@ -132,7 +133,7 @@ export default function Home() {
       <LogoIntro />
       <header className="brand">
         <a className="brand-symbol" href="#home" aria-label="АКЦ">
-          △
+          <Image src="/akc-brand-white.png" width={40} height={40} alt="" priority />
         </a>
         <span>Аудит Консалтинг Центр</span>
         <button className="menu-button" type="button" aria-label="Відкрити меню">
@@ -267,10 +268,19 @@ export default function Home() {
         }
 
         .brand-symbol {
-          color: #d9f2ff;
-          font-size: 31px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 40px;
+          width: 40px;
+          height: 40px;
           text-decoration: none;
-          line-height: 1;
+        }
+
+        .brand-symbol img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
         }
 
         .menu-button {
