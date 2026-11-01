@@ -484,16 +484,16 @@ export default function Home() {
 
           .nav-node--about .nav-line,
           .nav-node--about .nav-dot {
-            top: 8% !important;
+            top: 12% !important;
           }
 
           .nav-node--about .nav-line {
-            width: 28px !important;
-            transform: rotate(90deg) !important;
+            width: 40px !important;
+            transform: rotate(-90deg) !important;
           }
 
           .nav-node--about .nav-label {
-            top: 0% !important;
+            top: 3% !important;
           }
 
           .nav-label-wide {
@@ -543,6 +543,16 @@ export default function Home() {
             width: 180px;
           }
 
+          /* Compact navigation for narrow screens: keep links clear of the logo. */
+          .network {
+            width: min(100vw - 32px, 500px);
+            height: min(56vh, 430px);
+          }
+
+          .network-scale {
+            width: 100%;
+          }
+
           .nav-node {
             width: 0;
             height: 0;
@@ -555,59 +565,84 @@ export default function Home() {
             top: 0 !important;
           }
 
+          .nav-line {
+            width: clamp(18px, 5vw, 30px) !important;
+          }
+
           .nav-label {
             top: auto !important;
             transform: translateX(-50%);
+            font-size: clamp(12px, 3.1vw, 16px);
           }
 
           .nav-node--about {
             left: 50%;
-            top: 19%;
+            top: 6%;
+          }
+
+          .nav-node--about .nav-line {
+            transform: rotate(-90deg) !important;
           }
 
           .nav-node--about .nav-label {
             left: 0 !important;
-            bottom: 60px;
+            bottom: 39px;
           }
 
           .nav-node--expertise {
-            left: 25%;
-            top: 36%;
+            left: 12%;
+            top: 38%;
+          }
+
+          .nav-node--expertise .nav-line {
+            transform: rotate(0deg) !important;
           }
 
           .nav-node--expertise .nav-label {
-            left: -42px !important;
-            bottom: 40px;
+            left: 0 !important;
+            bottom: 20px;
           }
 
           .nav-node--qualification {
-            left: 75%;
-            top: 36%;
+            left: 88%;
+            top: 38%;
+          }
+
+          .nav-node--qualification .nav-line {
+            transform: rotate(180deg) !important;
           }
 
           .nav-node--qualification .nav-label {
-            left: 35px !important;
-            bottom: 40px;
+            left: 0 !important;
+            bottom: 20px;
           }
 
           .nav-node--industries {
-            left: 25%;
-            top: 64%;
+            left: 12%;
+            top: 83%;
+          }
+
+          .nav-node--industries .nav-line {
+            transform: rotate(0deg) !important;
           }
 
           .nav-node--industries .nav-label {
-            left: -42px !important;
-            bottom: 18px;
+            left: 0 !important;
+            bottom: 20px;
           }
 
           .nav-node--insights {
-            left: 75%;
-            top: 64%;
+            left: 88%;
+            top: 83%;
+          }
+
+          .nav-node--insights .nav-line {
+            transform: rotate(180deg) !important;
           }
 
           .nav-node--insights .nav-label {
-            left: 42px !important;
-            bottom: 18px;
+            left: 0 !important;
+            bottom: 20px;
           }
 
           .hero-bottom {
