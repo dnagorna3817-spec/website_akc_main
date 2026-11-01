@@ -1295,3 +1295,33 @@ html { scroll-padding-top: 72px; }
     background-size: 100% 100% !important;
   }
 }
+
+
+/* Mobile: a definite gap between ALL decorative connector strokes and the emblem.
+   Lower connectors are intentionally short; no diagonal reaches the lower corners. */
+@media (max-width: 767px) {
+  .nav-list[data-mobile-intro-ready="false"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  .nav-list[data-mobile-intro-ready="true"] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 500ms ease;
+  }
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    width: 6.5vw !important;
+    max-width: 28px !important;
+    height: 0 !important;
+    border-top: 1.5px solid #48baff !important;
+    background-image: none !important;
+  }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after {
+    width: 9vw !important;
+    max-width: 40px !important;
+    height: 8px !important;
+  }
+}
