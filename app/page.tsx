@@ -320,7 +320,7 @@ export default function Home() {
         @media (min-width: 768px) {
           .logo-intro-poster img,
           .logo-intro-video {
-            transform: translateY(4%) scale(1.045);
+            transform: translateY(10%) scale(1);
             transform-origin: center center;
           }
         }
