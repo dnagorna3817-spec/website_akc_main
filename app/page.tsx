@@ -316,6 +316,15 @@ export default function Home() {
           background: transparent;
         }
 
+        /* Keep the logo tip clear of the top navigation marker on desktop. */
+        @media (min-width: 768px) {
+          .logo-intro-poster img,
+          .logo-intro-video {
+            transform: translateY(4%) scale(1.045);
+            transform-origin: center center;
+          }
+        }
+
         .hero {
           height: calc(100dvh - var(--header-height));
           min-height: calc(100svh - var(--header-height));
