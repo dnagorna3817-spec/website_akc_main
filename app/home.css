@@ -905,3 +905,20 @@ html { scroll-padding-top: 72px; }
       #000 0%, #000 57%, rgba(0,0,0,.86) 73%, transparent 100%);
   }
 }
+
+
+/* Isolated mobile experiment: show the original desktop intro footage.
+   The portrait viewport crops the wide frame symmetrically around its central emblem. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 85%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 85%, transparent 100%) !important;
+  }
+  .logo-intro-layer .logo-intro-video--mobile {
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+    transform: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}
