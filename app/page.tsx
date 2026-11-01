@@ -307,7 +307,9 @@ export default function Home() {
           inset: 0;
           overflow: hidden;
           pointer-events: none;
-          background: #010411;
+          background: transparent;
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 14%, #000 27%, #000 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, transparent 14%, #000 27%, #000 100%);
         }
 
         .logo-intro-poster,
@@ -416,7 +418,7 @@ export default function Home() {
           text-align: center;
           text-decoration: none;
           white-space: nowrap;
-          font-size: clamp(11px, 1.45vw, 16px);
+          font-size: clamp(16px, 1.65vw, 20px);
           font-weight: 500;
           letter-spacing: 0.02em;
           text-shadow: 0 0 18px rgba(60, 151, 255, 0.2);
@@ -582,7 +584,7 @@ export default function Home() {
           .nav-label {
             top: auto !important;
             transform: translateX(-50%);
-            font-size: clamp(12px, 3.1vw, 16px);
+            font-size: clamp(14px, 3.4vw, 18px);
           }
 
           .nav-node--about {
