@@ -1111,3 +1111,26 @@ html { scroll-padding-top: 72px; }
   .menu-backdrop { z-index: 28 !important; }
   .brand:has(.menu-button.is-open) { z-index: 31 !important; }
 }
+
+
+/* Restore the intro media: the hero must not paint an opaque layer above it.
+   Keep all navigation interactive and keep the media beneath the labels. */
+@media (max-width: 767px) {
+  .akc-page { isolation: isolate; }
+  .logo-intro-layer {
+    z-index: 1 !important;
+    pointer-events: none;
+  }
+  .hero {
+    z-index: 2 !important;
+    background: transparent !important;
+  }
+  .network-frame,
+  .network-scale,
+  .network,
+  .nav-list { background: transparent !important; }
+  .brand { z-index: 4; }
+  .logo-intro-layer .akc-intro-replay {
+    pointer-events: auto !important;
+  }
+}
