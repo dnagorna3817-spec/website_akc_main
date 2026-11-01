@@ -3,10 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type IntroMode = "checking" | "playing" | "static";
+const MOBILE_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4";
+const DESKTOP_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4";
 
 export default function LogoIntro() {
   const [mode, setMode] = useState<IntroMode>("checking");
   const [videoError, setVideoError] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const finished = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -22,6 +25,10 @@ export default function LogoIntro() {
   }, []);
 
   useEffect(() => {
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    const updateVideo = () => setVideoSrc(mobileQuery.matches ? MOBILE_VIDEO : DESKTOP_VIDEO);
+    updateVideo();
+    mobileQuery.addEventListener("change", updateVideo);
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const skipIntro = reducedMotion;
     const frame = requestAnimationFrame(() => {
@@ -39,6 +46,7 @@ export default function LogoIntro() {
       safetyTimer.current = setTimeout(() => finish(true), 8000);
     });
     return () => {
+      mobileQuery.removeEventListener("change", updateVideo);
       cancelAnimationFrame(frame);
       if (safetyTimer.current) clearTimeout(safetyTimer.current);
     };
@@ -68,9 +76,11 @@ export default function LogoIntro() {
         />
       </picture>
 
-      {!videoError && (
+      {!videoError && videoSrc && (
         <video
+          key={videoSrc}
           ref={videoRef}
+          src={videoSrc}
           className="logo-intro-video"
           muted
           autoPlay
@@ -84,12 +94,9 @@ export default function LogoIntro() {
           }}
           onEnded={() => finish(true)}
           onError={() => { setVideoError(true); finish(false); }}
-        >
-          <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4" media="(max-width: 767px)" type="video/mp4" />
-          <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4" type="video/mp4" />
-        </video>
+        />
       )}
-      {!videoError && <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">↻ <span>Повторити анімацію</span></button>}
+      {!videoError && videoSrc && <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">↻ <span>Повторити анімацію</span></button>}
     </div>
   );
 }
