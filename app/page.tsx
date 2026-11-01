@@ -363,12 +363,12 @@ export default function Home() {
           max-height: calc(100dvh - var(--header-height) - 28px);
           overflow-y: auto;
           padding: 28px clamp(24px, 3vw, 38px) 34px;
-          background: linear-gradient(145deg, rgba(28, 66, 102, 0.56), rgba(4, 16, 36, 0.68) 75%);
-          -webkit-backdrop-filter: blur(30px) saturate(155%);
-          backdrop-filter: blur(30px) saturate(155%);
-          border: 1px solid rgba(177, 222, 255, 0.24);
-          border-radius: 22px;
-          box-shadow: 0 22px 70px rgba(0, 5, 20, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+          background: rgba(9, 19, 34, 0.78);
+          -webkit-backdrop-filter: blur(24px);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(225, 236, 248, 0.13);
+          border-radius: 16px;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
           animation: akc-menu-float-in 540ms cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
@@ -390,7 +390,7 @@ export default function Home() {
           min-height: 62px;
           padding: 12px 0;
           border: 0;
-          border-bottom: 1px solid rgba(155, 199, 236, 0.17);
+          border-bottom: 1px solid rgba(225, 236, 248, 0.1);
           background: transparent;
           color: #e6f0fc;
           text-align: left;
@@ -404,7 +404,7 @@ export default function Home() {
 
         .menu-link:hover,
         .menu-link:focus-visible {
-          color: #79caff;
+          color: #ffffff;
           padding-left: 5px;
         }
 
