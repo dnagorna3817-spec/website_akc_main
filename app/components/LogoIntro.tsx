@@ -2,36 +2,19 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const SESSION_KEY = "akc-logo-intro-seen";
 type IntroMode = "checking" | "playing" | "static";
-
-function rememberIntro() {
-  try {
-    sessionStorage.setItem(SESSION_KEY, "1");
-  } catch {
-    // Storage can be unavailable in privacy modes. The visual fallback still works.
-  }
-}
-
-function wasIntroSeen() {
-  try {
-    return sessionStorage.getItem(SESSION_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
 
 export default function LogoIntro() {
   const [mode, setMode] = useState<IntroMode>("checking");
   const [videoSource, setVideoSource] = useState<string | null>(null);
   const finished = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const finish = useCallback((animateMenu: boolean) => {
     if (finished.current) return;
     finished.current = true;
     if (safetyTimer.current) clearTimeout(safetyTimer.current);
-    rememberIntro();
     setMode("static");
     window.dispatchEvent(new CustomEvent("akc:intro-ready", {
       detail: { animateMenu },
@@ -63,6 +46,16 @@ export default function LogoIntro() {
     };
   }, [finish]);
 
+  const replay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    finished.current = false;
+    setMode("playing");
+    video.pause();
+    video.currentTime = 0;
+    video.play().catch(() => finish(false));
+  };
+
   return (
     <div className="logo-intro-layer" data-intro-mode={mode} role="img" aria-label="Металевий знак АКЦ">
       <picture className="logo-intro-poster">
@@ -79,6 +72,7 @@ export default function LogoIntro() {
 
       {videoSource && (
         <video
+          ref={videoRef}
           className="logo-intro-video"
           src={videoSource}
           muted
@@ -86,6 +80,7 @@ export default function LogoIntro() {
           playsInline
           preload="auto"
           aria-hidden="true"
+          onLoadedMetadata={(event) => { event.currentTarget.currentTime = 0; }}
           onCanPlay={(event) => {
             const video = event.currentTarget;
             if (mode === "playing" && video.paused && !video.ended) video.play().catch(() => finish(false));
@@ -94,6 +89,7 @@ export default function LogoIntro() {
           onError={() => { setVideoSource(null); finish(false); }}
         />
       )}
+      {videoSource && <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">↻ <span>Повторити анімацію</span></button>}
     </div>
   );
 }
