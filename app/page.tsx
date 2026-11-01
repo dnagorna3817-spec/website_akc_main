@@ -511,6 +511,11 @@ export default function Home() {
           .nav-label-wide {
             width: 240px;
           }
+
+          /* Keep the qualification label clear of its diagonal connector. */
+          .nav-node--qualification .nav-label {
+            top: 23% !important;
+          }
         }
 
         @media (min-width: 768px) and (max-width: 1199px) {
