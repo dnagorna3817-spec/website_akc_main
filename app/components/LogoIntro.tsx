@@ -6,7 +6,7 @@ type IntroMode = "checking" | "playing" | "static";
 
 export default function LogoIntro() {
   const [mode, setMode] = useState<IntroMode>("checking");
-  const [videoSource, setVideoSource] = useState<string | null>(null);
+  const [videoError, setVideoError] = useState(false);
   const finished = useRef(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -34,9 +34,7 @@ export default function LogoIntro() {
         return;
       }
 
-      setVideoSource(window.matchMedia("(max-width: 767px)").matches
-        ? "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4"
-        : "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4");
+
       setMode("playing");
       safetyTimer.current = setTimeout(() => finish(true), 8000);
     });
@@ -70,11 +68,10 @@ export default function LogoIntro() {
         />
       </picture>
 
-      {videoSource && (
+      {!videoError && (
         <video
           ref={videoRef}
           className="logo-intro-video"
-          src={videoSource}
           muted
           autoPlay
           playsInline
@@ -86,10 +83,13 @@ export default function LogoIntro() {
             if (mode === "playing" && video.paused && !video.ended) video.play().catch(() => finish(false));
           }}
           onEnded={() => finish(true)}
-          onError={() => { setVideoSource(null); finish(false); }}
-        />
+          onError={() => { setVideoError(true); finish(false); }}
+        >
+          <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4" media="(max-width: 767px)" type="video/mp4" />
+          <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4" type="video/mp4" />
+        </video>
       )}
-      {videoSource && <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">↻ <span>Повторити анімацію</span></button>}
+      {!videoError && <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">↻ <span>Повторити анімацію</span></button>}
     </div>
   );
 }
