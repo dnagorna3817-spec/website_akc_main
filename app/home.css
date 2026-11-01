@@ -937,3 +937,24 @@ html { scroll-padding-top: 72px; }
     display: none !important;
   }
 }
+
+
+/* Mobile video seam polish — visual treatment only; playback untouched. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    isolation: isolate;
+  }
+  .logo-intro-layer .logo-intro-video--mobile {
+    /* Retain full frame and fade its rectangular perimeter into the hero. */
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    -webkit-mask-image: radial-gradient(ellipse 69% 41% at 50% 50%,
+      #000 0%, #000 52%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.34) 86%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 69% 41% at 50% 50%,
+      #000 0%, #000 52%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.34) 86%, transparent 100%) !important;
+    filter: brightness(.91) saturate(.88);
+  }
+}
