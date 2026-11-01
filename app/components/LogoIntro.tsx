@@ -24,7 +24,6 @@ function wasIntroSeen() {
 export default function LogoIntro() {
   const [mode, setMode] = useState<IntroMode>("checking");
   const [videoSource, setVideoSource] = useState<string | null>(null);
-  const [videoReady, setVideoReady] = useState(false);
   const finished = useRef(false);
   const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -88,12 +87,11 @@ export default function LogoIntro() {
           preload="auto"
           aria-hidden="true"
           onCanPlay={(event) => {
-            setVideoReady(true);
             const video = event.currentTarget;
             if (mode === "playing" && video.paused && !video.ended) video.play().catch(() => finish(false));
           }}
           onEnded={() => finish(true)}
-          onError={() => { setVideoReady(false); setVideoSource(null); finish(false); }}
+          onError={() => { setVideoSource(null); finish(false); }}
         />
       )}
     </div>
