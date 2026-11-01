@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type IntroMode = "checking" | "playing" | "static";
-const MOBILE_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/79db2113-6d35-489f-8156-382666afd0d3.mp4";
+const MOBILE_VIDEO = "/mobile.mp4";
 const DESKTOP_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4";
 
 export default function LogoIntro() {
@@ -76,7 +76,7 @@ export default function LogoIntro() {
         />
       </picture>
 
-      {!videoError && videoSrc && (
+      {videoSrc && !videoError && (
         <video
           key={videoSrc}
           ref={videoRef}
