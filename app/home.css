@@ -1347,3 +1347,27 @@ html { scroll-padding-top: 72px; }
   .nav-node .nav-dot { opacity: 1 !important; }
   .nav-node::after { opacity: 1 !important; }
 }
+
+
+/* Mobile intro choreography: show the navigation only after the video finishes.
+   The event-driven ready state is backed by a 5.2s Safari fallback in page.tsx.
+   Override the earlier emergency always-visible rule without hiding the UI forever. */
+@keyframes akc-mobile-nav-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (max-width: 767px) {
+  .nav-list[data-mobile-intro-ready="false"] {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  .nav-list[data-mobile-intro-ready="true"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: akc-mobile-nav-appear 850ms ease-out both;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .nav-list[data-mobile-intro-ready="true"] { animation: none !important; }
+}
