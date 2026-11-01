@@ -56,7 +56,7 @@ export default function LogoIntro() {
       <video
         ref={mobileRef}
         className="logo-intro-video logo-intro-video--mobile"
-        src="/mobile.mp4"
+        src={DESKTOP_VIDEO}
         muted
         autoPlay
         playsInline
