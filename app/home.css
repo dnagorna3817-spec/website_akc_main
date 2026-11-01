@@ -1212,3 +1212,54 @@ html { scroll-padding-top: 72px; }
   .menu-panel .menu-link { pointer-events: auto !important; }
   .brand:has(.menu-button.is-open) { z-index: 33 !important; }
 }
+
+
+/* Mobile navigation: elbow connectors stop at the triangle's outer edge.
+   Two-segment paths are drawn separately from the original straight lines. */
+@media (max-width: 767px) {
+  .nav-node--expertise .nav-line,
+  .nav-node--qualification .nav-line,
+  .nav-node--industries .nav-line,
+  .nav-node--insights .nav-line {
+    display: none !important;
+  }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after,
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: clamp(68px, 21vw, 104px);
+    height: clamp(32px, 9.5vw, 48px);
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: .95;
+  }
+  /* The line leaves the blue dot horizontally, then bends toward the logo. */
+  .nav-node--expertise::after,
+  .nav-node--industries::after {
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 45' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H53 L100 45' fill='none' stroke='%2348baff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  }
+  .nav-node--qualification::after,
+  .nav-node--insights::after {
+    right: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 45' preserveAspectRatio='none'%3E%3Cpath d='M100 0 H47 L0 45' fill='none' stroke='%2348baff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  }
+  /* On the reference iPhone layout, the emblem is centered around 51% of hero height.
+     Keep both lower connector ends above the base and outside the blue outline. */
+  .nav-node--expertise { left: 17% !important; top: 45% !important; }
+  .nav-node--qualification { left: 83% !important; top: 45% !important; }
+  .nav-node--industries { left: 17% !important; top: 56.5% !important; }
+  .nav-node--insights { left: 83% !important; top: 56.5% !important; }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after { height: clamp(27px, 8vw, 40px); }
+  .nav-node--industries::after,
+  .nav-node--insights::after { height: clamp(19px, 5.5vw, 28px); }
+  .nav-node--about .nav-line {
+    width: clamp(35px, 5.3vh, 55px) !important;
+  }
+}
