@@ -1134,3 +1134,81 @@ html { scroll-padding-top: 72px; }
     pointer-events: auto !important;
   }
 }
+
+
+/* Mobile final polish: diagram connectors, clickable navigation, functional menu overlay. */
+@media (max-width: 767px) {
+  /* Remove the circular replay control below the emblem (video still plays normally). */
+  .logo-intro-layer .akc-intro-replay { display: none !important; }
+
+  /* Allow the hero labels to receive taps while leaving the decorative layers inert. */
+  .network-frame, .network-scale, .network, .nav-list, .nav-node {
+    pointer-events: none !important;
+  }
+  .nav-node .nav-label {
+    pointer-events: auto !important;
+    position: absolute !important;
+    z-index: 7 !important;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .nav-node .nav-dot { z-index: 2; }
+  .nav-node .nav-line {
+    z-index: 1;
+    height: 1.5px !important;
+    background: linear-gradient(90deg, #4abaff, rgba(47,164,255,.82)) !important;
+  }
+
+  /* Extend the connectors from each glowing dot toward the actual triangle edge. */
+  .nav-node--about .nav-line {
+    width: clamp(45px, 6.5vh, 72px) !important;
+    transform: rotate(90deg) !important;
+  }
+  .nav-node--expertise .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(16deg) !important;
+  }
+  .nav-node--industries .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(16deg) !important;
+  }
+  .nav-node--qualification .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(164deg) !important;
+  }
+  .nav-node--insights .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(164deg) !important;
+  }
+
+  /* The hamburger remains above the hero; its menu is a fixed tappable overlay. */
+  .brand { position: relative !important; z-index: 20 !important; }
+  .brand .menu-button {
+    position: relative;
+    z-index: 22;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+  .menu-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 30 !important;
+    pointer-events: auto !important;
+  }
+  .menu-panel {
+    position: fixed !important;
+    z-index: 32 !important;
+    top: calc(var(--header-height) + 8px) !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - var(--header-height) - 24px) !important;
+    overflow-y: auto;
+    pointer-events: auto !important;
+  }
+  .menu-panel .menu-link { pointer-events: auto !important; }
+  .brand:has(.menu-button.is-open) { z-index: 33 !important; }
+}
