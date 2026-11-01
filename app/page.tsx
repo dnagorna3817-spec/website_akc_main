@@ -185,6 +185,19 @@ export default function Home() {
           <span />
         </button>
       </header>
+      {mounted && createPortal(
+        <button
+          type="button"
+          className={`mobile-menu-trigger${menuOpen ? " is-open" : ""}`}
+          aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}
+          aria-expanded={menuOpen}
+          aria-controls="akc-navigation-menu"
+          onClick={() => { setMenuOpen((open) => !open); setShowContacts(false); }}
+        >
+          <span /><span /><span />
+        </button>,
+        document.body
+      )}
       {menuOpen && mounted && createPortal(
         <>
           <button className="menu-backdrop" type="button" aria-label="Закрити меню" onClick={() => { setMenuOpen(false); setShowContacts(false); }} />
