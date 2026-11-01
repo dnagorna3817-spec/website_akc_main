@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const DESKTOP_VIDEO = "https://d2ol7oe51mr4n9.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/e2cd2649-88b7-4782-b936-70055d6b5c1d.mp4";
-const MOBILE_VIDEO = "/mobile.mp4";
+const MOBILE_VIDEO = "https://d8j0ntlcm91z4.cloudfront.net/user_3LVD6Gemet7eA8hG9ab86TDoslj/hf_20261101_181035_39aca5a7-7e89-425b-89a0-cd6337ced634.mp4";
 
 export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
