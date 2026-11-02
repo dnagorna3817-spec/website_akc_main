@@ -45,15 +45,13 @@ export function ExpertiseHeader() {
 }
 
 export function CalculatorPlaceholder({ preview = false }: { preview?: boolean }) {
-  const statusId = preview ? "calculator-preview-status" : "calculator-status";
   return (
     <div className={styles.calculatorWrap}>
-      <button className={styles.calculator} type="button" disabled aria-describedby={statusId}>
+      <Link className={styles.calculator} href="/expertise/calculator">
         <span>РОЗРАХУВАТИ ВАРТІСТЬ ПОСЛУГ</span>
         <small>Попередній розрахунок за 1–2 хвилини</small>
         <Arrow />
-      </button>
-      <span id={statusId} className={styles.srOnly}>Калькулятор наразі недоступний.</span>
+      </Link>
     </div>
   );
 }
