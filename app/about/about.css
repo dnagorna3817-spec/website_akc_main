@@ -1720,3 +1720,13 @@ body {
     line-height: 1.3;
   }
 }
+
+/* Remove the extra sweeping arc behind the heading; keep only the
+   dotted orbit beside the credentials. Its SVG stroke fades at both ends. */
+.akc-about-figma .credentials--editorial::before {
+  content: none;
+  display: none;
+}
+.akc-about-figma .credentials--editorial .credentials__orbit-path {
+  stroke: url(#credentials-arc-fade);
+}
