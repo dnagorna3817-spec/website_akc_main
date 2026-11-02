@@ -1341,3 +1341,24 @@ body {
 .akc-about-figma .services__grid .service--4 .service__bullet-list { gap:13px; }
 .akc-about-figma .services__grid .service--4 .service__bullet-list li { font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
 @media(max-width:600px) { .akc-about-figma .services__grid .service--4 .service__content { left:24px; right:20px; } }
+
+/* Consistent vertically centered bullet content for Outsourcing and Consulting. */
+.akc-about-figma .services__grid .service--2 .service__content,
+.akc-about-figma .services__grid .service--3 .service__content {
+  top: 50%; bottom: auto; left: 26px; right: 20px;
+  width: auto; transform: translateY(-50%);
+}
+.akc-about-figma .services__grid .service--2 h3,
+.akc-about-figma .services__grid .service--3 h3 {
+  font-size: clamp(20px,1.65vw,25px);
+  line-height: 1.15; margin-bottom: 24px;
+  overflow-wrap: normal; word-break: normal;
+}
+.akc-about-figma .services__grid .service--2 .service__bullet-list,
+.akc-about-figma .services__grid .service--3 .service__bullet-list { gap: 17px; }
+.akc-about-figma .services__grid .service--2 .service__bullet-list li,
+.akc-about-figma .services__grid .service--3 .service__bullet-list li { font-size: 13px; line-height: 1.48; }
+@media (max-width:600px) {
+  .akc-about-figma .services__grid .service--2 .service__content,
+  .akc-about-figma .services__grid .service--3 .service__content { top:50%; left:26px; right:20px; }
+}
