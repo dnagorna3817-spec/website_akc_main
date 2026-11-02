@@ -11,7 +11,7 @@ const metrics = [
 ]
 
 const services = [
-  ["АУДИТ", "Фінансова звітність", "Аудиторські завдання", "ribbons"],
+  ["АУДИТ", "аудит фінансової звітності", "перевірка обліку та внутрішнього контролю", "ribbons"],
   ["БУХГАЛТЕРСЬКИЙ ОБЛІК", "Супровід", "Відновлення обліку", "lens"],
   ["ПОДАТКИ", "Аналіз ризиків", "Податковий аналіз", "wave"],
   ["МСФЗ", "Консультації", "Підготовка звітностей", "orbit"],
@@ -456,7 +456,7 @@ function AboutPage() {
                 <div className="service__glow service__glow--secondary" aria-hidden="true" />
                 <div className="service__content">
                   <h3>{title}</h3>
-                  <p>{lineOne}<br />{lineTwo}</p>
+                  <p>{lineOne}<br />{lineTwo}{index === 0 && <><br />оцінка ризиків<br />рекомендації щодо покращення</>}</p>
                 </div>
               </article>
             ))}
