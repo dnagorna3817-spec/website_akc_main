@@ -1949,3 +1949,18 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Credentials cards stay completely still; other About animations remain. */
+.akc-about-figma .credentials--editorial .credential,
+.akc-about-figma .credentials--editorial.entered .credential,
+.akc-about-figma .credentials--editorial .credential:hover {
+  animation: none !important;
+  animation-delay: 0ms !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+.akc-about-figma .credentials--editorial .credential:hover {
+  border-color: rgba(132,197,255,.18);
+}
