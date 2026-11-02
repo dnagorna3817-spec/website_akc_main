@@ -442,25 +442,21 @@ function AboutPage() {
       </section>
 
       <section className="services" aria-label="Наші послуги">
-        {services.map(([title, lineOne, lineTwo, variant], index) => (
-          <article
-            className={`service service--${index + 1}`}
-            key={title}
-            data-enter
-          >
-            <div className="service__art">
-              <ServiceArtwork variant={variant} />
-            </div>
-            <div className="service__content">
-              <h3>{title}</h3>
-              <p>
-                {lineOne}
-                <br />
-                {lineTwo}
-              </p>
-            </div>
-          </article>
-        ))}
+        <div className="services__frame">
+          <h2 className="services__heading">Наші <span>напрями роботи</span></h2>
+          <div className="services__grid">
+            {services.map(([title, lineOne, lineTwo], index) => (
+              <article className={`service service--${index + 1}`} key={title}>
+                <div className="service__glow service__glow--primary" aria-hidden="true" />
+                <div className="service__glow service__glow--secondary" aria-hidden="true" />
+                <div className="service__content">
+                  <h3>{title}</h3>
+                  <p>{lineOne}<br />{lineTwo}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="credentials" data-enter>
