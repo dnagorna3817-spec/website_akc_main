@@ -1437,7 +1437,7 @@ body {
   isolation: isolate;
   overflow: hidden;
   background-color: #02040b;
-  background-image: url("/media/akc-about-manifesto-beams.svg");
+  background-image: url("/media/akc-about-manifesto-background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1455,31 +1455,6 @@ body {
 }
 @media (max-width: 700px) {
   .akc-about-figma .manifesto {
-    background-position: 30% center;
-  }
-}
-
-/* Match the manifesto artwork instead of drawing hard CSS light bars.
-   The shared image is already referenced by the manifesto section. */
-.akc-about-figma .credentials {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background-color: #02040b;
-  background-image: url("/media/akc-about-manifesto-beams.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.akc-about-figma .credentials::before {
-  content: none;
-}
-.akc-about-figma .credentials > * {
-  position: relative;
-  z-index: 1;
-}
-@media (max-width: 700px) {
-  .akc-about-figma .credentials {
     background-position: 30% center;
   }
 }
