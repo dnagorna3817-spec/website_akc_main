@@ -1738,13 +1738,22 @@ body {
     padding-bottom: clamp(75px, 7vw, 105px);
   }
   .akc-about-figma .numbers {
-    min-height: 290px;
-    padding-top: 50px;
-    padding-bottom: 55px;
+    min-height: 340px;
+    padding-top: 65px;
+    padding-bottom: 65px;
     align-items: center;
   }
+  .akc-about-figma .number,
+  .akc-about-figma .number--1,
+  .akc-about-figma .number--2,
+  .akc-about-figma .number--3,
+  .akc-about-figma .number--4 {
+    min-height: 195px;
+    padding-bottom: 40px;
+    transform: none;
+  }
   .akc-about-figma .numbers__line {
-    bottom: 52px;
+    bottom: 35px;
   }
 }
 @media (min-width: 601px) and (max-width: 1000px) {
