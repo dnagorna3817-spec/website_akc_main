@@ -1477,3 +1477,115 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* Editorial credentials redesign: curved orbital light, no numerical labels. */
+.akc-about-figma .credentials--editorial {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(65px, 9vw, 145px);
+  min-height: 720px;
+  padding: clamp(105px, 10vw, 150px) var(--edge);
+  background:
+    radial-gradient(ellipse 45% 46% at 24% 94%, rgba(17,72,146,.25), transparent 85%),
+    radial-gradient(ellipse 55% 60% at 100% 0%, rgba(18,49,99,.23), transparent 85%),
+    #030915;
+}
+.akc-about-figma .credentials--editorial::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  left: -21%;
+  bottom: -86%;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(109,184,255,.55);
+  box-shadow: 0 -2px 14px rgba(61,155,255,.33), 0 -12px 75px rgba(36,108,216,.14), inset 0 18px 100px rgba(21,81,166,.12);
+  transform: rotate(-15deg);
+}
+.akc-about-figma .credentials--editorial::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(to bottom, #030915 0%, transparent 17%, transparent 80%, #030915 100%);
+}
+.akc-about-figma .credentials--editorial > * { position: relative; z-index: 1; }
+.akc-about-figma .credentials--editorial .credentials__heading { padding-left: 0; }
+.akc-about-figma .credentials--editorial .credentials__eyebrow {
+  display: block; margin-bottom: 30px; color: #7caee5;
+  font-size: 12px; font-weight: 500; letter-spacing: .48em;
+}
+.akc-about-figma .credentials--editorial .credentials__heading h2 {
+  font-size: clamp(34px, 4.1vw, 66px);
+  line-height: 1.13; letter-spacing: -.045em;
+}
+.akc-about-figma .credentials--editorial .credentials__heading h2 em {
+  font-style: italic; font-weight: 400; color: #79a8e5;
+  text-transform: none;
+}
+.akc-about-figma .credentials--editorial .credentials__accent {
+  display: block; width: 78px; height: 2px; margin: 38px 0 27px;
+  background: linear-gradient(90deg, #9be7ff, #4385e9);
+}
+.akc-about-figma .credentials--editorial .credentials__description {
+  max-width: 420px; color: #aebccc; font-size: 16px; line-height: 1.7;
+}
+.akc-about-figma .credentials--editorial .credentials__list {
+  position: relative; border-top: 0;
+}
+.akc-about-figma .credentials--editorial .credential {
+  grid-template-columns: 64px 1px minmax(0, 1fr);
+  min-height: 137px; gap: clamp(22px, 2.5vw, 38px);
+  border-bottom: 1px solid rgba(119,163,207,.19);
+  transition: none;
+}
+.akc-about-figma .credentials--editorial .credential:first-child { border-top: 0; }
+.akc-about-figma .credentials--editorial .credential:hover { padding-inline: 0; }
+.akc-about-figma .credentials--editorial .credential__symbol { display: grid; place-items: center; }
+.akc-about-figma .credentials--editorial .credential__symbol svg {
+  width: 47px; height: 47px; color: #79b5ee; opacity: 1;
+  stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.akc-about-figma .credentials--editorial .credential__separator {
+  display: block; height: 62px; background: linear-gradient(transparent, #81baf2, transparent);
+}
+.akc-about-figma .credentials--editorial .credential p {
+  color: #e0e7f1; font-size: clamp(17px, 1.55vw, 23px); line-height: 1.35;
+}
+.akc-about-figma .credentials--editorial .credentials__orbit {
+  position: absolute; left: 43%; top: -25%; width: 39%; height: 150%;
+  border-left: 1px solid rgba(100,173,242,.42);
+  border-radius: 50%; transform: rotate(5deg); pointer-events: none;
+}
+.akc-about-figma .credentials--editorial .credentials__orbit-dot {
+  position: absolute; left: -4px; width: 7px; height: 7px; border-radius: 50%;
+  background: #a5e8ff; box-shadow: 0 0 15px rgba(66,168,255,.9);
+}
+.akc-about-figma .credentials--editorial .credentials__orbit-dot--1 { top: 25%; }
+.akc-about-figma .credentials--editorial .credentials__orbit-dot--2 { top: 40%; }
+.akc-about-figma .credentials--editorial .credentials__orbit-dot--3 { top: 55%; }
+.akc-about-figma .credentials--editorial .credentials__orbit-dot--4 { top: 70%; }
+@media (max-width: 1000px) {
+  .akc-about-figma .credentials--editorial {
+    grid-template-columns: 1fr; gap: 48px; min-height: 0;
+    padding-block: 90px;
+  }
+  .akc-about-figma .credentials--editorial .credentials__orbit { display: none; }
+  .akc-about-figma .credentials--editorial .credentials__heading { border: 0; padding: 0; }
+  .akc-about-figma .credentials--editorial .credential { min-height: 110px; }
+}
+@media (max-width: 600px) {
+  .akc-about-figma .credentials--editorial { padding-block: 75px; }
+  .akc-about-figma .credentials--editorial .credentials__eyebrow { font-size: 10px; letter-spacing: .28em; }
+  .akc-about-figma .credentials--editorial .credentials__heading h2 { font-size: clamp(32px, 9vw, 43px); }
+  .akc-about-figma .credentials--editorial .credentials__description { font-size: 14px; }
+  .akc-about-figma .credentials--editorial .credential { grid-template-columns: 43px 1px 1fr; gap: 16px; }
+  .akc-about-figma .credentials--editorial .credential__symbol svg { width: 34px; height: 34px; }
+  .akc-about-figma .credentials--editorial .credential p { font-size: 16px; }
+}
