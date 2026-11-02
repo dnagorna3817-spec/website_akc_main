@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1525" height="990" viewBox="0 0 1525 990">
+<defs>
+ <linearGradient id="beam"><stop stop-color="#00103e"/><stop offset=".34" stop-color="#0645dc"/><stop offset=".66" stop-color="#031e69"/><stop offset="1" stop-color="#000818"/></linearGradient>
+ <radialGradient id="leftFade" gradientUnits="userSpaceOnUse" cx="250" cy="190" rx="550" ry="540"><stop offset=".05" stop-color="white"/><stop offset=".40" stop-color="white" stop-opacity=".83"/><stop offset=".74" stop-color="white" stop-opacity=".17"/><stop offset="1" stop-color="black"/></radialGradient>
+ <radialGradient id="rightFade" gradientUnits="userSpaceOnUse" cx="1380" cy="780" rx="440" ry="370"><stop offset=".06" stop-color="white" stop-opacity=".8"/><stop offset=".43" stop-color="white" stop-opacity=".55"/><stop offset=".8" stop-color="white" stop-opacity=".1"/><stop offset="1" stop-color="black"/></radialGradient>
+ <radialGradient id="ambient"><stop stop-color="#051334" stop-opacity=".35"/><stop offset="1" stop-color="#02040b" stop-opacity="0"/></radialGradient>
+ <mask id="leftMask"><rect width="1525" height="990" fill="url(#leftFade)"/></mask>
+ <mask id="rightMask"><rect width="1525" height="990" fill="url(#rightFade)"/></mask>
+ <filter id="soft"><feGaussianBlur stdDeviation="12"/></filter>
+</defs>
+<rect width="1525" height="990" fill="#02040b"/>
+<ellipse cx="240" cy="250" rx="490" ry="510" fill="url(#ambient)"/>
+<g mask="url(#leftMask)"><g opacity=".6" filter="url(#soft)"><rect x="120" y="0" width="39" height="990" fill="url(#beam)" opacity="0.62"/>
+<rect x="178" y="0" width="39" height="990" fill="url(#beam)" opacity="0.9"/>
+<rect x="237" y="0" width="39" height="990" fill="url(#beam)" opacity="0.95"/>
+<rect x="296" y="0" width="39" height="990" fill="url(#beam)" opacity="0.9"/>
+<rect x="353" y="0" width="39" height="990" fill="url(#beam)" opacity="0.73"/>
+<rect x="411" y="0" width="30" height="990" fill="url(#beam)" opacity="0.52"/>
+<rect x="469" y="0" width="30" height="990" fill="url(#beam)" opacity="0.3"/>
+<rect x="526" y="0" width="30" height="990" fill="url(#beam)" opacity="0.13"/></g><rect x="120" y="0" width="39" height="990" fill="url(#beam)" opacity="0.62"/>
+<rect x="178" y="0" width="39" height="990" fill="url(#beam)" opacity="0.9"/>
+<rect x="237" y="0" width="39" height="990" fill="url(#beam)" opacity="0.95"/>
+<rect x="296" y="0" width="39" height="990" fill="url(#beam)" opacity="0.9"/>
+<rect x="353" y="0" width="39" height="990" fill="url(#beam)" opacity="0.73"/>
+<rect x="411" y="0" width="30" height="990" fill="url(#beam)" opacity="0.52"/>
+<rect x="469" y="0" width="30" height="990" fill="url(#beam)" opacity="0.3"/>
+<rect x="526" y="0" width="30" height="990" fill="url(#beam)" opacity="0.13"/></g>
+<g mask="url(#rightMask)"><g opacity=".55" filter="url(#soft)"><rect x="1150" y="0" width="40" height="990" fill="url(#beam)" opacity="0.12"/>
+<rect x="1210" y="0" width="40" height="990" fill="url(#beam)" opacity="0.24"/>
+<rect x="1270" y="0" width="40" height="990" fill="url(#beam)" opacity="0.42"/>
+<rect x="1330" y="0" width="40" height="990" fill="url(#beam)" opacity="0.56"/>
+<rect x="1390" y="0" width="40" height="990" fill="url(#beam)" opacity="0.64"/>
+<rect x="1450" y="0" width="40" height="990" fill="url(#beam)" opacity="0.5"/></g><rect x="1150" y="0" width="40" height="990" fill="url(#beam)" opacity="0.12"/>
+<rect x="1210" y="0" width="40" height="990" fill="url(#beam)" opacity="0.24"/>
+<rect x="1270" y="0" width="40" height="990" fill="url(#beam)" opacity="0.42"/>
+<rect x="1330" y="0" width="40" height="990" fill="url(#beam)" opacity="0.56"/>
+<rect x="1390" y="0" width="40" height="990" fill="url(#beam)" opacity="0.64"/>
+<rect x="1450" y="0" width="40" height="990" fill="url(#beam)" opacity="0.5"/></g>
+</svg>
