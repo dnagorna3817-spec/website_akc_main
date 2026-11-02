@@ -378,13 +378,21 @@ function AboutPage() {
   return (
     <main className="akc-about-figma page">
       <header className="nav">
-        <a className="nav__brand" href="/" aria-label="На головну">
-          АКЦ
+        <a className="nav__brand" href="/" aria-label="Аудит Консалтинг Центр — головна">
+          <svg className="nav__logo" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+            <path d="M28 5 5 46h46L28 5ZM28 19 17 39h22L28 19ZM28 5v14M5 46l12-7m34 7-12-7" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round"/>
+            <path d="m28 30-8 14h16l-8-14Z" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+          <span>Аудит Консалтинг Центр</span>
         </a>
-        <span className="nav__rule" />
-        <a className="nav__back" href="/">
-          ← ГОЛОВНА
-        </a>
+        <nav className="nav__links" aria-label="Основна навігація">
+          <a className="nav__active" href="/about" aria-current="page">Про АКЦ</a>
+          <a href="/insights">Insights</a>
+          <a href="/qualification-center">Кваліфікаційний центр</a>
+          <a href="/industries">Галузі</a>
+          <a href="/expertise">Експертиза</a>
+        </nav>
+        <a className="nav__contact" href="#contacts">Контакти <span aria-hidden="true">→</span></a>
       </header>
 
       <section className="hero" aria-labelledby="page-title">
