@@ -1430,58 +1430,31 @@ body {
 }
 
 
-/* Seamless vertical light: separate soft light fields without rectangular edges. */
+/* Use the approved light-beam artwork as the manifesto background.
+   The SVG has its own soft fades on every edge, avoiding hard seams. */
 .akc-about-figma .manifesto {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #02040b;
+  background-color: #02040b;
+  background-image: url("/media/akc-about-manifesto-beams.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .akc-about-figma .manifesto::before,
 .akc-about-figma .manifesto::after {
-  content: "";
-  position: absolute;
-  inset: -20% 0;
-  z-index: -1;
-  pointer-events: none;
-  background-repeat: no-repeat;
-}
-/* Left beams: strongest above the title, smoothly disappear in both axes. */
-.akc-about-figma .manifesto::before {
-  background: repeating-linear-gradient(90deg,
-    transparent 0 33px,
-    rgba(8, 42, 134, .07) 38px,
-    rgba(21, 89, 248, .36) 45px,
-    rgba(10, 48, 154, .18) 56px,
-    transparent 70px);
-  -webkit-mask-image:
-    radial-gradient(ellipse 48% 62% at 6% 30%,
-      #000 0%, rgba(0,0,0,.9) 19%, rgba(0,0,0,.48) 48%, rgba(0,0,0,.12) 72%, transparent 100%);
-  mask-image:
-    radial-gradient(ellipse 48% 62% at 6% 30%,
-      #000 0%, rgba(0,0,0,.9) 19%, rgba(0,0,0,.48) 48%, rgba(0,0,0,.12) 72%, transparent 100%);
-}
-/* Right beams: very subtle, concentrated low and right. */
-.akc-about-figma .manifesto::after {
-  background: repeating-linear-gradient(90deg,
-    transparent 0 33px,
-    rgba(7, 35, 115, .05) 39px,
-    rgba(15, 68, 216, .19) 47px,
-    rgba(7, 38, 136, .09) 57px,
-    transparent 70px);
-  -webkit-mask-image:
-    radial-gradient(ellipse 29% 56% at 98% 78%,
-      rgba(0,0,0,.78) 0%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.10) 72%, transparent 100%);
-  mask-image:
-    radial-gradient(ellipse 29% 56% at 98% 78%,
-      rgba(0,0,0,.78) 0%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.10) 72%, transparent 100%);
+  content: none;
 }
 .akc-about-figma .manifesto > * {
   position: relative;
   z-index: 1;
 }
-.akc-about-figma .manifesto__copy { color: #e2e4e9; }
+.akc-about-figma .manifesto__copy {
+  color: #e2e4e9;
+}
 @media (max-width: 700px) {
-  .akc-about-figma .manifesto::before { opacity: .65; }
-  .akc-about-figma .manifesto::after { opacity: .45; }
+  .akc-about-figma .manifesto {
+    background-position: 30% center;
+  }
 }
