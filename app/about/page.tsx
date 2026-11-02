@@ -536,7 +536,30 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="closing" id="contacts" data-enter>
+      <section className="closing closing--light-waves" id="contacts" data-enter>
+        <div className="closing__light-waves" aria-hidden="true">
+          <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice" fill="none" focusable="false">
+            <defs>
+              <linearGradient id="akc-closing-wave-main" x1="0" y1="0.8" x2="1" y2="0.1">
+                <stop offset="0" stopColor="#256bd5" stopOpacity="0"/>
+                <stop offset=".38" stopColor="#3f9cff" stopOpacity=".68"/>
+                <stop offset=".74" stopColor="#74c9ff" stopOpacity=".92"/>
+                <stop offset="1" stopColor="#3999fc" stopOpacity="0"/>
+              </linearGradient>
+              <linearGradient id="akc-closing-wave-upper" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stopColor="#2c7fe7" stopOpacity="0"/>
+                <stop offset=".55" stopColor="#3eabff" stopOpacity=".7"/>
+                <stop offset="1" stopColor="#4ca9fa" stopOpacity="0"/>
+              </linearGradient>
+              <filter id="akc-closing-wave-glow" x="-35%" y="-100%" width="170%" height="300%">
+                <feGaussianBlur stdDeviation="15"/>
+              </filter>
+            </defs>
+            <path d="M65 630 C290 405 555 300 945 350" stroke="#237cff" strokeWidth="24" opacity=".22" filter="url(#akc-closing-wave-glow)"/>
+            <path d="M65 630 C290 405 555 300 945 350" stroke="url(#akc-closing-wave-main)" strokeWidth="1.7"/>
+            <path d="M350 520 C525 230 705 120 960 -10" stroke="url(#akc-closing-wave-upper)" strokeWidth="1.35"/>
+          </svg>
+        </div>
         <div className="closing__copy">
           <h2>
             ПОТРІБНА КОНСУЛЬТАЦІЯ
