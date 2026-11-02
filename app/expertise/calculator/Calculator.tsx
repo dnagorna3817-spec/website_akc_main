@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import { ExpertiseHeader, expertiseFont } from "../ExpertiseView";
 import styles from "./calculator.module.css";
 type Band = { no: number; yes: number };
 type PriceGroup = { ops: boolean; bands: Record<string,Band> };
@@ -56,8 +56,8 @@ export default function Calculator(){
   const details=["Попередній розрахунок АКЦ",kind,band,...rows.map(([label,price])=>label+": "+money(price)),"Разом: "+money(total)+" / місяць"];
   if(navigator.clipboard){void navigator.clipboard.writeText(details.join("\n")).then(()=>setCopied(true)).catch(()=>setCopied(false));}
  }
- return <main className={styles.page}><div className={styles.shell}>
-  <header className={styles.top}><Link href="/expertise" className={styles.back}>← Повернутися до експертизи</Link><Link href="/" className={styles.brand}>АКЦ <span>Аудит Консалтинг Центр</span></Link></header>
+ return <main className={`${styles.page} ${expertiseFont}`}><ExpertiseHeader /><div className={styles.shell}>
+  
   <div className={styles.intro}><p className={styles.eyebrow}>АКЦ / РОЗРАХУНОК ВАРТОСТІ</p><h1>Простий розрахунок.<br/><em>Прозора вартість.</em></h1><p className={styles.lead}>Відповідайте на кілька запитань — і одразу побачите орієнтовну вартість послуг для вашого бізнесу.</p></div>
   <div className={styles.layout}>
    <section className={styles.wizard} aria-label="Калькулятор послуг">
