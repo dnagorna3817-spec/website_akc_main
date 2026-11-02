@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import { ExpertiseHeader, expertiseFont } from "../ExpertiseView";
 import styles from "./calculator.module.css";
+import expertiseStyles from "../expertise.module.css";
 type Band = { no: number; yes: number };
 type PriceGroup = { ops: boolean; bands: Record<string,Band> };
 const books: Record<string,PriceGroup> = {
@@ -56,7 +57,7 @@ export default function Calculator(){
   const details=["Попередній розрахунок АКЦ",kind,band,...rows.map(([label,price])=>label+": "+money(price)),"Разом: "+money(total)+" / місяць"];
   if(navigator.clipboard){void navigator.clipboard.writeText(details.join("\n")).then(()=>setCopied(true)).catch(()=>setCopied(false));}
  }
- return <main className={`${styles.page} ${expertiseFont}`}><ExpertiseHeader /><div className={styles.shell}>
+ return <main className={`${styles.page} ${expertiseFont}`}><div className={`${expertiseStyles.page} ${styles.headerScope}`}><ExpertiseHeader /></div><div className={styles.shell}>
   
   <div className={styles.intro}><p className={styles.eyebrow}>АКЦ / РОЗРАХУНОК ВАРТОСТІ</p><h1>Простий розрахунок.<br/><em>Прозора вартість.</em></h1><p className={styles.lead}>Відповідайте на кілька запитань — і одразу побачите орієнтовну вартість послуг для вашого бізнесу.</p></div>
   <div className={styles.layout}>
