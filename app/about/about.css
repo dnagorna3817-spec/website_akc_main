@@ -2094,3 +2094,8 @@ body {
 @media (min-width:1161px) and (max-width:1320px){
  .akc-about-figma .nav__brand span{max-width:185px;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* Compact About navigation links to match the other AKC pages. */
+@media (min-width:1161px){
+ .akc-about-figma .nav__links{flex:0 1 auto;justify-content:flex-start;gap:clamp(18px,2vw,32px);margin-inline:auto}
+}
