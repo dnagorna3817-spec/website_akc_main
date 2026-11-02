@@ -1039,3 +1039,24 @@ body {
   }
 }
 }
+
+/* About hero: single-column editorial layout, no right-side artwork */
+.akc-about-figma .hero {
+  display: flex;
+  align-items: center;
+  min-height: min(780px, 92svh);
+  background: #01040b;
+}
+.akc-about-figma .hero__copy {
+  width: 100%;
+  max-width: 1000px;
+  padding: clamp(120px, 12vw, 180px) var(--edge) clamp(85px, 9vw, 130px);
+}
+.akc-about-figma .hero h1 { max-width: 950px; font-size: clamp(42px, 5.1vw, 76px); }
+.akc-about-figma .hero__body { max-width: 730px; }
+.akc-about-figma .kicker { margin-bottom: clamp(30px, 4vw, 54px) !important; }
+@media (max-width: 700px) {
+  .akc-about-figma .hero { min-height: auto; }
+  .akc-about-figma .hero__copy { padding: 135px var(--edge) 85px; }
+  .akc-about-figma .hero h1 { font-size: clamp(34px, 9vw, 52px); }
+}
