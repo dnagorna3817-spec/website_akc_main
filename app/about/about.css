@@ -1215,3 +1215,31 @@ body {
   .akc-about-figma .service::before { transition: opacity .4s ease, filter .4s ease; }
   .akc-about-figma .service:hover::before { opacity: 1; filter: blur(11px); }
 }
+
+/* Pixel-aligned adaptation of Figma node 1:7: 1178px dark rounded frame, 4 x 252px cards */
+.akc-about-figma .services { display:block; padding: clamp(36px,5vw,70px) clamp(24px,5vw,72px); background:#080911; }
+.akc-about-figma .services__frame { box-sizing:border-box; width:100%; max-width:1178px; margin:0 auto; padding:51px; border-radius:51px; border:1px solid rgba(120,137,190,.11); background:#020307; box-shadow:0 40px 120px rgba(0,0,0,.5); }
+.akc-about-figma .services__heading { margin:0 0 69px; color:#f7f8ff; font-size:clamp(38px,4.45vw,64px); line-height:1.1; letter-spacing:-.06em; font-weight:720; }
+.akc-about-figma .services__heading span { background:linear-gradient(90deg,#fbfcff 5%,#9dbdff 45%,#4a6cff 87%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.akc-about-figma .services__grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:21.76px; }
+.akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { box-sizing:border-box; display:block; grid-column:auto; grid-row:auto; height:505px; min-height:0; border:1px solid rgba(141,159,217,.14); border-radius:38.4px; overflow:hidden; background:#171a29; box-shadow:0 24px 50px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.06); transform:none; }
+.akc-about-figma .service::before { display:none; }
+.akc-about-figma .service::after { z-index:0; background:linear-gradient(125deg,rgba(255,255,255,.024),transparent 37%); }
+.akc-about-figma .service__glow { position:absolute; z-index:0; pointer-events:none; border-radius:999px; }
+.akc-about-figma .service__glow--primary { width:165px; height:219px; background:#3566ff; filter:blur(28px); opacity:.9; }
+.akc-about-figma .service__glow--secondary { width:87px; height:124px; background:#90f8ff; filter:blur(24px); opacity:.88; }
+.akc-about-figma .service--1 .service__glow--primary { left:69%; top:14%; }
+.akc-about-figma .service--1 .service__glow--secondary { left:75%; top:55%; background:#3a5877; }
+.akc-about-figma .service--2 .service__glow--primary { left:30%; top:81%; }
+.akc-about-figma .service--2 .service__glow--secondary { left:-8%; top:86%; }
+.akc-about-figma .service--3 .service__glow--primary { left:37%; top:-25%; }
+.akc-about-figma .service--3 .service__glow--secondary { left:74%; top:-12%; }
+.akc-about-figma .service--4 .service__glow--primary { left:49%; top:82%; }
+.akc-about-figma .service--4 .service__glow--secondary { left:75%; top:83%; }
+.akc-about-figma .service__content { position:absolute; z-index:2; left:28px; right:20px; top:249px; bottom:auto; display:block; padding:0; border:0; }
+.akc-about-figma .service--1 .service__content { top:260px; }
+.akc-about-figma .service h3 { margin:0 0 16px; max-width:100%; font-size:26.88px; line-height:1.04; font-weight:680; letter-spacing:-.034em; text-transform:none; }
+.akc-about-figma .service p { margin:0; font-size:15.2px; line-height:22.04px; color:rgba(234,238,255,.72); text-align:left; }
+.akc-about-figma .service:hover { transform:none; border-color:rgba(141,159,217,.14); box-shadow:0 24px 50px rgba(0,0,0,.24); }
+@media(max-width:1050px) { .akc-about-figma .services__frame { padding:36px; border-radius:38px; } .akc-about-figma .services__grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { height:470px; } .akc-about-figma .services__heading { margin-bottom:45px; } }
+@media(max-width:600px) { .akc-about-figma .services { padding:30px 16px; } .akc-about-figma .services__frame { padding:24px; border-radius:30px; } .akc-about-figma .services__heading { font-size:clamp(32px,8vw,44px); margin-bottom:30px; } .akc-about-figma .services__grid { grid-template-columns:1fr; gap:16px; } .akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { height:400px; border-radius:30px; } .akc-about-figma .service__content,.akc-about-figma .service--1 .service__content { top:205px; left:26px; } }
