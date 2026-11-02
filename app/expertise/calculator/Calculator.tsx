@@ -27,7 +27,7 @@ function Picker({label,value,options,onChange}:{label:string;value:string;option
  const [open,setOpen]=useState(false);
  const selected=options.find(o=>o.value===value)?.label??value;
  return <div className={styles.picker}><span className={styles.pickerLabel}>{label}</span><div className={styles.pickerShell}>
-  <button type="button" className={styles.pickerTrigger} aria-expanded={open} onClick={()=>setOpen(!open)}><span>{selected}</span><span className={styles.pickerChevron} aria-hidden="true">{open?"−":"+"}</span></button>
+  <button type="button" className={styles.pickerTrigger} aria-expanded={open} onClick={()=>setOpen(!open)}><span>{selected}</span><span className={styles.pickerChevron} aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></button>
   {open&&<div className={styles.pickerMenu} role="group" aria-label={label}>{options.map(option=><button type="button" key={option.value} className={option.value===value?styles.pickerSelected:styles.pickerOption} aria-pressed={option.value===value} onClick={()=>{onChange(option.value);setOpen(false);}}><span>{option.label}</span><span className={styles.pickerCheck} aria-hidden="true">{option.value===value?"✓":""}</span></button>)}</div>}
  </div></div>;
 }
