@@ -1803,3 +1803,95 @@ body {
     background: linear-gradient(120deg, #020711, #071b39);
   }
 }
+
+/* AKC About — restrained cinematic motion, GPU-friendly and accessible. */
+@media (prefers-reduced-motion: no-preference) {
+  .akc-about-figma .hero__copy > .kicker,
+  .akc-about-figma .hero__copy > h1,
+  .akc-about-figma .hero__copy > .hero__body,
+  .akc-about-figma .hero__copy > .action {
+    animation: akc-about-rise .9s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .hero__copy > .kicker { animation-delay: .08s; }
+  .akc-about-figma .hero__copy > h1 { animation-delay: .2s; }
+  .akc-about-figma .hero__copy > .hero__body { animation-delay: .34s; }
+  .akc-about-figma .hero__copy > .action { animation-delay: .46s; }
+
+  .akc-about-figma [data-enter] {
+    transition-duration: 950ms;
+    transition-timing-function: cubic-bezier(.22,1,.36,1);
+  }
+  .akc-about-figma .manifesto.entered .manifesto__headline,
+  .akc-about-figma .manifesto.entered .manifesto__copy,
+  .akc-about-figma .credentials--editorial.entered .credentials__heading,
+  .akc-about-figma .closing.entered .closing__copy {
+    animation: akc-about-rise .95s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .manifesto.entered .manifesto__copy { animation-delay: .14s; }
+  .akc-about-figma .numbers.entered .number {
+    animation: akc-about-soft-in .8s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .numbers.entered .number:nth-of-type(2) { animation-delay: .1s; }
+  .akc-about-figma .numbers.entered .number:nth-of-type(3) { animation-delay: .2s; }
+  .akc-about-figma .numbers.entered .number:nth-of-type(4) { animation-delay: .3s; }
+  .akc-about-figma .numbers.entered .number:nth-of-type(5) { animation-delay: .4s; }
+
+  .akc-about-figma .services.entered .services__heading {
+    animation: akc-about-rise .85s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .services.entered .service {
+    animation: akc-about-soft-in .85s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .services.entered .service:nth-child(1) { animation-delay: .08s; }
+  .akc-about-figma .services.entered .service:nth-child(2) { animation-delay: .17s; }
+  .akc-about-figma .services.entered .service:nth-child(3) { animation-delay: .26s; }
+  .akc-about-figma .services.entered .service:nth-child(4) { animation-delay: .35s; }
+
+  .akc-about-figma .credentials--editorial.entered .credential {
+    animation: akc-about-soft-in .8s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .credentials--editorial.entered .credential:nth-child(1) { animation-delay: .1s; }
+  .akc-about-figma .credentials--editorial.entered .credential:nth-child(2) { animation-delay: .2s; }
+  .akc-about-figma .credentials--editorial.entered .credential:nth-child(3) { animation-delay: .3s; }
+  .akc-about-figma .credentials--editorial.entered .credential:nth-child(4) { animation-delay: .4s; }
+  .akc-about-figma .credentials--editorial.entered .credentials__orbit {
+    animation: akc-about-orbit-in 1.4s ease-out both;
+  }
+  .akc-about-figma .closing--light-waves .closing__light-waves {
+    animation: akc-about-wave-breathe 11s ease-in-out infinite alternate;
+    transform-origin: 70% 60%;
+  }
+  .akc-about-figma .closing--light-waves .closing__copy .action {
+    transition: background 300ms ease, box-shadow 300ms ease;
+  }
+  .akc-about-figma .closing--light-waves .closing__copy .action:hover {
+    box-shadow: 0 0 28px rgba(67,160,255,.12);
+  }
+}
+@keyframes akc-about-rise {
+  from { opacity: 0; transform: translate3d(0,22px,0); }
+  to { opacity: 1; transform: translate3d(0,0,0); }
+}
+@keyframes akc-about-soft-in {
+  from { opacity: 0; filter: blur(3px); }
+  to { opacity: 1; filter: blur(0); }
+}
+@keyframes akc-about-orbit-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes akc-about-wave-breathe {
+  from { opacity: .72; transform: translate3d(0,0,0) scale(1); }
+  to { opacity: 1; transform: translate3d(-8px,-5px,0) scale(1.025); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akc-about-figma .hero__copy > *,
+  .akc-about-figma .manifesto *,
+  .akc-about-figma .numbers *,
+  .akc-about-figma .services *,
+  .akc-about-figma .credentials--editorial *,
+  .akc-about-figma .closing--light-waves * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
