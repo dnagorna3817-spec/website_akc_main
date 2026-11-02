@@ -1260,3 +1260,23 @@ body {
 @media (max-width: 600px) {
   .akc-about-figma .services__grid > .service { border-radius: 30px !important; clip-path: inset(0 round 30px); }
 }
+
+/* Keep the long Accounting title inside its card and align its baseline with the other service titles. */
+.akc-about-figma .services__grid .service--2 .service__content {
+  top: 249px;
+  left: 28px;
+  right: 22px;
+  width: auto;
+  min-width: 0;
+}
+.akc-about-figma .services__grid .service--2 h3 {
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  max-width: 100%;
+}
+@media (max-width: 600px) {
+  .akc-about-figma .services__grid .service--2 .service__content { top: 205px; left: 26px; right: 24px; }
+}
