@@ -493,30 +493,35 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="credentials" data-enter>
+      <section className="credentials credentials--editorial" data-enter>
+        <div className="credentials__orbit" aria-hidden="true">
+          <span className="credentials__orbit-dot credentials__orbit-dot--1" />
+          <span className="credentials__orbit-dot credentials__orbit-dot--2" />
+          <span className="credentials__orbit-dot credentials__orbit-dot--3" />
+          <span className="credentials__orbit-dot credentials__orbit-dot--4" />
+        </div>
         <div className="credentials__heading">
-          <h2>
-            ПРОФЕСІЙНА
-            <br />
-            ЕКСПЕРТИЗА
-            <br />
-            ПІДТВЕРДЖЕННЯ
-            <br />
-            ОФІЦІЙНО.
-          </h2>
-          <span className="credentials__trace" aria-hidden="true" />
+          <span className="credentials__eyebrow">ПІДТВЕРДЖЕННЯ ЯКОСТІ</span>
+          <h2>ПРОФЕСІЙНА<br />ЕКСПЕРТИЗА,<br /><em>підтверджена<br />офіційно.</em></h2>
+          <span className="credentials__accent" aria-hidden="true" />
+          <p className="credentials__description">Нашу компетентність і надійність підтверджують акредитації, сертифікації та дотримання професійних стандартів.</p>
         </div>
         <div className="credentials__list">
           {qualifications.map((qualification, index) => (
             <div className="credential" key={qualification}>
-              <span className="credential__index" aria-hidden="true">
-                0{index + 1}
+              <span className="credential__symbol" aria-hidden="true">
+                {index === 0 ? (
+                  <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="19" r="12"/><path d="m17 30-2 13 9-5 9 5-2-13M18 19l4 4 8-9"/></svg>
+                ) : index === 1 ? (
+                  <svg viewBox="0 0 48 48" fill="none"><path d="m24 6 17 9-17 9L7 15 24 6ZM9 24l15 8 15-8M9 32l15 8 15-8"/></svg>
+                ) : index === 2 ? (
+                  <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="15" r="7"/><path d="M12 39v-5c0-7 5-11 12-11s12 4 12 11v5M8 25c-3 2-4 5-4 10v4M40 25c3 2 4 5 4 10v4"/></svg>
+                ) : (
+                  <svg viewBox="0 0 48 48" fill="none"><path d="M24 5 40 11v12c0 11-7 17-16 21C15 40 8 34 8 23V11L24 5Z"/><path d="m16 24 6 6 11-13"/></svg>
+                )}
               </span>
+              <span className="credential__separator" aria-hidden="true" />
               <p>{qualification}</p>
-              <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
-                <circle cx="22" cy="22" r="20" />
-                <path d="m14 22 5 5 11-12" />
-              </svg>
             </div>
           ))}
         </div>
