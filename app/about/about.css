@@ -1428,3 +1428,48 @@ body {
     min-height: 84px;
   }
 }
+
+
+/* Manifesto: restrained vertical blue light, inspired by approved visual. */
+.akc-about-figma .manifesto {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #02050d;
+}
+.akc-about-figma .manifesto::before,
+.akc-about-figma .manifesto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.akc-about-figma .manifesto::before {
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 32px,
+      rgba(16, 72, 211, .12) 35px,
+      rgba(8, 38, 120, .055) 45px,
+      transparent 58px),
+    radial-gradient(ellipse 34% 56% at 9% 0%,
+      rgba(19, 75, 239, .25), transparent 78%),
+    radial-gradient(ellipse 25% 48% at 92% 100%,
+      rgba(10, 64, 181, .14), transparent 78%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 24%, transparent 52%, transparent 75%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 24%, transparent 52%, transparent 75%, #000 100%);
+}
+.akc-about-figma .manifesto::after {
+  background: linear-gradient(180deg, rgba(2, 5, 13, .08), rgba(2, 5, 13, .66) 55%, rgba(2, 5, 13, .22));
+}
+.akc-about-figma .manifesto > * {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .akc-about-figma .manifesto::before {
+    opacity: .6;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 90%);
+    mask-image: linear-gradient(90deg, #000 0%, transparent 90%);
+  }
+}
