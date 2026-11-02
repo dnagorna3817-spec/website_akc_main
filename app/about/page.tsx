@@ -446,7 +446,7 @@ function AboutPage() {
         ))}
       </section>
 
-      <section className="services" aria-label="Наші послуги">
+      <section className="services" aria-label="Наші послуги" data-enter>
         <div className="services__frame">
           <h2 className="services__heading">Наші <span>напрями роботи</span></h2>
           <div className="services__grid">
