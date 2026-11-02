@@ -1762,3 +1762,6 @@ body {
     padding-block: 55px;
   }
 }
+
+.akc-about-figma .closing { grid-template-columns: 1fr; padding-right: var(--edge); background: linear-gradient(110deg,#020711,#07132b); }
+.akc-about-figma .closing__installation { display: none; }
