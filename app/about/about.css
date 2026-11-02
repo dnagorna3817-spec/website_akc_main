@@ -1430,12 +1430,12 @@ body {
 }
 
 
-/* Manifesto: soft vertical light beams with no hard top/bottom edge. */
+/* Manifesto lighting: reference-matched luminous ribs, fading naturally into darkness. */
 .akc-about-figma .manifesto {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: #02050d;
+  background: #02040b;
 }
 .akc-about-figma .manifesto::before,
 .akc-about-figma .manifesto::after {
@@ -1448,23 +1448,21 @@ body {
 .akc-about-figma .manifesto::before {
   background:
     repeating-linear-gradient(90deg,
-      transparent 0px, transparent 34px,
-      rgba(15, 76, 225, .19) 39px,
-      rgba(10, 53, 163, .095) 50px,
-      transparent 66px),
-    radial-gradient(ellipse 38% 66% at 8% 34%,
-      rgba(17, 77, 237, .23), transparent 80%);
-  /* Elliptical masking fades beams in from the top and out before the bottom,
-     avoiding a visible horizontal boundary at the section edge. */
-  -webkit-mask-image: radial-gradient(ellipse 52% 92% at 8% 42%,
-    transparent 0%, rgba(0,0,0,.82) 43%, #000 58%, rgba(0,0,0,.55) 72%, transparent 100%);
-  mask-image: radial-gradient(ellipse 52% 92% at 8% 42%,
-    transparent 0%, rgba(0,0,0,.82) 43%, #000 58%, rgba(0,0,0,.55) 72%, transparent 100%);
+      transparent 0px,
+      rgba(4, 22, 65, .10) 32px,
+      rgba(16, 81, 255, .50) 41px,
+      rgba(8, 47, 150, .26) 56px,
+      transparent 70px),
+    radial-gradient(ellipse 42% 68% at 13% 7%, rgba(6, 46, 164, .23), transparent 80%);
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 0%, #000 12%, rgba(0,0,0,.75) 24%, transparent 43%, transparent 73%, rgba(0,0,0,.30) 87%, #000 100%);
+  mask-image:
+    linear-gradient(90deg, #000 0%, #000 12%, rgba(0,0,0,.75) 24%, transparent 43%, transparent 73%, rgba(0,0,0,.30) 87%, #000 100%);
 }
 .akc-about-figma .manifesto::after {
   background:
-    radial-gradient(ellipse 22% 38% at 95% 91%, rgba(17, 75, 225, .16), transparent 85%),
-    linear-gradient(180deg, rgba(2,5,13,.3), transparent 28%, transparent 72%, rgba(2,5,13,.35));
+    radial-gradient(ellipse 21% 48% at 95% 100%, rgba(12, 67, 213, .23), transparent 84%),
+    linear-gradient(180deg, rgba(2,4,11,.05) 0%, rgba(2,4,11,.42) 38%, #02040b 58%, rgba(2,4,11,.36) 76%, rgba(2,4,11,.08) 100%);
 }
 .akc-about-figma .manifesto > * {
   position: relative;
@@ -1472,8 +1470,8 @@ body {
 }
 @media (max-width: 700px) {
   .akc-about-figma .manifesto::before {
-    opacity: .7;
-    -webkit-mask-image: radial-gradient(ellipse 95% 80% at 0% 40%, #000 10%, transparent 100%);
-    mask-image: radial-gradient(ellipse 95% 80% at 0% 40%, #000 10%, transparent 100%);
+    opacity: .65;
+    -webkit-mask-image: linear-gradient(90deg, #000, transparent 90%);
+    mask-image: linear-gradient(90deg, #000, transparent 90%);
   }
 }
