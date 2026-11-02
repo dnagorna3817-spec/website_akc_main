@@ -52,7 +52,7 @@ export default function AboutPage() {
     <main className="about-page">
       <header className="about-header"><Link href="/" aria-label="На головну">АКЦ</Link><Link href="/" className="about-back">← ГОЛОВНА</Link></header>
       <section className="about-hero" aria-labelledby="about-title">
-        <div className="about-hero-art" aria-hidden="true" />
+        <div className="about-hero-art" aria-hidden="true"><span className="about-light about-light-one" /><span className="about-light about-light-two" /><span className="about-light about-light-three" /><span className="about-light about-light-four" /></div>
         <div className="about-hero-copy">
           <p className="about-eyebrow">01 / Про Аудит Консалтинг Центр</p>
           <h1 id="about-title">АУДИТ КОНСАЛТИНГ<br />ЦЕНТР</h1>
@@ -65,10 +65,10 @@ export default function AboutPage() {
         <div className="about-vertical-line" />
         <div className="about-partner-description"><p>Ми поєднуємо аудиторську практику, консалтингові рішення та освітні ініціативи, щоб допомагати компаніям вирішувати складні завдання, мінімізувати ризики та впевнено рухатись вперед.</p><p>Працюємо з бізнесом, комунальними та державними підприємствами у різних галузях, забезпечуємо індивідуальний підхід, практичні рішення та високі стандарти по всій території України.</p></div>
       </section>
-      <section className="about-metrics about-section" aria-label="АКЦ у цифрах">{metrics.map(([number,label])=><div className="about-metric" key={label}><strong>{number}</strong><span>{label}</span></div>)}</section>
-      <section className="about-services about-section" aria-label="Наші послуги">{services.map(item=><div className="about-service" key={item.title}><span className="about-service-icon" aria-hidden="true"><AboutIcon name={item.icon} /></span><h3>{item.title}</h3><p>{item.lines[0]}<br />{item.lines[1]}</p></div>)}</section>
+      <section className="about-metrics about-section" aria-label="АКЦ у цифрах"><div className="about-metrics-light" aria-hidden="true" />{metrics.map(([number,label])=><div className="about-metric" key={label}><strong>{number}</strong><span>{label}</span></div>)}</section>
+      <section className="about-services about-section" aria-label="Наші послуги">{services.map((item,index)=><div className={`about-service about-service-${index+1}`} key={item.title}><div className="about-service-ambient" aria-hidden="true" /><span className="about-service-icon" aria-hidden="true"><AboutIcon name={item.icon} /></span><h3>{item.title}</h3><p>{item.lines[0]}<br />{item.lines[1]}</p></div>)}</section>
       <section className="about-qualification about-section"><h2>ПРОФЕСІЙНА<br />ЕКСПЕРТИЗА<br />ПІДТВЕРДЖЕННЯ<br />ОФІЦІЙНО.</h2><div className="about-vertical-line" /><div className="about-qualification-grid">{qualifications.map(([icon,label])=><div className="about-qualification-item" key={label}><span aria-hidden="true"><AboutIcon name={icon} /></span><p>{label}</p></div>)}</div></section>
-      <section className="about-contact about-section"><div className="about-contact-art" aria-hidden="true"/><div className="about-contact-content"><h2>ПОТРІБНА КОНСУЛЬТАЦІЯ<br />ЩОДО ВАШОГО БІЗНЕСУ?</h2><DiscussButton /></div></section>
+      <section className="about-contact about-section"><div className="about-contact-art" aria-hidden="true"><span/><span/><span/></div><div className="about-contact-content"><h2>ПОТРІБНА КОНСУЛЬТАЦІЯ<br />ЩОДО ВАШОГО БІЗНЕСУ?</h2><DiscussButton /></div></section>
     </main>
   );
 }
