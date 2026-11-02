@@ -494,15 +494,16 @@ function AboutPage() {
       </section>
 
       <section className="credentials credentials--editorial" data-enter>
-        <div className="credentials__orbit" aria-hidden="true">
-          <span className="credentials__orbit-dot credentials__orbit-dot--1" />
-          <span className="credentials__orbit-dot credentials__orbit-dot--2" />
-          <span className="credentials__orbit-dot credentials__orbit-dot--3" />
-          <span className="credentials__orbit-dot credentials__orbit-dot--4" />
-        </div>
+        <svg className="credentials__orbit" viewBox="0 0 220 800" fill="none" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M200 0 Q-50 400 200 800" className="credentials__orbit-path" />
+          <circle cx="120" cy="160" r="4.5" />
+          <circle cx="80" cy="320" r="4.5" />
+          <circle cx="80" cy="480" r="4.5" />
+          <circle cx="120" cy="640" r="4.5" />
+        </svg>
         <div className="credentials__heading">
           <span className="credentials__eyebrow">ПІДТВЕРДЖЕННЯ ЯКОСТІ</span>
-          <h2>ПРОФЕСІЙНА<br />ЕКСПЕРТИЗА,<br /><em>підтверджена<br />офіційно.</em></h2>
+          <h2>ПРОФЕСІЙНА<br />ЕКСПЕРТИЗА,<br /><span className="credentials__gradient-title">підтверджена<br />офіційно.</span></h2>
           <span className="credentials__accent" aria-hidden="true" />
           <p className="credentials__description">Нашу компетентність і надійність підтверджують акредитації, сертифікації та дотримання професійних стандартів.</p>
         </div>
