@@ -1589,3 +1589,101 @@ body {
   .akc-about-figma .credentials--editorial .credential__symbol svg { width: 34px; height: 34px; }
   .akc-about-figma .credentials--editorial .credential p { font-size: 16px; }
 }
+
+/* Approved credentials visual: gradient headline, four luminous rounded panels. */
+.akc-about-figma .credentials--editorial .credentials__heading h2 {
+  font-weight: 720;
+  letter-spacing: -.045em;
+  text-transform: none;
+}
+.akc-about-figma .credentials--editorial .credentials__gradient-title {
+  display: inline-block;
+  font: inherit;
+  font-weight: 720;
+  font-style: normal;
+  background: linear-gradient(105deg, #91dfff 0%, #74aafc 44%, #4666f2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.akc-about-figma .credentials--editorial .credentials__list {
+  display: grid;
+  gap: 22px;
+  border: 0;
+}
+.akc-about-figma .credentials--editorial .credential {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 118px;
+  padding: 22px 30px;
+  border: 1px solid rgba(145, 184, 245, .18);
+  border-radius: 36px;
+  background: #121c33;
+  grid-template-columns: 65px 1px minmax(0, 1fr);
+  box-shadow: inset 0 1px 0 rgba(178,211,255,.055);
+}
+.akc-about-figma .credentials--editorial .credential::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 55% 85% at 88% 0%, rgba(56,120,250,.65), transparent 78%),
+              radial-gradient(ellipse 38% 80% at 100% 5%, rgba(94,224,255,.7), transparent 80%);
+  opacity: 0;
+}
+.akc-about-figma .credentials--editorial .credential:nth-child(1)::before,
+.akc-about-figma .credentials--editorial .credential:nth-child(3)::before {
+  opacity: 1;
+}
+.akc-about-figma .credentials--editorial .credential:nth-child(2)::before {
+  opacity: .55;
+  background: radial-gradient(ellipse 42% 62% at 65% 115%, rgba(72,66,239,.72), transparent 80%);
+}
+.akc-about-figma .credentials--editorial .credential:nth-child(4)::before {
+  opacity: .9;
+  background: radial-gradient(ellipse 42% 65% at 2% 115%, rgba(99,233,245,.65), transparent 82%);
+}
+.akc-about-figma .credentials--editorial .credential__separator {
+  height: 55px;
+}
+.akc-about-figma .credentials--editorial .credential p {
+  font-weight: 560;
+  color: #f0f4ff;
+}
+.akc-about-figma .credentials--editorial svg.credentials__orbit {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 40%;
+  width: 20%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  transform: none;
+  overflow: visible;
+  pointer-events: none;
+}
+.akc-about-figma .credentials--editorial .credentials__orbit-path {
+  stroke: rgba(99,179,255,.7);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+.akc-about-figma .credentials--editorial svg.credentials__orbit circle {
+  fill: #83e5ff;
+  filter: drop-shadow(0 0 6px rgba(73,182,255,.9));
+}
+@media (max-width: 1000px) {
+  .akc-about-figma .credentials--editorial svg.credentials__orbit { display: none; }
+}
+@media (max-width: 600px) {
+  .akc-about-figma .credentials--editorial .credentials__list { gap: 14px; }
+  .akc-about-figma .credentials--editorial .credential {
+    border-radius: 24px;
+    min-height: 104px;
+    padding: 17px 18px;
+    grid-template-columns: 43px 1px minmax(0,1fr);
+  }
+}
