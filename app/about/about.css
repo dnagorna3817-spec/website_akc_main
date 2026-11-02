@@ -1280,3 +1280,17 @@ body {
 @media (max-width: 600px) {
   .akc-about-figma .services__grid .service--2 .service__content { top: 205px; left: 26px; right: 24px; }
 }
+
+/* Figma-inspired full navigation on About page */
+.akc-about-figma .nav { position:relative; z-index:25; top:auto; left:auto; right:auto; width:100%; height:86px; display:flex; justify-content:space-between; align-items:center; gap:clamp(16px,2vw,36px); padding:0 clamp(24px,4vw,58px); background:#030b0f; border-top:1px solid #a8c1cd; border-bottom:1px solid #a8c1cd; }
+.akc-about-figma .nav__brand { display:inline-flex; align-items:center; flex-shrink:0; gap:14px; font-size:clamp(14px,1.25vw,18px); font-weight:400; letter-spacing:0; white-space:nowrap; }
+.akc-about-figma .nav__logo { display:block; width:48px; height:48px; color:#f6f9ff; }
+.akc-about-figma .nav__links { display:flex; align-items:center; justify-content:center; gap:clamp(14px,2.3vw,42px); min-width:0; }
+.akc-about-figma .nav__links a { color:#b8c0c6; white-space:nowrap; font-size:clamp(13px,1.1vw,17px); font-weight:400; letter-spacing:0; transition:color .2s ease; }
+.akc-about-figma .nav__links a:hover { color:#fff; }
+.akc-about-figma .nav__links .nav__active { color:#7db8ed; font-weight:700; }
+.akc-about-figma .nav__contact { display:inline-flex; align-items:center; gap:14px; flex-shrink:0; padding:7px 12px; border:2px solid #284456; border-radius:19px; font-size:17px; white-space:nowrap; color:#e7edf3; }
+.akc-about-figma .nav__contact span { font-size:34px; line-height:22px; }
+.akc-about-figma .nav__contact:hover { border-color:#6ca9d8; }
+@media(max-width:1160px) { .akc-about-figma .nav { flex-wrap:wrap; height:auto; min-height:86px; padding-top:13px; padding-bottom:13px; row-gap:14px; } .akc-about-figma .nav__links { order:3; flex-basis:100%; justify-content:space-between; gap:12px; overflow-x:auto; padding-bottom:4px; } }
+@media(max-width:620px) { .akc-about-figma .nav { padding-inline:20px; } .akc-about-figma .nav__logo { width:37px; height:37px; } .akc-about-figma .nav__brand { font-size:12px; gap:8px; } .akc-about-figma .nav__contact { font-size:13px; gap:7px; padding:5px 9px; } .akc-about-figma .nav__contact span { font-size:25px; } .akc-about-figma .nav__links a { font-size:13px; } }
