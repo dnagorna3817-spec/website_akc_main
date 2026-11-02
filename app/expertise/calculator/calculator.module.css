@@ -42,3 +42,9 @@
 .summary{background:linear-gradient(145deg,rgba(28,85,118,.45),rgba(9,39,59,.56) 65%,rgba(10,55,80,.4))}
 @media(max-width:600px){.wizard,.summary{border-radius:19px}.progress{border-radius:19px 19px 0 0}.progress button:first-child{border-top-left-radius:19px}.progress button:last-child{border-top-right-radius:19px}.navigation{border-radius:0 0 19px 19px}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.wizard,.summary{background:#0b2738}.pickerTrigger{background:#103449}.pickerMenu{background:#092639}}
+
+
+/* Shared AKC navigation now sits full width above the calculator content. */
+.page{font-family:inherit}
+.shell{padding-top:0}
+@media(max-width:600px){.shell{padding-top:0}}
