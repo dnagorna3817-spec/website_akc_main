@@ -456,7 +456,16 @@ function AboutPage() {
                 <div className="service__glow service__glow--secondary" aria-hidden="true" />
                 <div className="service__content">
                   <h3>{title}</h3>
-                  <p>{lineOne}<br />{lineTwo}{index === 0 && <><br />оцінка ризиків<br />рекомендації щодо покращення</>}</p>
+                  {index === 0 ? (
+                    <ul className="service__bullet-list">
+                      <li>Аудит фінансової звітності</li>
+                      <li>Перевірка обліку та внутрішнього контролю</li>
+                      <li>Оцінка ризиків</li>
+                      <li>Рекомендації щодо покращення</li>
+                    </ul>
+                  ) : (
+                    <p>{lineOne}<br />{lineTwo}</p>
+                  )}
                 </div>
               </article>
             ))}
