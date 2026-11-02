@@ -574,3 +574,8 @@
 @media (min-width:1101px) and (max-width:1320px){
  .brand span{max-width:185px;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* Compact navigation links as one group, rather than spreading across the header. */
+@media (min-width:1101px){
+ .nav,.overview .nav{flex:0 1 auto;justify-content:flex-start;gap:clamp(18px,2vw,32px);margin-inline:auto}
+}
