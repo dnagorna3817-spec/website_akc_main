@@ -1243,3 +1243,20 @@ body {
 .akc-about-figma .service:hover { transform:none; border-color:rgba(141,159,217,.14); box-shadow:0 24px 50px rgba(0,0,0,.24); }
 @media(max-width:1050px) { .akc-about-figma .services__frame { padding:36px; border-radius:38px; } .akc-about-figma .services__grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { height:470px; } .akc-about-figma .services__heading { margin-bottom:45px; } }
 @media(max-width:600px) { .akc-about-figma .services { padding:30px 16px; } .akc-about-figma .services__frame { padding:24px; border-radius:30px; } .akc-about-figma .services__heading { font-size:clamp(32px,8vw,44px); margin-bottom:30px; } .akc-about-figma .services__grid { grid-template-columns:1fr; gap:16px; } .akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { height:400px; border-radius:30px; } .akc-about-figma .service__content,.akc-about-figma .service--1 .service__content { top:205px; left:26px; } }
+
+/* Uniform rounded corners, including gradient layers and Safari compositing. */
+.akc-about-figma .services__grid > .service,
+.akc-about-figma .services__grid > .service--1,
+.akc-about-figma .services__grid > .service--2,
+.akc-about-figma .services__grid > .service--3,
+.akc-about-figma .services__grid > .service--4 {
+  border-radius: 38.4px !important;
+  overflow: hidden !important;
+  clip-path: inset(0 round 38.4px);
+  isolation: isolate;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+.akc-about-figma .services__grid > .service::after { border-radius: inherit; }
+@media (max-width: 600px) {
+  .akc-about-figma .services__grid > .service { border-radius: 30px !important; clip-path: inset(0 round 30px); }
+}
