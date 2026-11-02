@@ -1334,3 +1334,10 @@ body {
   .akc-about-figma .service__bullet-list { gap: 12px; }
   .akc-about-figma .service__bullet-list li { font-size: 13px; }
 }
+
+/* Fourth service: long certification heading and centered four-item list. */
+.akc-about-figma .services__grid .service--4 .service__content { top:50%; bottom:auto; left:24px; right:20px; transform:translateY(-50%); }
+.akc-about-figma .services__grid .service--4 h3 { font-size:clamp(17px,1.4vw,21px); line-height:1.18; overflow-wrap:normal; word-break:normal; hyphens:auto; margin-bottom:20px; }
+.akc-about-figma .services__grid .service--4 .service__bullet-list { gap:13px; }
+.akc-about-figma .services__grid .service--4 .service__bullet-list li { font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
+@media(max-width:600px) { .akc-about-figma .services__grid .service--4 .service__content { left:24px; right:20px; } }
