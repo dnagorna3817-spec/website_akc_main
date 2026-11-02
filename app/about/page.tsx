@@ -403,11 +403,6 @@ function AboutPage() {
           </p>
           <DiscussButton />
         </div>
-        <div className="hero__stage">
-          <span className="hero__axis hero__axis--one" />
-          <span className="hero__axis hero__axis--two" />
-          <GlassSculpture />
-        </div>
       </section>
 
       <section className="manifesto" data-enter>
