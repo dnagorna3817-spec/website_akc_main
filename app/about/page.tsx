@@ -495,7 +495,15 @@ function AboutPage() {
 
       <section className="credentials credentials--editorial" data-enter>
         <svg className="credentials__orbit" viewBox="0 0 220 800" fill="none" aria-hidden="true" preserveAspectRatio="none">
-          <path d="M200 0 Q-50 400 200 800" className="credentials__orbit-path" />
+          <defs>
+            <linearGradient id="credentials-arc-fade" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+              <stop offset="0%" stopColor="#63b3ff" stopOpacity="0" />
+              <stop offset="18%" stopColor="#63b3ff" stopOpacity=".7" />
+              <stop offset="82%" stopColor="#63b3ff" stopOpacity=".7" />
+              <stop offset="100%" stopColor="#63b3ff" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M200 0 Q-50 400 200 800" className="credentials__orbit-path" stroke="url(#credentials-arc-fade)" />
           <circle cx="120" cy="160" r="4.5" />
           <circle cx="80" cy="320" r="4.5" />
           <circle cx="80" cy="480" r="4.5" />
