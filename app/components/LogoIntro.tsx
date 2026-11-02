@@ -39,15 +39,6 @@ export default function LogoIntro() {
     video.play().catch(() => finish(false));
   }, [isMobile, finish]);
 
-  const replay = () => {
-    finished.current = false;
-    setPlaying(true);
-    const video = isMobile ? mobileRef.current : desktopRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-    video.play().catch(() => finish(false));
-  };
 
   return (
     <div className="logo-intro-layer" data-intro-mode={playing ? "playing" : "static"} aria-label="Анімований логотип АКЦ">
@@ -74,9 +65,6 @@ export default function LogoIntro() {
         onEnded={() => finish(true)}
         aria-hidden="true"
       />
-      <button type="button" className="akc-intro-replay" onClick={replay} aria-label="Повторити анімацію логотипа">
-        ↻ <span>Повторити анімацію</span>
-      </button>
     </div>
   );
 }
