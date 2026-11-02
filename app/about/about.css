@@ -1403,3 +1403,13 @@ body {
   .akc-about-figma .services__grid > .service h3 { min-height: 84px; font-size: 20px; }
   .akc-about-figma .services__grid > .service .service__bullet-list { gap: 11px; }
 }
+
+/* Center every service card heading horizontally, keeping lists left aligned. */
+.akc-about-figma .services__grid > .service h3,
+.akc-about-figma .services__grid > .service--4 h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
