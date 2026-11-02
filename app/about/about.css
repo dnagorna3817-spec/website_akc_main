@@ -1687,3 +1687,36 @@ body {
     grid-template-columns: 43px 1px minmax(0,1fr);
   }
 }
+
+/* Compact credential panels: fit all four comfortably within the desktop section. */
+@media (min-width: 1001px) {
+  .akc-about-figma .credentials--editorial {
+    min-height: 0;
+    padding-top: clamp(75px, 7vw, 105px);
+    padding-bottom: clamp(75px, 7vw, 105px);
+  }
+  .akc-about-figma .credentials--editorial .credentials__list {
+    gap: 14px;
+    width: 100%;
+    max-width: 630px;
+    justify-self: end;
+  }
+  .akc-about-figma .credentials--editorial .credential {
+    min-height: 92px;
+    padding: 16px 24px;
+    border-radius: 28px;
+    grid-template-columns: 50px 1px minmax(0,1fr);
+    gap: 23px;
+  }
+  .akc-about-figma .credentials--editorial .credential__symbol svg {
+    width: 36px;
+    height: 36px;
+  }
+  .akc-about-figma .credentials--editorial .credential__separator {
+    height: 43px;
+  }
+  .akc-about-figma .credentials--editorial .credential p {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.3;
+  }
+}
