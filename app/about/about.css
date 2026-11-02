@@ -1060,3 +1060,25 @@ body {
   .akc-about-figma .hero__copy { padding: 135px var(--edge) 85px; }
   .akc-about-figma .hero h1 { font-size: clamp(34px, 9vw, 52px); }
 }
+
+/* Consistent safe gutters: align About hero, navigation and sections. */
+.akc-about-figma.page { --edge: clamp(28px, 6vw, 104px); }
+.akc-about-figma .nav { padding-left: clamp(28px, 6vw, 104px); padding-right: clamp(28px, 6vw, 104px); }
+.akc-about-figma .hero { width: 100%; }
+.akc-about-figma .hero__copy {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0;
+  padding-left: clamp(28px, 6vw, 104px);
+  padding-right: clamp(28px, 6vw, 104px);
+}
+.akc-about-figma .hero .kicker,
+.akc-about-figma .hero h1,
+.akc-about-figma .hero__body,
+.akc-about-figma .hero .action { margin-left: 0; }
+@media (max-width: 700px) {
+  .akc-about-figma.page { --edge: 24px; }
+  .akc-about-figma .nav { padding-inline: 24px; }
+  .akc-about-figma .hero__copy { padding-left: 24px; padding-right: 24px; }
+}
