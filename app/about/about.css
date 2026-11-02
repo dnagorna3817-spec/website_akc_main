@@ -1765,3 +1765,41 @@ body {
 
 .akc-about-figma .closing { grid-template-columns: 1fr; padding-right: var(--edge); background: linear-gradient(110deg,#020711,#07132b); }
 .akc-about-figma .closing__installation { display: none; }
+
+/* Consultation finale: atmospheric light sweeps instead of a standalone image. */
+.akc-about-figma .closing--light-waves {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr);
+  background:
+    radial-gradient(ellipse 60% 75% at 88% 65%, rgba(17, 66, 142, .38), transparent 78%),
+    linear-gradient(110deg, #020711 0%, #041024 58%, #071b39 100%);
+}
+.akc-about-figma .closing--light-waves .closing__light-waves {
+  position: absolute;
+  inset: 0 0 0 36%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .95;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 24%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 24%, #000 93%, transparent);
+}
+.akc-about-figma .closing--light-waves .closing__light-waves svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.akc-about-figma .closing--light-waves .closing__copy {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .akc-about-figma .closing--light-waves .closing__light-waves {
+    inset: 28% -22% 0 10%;
+    opacity: .46;
+  }
+  .akc-about-figma .closing--light-waves {
+    background: linear-gradient(120deg, #020711, #071b39);
+  }
+}
