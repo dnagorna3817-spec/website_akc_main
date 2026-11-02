@@ -22,6 +22,15 @@ const military:Record<string,[number,number]>={"1":[500,800],"2-5":[3000,2000],"
 const money=(v:number)=>new Intl.NumberFormat("uk-UA").format(v)+" грн";
 
 
+type PickerOption={value:string;label:string};
+function Picker({label,value,options,onChange}:{label:string;value:string;options:PickerOption[];onChange:(v:string)=>void}){
+ const [open,setOpen]=useState(false);
+ const selected=options.find(o=>o.value===value)?.label??value;
+ return <div className={styles.picker}><span className={styles.pickerLabel}>{label}</span><div className={styles.pickerShell}>
+  <button type="button" className={styles.pickerTrigger} aria-expanded={open} onClick={()=>setOpen(!open)}><span>{selected}</span><span className={styles.pickerChevron} aria-hidden="true">{open?"−":"+"}</span></button>
+  {open&&<div className={styles.pickerMenu} role="group" aria-label={label}>{options.map(option=><button type="button" key={option.value} className={option.value===value?styles.pickerSelected:styles.pickerOption} aria-pressed={option.value===value} onClick={()=>{onChange(option.value);setOpen(false);}}><span>{option.label}</span><span className={styles.pickerCheck} aria-hidden="true">{option.value===value?"✓":""}</span></button>)}</div>}
+ </div></div>;
+}
 const steps=["Ваш бізнес","Обсяг роботи","Додатково"];
 export default function Calculator(){
  const [step,setStep]=useState(0);
@@ -59,7 +68,7 @@ export default function Calculator(){
        <button type="button" className={!isFop?styles.choiceActive:styles.choice} onClick={()=>changeKind("ТОВ, єдиний податок без ПДВ")}><span className={styles.choiceIcon}>01</span><span><strong>Компанія</strong><small>ТОВ, сільськогосподарське підприємство, фермерське господарство</small></span><span className={styles.choiceMark}>{!isFop?"●":"○"}</span></button>
        <button type="button" className={isFop?styles.choiceActive:styles.choice} onClick={()=>changeKind("ФОП 2 група")}><span className={styles.choiceIcon}>02</span><span><strong>Підприємець</strong><small>Фізична особа-підприємець (ФОП)</small></span><span className={styles.choiceMark}>{isFop?"●":"○"}</span></button>
       </div>
-      <label className={styles.field}>Уточніть систему оподаткування<select value={kind} onChange={e=>changeKind(e.target.value)}>{Object.keys(books).filter(k=>k.startsWith("ФОП")===isFop).map(k=><option key={k} value={k}>{k}</option>)}</select></label>
+      <Picker label="Уточніть систему оподаткування" value={kind} onChange={changeKind} options={Object.keys(books).filter(k=>k.startsWith("ФОП")===isFop).map(k=>({value:k,label:k}))}/>
      </>}
      {step===1&&<><p className={styles.stepEyebrow}>КРОК 02 / 03</p><h2>Який обсяг роботи?</h2><p className={styles.stepLead}>Це допоможе підібрати тариф саме під ваш бізнес.</p>
       {Object.keys(group.bands).length>1?<div className={styles.bandGroup}><p className={styles.fieldHeading}>{group.ops?"Скільки приблизно операцій на місяць?":"Який варіант обслуговування потрібен?"}</p><div className={styles.bandChoices}>{Object.keys(group.bands).map(b=><button key={b} type="button" className={band===b?styles.bandActive:styles.band} onClick={()=>setBand(b)}>{b}{group.ops&&<small>операцій</small>}</button>)}</div>{group.ops&&<p className={styles.hint}>Операція — наприклад, продаж, покупка чи платіж.</p>}</div>:<div className={styles.info}>Для обраного типу бізнесу передбачено один базовий тариф. Можна переходити далі.</div>}
@@ -67,10 +76,10 @@ export default function Calculator(){
      </>}
      {step===2&&<><p className={styles.stepEyebrow}>КРОК 03 / 03</p><h2>Що ще потрібно?</h2><p className={styles.stepLead}>Додаткові послуги необов’язкові. Якщо потрібен лише бухгалтерський облік, залиште все як є.</p>
       <div className={styles.fields}>
-       <label className={styles.field}>Зарплата та кадровий облік<select value={staffMode} onChange={e=>setStaffMode(e.target.value)}><option value="none">Не потрібно</option><option value="all">Зарплата + кадровий облік</option><option value="zp">Тільки нарахування зарплати</option><option value="ko">Тільки кадровий облік</option></select></label>
-       <label className={styles.field}>Військовий облік<select value={mil?"yes":"no"} onChange={e=>setMil(e.target.value==="yes")}><option value="no">Не потрібно</option><option value="yes">Потрібно</option></select></label>
-       {hasStaff&&<label className={styles.field}>Кількість працівників<select value={staffN} onChange={e=>setStaffN(e.target.value)}><option value="0">Оберіть кількість</option><option value="1">1</option><option value="2-5">2–5</option><option value="5-10">5–10</option><option value="10-20">10–20</option><option value="20-40">20–40</option></select></label>}
-       {kind.startsWith("СТОВ")&&<label className={styles.field}>Облік земельних ділянок<select value={land} onChange={e=>setLand(e.target.value)}><option value="0">Не потрібно</option><option value="9000">До 100 га</option><option value="15000">100–200 га</option></select></label>}
+       <Picker label="Зарплата та кадровий облік" value={staffMode} onChange={setStaffMode} options={[{value:"none",label:"Не потрібно"},{value:"all",label:"Зарплата + кадровий облік"},{value:"zp",label:"Тільки нарахування зарплати"},{value:"ko",label:"Тільки кадровий облік"}]}/>
+       <Picker label="Військовий облік" value={mil?"yes":"no"} onChange={v=>setMil(v==="yes")} options={[{value:"no",label:"Не потрібно"},{value:"yes",label:"Потрібно"}]}/>
+       {hasStaff&&<Picker label="Кількість працівників" value={staffN} onChange={setStaffN} options={[{value:"0",label:"Оберіть кількість"},...Object.keys(military).map(n=>({value:n,label:n.replaceAll("-", "–")+" працівників"}))]}/>}
+       {kind.startsWith("СТОВ")&&<Picker label="Облік земельних ділянок" value={land} onChange={setLand} options={[{value:"0",label:"Не потрібно"},{value:"9000",label:"До 100 га"},{value:"15000",label:"100–200 га"}]}/>}
       </div>{hasStaff&&staffN==="0"&&<p className={styles.hint}>Вкажіть кількість працівників, щоб включити ці послуги в розрахунок.</p>}
      </>}
     </div>
