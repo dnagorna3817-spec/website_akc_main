@@ -1,74 +1,517 @@
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import Link from "next/link";
-import "./about.css";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Про АКЦ — Аудит Консалтинг Центр",
-  description: "Команда професіоналів АКЦ: аудит, бухгалтерський, податковий і кадровий супровід бізнесу.",
-};
+import { useEffect, type ReactNode } from "react"
+import "./about.css"
 
 const metrics = [
   ["10+", "років на ринку"],
   ["1000+", "клієнтів"],
   ["40+", "експертів"],
   ["20 000+", "консультацій"],
-];
+]
 
 const services = [
-  { icon: "audit", title: "АУДИТ", lines: ["Фінансова звітність", "Аудиторські завдання"] },
-  { icon: "accounting", title: "БУХГАЛТЕРСЬКИЙ ОБЛІК", lines: ["Супровід", "Відновлення обліку"] },
-  { icon: "tax", title: "ПОДАТКИ", lines: ["Аналіз ризиків", "Податковий аналіз"] },
-  { icon: "ifrs", title: "МСФЗ", lines: ["Консультації", "Підготовка звітностей"] },
-];
+  ["АУДИТ", "Фінансова звітність", "Аудиторські завдання", "ribbons"],
+  ["БУХГАЛТЕРСЬКИЙ ОБЛІК", "Супровід", "Відновлення обліку", "lens"],
+  ["ПОДАТКИ", "Аналіз ризиків", "Податковий аналіз", "wave"],
+  ["МСФЗ", "Консультації", "Підготовка звітностей", "orbit"],
+]
 
 const qualifications = [
-  ["award", "Акредитований кваліфікаційний центр"],
-  ["globe", "Професійна організація"],
-  ["certificate", "Сертифіковані аудитори та фахівці"],
-  ["standards", "Робота відповідно до професійних стандартів"],
-];
+  "Акредитований кваліфікаційний центр",
+  "Професійна організація",
+  "Сертифіковані аудитори та фахівці",
+  "Робота відповідно до професійних стандартів",
+]
 
-function AboutIcon({ name }: { name: string }) {
-  const paths: Record<string, ReactNode> = {
-    audit: <><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></>,
-    accounting: <><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h3M8 17h3M15 13v4M13 15h4"/></>,
-    tax: <><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></>,
-    ifrs: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18"/></>,
-    award: <><circle cx="12" cy="9" r="5"/><path d="m8.5 13-1 8 4.5-2 4.5 2-1-8"/></>,
-    globe: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-4 4-4 14 0 18M12 3c4 4 4 14 0 18"/></>,
-    certificate: <><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5M10 17l2 2 4-4"/></>,
-    standards: <><path d="m12 3 7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></>,
-  };
-  return <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name] ?? paths.audit}</svg>;
+function Arrow() {
+  return (
+    <svg viewBox="0 0 40 20" fill="none" aria-hidden="true">
+      <path d="M1 10h36M29 2l8 8-8 8" />
+    </svg>
+  )
 }
 
 function DiscussButton() {
-  return <Link className="about-discuss" href="/#contacts"><span>Обговорити завдання</span><span className="about-arrow" aria-hidden="true">⟶</span></Link>;
+  return (
+    <a className="action" href="#contacts">
+      <span>Обговорити завдання</span>
+      <Arrow />
+    </a>
+  )
 }
 
-export default function AboutPage() {
+function GlassSculpture({ compact = false }: { compact?: boolean }) {
   return (
-    <main className="about-page">
-      <header className="about-header"><Link href="/" aria-label="На головну">АКЦ</Link><Link href="/" className="about-back">← ГОЛОВНА</Link></header>
-      <section className="about-hero" aria-labelledby="about-title">
-        <div className="about-hero-art" aria-hidden="true"><span className="about-light about-light-one" /><span className="about-light about-light-two" /><span className="about-light about-light-three" /><span className="about-light about-light-four" /></div>
-        <div className="about-hero-copy">
-          <p className="about-eyebrow">01 / Про Аудит Консалтинг Центр</p>
-          <h1 id="about-title">АУДИТ КОНСАЛТИНГ<br />ЦЕНТР</h1>
-          <p className="about-hero-description">Команда професіоналів АКЦ допоможе вашому бізнесу працювати впевнено та розвиватися. Ми супроводжуємо реєстрацію підприємств, ФОП, ведемо бухгалтерський, податковий і кадровий, військовий облік, проводимо аудит та допомагаємо виявляти фінансові й податкові ризики.</p>
+    <svg
+      className={
+        compact ? "glass-sculpture glass-sculpture--compact" : "glass-sculpture"
+      }
+      viewBox="0 0 680 790"
+      fill="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="glass-edge" x1="78" y1="62" x2="607" y2="701">
+          <stop stopColor="#70D9FF" stopOpacity=".12" />
+          <stop offset=".32" stopColor="#147BFF" stopOpacity=".95" />
+          <stop offset=".63" stopColor="#63E4FF" stopOpacity=".7" />
+          <stop offset="1" stopColor="#4634FF" stopOpacity=".12" />
+        </linearGradient>
+        <linearGradient id="glass-core" x1="109" y1="58" x2="559" y2="728">
+          <stop stopColor="#050A19" stopOpacity=".2" />
+          <stop offset=".35" stopColor="#1553D1" stopOpacity=".35" />
+          <stop offset=".56" stopColor="#27C6FF" stopOpacity=".6" />
+          <stop offset=".76" stopColor="#2538B6" stopOpacity=".28" />
+          <stop offset="1" stopColor="#02050C" stopOpacity=".1" />
+        </linearGradient>
+        <linearGradient id="white-cut" x1="0" y1="0" x2="1" y2="0">
+          <stop stopColor="white" stopOpacity="0" />
+          <stop offset=".5" stopColor="white" stopOpacity=".72" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
+        </linearGradient>
+        <filter id="soft-glow" x="-80%" y="-40%" width="260%" height="180%">
+          <feGaussianBlur stdDeviation="24" />
+        </filter>
+        <filter id="liquid" x="-40%" y="-20%" width="180%" height="140%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency=".006 .018"
+            numOctaves="2"
+            seed="8"
+            result="noise"
+          />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" />
+          <feGaussianBlur stdDeviation=".5" />
+        </filter>
+        <filter id="inner-shadow" x="-30%" y="-20%" width="160%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="blur" />
+          <feOffset dx="-5" dy="2" />
+          <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" />
+          <feColorMatrix values="0 0 0 0 0.24 0 0 0 0 0.75 0 0 0 0 1 0 0 0 .8 0" />
+          <feComposite in2="SourceGraphic" operator="over" />
+        </filter>
+      </defs>
+      <path
+        className="sculpture-glow"
+        d="M383 21C529 45 623 157 591 282c-20 76-85 116-73 204 10 73-22 193-154 251-111 48-246-1-270-112-20-94 78-153 74-248-4-101-63-160-6-252C207 52 298 7 383 21Z"
+        stroke="#176FFF"
+        strokeWidth="86"
+        opacity=".62"
+        filter="url(#soft-glow)"
+      />
+      <g filter="url(#liquid)">
+        <path
+          d="M377 28C519 50 608 160 579 277c-19 74-79 114-68 202 10 78-26 184-150 246-106 52-231 5-258-101-24-93 70-151 69-245-2-101-56-159-3-248C211 60 293 15 377 28Z"
+          fill="url(#glass-core)"
+          stroke="url(#glass-edge)"
+          strokeWidth="5"
+          filter="url(#inner-shadow)"
+        />
+        <path
+          d="M376 64C489 81 558 168 537 267c-16 76-70 111-62 203 6 65-31 154-129 204-72 36-155 12-187-53-39-80 54-153 51-245-2-92-44-141-4-215 34-62 102-107 170-97Z"
+          stroke="url(#glass-edge)"
+          strokeWidth="22"
+          opacity=".72"
+        />
+        <path
+          d="M378 111c72 12 116 75 102 147-15 80-66 117-55 220 8 72-35 130-96 154-46 18-96 0-113-41-27-65 39-133 35-220-4-81-30-116 0-174 27-51 79-94 127-86Z"
+          stroke="#57CFFF"
+          strokeWidth="4"
+          opacity=".6"
+        />
+      </g>
+      <path
+        d="M214 119C301 69 446 68 524 167"
+        stroke="url(#white-cut)"
+        strokeWidth="2"
+        opacity=".45"
+      />
+      <path
+        d="M142 551c86 113 245 119 347 16"
+        stroke="url(#white-cut)"
+        strokeWidth="2"
+        opacity=".3"
+      />
+      <path
+        d="M211 119c-28 116 49 132 29 258-19 117-72 183 2 263"
+        stroke="#A6EDFF"
+        strokeWidth="1.5"
+        opacity=".48"
+      />
+      <path
+        d="M456 90c-3 91 64 117 23 211-38 87 23 168-27 266"
+        stroke="#6A83FF"
+        strokeWidth="1"
+        opacity=".66"
+      />
+      <ellipse
+        cx="352"
+        cy="384"
+        rx="241"
+        ry="306"
+        stroke="#7BCAFF"
+        opacity=".13"
+      />
+      <circle cx="493" cy="138" r="4" fill="#C4F3FF" />
+      <circle
+        cx="493"
+        cy="138"
+        r="16"
+        fill="#75CFFF"
+        opacity=".35"
+        filter="url(#soft-glow)"
+      />
+    </svg>
+  )
+}
+
+function ServiceArtwork({ variant }: { variant: string }) {
+  const commonDefs = (
+    <defs>
+      <linearGradient id={`line-${variant}`} x1="0" y1="0" x2="1" y2="1">
+        <stop stopColor="#6EE6FF" stopOpacity=".08" />
+        <stop offset=".48" stopColor="#2778FF" stopOpacity=".95" />
+        <stop offset="1" stopColor="#7859FF" stopOpacity=".12" />
+      </linearGradient>
+      <filter
+        id={`glow-${variant}`}
+        x="-100%"
+        y="-100%"
+        width="300%"
+        height="300%"
+      >
+        <feGaussianBlur stdDeviation="15" />
+      </filter>
+      <filter
+        id={`bend-${variant}`}
+        x="-30%"
+        y="-20%"
+        width="160%"
+        height="140%"
+      >
+        <feTurbulence
+          baseFrequency=".009 .025"
+          numOctaves="2"
+          seed={variant.length * 4}
+          result="n"
+        />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="24" />
+      </filter>
+    </defs>
+  )
+
+  if (variant === "ribbons") {
+    return (
+      <svg viewBox="0 0 720 520" fill="none" aria-hidden="true">
+        {commonDefs}
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+          <path
+            key={item}
+            d={`M${70 + item * 58} -30V${128 + ((item * 67) % 210)}c0 54 ${
+              item % 2 ? -35 : 35
+            } 72 ${item % 3 ? 16 : -24} 126v260`}
+            stroke={`url(#line-${variant})`}
+            strokeWidth={item % 3 === 0 ? 34 : 17}
+            opacity={0.25 + (item % 4) * 0.16}
+            filter={`url(#bend-${variant})`}
+          />
+        ))}
+        <path
+          d="M66 204c141-81 218 135 363 22 95-75 168-28 247 19"
+          stroke="#8DE9FF"
+          strokeWidth="2"
+          opacity=".6"
+        />
+        <path
+          d="M66 204c141-81 218 135 363 22 95-75 168-28 247 19"
+          stroke="#237AFF"
+          strokeWidth="36"
+          opacity=".28"
+          filter={`url(#glow-${variant})`}
+        />
+      </svg>
+    )
+  }
+
+  if (variant === "lens") {
+    return (
+      <svg viewBox="0 0 520 520" fill="none" aria-hidden="true">
+        {commonDefs}
+        <circle
+          cx="283"
+          cy="236"
+          r="151"
+          stroke={`url(#line-${variant})`}
+          strokeWidth="49"
+          opacity=".62"
+          filter={`url(#bend-${variant})`}
+        />
+        <circle
+          cx="283"
+          cy="236"
+          r="89"
+          stroke="#65D8FF"
+          strokeWidth="2"
+          opacity=".52"
+        />
+        <circle
+          cx="283"
+          cy="236"
+          r="172"
+          stroke="#786CFF"
+          strokeWidth="1"
+          opacity=".35"
+        />
+        <path d="M83 334 427 125" stroke="#C6F3FF" opacity=".32" />
+        <ellipse
+          cx="272"
+          cy="248"
+          rx="93"
+          ry="67"
+          fill="#147BFF"
+          opacity=".18"
+          filter={`url(#glow-${variant})`}
+        />
+      </svg>
+    )
+  }
+
+  if (variant === "wave") {
+    return (
+      <svg viewBox="0 0 720 420" fill="none" aria-hidden="true">
+        {commonDefs}
+        <path
+          d="M-40 290C87 242 122 56 267 105c122 41 146 213 287 135 74-41 119-135 206-147"
+          stroke="#2378FF"
+          strokeWidth="68"
+          opacity=".34"
+          filter={`url(#glow-${variant})`}
+        />
+        <path
+          d="M-40 290C87 242 122 56 267 105c122 41 146 213 287 135 74-41 119-135 206-147"
+          stroke={`url(#line-${variant})`}
+          strokeWidth="25"
+          filter={`url(#bend-${variant})`}
+        />
+        <path
+          d="M-40 290C87 242 122 56 267 105c122 41 146 213 287 135 74-41 119-135 206-147"
+          stroke="#B1F1FF"
+          strokeWidth="1.5"
+          opacity=".75"
+        />
+        {[126, 267, 433, 584].map((x, index) => (
+          <g key={x}>
+            <circle
+              cx={x}
+              cy={[190, 105, 245, 220][index]}
+              r="5"
+              fill="#CFF7FF"
+            />
+            <path
+              d={`M${x} ${[190, 105, 245, 220][index] + 7}v160`}
+              stroke="#8CDFFF"
+              opacity=".18"
+            />
+          </g>
+        ))}
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 520 520" fill="none" aria-hidden="true">
+      {commonDefs}
+      <ellipse
+        cx="265"
+        cy="260"
+        rx="172"
+        ry="92"
+        stroke={`url(#line-${variant})`}
+        strokeWidth="18"
+        transform="rotate(-21 265 260)"
+        filter={`url(#bend-${variant})`}
+      />
+      <ellipse
+        cx="265"
+        cy="260"
+        rx="83"
+        ry="184"
+        stroke="#449CFF"
+        strokeWidth="3"
+        opacity=".55"
+        transform="rotate(32 265 260)"
+      />
+      <circle cx="265" cy="260" r="134" stroke="#86E5FF" opacity=".2" />
+      <path d="M123 139 405 380M96 299l345-79" stroke="#8FDFFF" opacity=".2" />
+      <circle cx="386" cy="166" r="8" fill="#D5F8FF" />
+      <circle
+        cx="386"
+        cy="166"
+        r="35"
+        fill="#247DFF"
+        opacity=".48"
+        filter={`url(#glow-${variant})`}
+      />
+    </svg>
+  )
+}
+
+function AboutPage() {
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>("[data-enter]")
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(({ isIntersecting, target }) => {
+          if (isIntersecting) {
+            target.classList.add("entered")
+            observer.unobserve(target)
+          }
+        })
+      },
+      { threshold: 0.08 },
+    )
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <main className="akc-about-figma page">
+      <header className="nav">
+        <a className="nav__brand" href="/" aria-label="На головну">
+          АКЦ
+        </a>
+        <span className="nav__rule" />
+        <a className="nav__back" href="/">
+          ← ГОЛОВНА
+        </a>
+      </header>
+
+      <section className="hero" aria-labelledby="page-title">
+        <div className="hero__copy">
+          <p className="kicker">01 / Про Аудит Консалтинг Центр</p>
+          <h1 id="page-title">
+            АУДИТ КОНСАЛТИНГ
+            <br />
+            ЦЕНТР
+          </h1>
+          <p className="hero__body">
+            Команда професіоналів АКЦ допоможе вашому бізнесу працювати впевнено
+            та розвиватися. Ми супроводжуємо реєстрацію підприємств, ФОП, ведемо
+            бухгалтерський, податковий і кадровий, військовий облік, проводимо
+            аудит та допомагаємо виявляти фінансові й податкові ризики.
+          </p>
+          <DiscussButton />
+        </div>
+        <div className="hero__stage">
+          <span className="hero__axis hero__axis--one" />
+          <span className="hero__axis hero__axis--two" />
+          <GlassSculpture />
+        </div>
+      </section>
+
+      <section className="manifesto" data-enter>
+        <div className="manifesto__headline">
+          <h2>
+            ПРОФЕСІЙНИЙ ПАРТНЕР
+            <br />
+            ДЛЯ РОЗВИТКУ БІЗНЕСУ.
+          </h2>
+        </div>
+        <div className="manifesto__spine" aria-hidden="true">
+          <span />
+        </div>
+        <div className="manifesto__copy">
+          <p>
+            Ми поєднуємо аудиторську практику, консалтингові рішення та освітні
+            ініціативи, щоб допомагати компаніям вирішувати складні завдання,
+            мінімізувати ризики та впевнено рухатись вперед.
+          </p>
+          <p>
+            Працюємо з бізнесом, комунальними та державними підприємствами у
+            різних галузях, забезпечуємо індивідуальний підхід, практичні
+            рішення та високі стандарти по всій території України.
+          </p>
+        </div>
+      </section>
+
+      <section className="numbers" aria-label="АКЦ у цифрах" data-enter>
+        <div className="numbers__line" aria-hidden="true" />
+        {metrics.map(([value, label], index) => (
+          <div className={`number number--${index + 1}`} key={label}>
+            <span className="number__pin" aria-hidden="true" />
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="services" aria-label="Наші послуги">
+        {services.map(([title, lineOne, lineTwo, variant], index) => (
+          <article
+            className={`service service--${index + 1}`}
+            key={title}
+            data-enter
+          >
+            <div className="service__art">
+              <ServiceArtwork variant={variant} />
+            </div>
+            <div className="service__content">
+              <h3>{title}</h3>
+              <p>
+                {lineOne}
+                <br />
+                {lineTwo}
+              </p>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="credentials" data-enter>
+        <div className="credentials__heading">
+          <h2>
+            ПРОФЕСІЙНА
+            <br />
+            ЕКСПЕРТИЗА
+            <br />
+            ПІДТВЕРДЖЕННЯ
+            <br />
+            ОФІЦІЙНО.
+          </h2>
+          <span className="credentials__trace" aria-hidden="true" />
+        </div>
+        <div className="credentials__list">
+          {qualifications.map((qualification, index) => (
+            <div className="credential" key={qualification}>
+              <span className="credential__index" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <p>{qualification}</p>
+              <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <circle cx="22" cy="22" r="20" />
+                <path d="m14 22 5 5 11-12" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="closing" id="contacts" data-enter>
+        <div className="closing__installation">
+          <GlassSculpture compact />
+        </div>
+        <div className="closing__copy">
+          <h2>
+            ПОТРІБНА КОНСУЛЬТАЦІЯ
+            <br />
+            ЩОДО ВАШОГО БІЗНЕСУ?
+          </h2>
           <DiscussButton />
         </div>
       </section>
-      <section className="about-partner about-section">
-        <h2>ПРОФЕСІЙНИЙ ПАРТНЕР<br />ДЛЯ РОЗВИТКУ БІЗНЕСУ.</h2>
-        <div className="about-vertical-line" />
-        <div className="about-partner-description"><p>Ми поєднуємо аудиторську практику, консалтингові рішення та освітні ініціативи, щоб допомагати компаніям вирішувати складні завдання, мінімізувати ризики та впевнено рухатись вперед.</p><p>Працюємо з бізнесом, комунальними та державними підприємствами у різних галузях, забезпечуємо індивідуальний підхід, практичні рішення та високі стандарти по всій території України.</p></div>
-      </section>
-      <section className="about-metrics about-section" aria-label="АКЦ у цифрах"><div className="about-metrics-light" aria-hidden="true" />{metrics.map(([number,label])=><div className="about-metric" key={label}><strong>{number}</strong><span>{label}</span></div>)}</section>
-      <section className="about-services about-section" aria-label="Наші послуги">{services.map((item,index)=><div className={`about-service about-service-${index+1}`} key={item.title}><div className="about-service-ambient" aria-hidden="true" /><span className="about-service-icon" aria-hidden="true"><AboutIcon name={item.icon} /></span><h3>{item.title}</h3><p>{item.lines[0]}<br />{item.lines[1]}</p></div>)}</section>
-      <section className="about-qualification about-section"><h2>ПРОФЕСІЙНА<br />ЕКСПЕРТИЗА<br />ПІДТВЕРДЖЕННЯ<br />ОФІЦІЙНО.</h2><div className="about-vertical-line" /><div className="about-qualification-grid">{qualifications.map(([icon,label])=><div className="about-qualification-item" key={label}><span aria-hidden="true"><AboutIcon name={icon} /></span><p>{label}</p></div>)}</div></section>
-      <section className="about-contact about-section"><div className="about-contact-art" aria-hidden="true"><span/><span/><span/></div><div className="about-contact-content"><h2>ПОТРІБНА КОНСУЛЬТАЦІЯ<br />ЩОДО ВАШОГО БІЗНЕСУ?</h2><DiscussButton /></div></section>
     </main>
-  );
+  )
 }
+
+export default AboutPage
