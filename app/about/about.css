@@ -441,3 +441,76 @@
 @media (prefers-reduced-motion: reduce) {
   .about-page *, .about-page *::before, .about-page *::after { transition: none !important; animation: none !important; }
 }
+
+
+/* Final compact desktop/mobile scale and alignment pass */
+.about-page { --about-gutter: clamp(20px, 4.2vw, 64px); }
+.about-hero { min-height: 0; padding-block: clamp(64px, 6vw, 92px) clamp(80px, 7vw, 110px); }
+.about-hero-copy { width: min(650px, 62%); }
+.about-hero h1 { font-size: clamp(34px, 3.55vw, 51px); line-height: 1.16; letter-spacing: .018em; }
+.about-hero-description { font-size: clamp(15px, 1.18vw, 17px); line-height: 1.75; max-width: 610px; }
+.about-eyebrow { font-size: 13px; margin-bottom: 38px; }
+.about-partner, .about-qualification { grid-template-columns: minmax(0, .95fr) 1px minmax(0, 1.05fr); gap: clamp(26px, 3.6vw, 56px); padding-block: clamp(68px, 7vw, 102px); }
+.about-partner h2, .about-qualification h2 { font-size: clamp(29px, 2.85vw, 41px); line-height: 1.28; letter-spacing: -.025em; }
+.about-partner-description { font-size: clamp(15px, 1.18vw, 17px); line-height: 1.8; }
+.about-metrics { padding-block: 56px; }
+.about-metric { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 120px; }
+.about-metric strong { font-size: clamp(32px, 3.45vw, 49px); }
+.about-metric span { font-size: clamp(13px, 1.08vw, 15px); }
+.about-services { padding-block: 64px; gap: 16px; align-items: stretch; }
+.about-service { display: flex; flex-direction: column; height: 100%; padding: clamp(20px, 2vw, 28px); }
+.about-service-icon { margin-bottom: 20px; width: 54px; height: 54px; }
+.about-service-icon svg { width: 29px; height: 29px; }
+.about-service h3 { font-size: clamp(15px, 1.15vw, 17px); line-height: 1.4; min-height: 48px; margin-bottom: 12px; }
+.about-service p { font-size: clamp(13px, 1vw, 15px); line-height: 1.65; }
+.about-qualification-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 30px 26px; padding-top: 0; }
+.about-qualification-item { display: flex; flex-direction: column; align-items: flex-start; }
+.about-qualification-item>span { height: 50px; }
+.about-qualification-item>span svg { width: 32px; height: 32px; }
+.about-qualification-item p { font-size: clamp(13px, 1.05vw, 15px); line-height: 1.65; margin-top: 12px; }
+.about-contact { min-height: 400px; padding-block: 90px; }
+.about-contact h2 { font-size: clamp(26px, 2.5vw, 36px); }
+.about-discuss { min-height: 58px; font-size: 14px; padding: 14px 20px; }
+.about-arrow { font-size: 28px; }
+@media (max-width: 1100px) {
+  .about-hero-copy { width: min(640px, 75%); }
+  .about-partner h2, .about-qualification h2 { font-size: clamp(28px, 3vw, 36px); }
+  .about-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-service h3 { min-height: 0; }
+}
+@media (max-width: 900px) {
+  .about-hero { padding-block: 72px 84px; }
+  .about-hero-copy { width: 100%; }
+  .about-partner, .about-qualification { display: block; padding-block: 70px; }
+  .about-partner h2, .about-qualification h2 { font-size: clamp(28px, 4.2vw, 38px); margin-bottom: 28px; }
+  .about-partner-description { font-size: 16px; }
+  .about-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 0; }
+  .about-metric:nth-child(3) { border-left: 0; }
+  .about-services { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .about-qualification-grid { max-width: 680px; }
+}
+@media (max-width: 520px) {
+  .about-page { --about-gutter: 20px; }
+  .about-hero { padding-block: 54px 66px; }
+  .about-eyebrow { font-size: 12px; margin-bottom: 30px; }
+  .about-hero h1 { font-size: clamp(27px, 7vw, 34px); line-height: 1.17; margin-bottom: 24px; }
+  .about-hero-description { font-size: 15px; line-height: 1.7; margin-bottom: 30px; }
+  .about-partner, .about-qualification { padding-block: 56px; }
+  .about-partner h2, .about-qualification h2 { font-size: clamp(26px, 6.7vw, 31px); line-height: 1.25; margin-bottom: 25px; }
+  .about-partner-description { font-size: 15px; }
+  .about-metrics { padding-block: 36px; gap: 12px 0; }
+  .about-metric { min-height: 102px; padding: 10px 6px; }
+  .about-metric strong { font-size: clamp(28px, 7.6vw, 36px); }
+  .about-metric span { font-size: 12px; }
+  .about-services { grid-template-columns: 1fr; padding-block: 44px; gap: 12px; }
+  .about-service { padding: 22px; }
+  .about-service-icon { width: 48px; height: 48px; margin-bottom: 16px; }
+  .about-service h3 { font-size: 16px; margin-bottom: 8px; }
+  .about-service p { font-size: 14px; }
+  .about-qualification-grid { gap: 24px 16px; }
+  .about-qualification-item>span { height: 42px; }
+  .about-qualification-item p { font-size: 13px; margin-top: 8px; }
+  .about-contact { min-height: 0; padding-block: 68px; }
+  .about-contact h2 { font-size: clamp(23px, 5.8vw, 28px); }
+  .about-discuss { min-height: 58px; font-size: 13px; }
+}
