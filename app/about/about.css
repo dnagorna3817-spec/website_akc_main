@@ -1163,3 +1163,55 @@ body {
   .akc-about-figma .service, .akc-about-figma .service--1, .akc-about-figma .service--2, .akc-about-figma .service--3, .akc-about-figma .service--4 { min-height: 410px; border-radius: 26px; }
 }
 @media (prefers-reduced-motion: reduce) { .akc-about-figma .service:hover { transform: none; } }
+
+/* Reference-matched luminous card gradients: restrained charcoal with cyan/cobalt edge glow. */
+.akc-about-figma .service,
+.akc-about-figma .service--1,
+.akc-about-figma .service--2,
+.akc-about-figma .service--3,
+.akc-about-figma .service--4 {
+  background-color: #1b1e2b;
+  background-image: none;
+  box-shadow: inset 0 1px rgba(255,255,255,.045), 0 18px 50px rgba(0,0,0,.2);
+}
+.akc-about-figma .service__art { background: transparent; }
+.akc-about-figma .service__art::after { background: none; }
+.akc-about-figma .service::after {
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(20,23,35,.03) 48%, rgba(20,23,35,.16) 100%);
+}
+.akc-about-figma .service::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 78% 44% at 93% 36%, rgba(82,143,255,.77) 0%, rgba(48,101,238,.4) 31%, transparent 78%),
+    radial-gradient(ellipse 85% 25% at 11% 108%, rgba(100,252,255,.95) 0%, rgba(56,145,255,.75) 30%, transparent 85%);
+  filter: blur(15px);
+  opacity: .94;
+}
+.akc-about-figma .service--2::before {
+  background:
+    radial-gradient(ellipse 100% 27% at 52% 107%, rgba(120,255,252,.98), rgba(76,159,255,.83) 44%, transparent 90%),
+    radial-gradient(ellipse 58% 38% at 96% 32%, rgba(76,119,255,.25), transparent 85%);
+}
+.akc-about-figma .service--3::before {
+  background:
+    radial-gradient(ellipse 85% 30% at 70% -8%, rgba(140,255,254,.95), rgba(63,142,255,.9) 48%, transparent 90%),
+    radial-gradient(ellipse 60% 40% at 0% 90%, rgba(55,99,230,.15), transparent 80%);
+}
+.akc-about-figma .service--4::before {
+  background:
+    radial-gradient(ellipse 95% 36% at 45% 106%, rgba(108,245,255,.85), rgba(73,130,255,.76) 42%, transparent 92%),
+    radial-gradient(ellipse 60% 25% at 90% 0%, rgba(91,150,255,.16), transparent 80%);
+}
+.akc-about-figma .service__art svg { opacity: .06; }
+.akc-about-figma .service__content { z-index: 2; }
+@media (prefers-reduced-motion: no-preference) {
+  .akc-about-figma .service::before { transition: opacity .4s ease, filter .4s ease; }
+  .akc-about-figma .service:hover::before { opacity: 1; filter: blur(11px); }
+}
