@@ -537,9 +537,6 @@ function AboutPage() {
       </section>
 
       <section className="closing" id="contacts" data-enter>
-        <div className="closing__installation">
-          <GlassSculpture compact />
-        </div>
         <div className="closing__copy">
           <h2>
             ПОТРІБНА КОНСУЛЬТАЦІЯ
