@@ -48,3 +48,9 @@
 .page{font-family:inherit}
 .shell{padding-top:0}
 @media(max-width:600px){.shell{padding-top:0}}
+
+
+/* The shared header's link styles are scoped to the expertise page class.
+   Restore that scope without inheriting its full-viewport page height. */
+.headerScope{min-height:0!important;height:auto;background:#010910;position:relative;z-index:50}
+.headerScope :global([data-transition-header]){width:100%}
