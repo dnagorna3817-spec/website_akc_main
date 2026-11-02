@@ -1458,3 +1458,22 @@ body {
     background-position: 30% center;
   }
 }
+
+/* Restore the soft edge darkening around the original manifesto artwork. */
+.akc-about-figma .manifesto::before {
+  content: "" !important;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, #02040b 0%, rgba(2,4,11,0) 24%, rgba(2,4,11,0) 72%, #02040b 100%),
+    linear-gradient(to right, #02040b 0%, rgba(2,4,11,.12) 18%, rgba(2,4,11,0) 45%, rgba(2,4,11,.12) 82%, #02040b 100%);
+}
+.akc-about-figma .manifesto::after {
+  content: none;
+}
+.akc-about-figma .manifesto > * {
+  position: relative;
+  z-index: 1;
+}
