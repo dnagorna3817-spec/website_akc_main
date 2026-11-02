@@ -23,7 +23,7 @@ export function ExpertiseHeader() {
         <span>Аудит Консалтинг Центр</span>
       </Link>
       <nav className={styles.nav} aria-label="Основна навігація">
-        <span aria-disabled="true" title="Сторінка ще не опублікована">Про АКЦ</span>
+        <Link href="/about">Про АКЦ</Link>
         <span aria-disabled="true" title="Сторінка ще не опублікована">Insights</span>
         <Link href="/expertise/qualification">Кваліфікаційний центр</Link>
         <span aria-disabled="true" title="Сторінка ще не опублікована">Галузі</span>
