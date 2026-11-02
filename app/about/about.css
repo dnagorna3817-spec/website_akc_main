@@ -1895,3 +1895,57 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* About page motion refinement: fine details animate as sections enter. */
+@media (prefers-reduced-motion: no-preference) {
+  .akc-about-figma .manifesto .manifesto__spine,
+  .akc-about-figma .numbers .number__pin,
+  .akc-about-figma .credentials--editorial .credentials__accent {
+    transform-origin: center top;
+  }
+  .akc-about-figma .manifesto.entered .manifesto__spine {
+    animation: akc-about-line-draw 1.2s .25s cubic-bezier(.22,1,.36,1) both;
+  }
+  .akc-about-figma .manifesto.entered .manifesto__spine span {
+    animation: akc-about-pin-glow 2.8s 1s ease-in-out infinite;
+  }
+  .akc-about-figma .numbers.entered .number__pin {
+    animation: akc-about-pin-glow 3.5s ease-in-out infinite;
+  }
+  .akc-about-figma .credentials--editorial.entered .credentials__accent {
+    animation: akc-about-accent-draw .9s .35s cubic-bezier(.22,1,.36,1) both;
+    transform-origin: left center;
+  }
+  .akc-about-figma .credentials--editorial .credential {
+    transition: border-color .35s ease, box-shadow .35s ease, background-color .35s ease;
+  }
+  .akc-about-figma .credentials--editorial .credential:hover {
+    border-color: rgba(132,197,255,.42);
+    box-shadow: 0 12px 34px rgba(3,13,35,.18), inset 0 1px 0 rgba(185,225,255,.12);
+  }
+  .akc-about-figma .services .service {
+    transition: border-color .4s ease, box-shadow .4s ease;
+  }
+  .akc-about-figma .services .service:hover {
+    box-shadow: 0 18px 44px rgba(0,8,28,.24);
+  }
+  .akc-about-figma .closing--light-waves.entered .closing__light-waves svg {
+    animation: akc-about-wave-reveal 1.5s cubic-bezier(.22,1,.36,1) both;
+  }
+}
+@keyframes akc-about-line-draw {
+  from { opacity: 0; transform: scaleY(.25); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+@keyframes akc-about-accent-draw {
+  from { opacity: .2; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+@keyframes akc-about-pin-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(116,217,255,.25)); }
+  50% { filter: drop-shadow(0 0 8px rgba(116,217,255,.8)); }
+}
+@keyframes akc-about-wave-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
