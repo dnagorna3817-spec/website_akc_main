@@ -1458,3 +1458,47 @@ body {
     background-position: 30% center;
   }
 }
+
+/* Quiet light-beam atmosphere for the credentials section.
+   CSS-only: no extra image asset, and all edges fade into the page. */
+.akc-about-figma .credentials {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #02040b;
+}
+.akc-about-figma .credentials::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 42% 48% at 15% 34%, rgba(0, 61, 190, .27), transparent 78%),
+    radial-gradient(ellipse 39% 35% at 85% 87%, rgba(0, 55, 168, .24), transparent 78%),
+    repeating-linear-gradient(90deg,
+      transparent 0 58px,
+      rgba(4, 57, 161, .10) 63px,
+      rgba(9, 93, 227, .29) 67px,
+      rgba(2, 43, 139, .10) 77px,
+      transparent 91px 118px);
+  -webkit-mask-image:
+    radial-gradient(ellipse 42% 48% at 16% 30%, #000 5%, transparent 90%),
+    radial-gradient(ellipse 39% 42% at 87% 91%, #000 4%, transparent 90%);
+  mask-image:
+    radial-gradient(ellipse 42% 48% at 16% 30%, #000 5%, transparent 90%),
+    radial-gradient(ellipse 39% 42% at 87% 91%, #000 4%, transparent 90%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+  opacity: .82;
+}
+.akc-about-figma .credentials > * {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .akc-about-figma .credentials::before {
+    opacity: .5;
+    background-size: auto;
+  }
+}
