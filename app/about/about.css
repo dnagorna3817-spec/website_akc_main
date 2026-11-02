@@ -1430,8 +1430,7 @@ body {
 }
 
 
-/* Manifesto: two independently faded light fields, matching the reference.
-   No full-width gradient layer: that previously made a visible horizontal seam. */
+/* Seamless vertical light: separate soft light fields without rectangular edges. */
 .akc-about-figma .manifesto {
   position: relative;
   isolation: isolate;
@@ -1442,57 +1441,47 @@ body {
 .akc-about-figma .manifesto::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -20% 0;
   z-index: -1;
   pointer-events: none;
   background-repeat: no-repeat;
 }
-/* Blue light falls from the upper-left, fading before reaching the copy. */
+/* Left beams: strongest above the title, smoothly disappear in both axes. */
 .akc-about-figma .manifesto::before {
-  background:
-    repeating-linear-gradient(90deg,
-      transparent 0 34px,
-      rgba(5, 30, 106, .13) 37px,
-      rgba(20, 84, 246, .43) 44px,
-      rgba(10, 55, 183, .23) 55px,
-      transparent 69px),
-    radial-gradient(ellipse 40% 64% at 10% 18%,
-      rgba(8, 40, 124, .19), transparent 88%);
-  -webkit-mask-image: radial-gradient(ellipse 43% 76% at 7% 10%,
-    #000 0%, rgba(0,0,0,.88) 24%, rgba(0,0,0,.38) 58%, transparent 100%);
-  mask-image: radial-gradient(ellipse 43% 76% at 7% 10%,
-    #000 0%, rgba(0,0,0,.88) 24%, rgba(0,0,0,.38) 58%, transparent 100%);
+  background: repeating-linear-gradient(90deg,
+    transparent 0 33px,
+    rgba(8, 42, 134, .07) 38px,
+    rgba(21, 89, 248, .36) 45px,
+    rgba(10, 48, 154, .18) 56px,
+    transparent 70px);
+  -webkit-mask-image:
+    radial-gradient(ellipse 48% 62% at 6% 30%,
+      #000 0%, rgba(0,0,0,.9) 19%, rgba(0,0,0,.48) 48%, rgba(0,0,0,.12) 72%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 48% 62% at 6% 30%,
+      #000 0%, rgba(0,0,0,.9) 19%, rgba(0,0,0,.48) 48%, rgba(0,0,0,.12) 72%, transparent 100%);
 }
-/* Much fainter ribs appear only in the lower-right corner. */
+/* Right beams: very subtle, concentrated low and right. */
 .akc-about-figma .manifesto::after {
-  background:
-    repeating-linear-gradient(90deg,
-      transparent 0 34px,
-      rgba(7, 35, 115, .09) 39px,
-      rgba(14, 69, 217, .24) 47px,
-      rgba(7, 38, 136, .13) 57px,
-      transparent 70px),
-    radial-gradient(ellipse 29% 48% at 93% 88%,
-      rgba(10, 52, 165, .13), transparent 86%);
-  -webkit-mask-image: radial-gradient(ellipse 29% 61% at 94% 98%,
-    rgba(0,0,0,.85) 0%, rgba(0,0,0,.50) 44%, transparent 100%);
-  mask-image: radial-gradient(ellipse 29% 61% at 94% 98%,
-    rgba(0,0,0,.85) 0%, rgba(0,0,0,.50) 44%, transparent 100%);
+  background: repeating-linear-gradient(90deg,
+    transparent 0 33px,
+    rgba(7, 35, 115, .05) 39px,
+    rgba(15, 68, 216, .19) 47px,
+    rgba(7, 38, 136, .09) 57px,
+    transparent 70px);
+  -webkit-mask-image:
+    radial-gradient(ellipse 29% 56% at 98% 78%,
+      rgba(0,0,0,.78) 0%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.10) 72%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 29% 56% at 98% 78%,
+      rgba(0,0,0,.78) 0%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.10) 72%, transparent 100%);
 }
 .akc-about-figma .manifesto > * {
   position: relative;
   z-index: 1;
 }
-.akc-about-figma .manifesto__copy {
-  color: #e2e4e9;
-}
+.akc-about-figma .manifesto__copy { color: #e2e4e9; }
 @media (max-width: 700px) {
-  .akc-about-figma .manifesto::before {
-    opacity: .65;
-    -webkit-mask-image: radial-gradient(ellipse 85% 65% at 0% 8%, #000, transparent 100%);
-    mask-image: radial-gradient(ellipse 85% 65% at 0% 8%, #000, transparent 100%);
-  }
-  .akc-about-figma .manifesto::after {
-    opacity: .45;
-  }
+  .akc-about-figma .manifesto::before { opacity: .65; }
+  .akc-about-figma .manifesto::after { opacity: .45; }
 }
