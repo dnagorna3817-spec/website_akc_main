@@ -379,10 +379,7 @@ function AboutPage() {
     <main className="akc-about-figma page">
       <header className="nav">
         <a className="nav__brand" href="/" aria-label="Аудит Консалтинг Центр — головна">
-          <svg className="nav__logo" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-            <path d="M28 5 5 46h46L28 5ZM28 19 17 39h22L28 19ZM28 5v14M5 46l12-7m34 7-12-7" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round"/>
-            <path d="m28 30-8 14h16l-8-14Z" stroke="currentColor" strokeWidth="2"/>
-          </svg>
+          <img className="nav__logo" src="/akc-brand-white.png" alt="" width="48" height="48" />
           <span>Аудит Консалтинг Центр</span>
         </a>
         <nav className="nav__links" aria-label="Основна навігація">
