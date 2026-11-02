@@ -14,3 +14,10 @@
 .pickerCheck{color:#78c9f3;font-size:17px}
 .page .pickerTrigger:focus-visible,.page .pickerOption:focus-visible,.page .pickerSelected:focus-visible{outline:2px solid #8cdaff;outline-offset:2px}
 @media(max-width:600px){.pickerTrigger{min-height:56px;padding:13px 14px;font-size:14px}.pickerMenu{max-height:290px}.pickerOption,.pickerSelected{min-height:50px;font-size:14px}}
+
+
+/* Overlay picker options instead of expanding the grid row and moving adjacent fields. */
+.pickerShell{position:relative}
+.pickerMenu{position:absolute;top:100%;left:0;right:0;z-index:30;margin-top:6px}
+.picker:focus-within{position:relative;z-index:31}
+.fields{align-items:start}
