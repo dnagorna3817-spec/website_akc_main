@@ -1054,3 +1054,14 @@
   .accountingPage .hero { background-image: linear-gradient(0deg,rgba(3,11,23,.9),rgba(3,11,23,.5)),url("/akc-audit-wave.jpg"); }
   .accountingPage .section .feature { background-image: linear-gradient(90deg,rgba(2,8,23,.9),rgba(2,8,23,.58)),url("/akc-audit-wave.jpg"); }
 }
+
+/* Legal service shares the audit/accounting editorial language and artwork. */
+.legalPage .hero {position:relative;isolation:isolate;min-height:clamp(650px,calc(100svh - 86px),830px);background:linear-gradient(90deg,rgba(3,11,23,.88),rgba(3,11,23,.48) 65%,rgba(3,11,23,.25)),url("/akc-audit-wave.jpg") center/cover no-repeat;}
+.legalPage .hero::before,.legalPage .hero::after {content:none;}
+.legalPage .hero h1 span {color:#fff;}
+.legalPage .section .feature {min-height:455px;background:linear-gradient(90deg,rgba(2,8,23,.94),rgba(2,8,23,.70) 48%,rgba(2,8,23,.24)),url("/akc-audit-wave.jpg") center/cover no-repeat;}
+.legalPage .section .feature::before {content:none;}
+.legalPage .section .feature > :first-child {width:min(66%,710px);}
+.legalPage .section .cards .card h3 {overflow-wrap:anywhere;}
+@media(max-width:900px){.legalPage .section .feature > :first-child{width:min(85%,710px);}}
+@media(max-width:650px){.legalPage .hero{background-image:linear-gradient(0deg,rgba(3,11,23,.9),rgba(3,11,23,.5)),url("/akc-audit-wave.jpg");}.legalPage .section .feature{background-image:linear-gradient(90deg,rgba(2,8,23,.9),rgba(2,8,23,.58)),url("/akc-audit-wave.jpg");}.legalPage .section .feature > :first-child{width:100%;}}
