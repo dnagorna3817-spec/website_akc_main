@@ -123,3 +123,20 @@
   .industries-diagram { margin-top: 18px; min-height: 280px; }
   .industries-detail { padding: 10px 12px; }
 }
+
+/* Align all five diagram dots precisely with the diagonal line. */
+@media (min-width: 901px) {
+  .industries-line {
+    left: -39%;
+    top: 12%;
+    width: 135%;
+    transform: rotate(20deg);
+  }
+  .industries-node { transform: translate(-50%, -50%); }
+  .industries-node-1 { left: -22%; top: 19%; }
+  .industries-node-2 { left: 3%; top: 31%; }
+  .industries-node-3 { left: 29%; top: 43%; }
+  .industries-node-4 { left: 55%; top: 55%; }
+  .industries-node-5 { left: 81%; top: 67%; }
+  .industries-node i { flex: 0 0 auto; }
+}
