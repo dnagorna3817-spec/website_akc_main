@@ -739,3 +739,16 @@
 @media (max-width: 650px) {
   .section .feature { border-radius: 22px; }
 }
+
+/* Fine continuous outline, following the card's rounded corners. */
+.section .feature {
+  border: 1px solid rgba(145, 198, 239, 0.42);
+  border-radius: 32px;
+  background-clip: padding-box;
+}
+.section .feature::before {
+  border-radius: inherit;
+}
+@media (max-width: 650px) {
+  .section .feature { border-radius: 22px; }
+}
