@@ -20,6 +20,14 @@ const directions = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState(0);
+  const industries = [
+    { name: "ПОСЛУГИ", detail: "Підтримка сервісних компаній: облік, операційні процеси та управлінські рішення." },
+    { name: "МЕДИЦИНА", detail: "Враховуємо особливості медичного бізнесу, звітності та контролю." },
+    { name: "РОЗДРІБНА ТОРГІВЛЯ", detail: "Допомагаємо впорядкувати облік, товарні операції та фінансовий контроль." },
+    { name: "ВИРОБНИЦТВО", detail: "Аналізуємо витрати, процеси й ризики виробничих підприємств." },
+    { name: "АГРОБІЗНЕС", detail: "Регуляторні вимоги, фінансовий контроль та супровід бізнес-процесів." },
+  ];
   const [mounted, setMounted] = useState(false);
   const [mobileNavReady, setMobileNavReady] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
@@ -320,11 +328,31 @@ export default function Home() {
           <p>Інформація про кваліфікаційний напрям та відповідні матеріали.</p>
           <a href="#contacts" className="akc-section-link">Перейти до контактного розділу <span aria-hidden="true">↗</span></a>
         </section>
-        <section id="industries" className="akc-content-section">
-          <p className="akc-eyebrow">04 / ГАЛУЗІ</p>
-          <h2>Рішення для різних сфер</h2>
-          <p>Підхід до роботи залежить від задач організації, галузі та нормативних вимог.</p>
-          <a href="#contacts" className="akc-section-link">Обговорити вашу задачу <span aria-hidden="true">↗</span></a>
+        <section id="industries" className="akc-industries" aria-labelledby="industries-heading">
+          <div className="akc-industries-art" aria-hidden="true" />
+          <div className="akc-industries-content">
+            <p className="akc-industries-eyebrow">03 / Галузі</p>
+            <h2 id="industries-heading">РОЗУМІЄМО<br /><span>КОНТЕКСТ БІЗНЕСУ.</span></h2>
+            <p className="akc-industries-description">Рішення АКЦ враховують специфіку галузі, регулювання та бізнес-процесів.</p>
+            <div className="akc-industries-map">
+              <div className="akc-industries-track" aria-hidden="true" />
+              {industries.map((industry, index) => (
+                <button key={industry.name} type="button"
+                  className={`akc-industry-point akc-industry-point--${index + 1}${selectedIndustry === index ? " is-selected" : ""}`}
+                  aria-pressed={selectedIndustry === index}
+                  onClick={() => setSelectedIndustry(index)}>
+                  <span className="akc-industry-name">{industry.name}</span>
+                  <span className="akc-industry-dot" />
+                </button>
+              ))}
+              <div className="akc-industry-detail" aria-live="polite">
+                <strong>{industries[selectedIndustry].name}</strong>
+                <p>{industries[selectedIndustry].detail}</p>
+                <a href="#contacts">Обговорити напрям <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+            <a href="#contacts" className="akc-industries-all">ОБГОВОРИТИ ВАШУ ГАЛУЗЬ <span aria-hidden="true">↗</span></a>
+          </div>
         </section>
         <section id="insights" className="akc-content-section">
           <p className="akc-eyebrow">05 / НОВИНИ</p>
