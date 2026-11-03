@@ -40,7 +40,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
-            <p className={audit.crumb}><Link href="/expertise">02 / Експертиза</Link> / Аудит</p>
+            
             <p className={audit.kicker}>НЕЗАЛЕЖНА ФІНАНСОВА ЕКСПЕРТИЗА</p>
             <h1>Аудит, що дає <span>впевненість у рішеннях.</span></h1>
             <p className={audit.lead}>{service.intro}</p>
