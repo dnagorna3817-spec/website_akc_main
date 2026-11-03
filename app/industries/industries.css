@@ -57,3 +57,6 @@
   .industries-image { order: 0; }
   .industries-panel { order: 1; }
 }
+
+/* Mirror only the industries artwork horizontally. */
+.industries-image { transform: scaleX(-1); }
