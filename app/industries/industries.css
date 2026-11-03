@@ -60,3 +60,66 @@
 
 /* Mirror only the industries artwork horizontally. */
 .industries-image { transform: scaleX(-1); }
+
+/* Reference-matched industries composition — desktop only. */
+@media (min-width: 901px) {
+  .industries-stage {
+    grid-template-columns: 56% 44%;
+    position: relative;
+    isolation: isolate;
+  }
+  .industries-image {
+    grid-column: 1;
+    grid-row: 1;
+    background-position: center center;
+    transform: scaleX(-1);
+    min-width: 0;
+  }
+  .industries-panel {
+    grid-column: 2;
+    grid-row: 1;
+    padding: clamp(42px, 7vh, 86px) clamp(28px, 4.1vw, 70px) clamp(22px, 3vh, 36px) clamp(42px, 5.8vw, 100px);
+    position: relative;
+    z-index: 1;
+  }
+  .industries-kicker { margin-bottom: clamp(12px, 2vh, 22px); }
+  .industries-panel h1 {
+    font-size: clamp(32px, 3.05vw, 48px);
+    line-height: 1.14;
+    margin-bottom: clamp(18px, 2.6vh, 30px);
+  }
+  .industries-intro {
+    font-size: clamp(15px, 1.22vw, 19px);
+    max-width: 440px;
+    line-height: 1.5;
+  }
+  .industries-diagram {
+    margin-top: clamp(34px, 5vh, 64px);
+    min-height: 330px;
+    width: 100%;
+    position: relative;
+  }
+  .industries-line {
+    left: -43%;
+    top: 12%;
+    width: 137%;
+    transform: rotate(20deg);
+    background: linear-gradient(90deg, rgba(76,132,179,.65), #5d9aca);
+  }
+  .industries-node-1 { left: -22%; top: 0%; }
+  .industries-node-2 { left: 2%; top: 13%; }
+  .industries-node-3 { left: 29%; top: 27%; }
+  .industries-node-4 { left: 55%; top: 41%; }
+  .industries-node-5 { left: 79%; top: 55%; }
+  .industries-detail {
+    right: 0;
+    bottom: 0;
+    width: min(270px, 65%);
+    padding: 14px 15px;
+  }
+}
+@media (min-width: 901px) and (max-height: 760px) {
+  .industries-panel { padding-top: 24px; padding-bottom: 14px; }
+  .industries-diagram { margin-top: 18px; min-height: 280px; }
+  .industries-detail { padding: 10px 12px; }
+}
