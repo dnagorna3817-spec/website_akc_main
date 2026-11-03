@@ -315,9 +315,9 @@
   transition: transform .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .22s ease;
 }
 .auditEditorialActions .auditEditorialPrimary {
-  background: rgba(247, 250, 253, .94);
-  border: 1px solid rgba(255,255,255,.94);
-  color: #071827;
+  background: rgba(83, 111, 135, .72);
+  border: 1px solid rgba(83, 111, 135, .9);
+  color: #f5f9fc;
   box-shadow: 0 8px 32px rgba(0,0,0,.16);
 }
 .auditEditorialActions .auditEditorialSecondary {
@@ -326,8 +326,8 @@
   color: #f1f7fc;
 }
 .auditEditorialActions .auditEditorialPrimary:hover {
-  background: #fff;
-  border-color: #fff;
+  background: rgba(83, 111, 135, .88);
+  border-color: #7996ad;
   box-shadow: 0 10px 36px rgba(0,0,0,.22);
   transform: translateY(-2px);
 }
