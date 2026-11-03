@@ -1030,3 +1030,27 @@
   }
   .accountingPage .section .feature > :first-child { width: 100%; }
 }
+
+
+/* Accounting artwork: apply the audit wave directly, independent of legacy pseudo layers. */
+.accountingPage .hero {
+  position: relative;
+  isolation: isolate;
+  background-image: linear-gradient(90deg, rgba(3,11,23,.88) 0%, rgba(3,11,23,.52) 55%, rgba(3,11,23,.30) 100%), url("/akc-audit-wave.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.accountingPage .hero::before,
+.accountingPage .hero::after { content: none; }
+.accountingPage .section .feature {
+  background-image: linear-gradient(90deg, rgba(2,8,23,.94) 0%, rgba(2,8,23,.74) 46%, rgba(2,8,23,.25) 100%), url("/akc-audit-wave.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.accountingPage .section .feature::before { content: none; }
+@media (max-width: 650px) {
+  .accountingPage .hero { background-image: linear-gradient(0deg,rgba(3,11,23,.9),rgba(3,11,23,.5)),url("/akc-audit-wave.jpg"); }
+  .accountingPage .section .feature { background-image: linear-gradient(90deg,rgba(2,8,23,.9),rgba(2,8,23,.58)),url("/akc-audit-wave.jpg"); }
+}
