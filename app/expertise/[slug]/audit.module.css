@@ -796,3 +796,33 @@
       url("/media/akc-audit-card.jpg");
   }
 }
+
+/* Audit decision cards: match the luminous service cards, without changing card sizing. */
+.section .cards .card {
+  background-color: #1b2030;
+  background-image: none;
+  border: 1px solid rgba(111, 133, 181, .20);
+  border-radius: 30px;
+  isolation: isolate;
+}
+.section .cards .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--decision-card-light);
+}
+.section .cards .card:nth-child(1) {
+  --decision-card-light: radial-gradient(ellipse 85% 58% at 112% 49%, rgba(49,101,247,.90), transparent 80%), radial-gradient(ellipse 85% 48% at 108% 90%, rgba(110,190,246,.30), transparent 75%);
+}
+.section .cards .card:nth-child(2) {
+  --decision-card-light: radial-gradient(ellipse 85% 55% at 68% 116%, rgba(43,97,249,.92), transparent 77%), radial-gradient(ellipse 46% 38% at 4% 105%, rgba(112,242,244,.86), transparent 80%);
+}
+.section .cards .card:nth-child(3) {
+  --decision-card-light: radial-gradient(ellipse 75% 52% at 94% 4%, rgba(68,179,242,.92), transparent 72%), radial-gradient(ellipse 90% 60% at 67% 9%, rgba(46,88,237,.80), transparent 82%);
+}
+.section .cards .card:nth-child(4) {
+  --decision-card-light: radial-gradient(ellipse 66% 43% at 103% 108%, rgba(89,210,249,.96), transparent 75%), radial-gradient(ellipse 87% 60% at 75% 109%, rgba(42,96,239,.88), transparent 80%);
+}
