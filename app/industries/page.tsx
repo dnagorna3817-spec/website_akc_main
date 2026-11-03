@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import "./industries.css";
 import { ExpertiseHeader, expertiseFont } from "../expertise/ExpertiseView";
+import expertiseStyles from "../expertise/expertise.module.css";
 
 const sectors = [
   { name: "ПОСЛУГИ", heading: "Сфера послуг", description: "Фінансовий контроль, облік і консультаційна підтримка сервісних компаній." },
@@ -16,7 +17,7 @@ const sectors = [
 export default function IndustriesPage() {
   const [active, setActive] = useState(4);
   return (
-    <main className={`industries-page ${expertiseFont}`}>
+    <main className={`industries-page ${expertiseStyles.page} ${expertiseFont}`}>
       <ExpertiseHeader active="industries" />
       <section className="industries-stage" aria-labelledby="industries-title">
         <div className="industries-panel">
@@ -40,6 +41,7 @@ export default function IndustriesPage() {
           </div>
           <Link className="industries-bottom-link" href="/#contacts">ЗВ'ЯЗАТИСЯ З АКЦ ↗</Link>
         </div>
+        <div className="industries-image" aria-hidden="true" />
       </section>
     </main>
   );
