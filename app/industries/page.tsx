@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import "./industries.css";
+import { ExpertiseHeader, expertiseFont } from "../expertise/ExpertiseView";
 
 const sectors = [
   { name: "ПОСЛУГИ", heading: "Сфера послуг", description: "Фінансовий контроль, облік і консультаційна підтримка сервісних компаній." },
@@ -15,18 +16,9 @@ const sectors = [
 export default function IndustriesPage() {
   const [active, setActive] = useState(4);
   return (
-    <main className="industries-page">
-      <header className="industries-header">
-        <Link href="/" className="industries-brand">△ <span>Аудит Консалтинг Центр</span></Link>
-        <nav aria-label="Головна навігація">
-          <Link href="/">Головна</Link>
-          <Link href="/expertise">Експертиза</Link>
-          <span aria-current="page">Галузі</span>
-          <Link href="/#contacts">Контакти ↗</Link>
-        </nav>
-      </header>
+    <main className={`industries-page ${expertiseFont}`}>
+      <ExpertiseHeader active="industries" />
       <section className="industries-stage" aria-labelledby="industries-title">
-        <div className="industries-image" aria-hidden="true" />
         <div className="industries-panel">
           <p className="industries-kicker">03 / ГАЛУЗІ</p>
           <h1 id="industries-title">РОЗУМІЄМО<br /><em>КОНТЕКСТ БІЗНЕСУ.</em></h1>
