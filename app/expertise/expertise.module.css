@@ -164,3 +164,68 @@
 @media (prefers-reduced-motion: reduce) {
   .serviceList svg { transition: none; }
 }
+
+
+/* Audit-only editorial opening: retain the existing page background and all later sections. */
+.auditEditorialHero {
+  min-height: min(690px, calc(100svh - 94px));
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: clamp(72px, 10vw, 150px) clamp(12px, 4vw, 64px);
+}
+.auditEditorialCopy { max-width: 1000px; position: relative; z-index: 1; }
+.auditEditorialEyebrow {
+  margin: 0 0 28px;
+  color: #80a8c1;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .22em;
+}
+.auditEditorialHero h1 {
+  margin: 0;
+  font-size: clamp(48px, 5.6vw, 88px);
+  line-height: 1.09;
+  letter-spacing: -.045em;
+  font-weight: 400;
+  text-wrap: balance;
+}
+.auditEditorialDescription {
+  max-width: 520px;
+  margin: 30px 0 0;
+  color: #aabac5;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.65;
+}
+.auditEditorialActions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+.auditEditorialActions a {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 12px 20px;
+  border: 1px solid #577184;
+  font-size: 14px;
+  font-weight: 400;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.auditEditorialActions a:hover { border-color: #a9d5f1; background: rgba(86, 147, 185, .1); }
+.auditEditorialActions svg { width: 19px; height: 19px; }
+.auditEditorialPrimary { color: #e9f5fc; }
+.auditEditorialSecondary { color: #b0c4d2; }
+@media (max-width: 767px) {
+  .auditEditorialHero { min-height: min(640px, calc(100svh - 80px)); padding: 76px 0 88px; }
+  .auditEditorialEyebrow { font-size: 11px; margin-bottom: 22px; }
+  .auditEditorialHero h1 { font-size: clamp(38px, 10vw, 56px); letter-spacing: -.035em; }
+  .auditDesktopBreak { display: none; }
+  .auditEditorialDescription { margin-top: 24px; font-size: 16px; }
+  .auditEditorialActions { margin-top: 32px; gap: 12px; }
+  .auditEditorialActions a { min-height: 48px; padding: 11px 15px; gap: 14px; }
+}
+@media (max-width: 380px) {
+  .auditEditorialActions { flex-direction: column; align-items: stretch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auditEditorialActions a { transition: none; }
+}
