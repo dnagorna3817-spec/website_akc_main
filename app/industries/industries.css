@@ -46,3 +46,14 @@
   .industries-diagram { width: 100%; }
   .industries-detail { width: min(320px, 52%); }
 }
+
+/* Swap the visual columns: image left, expanded diagram right. */
+@media (min-width: 901px) {
+  .industries-image { grid-column: 1; grid-row: 1; }
+  .industries-panel { grid-column: 2; grid-row: 1; }
+  .industries-stage { grid-template-columns: 42% 58%; }
+}
+@media (max-width: 900px) {
+  .industries-image { order: 0; }
+  .industries-panel { order: 1; }
+}
