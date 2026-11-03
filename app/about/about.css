@@ -2107,3 +2107,31 @@ body {
 @media (min-width:1161px){
  .akc-about-figma .nav__links{flex:0 1 auto;justify-content:flex-start;gap:clamp(18px,2vw,32px);margin-inline:auto}
 }
+
+/* Make the supplied blue-beam artwork reliably visible behind the About manifesto. */
+.akc-about-figma .manifesto {
+  position: relative;
+  isolation: isolate;
+  background: #01040b;
+}
+.akc-about-figma .manifesto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("/media/akc-about-manifesto-beams.svg") center center / 100% 100% no-repeat;
+  opacity: 1;
+}
+.akc-about-figma .manifesto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(1,4,11,.22), rgba(1,4,11,.34) 52%, rgba(1,4,11,.17));
+}
+.akc-about-figma .manifesto > * {
+  position: relative;
+  z-index: 1;
+}
