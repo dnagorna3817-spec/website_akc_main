@@ -2099,34 +2099,3 @@ body {
 @media (min-width:1161px){
  .akc-about-figma .nav__links{flex:0 1 auto;justify-content:flex-start;gap:clamp(18px,2vw,32px);margin-inline:auto}
 }
-
-/* About manifesto: restore a subtle decorative glass visual behind the headline. */
-.manifesto { position: relative; isolation: isolate; }
-.manifesto__art {
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 2%;
-  width: min(43vw, 560px);
-  height: min(48vw, 570px);
-  pointer-events: none;
-  transform: translateY(-50%);
-  opacity: .58;
-  mask-image: radial-gradient(ellipse, #000 30%, transparent 73%);
-}
-.manifesto__art .glass-sculpture {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-12deg);
-}
-.manifesto__headline,
-.manifesto__spine,
-.manifesto__copy { position: relative; z-index: 1; }
-.manifesto__headline h2 { text-shadow: 0 2px 24px rgba(1, 4, 11, .85); }
-@media (max-width: 768px) {
-  .manifesto__art { top: 22%; left: -15%; width: 90vw; height: 340px; opacity: .28; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .manifesto__art .glass-sculpture { animation: none; }
-}
