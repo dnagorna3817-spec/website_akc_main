@@ -726,3 +726,16 @@
     background-position: 63% center;
   }
 }
+
+/* Keep the softly blurred full-card image clipped to the rounded card. */
+.section .feature {
+  border-radius: 32px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.section .feature::before {
+  border-radius: inherit;
+}
+@media (max-width: 650px) {
+  .section .feature { border-radius: 22px; }
+}
