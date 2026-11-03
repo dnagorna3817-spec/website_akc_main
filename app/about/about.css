@@ -285,7 +285,7 @@ body {
   border-bottom: 1px solid var(--rule);
   background-image:
     linear-gradient(90deg, rgba(1, 4, 11, .20), rgba(1, 4, 11, .56) 43%, rgba(1, 4, 11, .24)),
-    url("/media/akc-about-manifesto-beams.svg");
+    url("/media/akc-intro/akc-about-manifesto-beams.svg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2120,7 +2120,7 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("/media/akc-about-manifesto-beams.svg") center center / 100% 100% no-repeat;
+  background: url("/media/akc-intro/akc-about-manifesto-beams.svg.png") center center / 100% 100% no-repeat;
   opacity: 1;
 }
 .akc-about-figma .manifesto::after {
