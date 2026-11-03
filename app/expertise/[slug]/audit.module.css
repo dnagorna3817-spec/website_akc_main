@@ -230,3 +230,41 @@
 @media (max-width: 650px) {
   .hero { min-height: calc(100svh - 70px); height: auto; box-sizing: border-box; }
 }
+
+/* Editorial hero composition: deliberate hierarchy and breathing room. */
+@media (min-width: 1051px) {
+  .hero {
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .heroText {
+    width: min(100%, 900px);
+    max-width: 900px;
+    margin-left: 0;
+    padding: clamp(30px, 4vh, 48px) clamp(36px, 3.7vw, 60px);
+    background: linear-gradient(105deg,rgba(3,12,27,.93),rgba(5,18,37,.82) 75%,rgba(7,23,44,.67));
+    border: 1px solid rgba(150,183,215,.23);
+    border-radius: 22px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .hero .crumb { margin-bottom: clamp(24px, 4vh, 42px); }
+  .hero .kicker { margin-bottom: clamp(15px, 2.5vh, 24px); }
+  .hero h1 {
+    font-size: clamp(42px, min(5.2vw, 8vh), 78px);
+    line-height: 1.08;
+    letter-spacing: -.055em;
+    max-width: 760px;
+    margin-bottom: clamp(20px, 3vh, 30px);
+  }
+  .hero .lead { max-width: 650px; line-height: 1.65; }
+  .hero .actions { margin-top: clamp(28px, 4vh, 42px); gap: 14px; }
+  .hero .primary, .hero .secondary { min-height: 54px; }
+}
+@media (min-width: 1051px) and (max-height: 740px) {
+  .heroText { padding-block: 24px; }
+  .hero .crumb { margin-bottom: 20px; }
+  .hero .kicker { margin-bottom: 12px; }
+  .hero h1 { font-size: clamp(40px, 7vh, 65px); margin-bottom: 15px; }
+  .hero .actions { margin-top: 20px; }
+}
