@@ -92,7 +92,7 @@
   min-height:1400px;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%) rotate(90deg);
+  transform:translate(-50%,-50%) rotate(-90deg);
   background-size:cover;
   background-position:center;
   filter:saturate(1.12) contrast(1.08);
