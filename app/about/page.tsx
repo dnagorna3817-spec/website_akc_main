@@ -411,7 +411,6 @@ function AboutPage() {
       </section>
 
       <section className="manifesto" data-enter>
-        <div className="manifesto__art" aria-hidden="true"><GlassSculpture compact /></div>
         <div className="manifesto__headline">
           <h2>
             ПРОФЕСІЙНИЙ ПАРТНЕР
