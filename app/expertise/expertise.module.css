@@ -253,3 +253,36 @@
     opacity: .32;
   }
 }
+
+/* Full-bleed blue wave photograph supplied for the Audit hero. */
+.auditEditorialArtwork {
+  inset: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  object-fit: cover;
+  object-position: center;
+  opacity: .82;
+}
+.auditEditorialHero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(1,9,16,.86) 0%, rgba(1,9,16,.66) 46%, rgba(1,9,16,.2) 100%);
+}
+@media (max-width: 767px) {
+  .auditEditorialArtwork {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-position: 55% center;
+    opacity: .65;
+  }
+  .auditEditorialHero::after {
+    background: linear-gradient(90deg, rgba(1,9,16,.88), rgba(1,9,16,.48));
+  }
+}
