@@ -28,7 +28,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <section className={styles.auditEditorialHero} aria-labelledby="audit-editorial-title">
             <Image className={styles.auditEditorialArtwork} src="/akc-audit-wave.jpg" width={793} height={816} alt="" priority />
             <div className={styles.auditEditorialCopy}>
-              <p className={styles.auditEditorialEyebrow}>НЕЗАЛЕЖНИЙ АУДИТ / АКЦ</p>
               <h1 id="audit-editorial-title">Аудит, що дає впевненість<br className={styles.auditDesktopBreak} /> у рішеннях</h1>
               <p className={styles.auditEditorialDescription}>{service.intro}</p>
               <div className={styles.auditEditorialActions}>
