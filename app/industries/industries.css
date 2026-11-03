@@ -36,3 +36,13 @@
   .industries-image{grid-column:1;grid-row:1}
   .industries-panel{grid-column:2;grid-row:1}
 }
+
+/* Give the interactive diagram more room while retaining the full-height image. */
+@media (min-width: 901px) {
+  .industries-stage { grid-template-columns: 58% 42%; }
+  .industries-panel { padding-left: clamp(28px, 4vw, 64px); padding-right: clamp(28px, 4vw, 64px); }
+  .industries-image { grid-column: 2; grid-row: 1; }
+  .industries-panel { grid-column: 1; grid-row: 1; }
+  .industries-diagram { width: 100%; }
+  .industries-detail { width: min(320px, 52%); }
+}
