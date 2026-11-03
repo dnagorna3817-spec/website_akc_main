@@ -566,3 +566,66 @@
   .section .featureActions .featurePrimary { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .section .featureActions .featurePrimary { transition: none; } }
+
+/* Glass AKC artwork: integrated image, not a separate rectangular logo tile. */
+.section .featureSymbol {
+  min-width: 0;
+  min-height: 360px;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.glassLogoVisual {
+  position: relative;
+  width: min(100%, 570px);
+  min-height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+.glassLogoVisual::before {
+  content: "";
+  position: absolute;
+  inset: 18% 4% 4%;
+  z-index: -1;
+  background: radial-gradient(ellipse, rgba(31, 126, 245, .30), transparent 68%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+.glassLogoImage {
+  display: block;
+  width: 125%;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 53% 66% at 50% 50%, #000 48%, transparent 100%);
+  mask-image: radial-gradient(ellipse 53% 66% at 50% 50%, #000 48%, transparent 100%);
+}
+.glassLogoCaption {
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: rgba(190, 220, 250, .84);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-shadow: 0 2px 14px rgba(0, 10, 25, .8);
+}
+.glassLogoCaption span { color: rgba(110, 173, 233, .75); }
+@media (max-width: 1050px) {
+  .section .featureSymbol { min-height: 300px; }
+  .glassLogoVisual { width: min(100%, 500px); min-height: 290px; }
+}
+@media (max-width: 650px) {
+  .section .featureSymbol { min-height: 240px; }
+  .glassLogoVisual { width: 100%; min-height: 230px; }
+  .glassLogoImage { width: 128%; }
+  .glassLogoCaption { bottom: 0; font-size: 10px; }
+}
