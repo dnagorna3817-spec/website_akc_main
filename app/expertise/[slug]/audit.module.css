@@ -781,3 +781,18 @@
   .section .feature { border-radius: 22px; }
   .section .feature::before { clip-path: inset(0 round 22px); }
 }
+
+/* Remove the unwanted blue wash in the card's upper-left corner.
+   Keep the original photograph visible on the right. */
+.section .feature::before {
+  background-image:
+    linear-gradient(90deg, #020817 0%, rgba(2,8,23,.97) 29%, rgba(2,8,23,.66) 53%, rgba(2,8,23,.08) 100%),
+    url("/media/akc-audit-card.jpg");
+}
+@media (max-width: 650px) {
+  .section .feature::before {
+    background-image:
+      linear-gradient(90deg, #020817 0%, rgba(2,8,23,.88) 48%, rgba(2,8,23,.35) 100%),
+      url("/media/akc-audit-card.jpg");
+  }
+}
