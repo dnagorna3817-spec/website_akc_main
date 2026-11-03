@@ -286,3 +286,14 @@
     background: linear-gradient(90deg, rgba(1,9,16,.88), rgba(1,9,16,.48));
   }
 }
+
+/* Center the entire editorial text group over the audit wave. */
+.auditEditorialHero { justify-content: center; text-align: center; }
+.auditEditorialCopy { width: 100%; margin-inline: auto; }
+.auditEditorialDescription { margin-left: auto; margin-right: auto; }
+.auditEditorialActions { justify-content: center; }
+@media (max-width: 767px) {
+  .auditEditorialHero { text-align: center; }
+  .auditEditorialCopy { width: 100%; }
+  .auditEditorialActions { align-items: center; }
+}
