@@ -57,3 +57,22 @@
 .card:hover{border-color:#72b9e9}
 .featureSymbol{background:radial-gradient(circle at 72% 18%,rgba(83,160,235,.65),transparent 55%),linear-gradient(135deg,#172640,#0c182a)}
 .cta{background:radial-gradient(ellipse at 100% 0%,rgba(52,122,204,.18),transparent 60%),#0f1b30}
+
+/* Auraline-inspired editorial hero: wide photographic light waves, quiet UI and glass controls. */
+.page main{background:#030b17}
+.hero{position:relative;isolation:isolate;display:flex;align-items:flex-end;max-width:none;min-height:min(780px,calc(100svh - 86px));padding:clamp(110px,13vw,195px) clamp(28px,6vw,110px) clamp(55px,7vw,105px);overflow:hidden;background:#030b17}
+.hero:before{content:"";position:absolute;inset:0;z-index:-2;background-image:url("/akc-audit-wave.jpg");background-size:cover;background-position:center 49%;filter:saturate(.95) contrast(1.06)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(2,8,20,.80) 0%,rgba(2,8,20,.48) 46%,rgba(2,8,20,.10) 100%),linear-gradient(0deg,rgba(2,8,20,.65),transparent 45%,rgba(2,8,20,.20))}
+.heroText{max-width:940px}
+.crumb{position:absolute;top:clamp(28px,4vw,65px);left:0;margin:0;color:#d0e0f4;letter-spacing:.04em}
+.kicker{font-size:clamp(11px,1vw,14px);letter-spacing:.24em;color:#b2dafa;margin-bottom:20px}
+.hero h1{font-size:clamp(54px,6.8vw,112px);line-height:1.01;letter-spacing:-.065em;max-width:950px;margin-bottom:25px;text-wrap:balance}
+.hero h1 span{background:none;-webkit-text-fill-color:initial;color:#fff}
+.lead{color:#d7e5f4;max-width:650px;font-size:clamp(16px,1.4vw,20px);line-height:1.65;text-shadow:0 1px 20px rgba(0,0,0,.3)}
+.actions{margin-top:38px}
+.primary,.secondary{border-radius:999px;min-height:58px;padding:15px 25px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.primary{background:rgba(121,199,245,.90);color:#04111e;border:1px solid rgba(205,237,255,.65)}
+.secondary{background:rgba(7,22,41,.35);border:1px solid rgba(216,237,255,.55);color:#fff}
+.hero .visual{display:none}
+@media(max-width:1050px){.hero{min-height:680px;padding-top:130px;padding-bottom:70px}.hero h1{font-size:clamp(52px,8vw,86px)}}
+@media(max-width:650px){.hero{min-height:690px;min-height:calc(100svh - 70px);padding:120px 22px 55px;align-items:flex-end}.hero:before{background-position:58% center}.hero:after{background:linear-gradient(0deg,rgba(2,8,20,.89),rgba(2,8,20,.35) 70%,rgba(2,8,20,.25))}.crumb{top:30px}.hero h1{font-size:clamp(45px,11.5vw,67px)}.hero .actions{gap:12px}.hero .primary,.hero .secondary{width:100%}}
