@@ -74,6 +74,88 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </main>
     </div>;
   }
+  if (slug === "accounting") {
+    const accountingAreas = [
+      ["Юридичні особи", "Облік, звітність і супровід діяльності компанії."],
+      ["ФОП", "Ведення обліку та звітності для підприємців."],
+      ["Зарплатний проєкт", "Розрахунки, нарахування та супровід виплат."],
+      ["Кадровий і військовий облік", "Організація та ведення необхідної документації."],
+    ];
+    const accountingSteps = [
+      ["01", "Знайомство", "Вивчаємо ваш бізнес, задачі та поточні процеси."],
+      ["02", "Аналіз", "Оцінюємо обсяг обліку, документи та потреби."],
+      ["03", "Супровід", "Організовуємо регулярний облік і звітність."],
+      ["04", "Контроль", "Допомагаємо підтримувати порядок у фінансових процесах."],
+    ];
+    return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
+      <ExpertiseHeader />
+      <main>
+        <section className={audit.hero}>
+          <div className={audit.heroText}>
+            <p className={audit.kicker}>БУХГАЛТЕРСЬКИЙ СУПРОВІД / АКЦ</p>
+            <h1>Облік без <span>зайвої складності.</span></h1>
+            <p className={audit.lead}>{service.intro}</p>
+            <div className={audit.actions}>
+              <a href="#consultation" className={audit.primary}>Обговорити співпрацю <Arrow /></a>
+              <a href="#services" className={audit.secondary}>Наші послуги <Arrow /></a>
+            </div>
+          </div>
+        </section>
+        <div className={audit.values}>
+          <span>01 / Точність обліку</span><span>02 / Своєчасна звітність</span><span>03 / Менше рутини</span>
+        </div>
+        <section className={audit.section} id="services">
+          <p className={audit.kicker}>01 / БУХГАЛТЕРСЬКИЙ СУПРОВІД</p>
+          <h2>Порядок у цифрах. <span>Свобода для бізнесу.</span></h2>
+          <article className={audit.feature}>
+            <div className={audit.featureCopy}>
+              <p className={audit.kicker}>КОМПЛЕКСНИЙ СУПРОВІД</p>
+              <h3>{service.section}</h3>
+              <p>{service.description}</p>
+              <div className={audit.featureActions}>
+                <a className={audit.featurePrimary} href="#consultation">Обговорити завдання <Arrow /></a>
+                <a className={audit.featureMore} href="#areas">Напрями роботи</a>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section className={audit.section} id="areas">
+          <p className={audit.kicker}>02 / НАПРЯМИ РОБОТИ</p>
+          <h2>Ваші процеси <span>під контролем.</span></h2>
+          <div className={audit.cards}>
+            {accountingAreas.map(([title, description]) => <article className={audit.card} key={title}><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section} id="process">
+          <p className={audit.kicker}>03 / ЯК МИ ПРАЦЮЄМО</p>
+          <h2>Від першої розмови <span>до системної роботи.</span></h2>
+          <div className={audit.timeline}>
+            {accountingSteps.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section}>
+          <p className={audit.kicker}>04 / РЕЗУЛЬТАТ</p>
+          <h2>Менше рутини. <span>Більше контролю.</span></h2>
+          <div className={audit.result}>
+            <div><h3>Облік, на який можна покластися</h3><p>Допомагаємо впорядкувати бухгалтерські процеси, своєчасно готувати звітність і зосередитися на розвитку бізнесу.</p></div>
+            <ul>{service.details.map(item => <li key={item}>{item}</li>)}</ul>
+          </div>
+        </section>
+        <section className={audit.cta} id="consultation" aria-labelledby="accounting-contact-title">
+          <div className={audit.ctaTopline}><span>АКЦ / ПЕРШИЙ КРОК</span></div>
+          <div className={audit.ctaBody}><div className={audit.ctaCopy}>
+            <h2 id="accounting-contact-title">Ваш бізнес заслуговує <span>на простий облік.</span></h2>
+            <p>Розкажіть про свої задачі — допоможемо визначити відповідний формат бухгалтерського супроводу.</p>
+          </div></div>
+          <div className={audit.ctaBottom}>
+            <div><strong>Почнімо з вашого завдання</strong><p>Обговоримо можливості співпраці</p></div>
+            <Link href="/about" className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></Link>
+          </div>
+        </section>
+        <footer className={audit.footer}><Link href="/expertise">← Усі напрями експертизи</Link></footer>
+      </main>
+    </div>;
+  }
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
       <ExpertiseHeader />
