@@ -915,3 +915,63 @@
   .cta .ctaButton { width: 100%; margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .cta .ctaButton { transition: none; } }
+
+
+/* Audit closing section: full-bleed texture with a low, gently curved transition.
+   The SVG mask defines the curved edge responsively; no boxed panel or side decoration. */
+.cta {
+  --cta-texture: url("/media/akc-audit-closing-texture.jpg");
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: 670px;
+  margin: 0;
+  padding: clamp(215px, 22vw, 350px) clamp(24px, 5.5vw, 92px) clamp(65px, 7vw, 110px);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #030b17;
+  overflow: hidden;
+  gap: 32px;
+}
+.cta::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 0;
+  background-image:
+    linear-gradient(90deg, rgba(1, 8, 24, .38), rgba(1, 8, 24, .18) 65%, rgba(1, 8, 24, .32)),
+    var(--cta-texture),
+    radial-gradient(ellipse at 50% 70%, #0641a3, #061d57 50%, #020a21 90%);
+  background-size: cover;
+  background-position: center;
+  /* Curve descends to the right, as in the approved mockup. */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 290 C210 255 340 245 540 288 S1050 390 1440 340 L1440 900 L0 900 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 290 C210 255 340 245 540 288 S1050 390 1440 340 L1440 900 L0 900 Z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.ctaTopline, .ctaBody, .ctaBottom { position: relative; z-index: 1; }
+.ctaTopline { justify-content: flex-start; }
+.ctaTopline span:last-child { font-size: 12px; font-weight: 600; letter-spacing: .2em; }
+.ctaBody { display: block; min-height: 0; }
+.cta .ctaCopy h2 { max-width: 920px; }
+.cta .ctaCopy h2 span { display: inline; }
+.ctaArtwork { display: none; }
+.ctaBottom { margin-top: 25px; }
+@media (max-width: 900px) {
+  .cta { margin: 0; min-height: 620px; padding: 225px 32px 75px; }
+}
+@media (max-width: 650px) {
+  .cta { margin: 0; min-height: 590px; padding: 175px 22px 65px; gap: 24px; }
+  .cta::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 700' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 115 C100 90 185 145 270 155 S360 165 400 140 L400 700 L0 700 Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 700' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 115 C100 90 185 145 270 155 S360 165 400 140 L400 700 L0 700 Z'/%3E%3C/svg%3E");
+  }
+  .cta .ctaCopy h2 span { display: inline; }
+}
