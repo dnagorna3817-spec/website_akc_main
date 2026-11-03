@@ -183,3 +183,15 @@
 @media (max-width: 550px) {
   .industries-node span { max-width: 88px; }
 }
+
+/* Reference screenshot: diagonal starts over the left artwork and ends
+   in the right column; nodes and SVG use identical coordinates. */
+@media (min-width: 901px) {
+  .industries-node-1 { left: -33%; top: 10%; }
+  .industries-node-2 { left: -10%; top: 21.5%; }
+  .industries-node-3 { left: 13%; top: 33%; }
+  .industries-node-4 { left: 36%; top: 44.5%; }
+  .industries-node-5 { left: 59%; top: 56%; }
+  .industries-node { gap: 11px; }
+  .industries-detail { right: 0; bottom: 0; }
+}
