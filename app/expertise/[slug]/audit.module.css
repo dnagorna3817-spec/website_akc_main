@@ -268,3 +268,17 @@
   .hero h1 { font-size: clamp(40px, 7vh, 65px); margin-bottom: 15px; }
   .hero .actions { margin-top: 20px; }
 }
+
+/* Center the audit hero content within the image, keeping mobile readable. */
+@media (min-width: 1051px) {
+  .hero { justify-content: center; }
+  .heroText { margin-inline: auto; text-align: center; }
+  .hero .lead { margin-inline: auto; }
+  .hero .actions { justify-content: center; }
+}
+@media (min-width: 651px) and (max-width: 1050px) {
+  .hero { justify-content: center; }
+  .heroText { margin-inline: auto; text-align: center; }
+  .hero .lead { margin-inline: auto; }
+  .hero .actions { justify-content: center; }
+}
