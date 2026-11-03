@@ -156,6 +156,226 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </main>
     </div>;
   }
+  if (slug === "consulting") {
+    const consultingAreas = [
+      [
+            "Бухгалтерський консалтинг",
+            "Експертні рішення щодо обліку та звітності."
+      ],
+      [
+            "Податковий консалтинг",
+            "Аналіз податкових питань та можливих ризиків."
+      ],
+      [
+            "Фінансове планування",
+            "Допомога з бюджетуванням та фінансовими рішеннями."
+      ],
+      [
+            "Супровід змін",
+            "Підтримка під час трансформації бізнес-процесів."
+      ]
+];
+    const consultingSteps = [
+      [
+            "01",
+            "Запит",
+            "Визначаємо бізнес-задачу та очікуваний результат."
+      ],
+      [
+            "02",
+            "Діагностика",
+            "Аналізуємо дані, процеси й обмеження."
+      ],
+      [
+            "03",
+            "Рішення",
+            "Формуємо рекомендації та план дій."
+      ],
+      [
+            "04",
+            "Впровадження",
+            "Супроводжуємо зміни та оцінюємо результат."
+      ]
+];
+    return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
+      <ExpertiseHeader />
+      <main>
+        <section className={audit.hero}>
+          <div className={audit.heroText}>
+            <p className={audit.kicker}>КОНСАЛТИНГ / АКЦ</p>
+            <h1>Від питання <span>до рішення.</span></h1>
+            <p className={audit.lead}>{service.intro}</p>
+            <div className={audit.actions}>
+              <a href="#consultation" className={audit.primary}>Обговорити завдання <Arrow /></a>
+              <a href="#services" className={audit.secondary}>Наші послуги <Arrow /></a>
+            </div>
+          </div>
+        </section>
+        <div className={audit.values}>
+          <span>01 / Експертний аналіз</span><span>02 / Практичні рішення</span><span>03 / Супровід змін</span>
+        </div>
+        <section className={audit.section} id="services">
+          <p className={audit.kicker}>01 / БІЗНЕС-КОНСАЛТИНГ</p>
+          <h2>Складні питання. <span>Чіткі відповіді.</span></h2>
+          <article className={audit.feature}>
+            <div className={audit.featureCopy}>
+              <p className={audit.kicker}>ЕКСПЕРТНА ПІДТРИМКА</p>
+              <h3>{service.section}</h3>
+              <p>{service.description}</p>
+              <div className={audit.featureActions}>
+                <a className={audit.featurePrimary} href="#consultation">Обговорити завдання <Arrow /></a>
+                <a className={audit.featureMore} href="#areas">Напрями роботи</a>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section className={audit.section} id="areas">
+          <p className={audit.kicker}>02 / НАПРЯМИ РОБОТИ</p>
+          <h2>Ваші рішення <span>мають основу.</span></h2>
+          <div className={audit.cards}>
+            {consultingAreas.map(([title, description]) => <article className={audit.card} key={title}><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section} id="process">
+          <p className={audit.kicker}>03 / ЯК МИ ПРАЦЮЄМО</p>
+          <h2>Від аналізу <span>до впровадження.</span></h2>
+          <div className={audit.timeline}>
+            {consultingSteps.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section}>
+          <p className={audit.kicker}>04 / РЕЗУЛЬТАТ</p>
+          <h2>Менше невизначеності. <span>Більше ясності.</span></h2>
+          <div className={audit.result}>
+            <div><h3>Рекомендації, які можна застосувати</h3><p>Допомагаємо оцінити ситуацію, обрати обґрунтовані рішення та впровадити зміни у бізнесі.</p></div>
+            <ul>{service.details.map(item => <li key={item}>{item}</li>)}</ul>
+          </div>
+        </section>
+        <section className={audit.cta} id="consultation" aria-labelledby="consulting-contact-title">
+          <div className={audit.ctaTopline}><span>АКЦ / ПЕРШИЙ КРОК</span></div>
+          <div className={audit.ctaBody}><div className={audit.ctaCopy}>
+            <h2 id="consulting-contact-title">Ваш бізнес заслуговує <span>на сильні рішення.</span></h2>
+            <p>Розкажіть про вашу задачу — допоможемо визначити формат консультації та наступні кроки.</p>
+          </div></div>
+          <div className={audit.ctaBottom}>
+            <div><strong>Почнімо з вашого завдання</strong><p>Обговоримо можливості співпраці</p></div>
+            <Link href="/about" className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></Link>
+          </div>
+        </section>
+        <footer className={audit.footer}><Link href="/expertise">← Усі напрями експертизи</Link></footer>
+      </main>
+    </div>;
+  }
+  if (slug === "digital") {
+    const digitalAreas = [
+      [
+            "M.E.DOC",
+            "Налаштування та супровід електронної звітності."
+      ],
+      [
+            "BAS",
+            "Впровадження програмних продуктів для обліку."
+      ],
+      [
+            "ПРРО",
+            "Рішення для реєстрації розрахункових операцій."
+      ],
+      [
+            "Електронний документообіг",
+            "Обмін, підписання та організація цифрових документів."
+      ]
+];
+    const digitalSteps = [
+      [
+            "01",
+            "Аналіз",
+            "Вивчаємо процеси та наявні системи."
+      ],
+      [
+            "02",
+            "Планування",
+            "Підбираємо інструменти та сценарій інтеграції."
+      ],
+      [
+            "03",
+            "Впровадження",
+            "Налаштовуємо рішення під бізнес-процеси."
+      ],
+      [
+            "04",
+            "Підтримка",
+            "Допомагаємо команді працювати з інструментами."
+      ]
+];
+    return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
+      <ExpertiseHeader />
+      <main>
+        <section className={audit.hero}>
+          <div className={audit.heroText}>
+            <p className={audit.kicker}>ЦИФРОВІ РІШЕННЯ / АКЦ</p>
+            <h1>Технології, що <span>спрощують роботу.</span></h1>
+            <p className={audit.lead}>{service.intro}</p>
+            <div className={audit.actions}>
+              <a href="#consultation" className={audit.primary}>Обговорити рішення <Arrow /></a>
+              <a href="#services" className={audit.secondary}>Наші послуги <Arrow /></a>
+            </div>
+          </div>
+        </section>
+        <div className={audit.values}>
+          <span>01 / Автоматизація</span><span>02 / Інтеграції</span><span>03 / Ефективні процеси</span>
+        </div>
+        <section className={audit.section} id="services">
+          <p className={audit.kicker}>01 / ТЕХНОЛОГІЇ ДЛЯ БІЗНЕСУ</p>
+          <h2>Менше ручної роботи. <span>Більше можливостей.</span></h2>
+          <article className={audit.feature}>
+            <div className={audit.featureCopy}>
+              <p className={audit.kicker}>ЦИФРОВІ ІНСТРУМЕНТИ</p>
+              <h3>{service.section}</h3>
+              <p>{service.description}</p>
+              <div className={audit.featureActions}>
+                <a className={audit.featurePrimary} href="#consultation">Обговорити завдання <Arrow /></a>
+                <a className={audit.featureMore} href="#areas">Напрями роботи</a>
+              </div>
+            </div>
+          </article>
+        </section>
+        <section className={audit.section} id="areas">
+          <p className={audit.kicker}>02 / НАПРЯМИ РОБОТИ</p>
+          <h2>Ваші інструменти <span>працюють разом.</span></h2>
+          <div className={audit.cards}>
+            {digitalAreas.map(([title, description]) => <article className={audit.card} key={title}><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section} id="process">
+          <p className={audit.kicker}>03 / ЯК МИ ПРАЦЮЄМО</p>
+          <h2>Від потреби <span>до працюючого рішення.</span></h2>
+          <div className={audit.timeline}>
+            {digitalSteps.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+        </section>
+        <section className={audit.section}>
+          <p className={audit.kicker}>04 / РЕЗУЛЬТАТ</p>
+          <h2>Менше операцій. <span>Більше часу для бізнесу.</span></h2>
+          <div className={audit.result}>
+            <div><h3>Цифрові процеси без зайвої складності</h3><p>Допомагаємо налаштувати цифрові інструменти, зменшити ручну роботу та впорядкувати документообіг.</p></div>
+            <ul>{service.details.map(item => <li key={item}>{item}</li>)}</ul>
+          </div>
+        </section>
+        <section className={audit.cta} id="consultation" aria-labelledby="digital-contact-title">
+          <div className={audit.ctaTopline}><span>АКЦ / ПЕРШИЙ КРОК</span></div>
+          <div className={audit.ctaBody}><div className={audit.ctaCopy}>
+            <h2 id="digital-contact-title">Ваш бізнес готовий <span>до цифрових змін.</span></h2>
+            <p>Розкажіть про ваші процеси — допоможемо підібрати відповідні цифрові інструменти.</p>
+          </div></div>
+          <div className={audit.ctaBottom}>
+            <div><strong>Почнімо з вашого завдання</strong><p>Обговоримо можливості співпраці</p></div>
+            <Link href="/about" className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></Link>
+          </div>
+        </section>
+        <footer className={audit.footer}><Link href="/expertise">← Усі напрями експертизи</Link></footer>
+      </main>
+    </div>;
+  }
   if (slug === "legal") {
     const legalAreas = [
       ["Договори", "Розробка, перевірка та супровід угод."],
