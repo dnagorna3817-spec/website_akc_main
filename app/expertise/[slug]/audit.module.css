@@ -826,3 +826,35 @@
 .section .cards .card:nth-child(4) {
   --decision-card-light: radial-gradient(ellipse 66% 43% at 103% 108%, rgba(89,210,249,.96), transparent 75%), radial-gradient(ellipse 87% 60% at 75% 109%, rgba(42,96,239,.88), transparent 80%);
 }
+
+/* Result card — luminous cyan / cobalt / violet perimeter, dark readable center. */
+.section .result {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(140, 218, 255, .64);
+  border-radius: 38px;
+  background:
+    radial-gradient(ellipse 65% 22% at 51% -5%, rgba(43, 80, 255, .96), transparent 100%),
+    radial-gradient(ellipse 58% 32% at 53% 108%, rgba(31, 111, 255, .95), transparent 100%),
+    radial-gradient(ellipse 20% 75% at -5% 52%, rgba(41, 196, 255, .78), transparent 100%),
+    radial-gradient(ellipse 22% 75% at 105% 52%, rgba(43, 202, 255, .88), transparent 100%),
+    #020713;
+  box-shadow: 0 0 18px rgba(30, 166, 255, .16), inset 0 0 16px rgba(110, 223, 255, .35);
+}
+.section .result::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 82% 36% at 51% -9%, rgba(66, 55, 246, .56), transparent 78%),
+    radial-gradient(ellipse 80% 37% at 51% 110%, rgba(57, 54, 247, .58), transparent 80%),
+    linear-gradient(90deg, rgba(4, 9, 25, .04), rgba(0, 2, 11, .72) 21%, rgba(0, 2, 11, .86) 50%, rgba(0, 2, 11, .72) 79%, rgba(4, 9, 25, .04));
+}
+.section .result > * { position: relative; z-index: 1; }
+@media (max-width: 650px) {
+  .section .result { border-radius: 24px; }
+}
