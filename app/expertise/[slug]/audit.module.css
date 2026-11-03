@@ -752,3 +752,32 @@
 @media (max-width: 650px) {
   .section .feature { border-radius: 22px; }
 }
+
+/* Fix: the previous negative-inset blurred layer covered the rounded outline.
+   Clip the artwork to the card and draw the 1px stroke ABOVE the artwork. */
+.section .feature {
+  position: relative;
+  border: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.section .feature::before {
+  inset: 0;
+  border-radius: inherit;
+  clip-path: inset(0 round 32px);
+}
+.section .feature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1px solid rgba(151, 205, 244, .52);
+  border-radius: inherit;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+@media (max-width: 650px) {
+  .section .feature { border-radius: 22px; }
+  .section .feature::before { clip-path: inset(0 round 22px); }
+}
