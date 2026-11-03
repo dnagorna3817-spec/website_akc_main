@@ -229,3 +229,27 @@
 @media (prefers-reduced-motion: reduce) {
   .auditEditorialActions a { transition: none; }
 }
+
+/* Reuse the existing AKC geometry as the editorial hero backdrop. */
+.auditEditorialHero { isolation: isolate; overflow: hidden; }
+.auditEditorialArtwork {
+  position: absolute;
+  z-index: -1;
+  width: min(64%, 830px);
+  height: auto;
+  max-width: none;
+  right: -7%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: .72;
+  object-fit: contain;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .auditEditorialArtwork {
+    width: 110%;
+    right: -46%;
+    top: 30%;
+    opacity: .32;
+  }
+}
