@@ -56,7 +56,30 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className={audit.section}><p className={audit.kicker}>02 / КОЛИ ПОТРІБЕН АУДИТ</p><h2>Важливі рішення<br /><span>потребують ясності.</span></h2><div className={audit.cards}>{cases.map(([n,title,desc])=><article className={audit.card} key={n}><h3>{title}</h3><p>{desc}</p></article>)}</div></section>
         <section className={audit.section} id="process"><p className={audit.kicker}>03 / ПРОЦЕС</p><h2>Від запиту <span>до конкретних висновків.</span></h2><div className={audit.timeline}>{stages.map(([n,title,desc])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{desc}</p></article>)}</div></section>
         <section className={audit.section}><p className={audit.kicker}>04 / РЕЗУЛЬТАТ</p><h2>Не просто перевірка. <span>Основа для рішень.</span></h2><div className={audit.result}><div><h3>Зрозумілі висновки та наступні кроки</h3><p>Допомагаємо побачити фінансову картину, визначити ризики та сформувати практичні рекомендації.</p></div><ul><li>Незалежна оцінка фінансової інформації</li><li>Виявлені ризики та проблемні ділянки</li><li>Практичні рекомендації для бізнесу</li></ul></div></section>
-        <section className={audit.cta} id="consultation"><div><p className={audit.kicker}>05 / НАСТУПНИЙ КРОК</p><h2>Поговорімо про <span>ваш бізнес.</span></h2><p>Розкажіть про завдання — допоможемо визначити формат аудиту.</p></div><Link href="/about" className={audit.primary}>Зв’язатися з АКЦ <Arrow /></Link></section>
+        <section className={audit.cta} id="consultation" aria-labelledby="audit-contact-title">
+          <div className={audit.ctaTopline}><span>АКЦ / ПЕРШИЙ КРОК</span><span aria-hidden="true">↗</span></div>
+          <div className={audit.ctaBody}>
+            <div className={audit.ctaCopy}>
+              <h2 id="audit-contact-title">За кожним рішенням <span>стоїть впевненість.</span></h2>
+              <p>Допоможемо побачити повну фінансову картину, оцінити ризики та визначити наступний крок для вашого бізнесу.</p>
+            </div>
+            <div className={audit.ctaArtwork} aria-hidden="true">
+              <svg viewBox="0 0 540 370" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="auditCtaStroke" x1="25" y1="350" x2="510" y2="25" gradientUnits="userSpaceOnUse"><stop stopColor="#173E78" stopOpacity="0"/><stop offset=".38" stopColor="#3979F9"/><stop offset=".7" stopColor="#69DBFF"/><stop offset="1" stopColor="#8788FF" stopOpacity=".1"/></linearGradient>
+                  <radialGradient id="auditCtaHalo"><stop stopColor="#2778EE" stopOpacity=".32"/><stop offset="1" stopColor="#2778EE" stopOpacity="0"/></radialGradient>
+                </defs>
+                <ellipse cx="275" cy="188" rx="255" ry="155" fill="url(#auditCtaHalo)"/>
+                {Array.from({length: 11}, (_, index) => <path key={index} d={`M ${-60 + index * 28} 375 Q ${105 + index * 17} ${-155 + index * 12} ${590 + index * 7} ${45 + index * 21}`} stroke="url(#auditCtaStroke)" strokeWidth={index === 5 ? 2 : 1} opacity={1 - index * .052} />)}
+                <circle cx="365" cy="97" r="3.5" fill="#B2EEFF"/><circle cx="365" cy="97" r="15" fill="#67D5FF" fillOpacity=".12"/>
+              </svg>
+            </div>
+          </div>
+          <div className={audit.ctaBottom}>
+            <div><strong>Почнімо з вашого завдання</strong><p>Обговоримо можливості співпраці</p></div>
+            <Link href="/about" className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></Link>
+          </div>
+        </section>
         <footer className={audit.footer}><Link href="/expertise">← Усі напрями експертизи</Link></footer>
       </main>
     </div>;
