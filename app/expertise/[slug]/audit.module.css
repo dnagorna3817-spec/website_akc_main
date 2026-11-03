@@ -917,8 +917,8 @@
 @media (prefers-reduced-motion: reduce) { .cta .ctaButton { transition: none; } }
 
 
-/* Audit closing section: full-bleed texture with a low, gently curved transition.
-   The SVG mask defines the curved edge responsively; no boxed panel or side decoration. */
+/* Audit closing: match the luminous Result card and blend gently from the dark section.
+   Full width, no hard-edged card; a soft curved navy-to-cobalt transition. */
 .cta {
   --cta-texture: url("/media/akc-audit-closing-texture.jpg");
   position: relative;
@@ -926,13 +926,13 @@
   box-sizing: border-box;
   width: 100%;
   max-width: none;
-  min-height: 670px;
+  min-height: 700px;
   margin: 0;
-  padding: clamp(215px, 22vw, 350px) clamp(24px, 5.5vw, 92px) clamp(65px, 7vw, 110px);
+  padding: clamp(220px, 23vw, 350px) clamp(24px, 5.5vw, 92px) clamp(65px, 7vw, 110px);
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  background: #030b17;
+  background: #010b17;
   overflow: hidden;
   gap: 32px;
 }
@@ -942,19 +942,29 @@
   z-index: -1;
   inset: 0;
   border-radius: 0;
+  pointer-events: none;
   background-image:
-    linear-gradient(90deg, rgba(1, 8, 24, .38), rgba(1, 8, 24, .18) 65%, rgba(1, 8, 24, .32)),
+    linear-gradient(90deg, rgba(1, 7, 22, .66) 0%, rgba(2, 7, 24, .40) 54%, rgba(1, 7, 22, .55) 100%),
+    linear-gradient(180deg, rgba(1, 8, 20, .55) 0%, rgba(7, 19, 58, .32) 45%, rgba(3, 10, 31, .5) 100%),
     var(--cta-texture),
-    radial-gradient(ellipse at 50% 70%, #0641a3, #061d57 50%, #020a21 90%);
+    radial-gradient(ellipse at 60% 65%, #113f9e, #081b50 56%, #020b20 100%);
   background-size: cover;
   background-position: center;
-  /* Curve descends to the right, as in the approved mockup. */
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 290 C210 255 340 245 540 288 S1050 390 1440 340 L1440 900 L0 900 Z'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 290 C210 255 340 245 540 288 S1050 390 1440 340 L1440 900 L0 900 Z'/%3E%3C/svg%3E");
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
+  /* Fade the image in over the black section; no visible hard wave edge. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.03) 12%, rgba(0,0,0,.36) 27%, rgba(0,0,0,.86) 44%, #000 58%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.03) 12%, rgba(0,0,0,.36) 27%, rgba(0,0,0,.86) 44%, #000 58%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+}
+.cta::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 27% at 49% 46%, rgba(29, 74, 197, .22), transparent 76%),
+    radial-gradient(ellipse 46% 33% at 88% 87%, rgba(31, 121, 228, .12), transparent 85%);
 }
 .ctaTopline, .ctaBody, .ctaBottom { position: relative; z-index: 1; }
 .ctaTopline { justify-content: flex-start; }
@@ -965,13 +975,13 @@
 .ctaArtwork { display: none; }
 .ctaBottom { margin-top: 25px; }
 @media (max-width: 900px) {
-  .cta { margin: 0; min-height: 620px; padding: 225px 32px 75px; }
+  .cta { margin: 0; min-height: 650px; padding: 230px 32px 75px; }
 }
 @media (max-width: 650px) {
-  .cta { margin: 0; min-height: 590px; padding: 175px 22px 65px; gap: 24px; }
+  .cta { margin: 0; min-height: 610px; padding: 185px 22px 65px; gap: 24px; }
   .cta::before {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 700' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 115 C100 90 185 145 270 155 S360 165 400 140 L400 700 L0 700 Z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 700' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 115 C100 90 185 145 270 155 S360 165 400 140 L400 700 L0 700 Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.1) 10%, rgba(0,0,0,.72) 29%, #000 48%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.1) 10%, rgba(0,0,0,.72) 29%, #000 48%);
   }
   .cta .ctaCopy h2 span { display: inline; }
 }
