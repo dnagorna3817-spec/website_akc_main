@@ -30,3 +30,9 @@
 .industries-diagram{margin-top:10px}
 .industries-detail p{margin:5px 0}
 }
+
+/* Layout revision: illustration left, interactive scheme right */
+@media(min-width:901px){
+  .industries-image{grid-column:1;grid-row:1}
+  .industries-panel{grid-column:2;grid-row:1}
+}
