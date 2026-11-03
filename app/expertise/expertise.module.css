@@ -297,3 +297,50 @@
   .auditEditorialCopy { width: 100%; }
   .auditEditorialActions { align-items: center; }
 }
+
+/* Premium editorial buttons — scoped exclusively to Audit hero. */
+.auditEditorialActions { gap: 12px; }
+.auditEditorialActions a {
+  min-height: 56px;
+  min-width: 205px;
+  justify-content: center;
+  gap: 24px;
+  padding: 15px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.auditEditorialActions .auditEditorialPrimary {
+  background: rgba(247, 250, 253, .94);
+  border: 1px solid rgba(255,255,255,.94);
+  color: #071827;
+  box-shadow: 0 8px 32px rgba(0,0,0,.16);
+}
+.auditEditorialActions .auditEditorialSecondary {
+  background: rgba(4, 17, 30, .24);
+  border: 1px solid rgba(221,238,250,.48);
+  color: #f1f7fc;
+}
+.auditEditorialActions .auditEditorialPrimary:hover {
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 10px 36px rgba(0,0,0,.22);
+  transform: translateY(-2px);
+}
+.auditEditorialActions .auditEditorialSecondary:hover {
+  background: rgba(222,241,255,.13);
+  border-color: rgba(255,255,255,.8);
+  transform: translateY(-2px);
+}
+.auditEditorialActions a svg { width: 18px; height: 18px; }
+@media (max-width: 767px) {
+  .auditEditorialActions a { min-height: 52px; min-width: 0; padding: 13px 18px; border-radius: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auditEditorialActions a { transition: none; }
+  .auditEditorialActions a:hover { transform: none; }
+}
