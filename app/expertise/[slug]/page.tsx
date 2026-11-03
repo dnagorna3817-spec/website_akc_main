@@ -24,11 +24,28 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <div className={`${styles.page} ${expertiseFont}`}>
       <ExpertiseHeader />
       <main className={styles.serviceMain}>
+        {slug === "audit" && (
+          <section className={styles.auditEditorialHero} aria-labelledby="audit-editorial-title">
+            <div className={styles.auditEditorialCopy}>
+              <p className={styles.auditEditorialEyebrow}>НЕЗАЛЕЖНИЙ АУДИТ / АКЦ</p>
+              <h1 id="audit-editorial-title">Аудит, що дає впевненість<br className={styles.auditDesktopBreak} /> у рішеннях</h1>
+              <p className={styles.auditEditorialDescription}>{service.intro}</p>
+              <div className={styles.auditEditorialActions}>
+                <a href="#details" className={styles.auditEditorialPrimary}>Дізнатися більше <Arrow /></a>
+                <Link href="/expertise" className={styles.auditEditorialSecondary}>Усі послуги <Arrow /></Link>
+              </div>
+            </div>
+          </section>
+        )}
         <div className={styles.serviceColumns}>
           <div className={styles.serviceIntro}>
-            <p className={styles.eyebrow}><Link href="/expertise">02 / Експертиза</Link> / {service.name}</p>
-            <h1>{service.title}</h1>
-            <p>{service.intro}</p>
+            {slug !== "audit" && (
+              <>
+                <p className={styles.eyebrow}><Link href="/expertise">02 / Експертиза</Link> / {service.name}</p>
+                <h1>{service.title}</h1>
+                <p>{service.intro}</p>
+              </>
+            )}
             <section className={styles.serviceCard}>
               <h2>{service.section}</h2>
               <p>{service.description}</p>
