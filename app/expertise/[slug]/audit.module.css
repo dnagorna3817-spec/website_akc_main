@@ -282,3 +282,65 @@
   .hero .lead { margin-inline: auto; }
   .hero .actions { justify-content: center; }
 }
+
+/* Audit hero — editorial layout: centered typography directly on the existing image. */
+@media (min-width: 651px) {
+  .hero {
+    justify-content: center;
+    align-items: center;
+  }
+  .hero:after {
+    background: linear-gradient(90deg,rgba(2,8,20,.54),rgba(2,8,20,.40) 50%,rgba(2,8,20,.54)),
+                linear-gradient(0deg,rgba(2,8,20,.55),transparent 35%,rgba(2,8,20,.28));
+  }
+  .heroText {
+    width: min(100%, 900px);
+    max-width: 900px;
+    margin-inline: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    text-align: center;
+  }
+  .hero .kicker { margin-bottom: clamp(20px,3vh,30px); }
+  .hero h1 {
+    max-width: 850px;
+    margin-inline: auto;
+    font-size: clamp(48px, min(5.3vw, 8vh), 78px);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  .hero .lead { max-width: 620px; margin-inline: auto; }
+  .hero .actions { justify-content: center; gap: 14px; }
+}
+@media (max-width: 650px) {
+  .hero {
+    justify-content: center;
+    align-items: center;
+    padding: 80px 22px 55px;
+  }
+  .hero:after {
+    background: linear-gradient(0deg,rgba(2,8,20,.76),rgba(2,8,20,.47) 65%,rgba(2,8,20,.48));
+  }
+  .heroText {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    text-align: center;
+  }
+  .hero .kicker { margin-bottom: 20px; }
+  .hero h1 { margin-inline: auto; font-size: clamp(38px,9.5vw,56px); text-wrap: balance; }
+  .hero .lead { margin-inline: auto; }
+  .hero .actions { justify-content: center; }
+  .hero .primary,.hero .secondary { justify-content: space-between; }
+}
