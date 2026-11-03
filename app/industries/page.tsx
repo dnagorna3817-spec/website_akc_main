@@ -39,7 +39,6 @@ export default function IndustriesPage() {
               <Link href="/#contacts">Обговорити співпрацю ↗</Link>
             </div>
           </div>
-          <Link className="industries-bottom-link" href="/#contacts">ЗВ'ЯЗАТИСЯ З АКЦ ↗</Link>
         </div>
         <div className="industries-image" aria-hidden="true" />
       </section>
