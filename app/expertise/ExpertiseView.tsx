@@ -15,7 +15,7 @@ export function Arrow() {
   );
 }
 
-export function ExpertiseHeader() {
+export function ExpertiseHeader({ active = "expertise" }: { active?: "expertise" | "industries" }) {
   return (
     <header className={styles.header} data-transition-header>
       <Link href="/" className={styles.brand} aria-label="АКЦ — головна">
@@ -26,8 +26,8 @@ export function ExpertiseHeader() {
         <Link href="/about">Про АКЦ</Link>
         <span aria-disabled="true" title="Сторінка ще не опублікована">Insights</span>
         <Link href="/expertise/qualification">Кваліфікаційний центр</Link>
-        <span aria-disabled="true" title="Сторінка ще не опублікована">Галузі</span>
-        <Link href="/expertise" className={styles.active}>Експертиза</Link>
+        <Link href="/industries" className={active === "industries" ? styles.active : undefined}>Галузі</Link>
+        <Link href="/expertise" className={active === "expertise" ? styles.active : undefined}>Експертиза</Link>
       </nav>
       <span className={styles.contacts} aria-disabled="true" title="Контактні дані ще не додано">
         Контакти <Arrow />
@@ -38,6 +38,7 @@ export function ExpertiseHeader() {
           <Link href="/">Головна</Link>
           <Link href="/expertise">Експертиза</Link>
           <Link href="/expertise/qualification">Кваліфікаційний центр</Link>
+          <Link href="/industries">Галузі</Link>
         </nav>
       </details>
     </header>
