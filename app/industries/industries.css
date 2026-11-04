@@ -648,3 +648,8 @@
   }
   .industries-diagram > .industries-detail a { font-size: 11px; color: #d3dce5; }
 }
+
+/* Small desktop-only position adjustment: move the entire diagram (line and dots) up together without changing geometry or card. */
+@media (min-width: 901px) {
+  .industries-plot { transform: translateY(-24px); }
+}
