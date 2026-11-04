@@ -1,1 +1,505 @@
-.page{min-height:100vh;background:#010910;color:#f1f5fa;overflow:hidden}.page *{box-sizing:border-box}.page a{text-decoration:none}.page main{max-width:1440px;margin:auto}.hero{position:relative;min-height:700px;display:grid;grid-template-columns:57% 43%;padding-bottom:155px}.heroVisual{position:absolute;left:0;top:0;width:61%;height:clamp(490px,39vw,570px);background:#010910 url('/akc-services-hero.png') left top/contain no-repeat}.heroVisual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 63%,rgba(1,9,16,.28) 83%,#010910 100%)}.heroText{grid-column:2;z-index:2;padding:115px 30px 0 12px}.breadcrumb{font-size:13px;color:#7c9eb7;margin:0 0 28px}.eyebrow{font-size:13px;letter-spacing:.16em;color:#70b4e3;font-weight:500}.heroText h1{font-size:clamp(30px,2.9vw,47px);font-weight:400;line-height:1.23;letter-spacing:.012em;margin:22px 0 22px;text-wrap:balance}.heroText h1 em{font-style:normal;color:#75b9eb}.lead{font-size:15px;line-height:1.65;color:#a6b8c8;max-width:550px}.audienceStrip{position:absolute;z-index:3;top:clamp(480px,35vw,525px);left:27%;right:5%;display:grid;grid-template-columns:1.05fr repeat(5,minmax(0,1fr));align-items:stretch;min-height:132px;padding:20px 15px;background:rgba(2,14,24,.97);border:1px solid rgba(83,158,210,.48);border-radius:10px;box-shadow:0 22px 60px rgba(0,0,0,.25)}.audienceStrip h2,.audienceStrip p{display:flex;align-items:center;margin:0;padding:10px 13px;line-height:1.45;min-width:0;overflow-wrap:break-word}.audienceStrip h2{font-size:14px;font-weight:500;letter-spacing:.02em}.audienceStrip p{font-size:11px;color:#c3d0dc;border-left:1px solid rgba(100,170,215,.3)}.servicesSection{width:min(1180px,88%);margin:25px auto 100px;padding-top:42px;border-top:1px solid rgba(111,174,213,.25)}.servicesSection>h2{font-size:clamp(38px,4.2vw,60px);font-weight:400;letter-spacing:-.035em;line-height:1.1;margin:0}.servicesSection>h2 span{color:#6bbcff}.servicesLead{font-size:17px;line-height:1.65;margin:18px 0 36px;color:#9badbe}.servicesList{display:grid;gap:16px}.serviceRow{display:grid;grid-template-columns:39% minmax(0,1fr);min-height:190px;padding:28px 32px;border:1px solid rgba(111,141,195,.35);border-radius:34px;background:#1b2132;overflow:hidden;transition:border-color .2s ease,transform .2s ease}.serviceRow:nth-child(4n+1){background:radial-gradient(ellipse 57% 100% at 101% -9%,rgba(38,176,241,.97),rgba(38,110,216,.7) 31%,rgba(30,55,127,.3) 59%,transparent 80%),linear-gradient(110deg,#1b2132 0%,#1b2132 48%,#1d2440 100%)}.serviceRow:nth-child(4n+2){background:radial-gradient(ellipse 27% 42% at 0% 107%,rgba(75,201,207,.82),transparent 92%),radial-gradient(ellipse 48% 52% at 100% 110%,rgba(34,75,211,.85),transparent 90%),#1b2132}.serviceRow:nth-child(4n+3){background:radial-gradient(ellipse 55% 98% at 102% -5%,rgba(42,177,239,.98),rgba(36,106,212,.72) 33%,rgba(34,59,130,.3) 64%,transparent 84%),linear-gradient(110deg,#1b2132 0%,#1b2132 50%,#1d2540 100%)}.serviceRow:nth-child(4n+4){background:radial-gradient(ellipse 52% 70% at 100% 105%,rgba(44,118,210,.42),transparent 83%),#1b2132}.serviceRow:hover{border-color:rgba(123,175,225,.65);transform:translateY(-2px)}.serviceHeading{display:flex;align-items:center;padding:12px 28px;border-right:1px solid rgba(172,189,218,.23)}.serviceHeading h3{font-size:clamp(20px,1.9vw,27px);font-weight:600;line-height:1.22;margin:0;color:#f4f6fc}.serviceRow ul{list-style:none;display:grid;align-content:center;gap:14px;margin:0;padding:0 0 0 36px}.serviceRow li{position:relative;color:#c9d1df;font-size:15px;line-height:1.55}.serviceRow li:before{content:"";position:absolute;left:-20px;top:8px;width:8px;height:8px;border-radius:50%;background:#81c6ff}.cta{height:460px;position:relative;isolation:isolate;display:flex;align-items:center;justify-content:flex-end;border:1px solid rgba(108,168,210,.36);border-radius:22px;overflow:hidden;background:linear-gradient(90deg,rgba(2,12,22,.08),rgba(2,12,22,.28) 43%,rgba(2,12,22,.76) 75%,rgba(2,12,22,.9)),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat}.cta:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(1,9,16,.35),transparent 48%)}.ctaCopy{width:min(42%,540px);margin:0 7% 0 auto;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:30px}.cta h2{margin:0;font-size:clamp(38px,4.5vw,66px);font-weight:400;line-height:1.08;letter-spacing:-.035em;text-shadow:0 2px 28px rgba(0,0,0,.3)}.cta a{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:16px 26px;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:#d8eafb;color:#071727;font-size:13px;font-weight:700;letter-spacing:.045em}.cta a:hover{background:#fff}.page :global(header[data-transition-header]) a{color:inherit;text-decoration:none}.page :global(header[data-transition-header]) a:hover{color:#8ed0ff}@media(max-width:1100px){.hero{min-height:760px;display:block;padding-bottom:0}.heroVisual{width:70%;height:440px}.heroText{position:relative;margin-left:53%;padding:95px 24px 0 0}.heroText h1{font-size:clamp(25px,3.1vw,36px)}.audienceStrip{top:505px;left:5%;right:5%;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.audienceStrip h2{grid-column:1/-1}.audienceStrip p{min-height:65px;border-top:1px solid rgba(100,170,215,.2)}.serviceRow{grid-template-columns:1fr}.serviceHeading{border-right:0;border-bottom:1px solid rgba(172,189,218,.23);padding:8px 0 22px}.serviceRow ul{padding:24px 0 0 26px}.ctaCopy{width:52%;margin-right:6%}}@media(max-width:767px){.hero{min-height:0;display:flex;flex-direction:column}.heroVisual{position:relative;width:100%;height:auto;aspect-ratio:913/579;background-position:center top}.heroText{order:1;margin:0;padding:28px 6% 30px}.heroText h1{font-size:clamp(27px,6vw,38px);margin:14px 0}.heroText h1 br{display:none}.audienceStrip{order:2;position:relative;top:auto;left:auto;right:auto;margin:0 5% 46px;grid-template-columns:1fr 1fr;padding:18px}.audienceStrip h2{grid-column:1/-1}.audienceStrip p{padding:14px 10px;font-size:12px}.servicesSection{width:90%;margin:0 auto 56px;padding-top:30px}.servicesSection>h2{font-size:clamp(32px,8vw,46px)}.servicesLead{font-size:15px}.servicesLead br{display:none}.serviceRow{padding:22px 18px;border-radius:24px}.serviceHeading h3{font-size:21px}.serviceRow li{font-size:14px}.cta{height:390px;align-items:flex-end;background:linear-gradient(0deg,rgba(1,9,16,.92),rgba(1,9,16,.28) 78%),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat}.ctaCopy{width:auto;margin:0;padding:0 26px 32px;gap:22px}.cta h2{font-size:clamp(34px,9vw,46px)}}@media(max-width:380px){.audienceStrip{grid-template-columns:1fr}.audienceStrip p{border-left:0}}@media(prefers-reduced-motion:reduce){.serviceRow{transition:none}.serviceRow:hover{transform:none}}
+.page{min-height:100vh;background:#020d15;color:#eef3f9;overflow:hidden}.page *{box-sizing:border-box}.page main{max-width:1440px;margin:auto}.hero{min-height:550px;position:relative;display:grid;grid-template-columns:56% 44%;padding-bottom:120px}.art{position:absolute;left:0;top:0;width:64%;height:420px;background:linear-gradient(140deg,#0a3157 0%,#06192d 48%,#020d15 80%);overflow:hidden}.art:before{content:"";position:absolute;inset:-10% 20% 0 -20%;background:linear-gradient(135deg,transparent 25%,rgba(36,128,211,.25) 26%,rgba(8,48,90,.85) 45%,transparent 46%);transform:skewY(-12deg)}.photo{position:absolute;inset:5% 12% 5% 12%;background:linear-gradient(90deg,rgba(4,17,30,.12),rgba(3,14,24,.15)),url("/akc-services-hero.png") center/cover;clip-path:polygon(5% 0,100% 55%,5% 100%);filter:saturate(.9)}.art:after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,transparent 48%,rgba(32,155,247,.75) 48.2%,transparent 48.5%);pointer-events:none}.heroCopy{grid-column:2;z-index:2;padding:110px 24px 0 0}.heroCopy>span{font-size:12px;color:#5c8db5;letter-spacing:.08em}.heroCopy h1{font-weight:400;letter-spacing:.04em;line-height:1.28;font-size:clamp(24px,2.5vw,36px);margin:15px 0}.heroCopy em{color:#6aaee5;font-style:normal}.audience{position:absolute;z-index:3;top:380px;left:31%;right:6%;display:grid;grid-template-columns:1.1fr repeat(4,1fr);border:1px solid #2b4f6a;border-radius:4px;background:rgba(2,13,22,.94);padding:24px 15px;min-height:115px;align-items:center}.audience h2{font-size:14px;font-weight:400;line-height:1.45;margin:0;padding:0 14px}.audience p{font-size:11px;line-height:1.4;color:#b4c1ce;margin:0;padding:12px;border-left:1px solid #213c51;min-height:60px}.services{width:min(1120px,85%);margin:20px auto 52px;border-top:1px solid #173247;padding-top:26px}.services>h2{font-size:clamp(28px,3vw,40px);margin:0 0 8px}.services>h2 span{color:#45aefa}.lead{color:#a4b3c3;line-height:1.5;font-size:15px;margin:0 0 26px}.offerings{display:grid;gap:12px}.offer{border:1px solid #16405f;border-radius:6px;display:grid;grid-template-columns:42% 58%;min-height:180px;padding:16px 20px}.offerHeading{display:grid;grid-template-columns:75px 76px 1fr;align-items:start;gap:14px;border-right:1px solid #193c56;padding:12px 22px 12px 0}.number{font-size:42px;color:#8b9caf;font-weight:200;line-height:1}.symbol{height:65px;width:65px;border:1px solid #4285b7;border-radius:50%;display:grid;place-items:center;color:#3aaaf5;font-size:34px}.offerHeading h3{font-size:18px;line-height:1.3;align-self:center;font-weight:600}.offer ul{list-style:none;margin:0;padding:0 0 0 30px;display:grid;align-content:center;gap:11px}.offer li{position:relative;color:#aebdcb;font-size:14px;line-height:1.35}.offer li:before{content:"";position:absolute;left:-20px;top:5px;width:9px;height:9px;border-radius:50%;background:#43aaf7}.cta{height:460px;position:relative;border:1px solid #1e6190;border-radius:5px;background:linear-gradient(90deg,rgba(3,13,22,.05),rgba(2,13,22,.72) 70%),url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85") center 70%/cover}.ctaCopy{position:absolute;left:58%;top:15%;right:7%;bottom:15%;display:flex;flex-direction:column;align-items:center;justify-content:space-between}.cta h2{font-weight:400;font-size:30px;letter-spacing:.05em}.cta a{background:#4278a6;color:white;padding:12px 20px;border-radius:7px;text-decoration:none;font-size:13px}.cta a:hover{background:#58a4dc}@media(max-width:900px){.hero{min-height:650px;display:block;padding-bottom:0}.art{width:100%;height:370px}.heroCopy{position:relative;margin-left:36%;padding:100px 20px 0}.heroCopy h1{font-size:clamp(21px,3.4vw,30px)}.audience{top:400px;left:5%;right:5%;grid-template-columns:repeat(2,1fr);gap:0;padding:12px}.audience h2{grid-column:1/-1;padding:10px}.audience p{font-size:12px}.services{width:90%}.offer{grid-template-columns:1fr}.offerHeading{border-right:0;border-bottom:1px solid #193c56;padding-bottom:14px}.offer ul{padding:20px 0 0 25px}.ctaCopy{left:42%}}@media(max-width:560px){.hero{min-height:810px}.art{height:310px}.heroCopy{margin-left:0;padding:320px 22px 0}.heroCopy h1{font-size:25px}.audience{top:480px;grid-template-columns:1fr 1fr}.audience p{min-height:72px}.services{margin-top:0}.offer{padding:12px}.offerHeading{grid-template-columns:44px 52px 1fr;gap:10px}.number{font-size:30px}.symbol{width:48px;height:48px;font-size:25px}.offerHeading h3{font-size:15px}.offer li{font-size:13px}.cta{height:350px}.ctaCopy{left:12%;right:12%;top:20%;bottom:15%}}
+/* Restore shared header link appearance on this route. */
+.page :global(header[data-transition-header]) a{color:inherit;text-decoration:none}
+.page :global(header[data-transition-header]) a:hover{color:#8ed0ff}
+.page :global(header[data-transition-header]) a:focus-visible{outline:2px solid #62b8f5;outline-offset:5px}
+
+/* The supplied artwork already contains its triangular AKC composition: show it intact. */
+.art{background:#020d15}
+.art:before,.art:after{display:none}
+.photo{inset:0;clip-path:none;filter:none;background-image:url('/akc-services-hero.png');background-position:center;background-size:contain;background-repeat:no-repeat}
+
+.art::after{content:"";display:block;position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,transparent 60%,rgba(2,13,21,.22) 75%,#020d15 100%)}
+
+
+/* Agro editorial refresh — aligned with the expertise pages. */
+.page { background: #010910; color: #f1f5fa; }
+.hero { min-height: 690px; grid-template-columns: 57% 43%; padding-bottom: 150px; }
+.art { width: 61%; height: clamp(490px, 39vw, 570px); background: #010910; }
+.photo { background-position: left top; background-size: contain; }
+.art::after {
+  background: linear-gradient(to bottom, transparent 60%, rgba(1,9,16,.28) 82%, #010910 100%);
+}
+.heroCopy { padding: clamp(112px, 9vw, 152px) 32px 0 12px; }
+.heroCopy > span { font-size: 13px; letter-spacing: .16em; color: #70b4e3; }
+.heroCopy h1 {
+  font-size: clamp(30px, 2.9vw, 47px);
+  font-weight: 400; line-height: 1.23; letter-spacing: .012em;
+  margin-top: 22px; text-wrap: balance;
+}
+.heroCopy em { color: #75b9eb; }
+.audience {
+  top: clamp(470px, 35vw, 525px);
+  left: 31%; right: 6%;
+  min-height: 128px;
+  padding: 24px 18px;
+  background: rgba(2, 14, 24, .96);
+  border-color: rgba(83, 158, 210, .48);
+  border-radius: 10px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.24);
+}
+.audience h2 { font-size: 15px; font-weight: 500; letter-spacing: .025em; }
+.audience p { font-size: 12px; line-height: 1.5; border-left-color: rgba(83,158,210,.3); }
+.services { width: min(1180px, 88%); margin: 24px auto 100px; padding-top: 42px; border-top-color: rgba(111,174,213,.25); }
+.services > h2 { font-size: clamp(38px, 4.2vw, 60px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; }
+.services > h2 span { color: #6bbcff; }
+.lead { font-size: 17px; line-height: 1.65; margin: 18px 0 36px; color: #9badbe; }
+.offerings { gap: 16px; }
+.offer {
+  grid-template-columns: 39% minmax(0,1fr);
+  padding: 28px 32px;
+  min-height: 190px;
+  background: linear-gradient(115deg, rgba(12,34,52,.42), rgba(1,9,16,.94) 65%);
+  border-color: rgba(69,145,196,.4);
+  border-radius: 12px;
+  transition: border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+.offer:hover { border-color: rgba(117,190,241,.8); transform: translateY(-2px); }
+.offerHeading { grid-template-columns: 56px 72px minmax(0,1fr); gap: 18px; padding-right: 28px; border-right-color: rgba(83,158,210,.25); }
+.number { font-size: 38px; color: #8ca6ba; }
+.symbol { width: 62px; height: 62px; border-color: rgba(104,178,233,.65); color: #6dbbfa; font-size: 30px; }
+.offerHeading h3 { font-size: clamp(17px,1.6vw,23px); font-weight: 400; line-height: 1.3; margin: 0; }
+.offer ul { padding-left: 36px; gap: 14px; }
+.offer li { font-size: 15px; line-height: 1.55; }
+.offer li::before { top: 7px; width: 8px; height: 8px; background: #66baff; }
+.cta { height: 490px; border-radius: 12px; border-color: rgba(86,160,212,.48); overflow: hidden; }
+.ctaCopy { align-items: flex-start; left: 55%; right: 7%; }
+.cta h2 { font-size: clamp(28px, 3vw, 42px); font-weight: 400; }
+.cta a { background: #d7eafa; color: #071727; border-radius: 8px; padding: 14px 22px; font-weight: 600; }
+.cta a:hover { background: #fff; }
+
+@media (max-width: 1100px) {
+  .hero { min-height: 740px; display: block; padding-bottom: 0; }
+  .art { width: 70%; height: 440px; }
+  .heroCopy { position: relative; margin-left: 54%; padding: 100px 24px 0 0; }
+  .heroCopy h1 { font-size: clamp(25px, 3.1vw, 36px); }
+  .audience { top: 500px; left: 5%; right: 5%; grid-template-columns: 1.1fr repeat(4,1fr); }
+  .offer { grid-template-columns: 1fr; }
+  .offerHeading { border-right: 0; border-bottom: 1px solid rgba(83,158,210,.25); padding: 0 0 22px; }
+  .offer ul { padding: 24px 0 0 26px; }
+}
+@media (max-width: 767px) {
+  .hero { min-height: 0; display: flex; flex-direction: column; padding-bottom: 0; }
+  .art { position: relative; order: 0; width: 100%; height: auto; aspect-ratio: 913/579; }
+  .photo { background-size: contain; background-position: center top; }
+  .heroCopy { order: 1; margin: 0; padding: 28px 6% 30px; }
+  .heroCopy h1 { font-size: clamp(27px, 6vw, 38px); margin: 14px 0 0; }
+  .heroCopy h1 br { display: none; }
+  .audience { position: relative; order: 2; top: auto; left: auto; right: auto; margin: 0 5% 46px; display: grid; grid-template-columns: 1fr 1fr; padding: 18px; gap: 0; }
+  .audience h2 { grid-column: 1/-1; padding: 4px 8px 14px; }
+  .audience p { min-height: 0; padding: 14px 10px; font-size: 12px; border-top: 1px solid rgba(83,158,210,.25); }
+  .services { width: 90%; margin: 0 auto 56px; padding-top: 30px; }
+  .services > h2 { font-size: clamp(32px, 8vw, 46px); }
+  .lead { font-size: 15px; margin-bottom: 26px; }
+  .lead br { display: none; }
+  .offer { padding: 22px 18px; }
+  .offerHeading { grid-template-columns: 38px 52px minmax(0,1fr); gap: 12px; align-items: center; }
+  .number { font-size: 29px; }
+  .symbol { width: 50px; height: 50px; font-size: 25px; }
+  .offerHeading h3 { font-size: 18px; }
+  .offer li { font-size: 14px; }
+  .cta { height: 390px; }
+  .ctaCopy { left: 8%; right: 8%; top: 14%; bottom: 14%; }
+}
+@media (max-width: 380px) {
+  .audience { grid-template-columns: 1fr; }
+  .audience p { border-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .offer { transition: none; } .offer:hover { transform: none; } }
+
+@media (min-width: 901px) {
+  .hero {
+    min-height: 660px;
+    grid-template-columns: 57% 43%;
+  }
+
+  .art {
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: clamp(490px, 39vw, 570px);
+  }
+
+  .photo {
+    background-size: contain;
+    background-position: left top;
+  }
+
+  .heroCopy {
+    grid-column: 2;
+    padding: 120px 28px 0 22px;
+  }
+
+  .audience {
+    top: clamp(450px, 34vw, 505px);
+  }
+}
+/* Плавний перехід фотографії у фон */
+.art::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 65%,
+    rgba(2, 13, 21, 0.35) 82%,
+    #020d15 100%
+  );
+}
+
+/* AKC audience card typography and alignment — 2026-11-04 */
+@media (min-width: 1101px) {
+  .audience {
+    grid-template-columns: 1.08fr 1.02fr 1.02fr 1.02fr 1.25fr;
+    align-items: stretch;
+    padding: 22px 20px;
+  }
+  .audience h2,
+  .audience p {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    min-height: 96px;
+    margin: 0;
+    padding: 12px 16px;
+    line-height: 1.5;
+  }
+  .audience h2 {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .015em;
+  }
+  .audience p {
+    font-size: 13px;
+    color: #c3d0dc;
+    border-left: 1px solid rgba(100,170,215,.3);
+    overflow-wrap: break-word;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .audience {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    align-items: stretch;
+    padding: 18px;
+  }
+  .audience h2 {
+    grid-column: 1 / -1;
+    min-height: 0;
+    padding: 12px;
+  }
+  .audience p {
+    min-width: 0;
+    min-height: 72px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+}
+@media (max-width: 767px) {
+  .audience { align-items: stretch; }
+  .audience p { line-height: 1.55; overflow-wrap: break-word; }
+}
+
+
+/* Audience composition refinement: balanced columns and typography */
+@media (min-width: 1101px) {
+  .audience {
+    grid-template-columns: 1.05fr 1.05fr 1.13fr 1fr 1.2fr;
+    padding: 22px 20px;
+    align-items: stretch;
+  }
+  .audience h2,
+  .audience p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 92px;
+    margin: 0;
+    padding: 10px 19px;
+    line-height: 1.45;
+    text-align: left;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+  .audience h2 {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .audience p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #c3d0dc;
+    border-left: 1px solid rgba(100,170,215,.3);
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .audience h2,
+  .audience p { align-items: center; text-align: left; }
+}
+
+
+/* Audit-inspired visual skin for agro service cards; dimensions unchanged */
+.offer {
+  /* Preserve existing grid, card width, min-height and padding. */
+  overflow: hidden;
+  border: 1px solid rgba(119, 139, 187, .25);
+  border-radius: 34px;
+  background:
+    radial-gradient(ellipse 55% 85% at 100% 105%, rgba(54, 110, 224, .48) 0%, transparent 72%),
+    radial-gradient(ellipse 50% 95% at 0% -25%, rgba(38, 71, 151, .24) 0%, transparent 75%),
+    #1b2132;
+  box-shadow: none;
+}
+.offer:nth-child(4n + 1) {
+  background:
+    radial-gradient(ellipse 65% 100% at 103% 52%, rgba(49, 101, 220, .72), transparent 78%),
+    radial-gradient(ellipse 50% 70% at 80% 110%, rgba(83, 184, 229, .24), transparent 75%),
+    #1b2132;
+}
+.offer:nth-child(4n + 2) {
+  background:
+    radial-gradient(ellipse 60% 65% at 2% 110%, rgba(72, 200, 208, .62), transparent 65%),
+    radial-gradient(ellipse 65% 65% at 100% 120%, rgba(47, 89, 213, .55), transparent 80%),
+    #1b2132;
+}
+.offer:nth-child(4n + 3) {
+  background:
+    radial-gradient(ellipse 80% 90% at 100% 0%, rgba(50, 172, 238, .92), transparent 70%),
+    radial-gradient(ellipse 75% 95% at 50% 0%, rgba(40, 68, 185, .65), transparent 85%),
+    #1b2132;
+}
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 65% 70% at 100% 110%, rgba(49, 159, 233, .85), transparent 75%),
+    radial-gradient(ellipse 55% 85% at 55% 120%, rgba(41, 75, 175, .5), transparent 80%),
+    #1b2132;
+}
+.offer:hover { border-color: rgba(125, 168, 227, .5); }
+.offerHeading { border-right-color: rgba(177, 193, 221, .2); }
+.number { color: #a7b7d0; }
+.symbol { border-color: rgba(112, 183, 244, .6); color: #80c8ff; }
+.offerHeading h3 { color: #f3f5fc; font-weight: 600; }
+.offer li { color: #c0c8da; }
+.offer li::before { background: #81c6ff; }
+@media (max-width: 1100px) {
+  .offerHeading { border-right: 0; border-bottom-color: rgba(177, 193, 221, .2); }
+}
+@media (max-width: 767px) {
+  .offer { border-radius: 24px; }
+}
+
+
+/* Agribusiness CTA editorial composition — image preserved */
+.cta {
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 460px;
+  border: 1px solid rgba(108,168,210,.36);
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(2,12,22,.06) 0%, rgba(2,12,22,.28) 43%, rgba(2,12,22,.76) 75%, rgba(2,12,22,.88) 100%),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85") center 70% / cover no-repeat;
+}
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(1,9,16,.38), transparent 48%);
+}
+.ctaCopy {
+  position: relative;
+  inset: auto;
+  width: min(42%, 540px);
+  margin: 0 7% 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  text-align: left;
+}
+.cta h2 {
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 66px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  text-shadow: 0 2px 28px rgba(0,0,0,.3);
+}
+.cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 16px 26px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  background: #d8eafb;
+  color: #071727;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .045em;
+  transition: background .2s ease, transform .2s ease;
+}
+.cta a:hover { background: #fff; transform: translateY(-2px); }
+.cta a:focus-visible { outline: 2px solid #8ad0ff; outline-offset: 4px; }
+@media (max-width: 900px) {
+  .ctaCopy { width: min(52%, 470px); margin-right: 6%; }
+  .cta h2 { font-size: clamp(36px, 5vw, 54px); }
+}
+@media (max-width: 560px) {
+  .cta {
+    height: 390px;
+    align-items: flex-end;
+    background:
+      linear-gradient(0deg, rgba(1,9,16,.92), rgba(1,9,16,.28) 78%),
+      url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85") center / cover no-repeat;
+  }
+  .ctaCopy {
+    width: auto;
+    margin: 0;
+    padding: 0 26px 32px;
+    gap: 22px;
+  }
+  .cta h2 { font-size: clamp(34px, 9vw, 46px); }
+  .cta a { min-height: 50px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta a { transition: none; }
+  .cta a:hover { transform: none; }
+}
+
+
+/* Unified restrained blue gradient family for all agro service cards */
+.offer,
+.offer:nth-child(4n + 1),
+.offer:nth-child(4n + 2),
+.offer:nth-child(4n + 3),
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 76% 95% at 96% 108%, rgba(47, 112, 202, .34) 0%, rgba(38, 82, 163, .14) 44%, transparent 76%),
+    linear-gradient(115deg, #1b2132 0%, #1c2438 65%, #202d49 100%);
+  border-color: rgba(113, 145, 193, .3);
+}
+.offer:hover { border-color: rgba(123, 175, 225, .55); }
+
+
+/* Reference-matched service card gradients and icon-free composition */
+.offer {
+  /* Keep the existing card dimensions and two-column structure. */
+  border-radius: 34px;
+  border: 1px solid rgba(111, 141, 195, .35);
+  background-color: #1b2132;
+}
+.offer:nth-child(4n + 1) {
+  background:
+    radial-gradient(ellipse 57% 100% at 101% -9%, rgba(38, 176, 241, .97) 0%, rgba(38, 110, 216, .7) 31%, rgba(30, 55, 127, .3) 59%, transparent 80%),
+    linear-gradient(110deg, #1b2132 0%, #1b2132 48%, #1d2440 100%);
+}
+.offer:nth-child(4n + 2) {
+  background:
+    radial-gradient(ellipse 27% 42% at 0% 107%, rgba(75, 201, 207, .82) 0%, transparent 92%),
+    radial-gradient(ellipse 48% 52% at 100% 110%, rgba(34, 75, 211, .85) 0%, transparent 90%),
+    #1b2132;
+}
+.offer:nth-child(4n + 3) {
+  background:
+    radial-gradient(ellipse 55% 98% at 102% -5%, rgba(42, 177, 239, .98) 0%, rgba(36, 106, 212, .72) 33%, rgba(34, 59, 130, .3) 64%, transparent 84%),
+    linear-gradient(110deg, #1b2132 0%, #1b2132 50%, #1d2540 100%);
+}
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 52% 70% at 100% 105%, rgba(44, 118, 210, .42), transparent 83%),
+    #1b2132;
+}
+.offerHeading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 28px 12px 28px;
+  border-right: 1px solid rgba(172, 189, 218, .23);
+}
+.offerHeading h3 {
+  margin: 0;
+  font-size: clamp(20px, 1.9vw, 27px);
+  font-weight: 600;
+  line-height: 1.22;
+  color: #f4f6fc;
+}
+.offer ul { padding-left: 36px; }
+.offer li { color: #c9d1df; }
+@media (max-width: 1100px) {
+  .offerHeading {
+    border-right: 0;
+    border-bottom: 1px solid rgba(172,189,218,.23);
+    padding: 8px 0 22px;
+  }
+}
+@media (max-width: 767px) {
+  .offer { border-radius: 24px; }
+  .offerHeading h3 { font-size: 21px; }
+}
+
+
+/* Scroll reveal: progressive enhancement with reduced-motion support */
+@keyframes agro-scroll-rise {
+  from { opacity: .15; transform: translate3d(0, 46px, 0); filter: blur(5px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+@keyframes agro-scroll-image {
+  from { opacity: .65; transform: scale(1.055); }
+  to { opacity: 1; transform: scale(1); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .services > h2,
+    .services > .lead,
+    .offer,
+    .ctaCopy {
+      animation-name: agro-scroll-rise;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 34%;
+    }
+    .offer:nth-child(even) {
+      animation-range: entry 0% cover 39%;
+    }
+    .cta {
+      animation-name: agro-scroll-image;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 42%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services > h2, .services > .lead, .offer, .cta, .ctaCopy {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Services-only adaptations; all layout rules above match Agribusiness. */
+.photo{background-image:url('/akc-services-hero.png')}
+.heroDescription{color:#a6b8c8;font-size:15px;line-height:1.65;max-width:490px;margin-top:22px}
+@media(min-width:1101px){.audience{left:22%;right:4%;grid-template-columns:1.03fr repeat(5,minmax(0,1fr));padding:16px 12px}.audience h2,.audience p{padding:10px 12px}.audience p{font-size:11px}}
+@media(min-width:768px) and (max-width:1100px){.audience{grid-template-columns:repeat(3,minmax(0,1fr));top:500px}.audience h2{grid-column:1/-1}.hero{min-height:810px}}
+@media(max-width:767px){.heroDescription{font-size:14px}.audience{grid-template-columns:repeat(2,minmax(0,1fr))}.audience h2{grid-column:1/-1}}
+.cta{background:linear-gradient(90deg,rgba(2,12,22,.06) 0%,rgba(2,12,22,.28) 43%,rgba(2,12,22,.76) 75%,rgba(2,12,22,.88) 100%),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat}
