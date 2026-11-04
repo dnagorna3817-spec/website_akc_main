@@ -36,31 +36,26 @@ export default function ServicesIndustryPage() {
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
-    <div className={styles.heroVisual} aria-hidden="true"/>
-    <div className={styles.heroText}>
-      <p className={styles.breadcrumb}>03 / Галузі / Послуги</p>
-      <p className={styles.eyebrow}>ПОСЛУГИ</p>
-      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
-      <p className={styles.lead}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
+    <div className={styles.art} aria-hidden="true"><div className={styles.photo}/></div>
+    <div className={styles.heroCopy}>
+     <span>ПОСЛУГИ</span>
+     <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
+     <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
     </div>
-    <div className={styles.audienceStrip}>
-      <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
-      {audiences.map(a=><p key={a.title}>{a.title}</p>)}
+    <div className={styles.audience}>
+     <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
+     {audiences.map(a=><p key={a.title}>{a.title}</p>)}
     </div>
    </section>
-   <section className={styles.servicesSection} id="services">
+   <section className={styles.services} id="services">
     <h2>Що ми <span>пропонуємо</span></h2>
-    <p className={styles.servicesLead}>Комплексний підхід до бухгалтерського обліку, податків,<br/>управління та розвитку компаній у сфері послуг.</p>
-    <div className={styles.servicesList}>
-     {services.map(s=><article key={s.title} className={styles.serviceRow}>
-       <div className={styles.serviceHeading}><h3>{s.title}</h3></div>
-       <ul>{s.items.map(t=><li key={t}>{t}</li>)}</ul>
-     </article>)}
-    </div>
+    <p className={styles.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/>управління та розвитку компаній у сфері послуг.</p>
+    <div className={styles.offerings}>{services.map(o=><article className={styles.offer} key={o.title}>
+     <div className={styles.offerHeading}><h3>{o.title}</h3></div>
+     <ul>{o.items.map(item=><li key={item}>{item}</li>)}</ul>
+    </article>)}</div>
    </section>
-   <section className={styles.cta}>
-    <div className={styles.ctaCopy}><h2>Залиште заявку</h2><Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link></div>
-   </section>
+   <section className={styles.cta}><div className={styles.ctaCopy}><h2>Залиште заявку</h2><Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link></div></section>
   </main>
- </div>
+ </div>;
 }
