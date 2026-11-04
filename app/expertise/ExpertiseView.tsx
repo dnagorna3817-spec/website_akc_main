@@ -18,16 +18,16 @@ export function Arrow() {
 export function ExpertiseHeader({ active = "expertise" }: { active?: "expertise" | "industries" }) {
   return (
     <header className={styles.header} data-transition-header>
-      <Link href="/" className={styles.brand} aria-label="АКЦ — головна">
+      <Link href="/" className={styles.brand} style={{ color: "#f5f7f8", textDecoration: "none" }} aria-label="АКЦ — головна">
         <Image src="/akc-brand-white.png" width={57} height={56} alt="" />
         <span>Аудит Консалтинг Центр</span>
       </Link>
       <nav className={styles.nav} aria-label="Основна навігація">
-        <Link href="/about">Про АКЦ</Link>
+        <Link href="/about" style={{ color: "#f5f7f8", textDecoration: "none" }}>Про АКЦ</Link>
         <span aria-disabled="true" title="Сторінка ще не опублікована">Insights</span>
-        <Link href="/expertise/qualification">Кваліфікаційний центр</Link>
-        <Link href="/industries" className={active === "industries" ? styles.active : undefined}>Галузі</Link>
-        <Link href="/expertise" className={active === "expertise" ? styles.active : undefined}>Експертиза</Link>
+        <Link href="/expertise/qualification" style={{ color: "#f5f7f8", textDecoration: "none" }}>Кваліфікаційний центр</Link>
+        <Link href="/industries" className={active === "industries" ? styles.active : undefined} style={{ color: active === "industries" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Галузі</Link>
+        <Link href="/expertise" className={active === "expertise" ? styles.active : undefined} style={{ color: active === "expertise" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Експертиза</Link>
       </nav>
       <span className={styles.contacts} aria-disabled="true" title="Контактні дані ще не додано">
         Контакти <Arrow />
