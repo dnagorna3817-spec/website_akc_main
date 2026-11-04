@@ -8,3 +8,6 @@
 .art{background:#020d15}
 .art:before,.art:after{display:none}
 .photo{inset:0;clip-path:none;filter:none;background-image:url('/akc-agribusiness-hero.png');background-position:center;background-size:contain;background-repeat:no-repeat}
+
+/* Blend the bottom of the hero artwork softly into the page background. */
+.art::after{content:"";display:block;position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,transparent 60%,rgba(2,13,21,.22) 75%,#020d15 100%)}
