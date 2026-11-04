@@ -228,7 +228,7 @@
   justify-content:flex-end;
   padding:70px clamp(32px,6vw,100px);
   background:
-    linear-gradient(90deg,rgba(2,13,23,.03) 0%,rgba(2,13,23,.08) 34%,rgba(2,13,23,.78) 61%,#041827 100%),
+    linear-gradient(90deg,rgba(2,13,23,.02) 0%,rgba(2,13,23,.14) 25%,rgba(3,18,31,.83) 44%,rgba(3,18,31,.97) 60%,#041827 100%),
     url('/akc-manufacturing-cta.jpg') left center/cover no-repeat,
     #041827;
   border-top:1px solid rgba(116,173,215,.36);
@@ -263,7 +263,7 @@
     align-items:flex-end;
     padding:48px 22px;
     background:
-      linear-gradient(0deg,#041827 0%,rgba(2,13,23,.9) 34%,rgba(2,13,23,.14) 100%),
+      linear-gradient(0deg,#041827 0%,rgba(3,18,31,.98) 39%,rgba(3,18,31,.28) 100%),
       url('/akc-manufacturing-cta.jpg') 24% center/cover no-repeat,
       #041827;
   }
@@ -271,3 +271,7 @@
   .cta h2{font-size:clamp(24px,6.5vw,34px)}
   .cta .primary{min-width:0}
 }
+
+/* High-contrast CTA copy over the darkened image transition. */
+.cta h2{color:#f3f7fc;text-shadow:0 2px 18px rgba(0,0,0,.28)}
+.cta .eyebrow{color:#83cfff}
