@@ -36,13 +36,13 @@ export default function ServicesIndustryPage() {
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
-    <div className={styles.art} aria-hidden="true" style={{position:"absolute",left:0,top:0,width:"56%",height:"560px",backgroundImage:"url(/akc-services-hero.png)",backgroundSize:"cover",backgroundPosition:"center",backgroundRepeat:"no-repeat"}}/>
-    <div className={styles.heroCopy} style={{position:"absolute",zIndex:10,top:"85px",right:"4%",width:"42%",padding:"20px 12px",background:"transparent",color:"#eef4fa",visibility:"visible",opacity:1,display:"block"}}>
+    <div className={styles.art} aria-hidden="true"/>
+    <div className={styles.heroCopy}>
      <span>ПОСЛУГИ</span>
      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
      <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
     </div>
-    <div className={styles.audience} style={{position:"absolute",zIndex:5,top:"540px",left:"18%",right:"5%",display:"grid",gridTemplateColumns:"1.1fr repeat(5,minmax(0,1fr))",alignItems:"stretch",padding:"18px 12px",border:"1px solid rgba(89,155,209,.55)",borderRadius:"12px",background:"rgba(4,20,34,.98)",boxShadow:"0 18px 45px rgba(0,0,0,.3)"}}>
+    <div className={styles.audience}>
      <h2 style={{fontSize:"14px",fontWeight:600,margin:0,padding:"14px 12px",alignSelf:"center"}}>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
      {audiences.map(a=><p key={a.title} style={{fontSize:"12px",lineHeight:1.45,color:"#c5d1de",margin:0,padding:"14px 12px",borderLeft:"1px solid rgba(106,165,211,.3)",display:"flex",alignItems:"center",overflowWrap:"anywhere"}}>{a.title}</p>)}
     </div>
