@@ -198,3 +198,23 @@
   .serviceCard ul{padding:22px 0 0 24px;gap:12px}
   .serviceCard li{font-size:14px}
 }
+
+/* Place the services introduction below its heading, matching the audience section. */
+.services .sectionIntro{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-start;
+  gap:14px;
+}
+.services .sectionIntro h2{margin:0}
+.services .sectionIntro p{
+  margin:0;
+  max-width:780px;
+  font-size:16px;
+  line-height:1.6;
+}
+@media(max-width:650px){
+  .services .sectionIntro{gap:12px}
+  .services .sectionIntro p{font-size:14px}
+}
