@@ -409,3 +409,48 @@
   .offer { border-radius: 24px; }
   .offerHeading h3 { font-size: 21px; }
 }
+
+
+/* Scroll reveal: progressive enhancement with reduced-motion support */
+@keyframes agro-scroll-rise {
+  from { opacity: .15; transform: translate3d(0, 46px, 0); filter: blur(5px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+@keyframes agro-scroll-image {
+  from { opacity: .65; transform: scale(1.055); }
+  to { opacity: 1; transform: scale(1); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .services > h2,
+    .services > .lead,
+    .offer,
+    .ctaCopy {
+      animation-name: agro-scroll-rise;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 34%;
+    }
+    .offer:nth-child(even) {
+      animation-range: entry 0% cover 39%;
+    }
+    .cta {
+      animation-name: agro-scroll-image;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 42%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services > h2, .services > .lead, .offer, .cta, .ctaCopy {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
