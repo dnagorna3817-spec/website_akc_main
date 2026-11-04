@@ -727,7 +727,8 @@
 .industries-plot .industries-node-4 { animation-delay: 1.72s; }
 .industries-plot .industries-node-5 { animation-delay: 2.12s; }
 .industries-plot > .industries-detail {
-  animation: industry-card-appear .4s ease-out 2.4s both;
+  /* React remounts this card on each selection: never inherit the line's entrance delay. */
+  animation: industry-card-appear .16s ease-out both;
 }
 @keyframes industries-trace {
   0% { stroke-dashoffset: 1000; opacity: .25; }
