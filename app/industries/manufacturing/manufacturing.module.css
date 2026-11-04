@@ -114,3 +114,23 @@
   .audienceCard p{font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){.audienceCard{transition:none}.audienceCard:hover{transform:none}}
+
+/* Keep the audience description directly below its heading. */
+.audience .sectionIntro{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-start;
+  gap:14px;
+}
+.audience .sectionIntro h2{margin:0}
+.audience .sectionIntro p{
+  margin:0;
+  max-width:780px;
+  font-size:16px;
+  line-height:1.6;
+}
+@media(max-width:650px){
+  .audience .sectionIntro{gap:12px}
+  .audience .sectionIntro p{font-size:14px}
+}
