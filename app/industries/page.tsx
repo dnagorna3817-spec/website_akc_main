@@ -26,7 +26,7 @@ export default function IndustriesPage() {
           <p className="industries-intro">Рішення АКЦ враховують специфіку галузі, регулювання та бізнес-процесів.</p>
           <div className="industries-diagram">
             <div className="industries-plot">
-              <svg className="industries-line-svg" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path d="M 20 114 L 820 294" /></svg>
+              <svg className="industries-line-svg" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 20 114 L 820 294" /></svg>
             {sectors.map((sector, i) => (
               <button type="button" key={sector.name}
                 className={`industries-node industries-node-${i + 1}${active === i ? " selected" : ""}`}
