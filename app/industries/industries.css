@@ -710,3 +710,40 @@
 @media (prefers-reduced-motion: reduce) {
   .industries-plot > .industries-detail { animation: none; }
 }
+
+/* Entrance sequence: trace the line left-to-right, then illuminate each stop. */
+.industries-plot .industries-line-svg path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: industries-trace 2.15s cubic-bezier(.25,.1,.25,1) .15s forwards;
+}
+.industries-plot .industries-node {
+  opacity: 0;
+  animation: industries-node-reveal .48s ease-out forwards;
+}
+.industries-plot .industries-node-1 { animation-delay: .46s; }
+.industries-plot .industries-node-2 { animation-delay: .88s; }
+.industries-plot .industries-node-3 { animation-delay: 1.30s; }
+.industries-plot .industries-node-4 { animation-delay: 1.72s; }
+.industries-plot .industries-node-5 { animation-delay: 2.12s; }
+.industries-plot > .industries-detail {
+  animation: industry-card-appear .4s ease-out 2.4s both;
+}
+@keyframes industries-trace {
+  0% { stroke-dashoffset: 1000; opacity: .25; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes industries-node-reveal {
+  0% { opacity: 0; filter: brightness(.35); }
+  65% { opacity: 1; filter: brightness(1.6) drop-shadow(0 0 7px rgba(85,191,255,.7)); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .industries-plot .industries-line-svg path,
+  .industries-plot .industries-node,
+  .industries-plot > .industries-detail {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
