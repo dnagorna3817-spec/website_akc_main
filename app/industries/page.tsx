@@ -28,13 +28,21 @@ export default function IndustriesPage() {
             <div className="industries-plot">
               <svg className="industries-line-svg industries-line-desktop" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 20 114 L 820 294" /></svg>
               <svg className="industries-line-svg industries-line-mobile" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1000" d="M 80 90 L 920 210" /></svg>
-            {sectors.map((sector, i) => (
-              <button type="button" key={sector.name}
-                className={`industries-node industries-node-${i + 1}${active === i ? " selected" : ""}`}
-                aria-pressed={active === i} onClick={() => setActive(i)}>
-                <span>{sector.name}</span><i aria-hidden="true" />
-              </button>
-            ))}
+            {sectors.map((sector, i) => {
+              const href = i === 4 ? "/industries/agribusiness" : i === 3 ? "/industries/manufacturing" : i === 2 ? "/industries/retail" : null;
+              const className = `industries-node industries-node-${i + 1}${active === i ? " selected" : ""}`;
+              return href ? (
+                <Link key={sector.name} href={href} className={className}
+                  onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}>
+                  <span>{sector.name}</span><i aria-hidden="true" />
+                </Link>
+              ) : (
+                <button type="button" key={sector.name} className={className}
+                  aria-pressed={active === i} onClick={() => setActive(i)}>
+                  <span>{sector.name}</span><i aria-hidden="true" />
+                </button>
+              );
+            })}
               <div key={active} className={`industries-detail industries-detail-${active + 1}`} aria-live="polite">
               <strong>{sectors[active].heading}</strong>
               <p>{sectors[active].description}</p>
