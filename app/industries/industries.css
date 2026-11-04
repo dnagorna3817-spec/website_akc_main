@@ -851,3 +851,75 @@
   .industries-plot { min-height: 220px; }
   .industries-plot > .industries-detail { margin-top: 26px; }
 }
+
+/* Final narrow-screen geometry: the SVG and the dots share exact coordinates.
+   Keep the selected information card below the line, never over its labels. */
+.industries-plot .industries-line-mobile { display: none; }
+@media (max-width: 900px) {
+  .industries-plot {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 250px;
+    overflow: visible;
+    margin-bottom: 0;
+  }
+  .industries-plot .industries-line-desktop { display: none; }
+  .industries-plot .industries-line-mobile {
+    display: block;
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 250px;
+  }
+  .industries-plot .industries-node {
+    position: absolute;
+    transform: translate(-50%, calc(-100% + 8px));
+    z-index: 2;
+    min-width: 48px;
+    min-height: 44px;
+    gap: 8px;
+  }
+  /* Path: (80,90) to (920,210) in the 1000x300 viewBox. */
+  .industries-plot .industries-node-1 { left: 8%; top: 30px; }
+  .industries-plot .industries-node-2 { left: 29%; top: 55px; }
+  .industries-plot .industries-node-3 { left: 50%; top: 80px; }
+  .industries-plot .industries-node-4 { left: 71%; top: 105px; }
+  .industries-plot .industries-node-5 { left: 92%; top: 130px; }
+  .industries-plot > .industries-detail {
+    position: relative;
+    inset: auto;
+    order: 2;
+    align-self: flex-end;
+    width: min(330px, 100%);
+    max-width: 100%;
+    margin: 0;
+    z-index: 3;
+  }
+  .industries-plot .industries-node span {
+    font-size: clamp(10px, 1.5vw, 12px);
+    max-width: 125px;
+    white-space: normal;
+    text-align: center;
+  }
+}
+@media (max-width: 600px) {
+  .industries-plot { padding-top: 205px; }
+  .industries-plot .industries-line-mobile { height: 205px; }
+  .industries-plot .industries-node-1 { left: 8%; top: 24.6px; }
+  .industries-plot .industries-node-2 { left: 29%; top: 45.1px; }
+  .industries-plot .industries-node-3 { left: 50%; top: 65.6px; }
+  .industries-plot .industries-node-4 { left: 71%; top: 86.1px; }
+  .industries-plot .industries-node-5 { left: 92%; top: 106.6px; }
+  .industries-plot .industries-node span {
+    max-width: 72px;
+    font-size: clamp(8px, 2.1vw, 10px);
+  }
+  .industries-plot > .industries-detail {
+    align-self: stretch;
+    width: 100%;
+    margin-top: 0;
+  }
+}
