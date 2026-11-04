@@ -939,3 +939,40 @@
   .industries-plot .industries-node-4 { left: 71%; top: 123px; }
   .industries-plot .industries-node-5 { left: 92%; top: 143.5px; }
 }
+
+/* Floating cards on tablet/mobile, matching desktop: anchored under selected dot.
+   The chart retains a reserved lower area so cards never overlap following content. */
+@media (max-width: 900px) {
+  .industries-plot {
+    display: block;
+    padding-top: 0;
+    height: 465px;
+    min-height: 465px;
+  }
+  .industries-plot > .industries-detail {
+    position: absolute;
+    right: auto;
+    bottom: auto;
+    width: min(290px, calc(100% - 8px));
+    max-width: calc(100% - 8px);
+    margin: 0;
+    padding: 12px 13px 10px;
+    align-self: auto;
+    border-radius: 13px;
+    animation: industry-card-appear .16s ease-out both;
+  }
+  .industries-plot > .industries-detail-1 { left: clamp(4px, calc(8% - 110px), calc(100% - 294px)); top: 100px; }
+  .industries-plot > .industries-detail-2 { left: clamp(4px, calc(29% - 110px), calc(100% - 294px)); top: 125px; }
+  .industries-plot > .industries-detail-3 { left: clamp(4px, calc(50% - 110px), calc(100% - 294px)); top: 150px; }
+  .industries-plot > .industries-detail-4 { left: clamp(4px, calc(71% - 110px), calc(100% - 294px)); top: 175px; }
+  .industries-plot > .industries-detail-5 { left: clamp(4px, calc(92% - 110px), calc(100% - 294px)); top: 200px; }
+}
+@media (max-width: 600px) {
+  .industries-plot { height: 380px; min-height: 380px; }
+  .industries-plot > .industries-detail { width: min(260px, calc(100% - 8px)); }
+  .industries-plot > .industries-detail-1 { left: clamp(4px, calc(8% - 110px), calc(100% - 264px)); top: 86px; }
+  .industries-plot > .industries-detail-2 { left: clamp(4px, calc(29% - 110px), calc(100% - 264px)); top: 107px; }
+  .industries-plot > .industries-detail-3 { left: clamp(4px, calc(50% - 110px), calc(100% - 264px)); top: 127px; }
+  .industries-plot > .industries-detail-4 { left: clamp(4px, calc(71% - 110px), calc(100% - 264px)); top: 148px; }
+  .industries-plot > .industries-detail-5 { left: clamp(4px, calc(92% - 110px), calc(100% - 264px)); top: 169px; }
+}
