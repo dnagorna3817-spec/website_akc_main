@@ -449,3 +449,76 @@
     background-position: center 45%;
   }
 }
+
+
+/* Editorial industries composition — stronger diagram hierarchy. */
+@media (min-width: 901px) {
+  .industries-stage { grid-template-columns: minmax(180px, 23%) minmax(0, 77%); }
+  .industries-image { opacity: .4; background-position: 50% center; }
+  .industries-image::after { background: linear-gradient(90deg, rgba(2,11,18,.05), #020b12 95%); }
+  .industries-panel {
+    padding: clamp(25px, 3.5vh, 42px) clamp(40px, 5vw, 90px) clamp(22px, 3vh, 35px);
+  }
+  .industries-kicker { margin-bottom: clamp(12px, 1.8vh, 22px); letter-spacing: .16em; }
+  .industries-panel h1 { font-size: clamp(40px, 3.5vw, 62px); line-height: 1.08; margin-bottom: clamp(14px, 2vh, 23px); }
+  .industries-intro { max-width: 680px; }
+  .industries-diagram {
+    flex: 1;
+    justify-content: flex-end;
+    max-width: none;
+    gap: clamp(16px, 2.4vh, 25px);
+    margin-top: clamp(14px, 2.2vh, 30px);
+  }
+  .industries-plot {
+    height: clamp(220px, 32vh, 325px);
+    width: 100%;
+    background: radial-gradient(ellipse 62% 55% at 55% 70%, rgba(23,92,153,.12), transparent 85%);
+  }
+  .industries-plot .industries-node span {
+    font-size: clamp(11px, .9vw, 14px);
+    font-weight: 600;
+    letter-spacing: .045em;
+  }
+  .industries-plot .industries-node i {
+    width: 19px; height: 19px; flex-basis: 19px;
+    border: 2px solid #04121f;
+  }
+  .industries-diagram > .industries-detail {
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    min-height: 110px;
+    padding: clamp(16px, 2vh, 22px) clamp(22px, 2.4vw, 35px);
+    border-color: rgba(100,181,242,.23);
+    background: linear-gradient(110deg, rgba(11,34,55,.85), rgba(4,19,33,.78));
+    border-radius: 14px;
+  }
+  .industries-diagram > .industries-detail strong { font-size: 19px; }
+  .industries-diagram > .industries-detail p { font-size: 14px; }
+}
+.industries-plot .industries-line-svg path {
+  stroke: #65c5ff;
+  stroke-width: 2.6px;
+  filter: drop-shadow(0 0 7px rgba(63,172,255,.38));
+}
+.industries-plot .industries-node { transition: opacity .2s ease; }
+.industries-plot .industries-node:hover span,
+.industries-plot .industries-node:focus-visible span { color: #fff; }
+.industries-plot .industries-node:focus-visible {
+  outline: 2px solid #9bdcff;
+  outline-offset: 5px;
+  border-radius: 6px;
+}
+.industries-plot .industries-node.selected i {
+  background: #d8f8ff;
+  box-shadow: 0 0 0 6px rgba(67,171,249,.2), 0 0 0 12px rgba(67,171,249,.06), 0 0 26px 7px rgba(67,171,249,.5);
+}
+@media (max-width: 900px) {
+  .industries-panel { padding-top: 28px; }
+  .industries-diagram { gap: 18px; }
+  .industries-plot { background: radial-gradient(ellipse at 60% 65%, rgba(23,92,153,.13), transparent 75%); }
+  .industries-diagram > .industries-detail { border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .industries-plot .industries-node { transition: none; }
+}
