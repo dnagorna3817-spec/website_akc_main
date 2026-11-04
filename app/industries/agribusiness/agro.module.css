@@ -352,3 +352,60 @@
   border-color: rgba(113, 145, 193, .3);
 }
 .offer:hover { border-color: rgba(123, 175, 225, .55); }
+
+
+/* Reference-matched service card gradients and icon-free composition */
+.offer {
+  /* Keep the existing card dimensions and two-column structure. */
+  border-radius: 34px;
+  border: 1px solid rgba(111, 141, 195, .35);
+  background-color: #1b2132;
+}
+.offer:nth-child(4n + 1) {
+  background:
+    radial-gradient(ellipse 57% 100% at 101% -9%, rgba(38, 176, 241, .97) 0%, rgba(38, 110, 216, .7) 31%, rgba(30, 55, 127, .3) 59%, transparent 80%),
+    linear-gradient(110deg, #1b2132 0%, #1b2132 48%, #1d2440 100%);
+}
+.offer:nth-child(4n + 2) {
+  background:
+    radial-gradient(ellipse 27% 42% at 0% 107%, rgba(75, 201, 207, .82) 0%, transparent 92%),
+    radial-gradient(ellipse 48% 52% at 100% 110%, rgba(34, 75, 211, .85) 0%, transparent 90%),
+    #1b2132;
+}
+.offer:nth-child(4n + 3) {
+  background:
+    radial-gradient(ellipse 55% 98% at 102% -5%, rgba(42, 177, 239, .98) 0%, rgba(36, 106, 212, .72) 33%, rgba(34, 59, 130, .3) 64%, transparent 84%),
+    linear-gradient(110deg, #1b2132 0%, #1b2132 50%, #1d2540 100%);
+}
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 52% 70% at 100% 105%, rgba(44, 118, 210, .42), transparent 83%),
+    #1b2132;
+}
+.offerHeading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 28px 12px 28px;
+  border-right: 1px solid rgba(172, 189, 218, .23);
+}
+.offerHeading h3 {
+  margin: 0;
+  font-size: clamp(20px, 1.9vw, 27px);
+  font-weight: 600;
+  line-height: 1.22;
+  color: #f4f6fc;
+}
+.offer ul { padding-left: 36px; }
+.offer li { color: #c9d1df; }
+@media (max-width: 1100px) {
+  .offerHeading {
+    border-right: 0;
+    border-bottom: 1px solid rgba(172,189,218,.23);
+    padding: 8px 0 22px;
+  }
+}
+@media (max-width: 767px) {
+  .offer { border-radius: 24px; }
+  .offerHeading h3 { font-size: 21px; }
+}
