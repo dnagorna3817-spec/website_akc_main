@@ -44,3 +44,10 @@
 .ctaAside{background:rgba(0,13,25,.35);padding:24px 30px;gap:24px}
 @media(max-width:1100px){.hero{grid-template-columns:50% 50%}.heroText{padding-right:25px}.hero h1{font-size:clamp(28px,3.2vw,38px)}.heroBottom{gap:22px}.button{min-width:175px}.serviceRow{grid-template-columns:60px 75px minmax(150px,24%) 1fr}}
 @media(max-width:760px){.hero{grid-template-columns:1fr}.breadcrumb{top:16px;left:6%}.heroVisual{min-height:300px}.heroPhoto,.heroOutline{top:11%;left:12%;height:79%;width:77%}.heroText{padding:30px 6% 45px}.hero h1{font-size:clamp(29px,7vw,41px)}.lead{font-size:14px}.benefits{grid-template-columns:repeat(2,1fr)}.sectionTitle p{width:100%}.audienceCard{min-height:220px}.serviceRow{grid-template-columns:48px 55px 1fr;padding:18px 12px}.serviceRow h3{margin:10px 0}.serviceRow ul{grid-column:1/-1}.cta{grid-template-columns:1fr}.ctaGeometry{width:100%}.ctaAside{grid-template-columns:repeat(2,1fr)}}
+
+
+/* Local hero artwork: place akc-services-hero.png inside public/ */
+.heroVisual{background:#03101e url('/akc-services-hero.png') center center/cover no-repeat!important}
+.heroVisual::before,.heroVisual::after,.heroPhoto,.heroOutline{display:none!important}
+@media(min-width:761px){.hero{grid-template-columns:51% 49%}.heroText{grid-column:2}}
+@media(max-width:760px){.heroVisual{background-position:40% center!important}}
