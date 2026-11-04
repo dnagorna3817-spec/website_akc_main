@@ -50,7 +50,7 @@ export default function ServicesIndustryPage() {
    <section className={styles.services} id="services" style={{width:"min(1180px,88%)",margin:"20px auto 100px",paddingTop:"42px",borderTop:"1px solid rgba(109,173,219,.28)"}}>
     <h2>Що ми <span>пропонуємо</span></h2>
     <p className={styles.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/>управління та розвитку компаній у сфері послуг.</p>
-    <div className={styles.offerings} style={{display:"grid",gap:"16px"}}>{services.map(o=><article className={styles.offer} key={o.title} style={{display:"grid",gridTemplateColumns:"37% minmax(0,1fr)",minHeight:"175px",padding:"28px 32px",border:"1px solid rgba(116,142,196,.34)",borderRadius:"30px",background:"radial-gradient(ellipse at 100% 0%,rgba(38,113,200,.45),transparent 65%),#1b2337"}}>
+    <div className={styles.offerings} style={{display:"grid",gap:"16px"}}>{services.map(o=><article className={styles.offer} key={o.title} >
      <div className={styles.offerHeading}><h3>{o.title}</h3></div>
      <ul>{o.items.map(item=><li key={item}>{item}</li>)}</ul>
     </article>)}</div>
