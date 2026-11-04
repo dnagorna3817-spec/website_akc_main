@@ -150,6 +150,251 @@
   );
 }
 
+/* AKC audience card typography and alignment — 2026-11-04 */
+@media (min-width: 1101px) {
+  .audience {
+    grid-template-columns: 1.08fr 1.02fr 1.02fr 1.02fr 1.25fr;
+    align-items: stretch;
+    padding: 22px 20px;
+  }
+  .audience h2,
+  .audience p {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    min-height: 96px;
+    margin: 0;
+    padding: 12px 16px;
+    line-height: 1.5;
+  }
+  .audience h2 {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .015em;
+  }
+  .audience p {
+    font-size: 13px;
+    color: #c3d0dc;
+    border-left: 1px solid rgba(100,170,215,.3);
+    overflow-wrap: break-word;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .audience {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    align-items: stretch;
+    padding: 18px;
+  }
+  .audience h2 {
+    grid-column: 1 / -1;
+    min-height: 0;
+    padding: 12px;
+  }
+  .audience p {
+    min-width: 0;
+    min-height: 72px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+}
+@media (max-width: 767px) {
+  .audience { align-items: stretch; }
+  .audience p { line-height: 1.55; overflow-wrap: break-word; }
+}
+
+
+/* Audience composition refinement: balanced columns and typography */
+@media (min-width: 1101px) {
+  .audience {
+    grid-template-columns: 1.05fr 1.05fr 1.13fr 1fr 1.2fr;
+    padding: 22px 20px;
+    align-items: stretch;
+  }
+  .audience h2,
+  .audience p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 92px;
+    margin: 0;
+    padding: 10px 19px;
+    line-height: 1.45;
+    text-align: left;
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+  .audience h2 {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .audience p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #c3d0dc;
+    border-left: 1px solid rgba(100,170,215,.3);
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .audience h2,
+  .audience p { align-items: center; text-align: left; }
+}
+
+
+/* Audit-inspired visual skin for agro service cards; dimensions unchanged */
+.offer {
+  /* Preserve existing grid, card width, min-height and padding. */
+  overflow: hidden;
+  border: 1px solid rgba(119, 139, 187, .25);
+  border-radius: 34px;
+  background:
+    radial-gradient(ellipse 55% 85% at 100% 105%, rgba(54, 110, 224, .48) 0%, transparent 72%),
+    radial-gradient(ellipse 50% 95% at 0% -25%, rgba(38, 71, 151, .24) 0%, transparent 75%),
+    #1b2132;
+  box-shadow: none;
+}
+.offer:nth-child(4n + 1) {
+  background:
+    radial-gradient(ellipse 65% 100% at 103% 52%, rgba(49, 101, 220, .72), transparent 78%),
+    radial-gradient(ellipse 50% 70% at 80% 110%, rgba(83, 184, 229, .24), transparent 75%),
+    #1b2132;
+}
+.offer:nth-child(4n + 2) {
+  background:
+    radial-gradient(ellipse 60% 65% at 2% 110%, rgba(72, 200, 208, .62), transparent 65%),
+    radial-gradient(ellipse 65% 65% at 100% 120%, rgba(47, 89, 213, .55), transparent 80%),
+    #1b2132;
+}
+.offer:nth-child(4n + 3) {
+  background:
+    radial-gradient(ellipse 80% 90% at 100% 0%, rgba(50, 172, 238, .92), transparent 70%),
+    radial-gradient(ellipse 75% 95% at 50% 0%, rgba(40, 68, 185, .65), transparent 85%),
+    #1b2132;
+}
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 65% 70% at 100% 110%, rgba(49, 159, 233, .85), transparent 75%),
+    radial-gradient(ellipse 55% 85% at 55% 120%, rgba(41, 75, 175, .5), transparent 80%),
+    #1b2132;
+}
+.offer:hover { border-color: rgba(125, 168, 227, .5); }
+.offerHeading { border-right-color: rgba(177, 193, 221, .2); }
+.number { color: #a7b7d0; }
+.symbol { border-color: rgba(112, 183, 244, .6); color: #80c8ff; }
+.offerHeading h3 { color: #f3f5fc; font-weight: 600; }
+.offer li { color: #c0c8da; }
+.offer li::before { background: #81c6ff; }
+@media (max-width: 1100px) {
+  .offerHeading { border-right: 0; border-bottom-color: rgba(177, 193, 221, .2); }
+}
+@media (max-width: 767px) {
+  .offer { border-radius: 24px; }
+}
+
+
+/* Agribusiness CTA editorial composition — image preserved */
+.cta {
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 460px;
+  border: 1px solid rgba(108,168,210,.36);
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(2,12,22,.06) 0%, rgba(2,12,22,.28) 43%, rgba(2,12,22,.76) 75%, rgba(2,12,22,.88) 100%),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85") center 70% / cover no-repeat;
+}
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(1,9,16,.38), transparent 48%);
+}
+.ctaCopy {
+  position: relative;
+  inset: auto;
+  width: min(42%, 540px);
+  margin: 0 7% 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  text-align: left;
+}
+.cta h2 {
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 66px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  text-shadow: 0 2px 28px rgba(0,0,0,.3);
+}
+.cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 16px 26px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  background: #d8eafb;
+  color: #071727;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .045em;
+  transition: background .2s ease, transform .2s ease;
+}
+.cta a:hover { background: #fff; transform: translateY(-2px); }
+.cta a:focus-visible { outline: 2px solid #8ad0ff; outline-offset: 4px; }
+@media (max-width: 900px) {
+  .ctaCopy { width: min(52%, 470px); margin-right: 6%; }
+  .cta h2 { font-size: clamp(36px, 5vw, 54px); }
+}
+@media (max-width: 560px) {
+  .cta {
+    height: 390px;
+    align-items: flex-end;
+    background:
+      linear-gradient(0deg, rgba(1,9,16,.92), rgba(1,9,16,.28) 78%),
+      url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85") center / cover no-repeat;
+  }
+  .ctaCopy {
+    width: auto;
+    margin: 0;
+    padding: 0 26px 32px;
+    gap: 22px;
+  }
+  .cta h2 { font-size: clamp(34px, 9vw, 46px); }
+  .cta a { min-height: 50px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta a { transition: none; }
+  .cta a:hover { transform: none; }
+}
+
+
+/* Unified restrained blue gradient family for all agro service cards */
+.offer,
+.offer:nth-child(4n + 1),
+.offer:nth-child(4n + 2),
+.offer:nth-child(4n + 3),
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 76% 95% at 96% 108%, rgba(47, 112, 202, .34) 0%, rgba(38, 82, 163, .14) 44%, transparent 76%),
+    linear-gradient(115deg, #1b2132 0%, #1c2438 65%, #202d49 100%);
+  border-color: rgba(113, 145, 193, .3);
+}
+.offer:hover { border-color: rgba(123, 175, 225, .55); }
+
+
 /* Reference-matched service card gradients and icon-free composition */
 .offer {
   /* Keep the existing card dimensions and two-column structure. */
@@ -205,6 +450,8 @@
   .offer { border-radius: 24px; }
   .offerHeading h3 { font-size: 21px; }
 }
+
+
 /* Scroll reveal: progressive enhancement with reduced-motion support */
 @keyframes agro-scroll-rise {
   from { opacity: .15; transform: translate3d(0, 46px, 0); filter: blur(5px); }
