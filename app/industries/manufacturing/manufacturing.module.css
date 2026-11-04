@@ -134,3 +134,67 @@
   .audience .sectionIntro{gap:12px}
   .audience .sectionIntro p{font-size:14px}
 }
+
+/* Service cards: match the rounded gradient cards on Agribusiness. */
+.serviceList{gap:20px}
+.serviceCard,
+.serviceCard:nth-child(1),
+.serviceCard:nth-child(3){
+  display:grid;
+  grid-template-columns:40% minmax(0,1fr);
+  align-items:stretch;
+  min-height:226px;
+  padding:32px 34px;
+  border:1px solid rgba(124,150,194,.36);
+  border-radius:36px;
+  background:#1c2132;
+  overflow:hidden;
+}
+.serviceCard:nth-child(4n + 1){
+  background:radial-gradient(ellipse 66% 105% at 100% -12%,rgba(49,173,241,.98),rgba(37,90,206,.63) 40%,transparent 80%),#1c2132;
+}
+.serviceCard:nth-child(4n + 2){
+  background:radial-gradient(ellipse 55% 72% at 0% 110%,rgba(66,201,209,.78),transparent 78%),radial-gradient(ellipse 64% 85% at 100% 110%,rgba(39,77,211,.8),transparent 85%),#1c2132;
+}
+.serviceCard:nth-child(4n + 3){
+  background:radial-gradient(ellipse 70% 105% at 100% -10%,rgba(46,178,238,.94),rgba(37,91,207,.65) 40%,transparent 82%),#1c2132;
+}
+.serviceCard:nth-child(4n + 4){
+  background:radial-gradient(ellipse 70% 90% at 100% 110%,rgba(47,116,212,.6),transparent 82%),#1c2132;
+}
+.serviceHeading{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  border-right:1px solid rgba(164,182,215,.3);
+  padding:0 30px 0 34px;
+}
+.serviceNumber,.serviceImage{display:none}
+.serviceHeading h3{
+  margin:0;
+  max-width:none;
+  color:#f2f5fc;
+  font-size:clamp(20px,1.9vw,27px);
+  font-weight:600;
+  line-height:1.25;
+}
+.serviceCard ul{
+  padding:0 0 0 44px;
+  align-content:center;
+  gap:16px;
+}
+.serviceCard li{font-size:15px;color:#c5cedd;line-height:1.55}
+.serviceCard li:before{background:#7bcaff}
+@media(max-width:1050px){
+  .serviceCard,.serviceCard:nth-child(1),.serviceCard:nth-child(3){grid-template-columns:37% minmax(0,1fr);padding:28px 24px}
+  .serviceHeading{padding:0 24px 0 12px}
+  .serviceCard ul{padding-left:36px}
+}
+@media(max-width:650px){
+  .serviceList{gap:14px}
+  .serviceCard,.serviceCard:nth-child(1),.serviceCard:nth-child(3){grid-template-columns:1fr;min-height:0;padding:26px 24px;border-radius:26px}
+  .serviceHeading{padding:0 0 18px;border-right:0;border-bottom:1px solid rgba(164,182,215,.3)}
+  .serviceHeading h3{font-size:21px}
+  .serviceCard ul{padding:22px 0 0 24px;gap:12px}
+  .serviceCard li{font-size:14px}
+}
