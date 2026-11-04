@@ -36,21 +36,21 @@ export default function ServicesIndustryPage() {
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
-    <div className={styles.art} aria-hidden="true"><div className={styles.photo}/></div>
+    <div className={styles.art} aria-hidden="true" style={{position:"absolute",left:0,top:0,width:"56%",height:"560px",backgroundImage:"url(/akc-services-hero.png)",backgroundSize:"cover",backgroundPosition:"center",backgroundRepeat:"no-repeat"}}/>
     <div className={styles.heroCopy}>
      <span>ПОСЛУГИ</span>
      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
      <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
     </div>
-    <div className={styles.audience}>
-     <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
-     {audiences.map(a=><p key={a.title}>{a.title}</p>)}
+    <div className={styles.audience} style={{position:"absolute",zIndex:5,top:"540px",left:"18%",right:"5%",display:"grid",gridTemplateColumns:"1.1fr repeat(5,minmax(0,1fr))",alignItems:"stretch",padding:"18px 12px",border:"1px solid rgba(89,155,209,.55)",borderRadius:"12px",background:"rgba(4,20,34,.98)",boxShadow:"0 18px 45px rgba(0,0,0,.3)"}}>
+     <h2 style={{fontSize:"14px",fontWeight:600,margin:0,padding:"14px 12px",alignSelf:"center"}}>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
+     {audiences.map(a=><p key={a.title} style={{fontSize:"12px",lineHeight:1.45,color:"#c5d1de",margin:0,padding:"14px 12px",borderLeft:"1px solid rgba(106,165,211,.3)",display:"flex",alignItems:"center",overflowWrap:"anywhere"}}>{a.title}</p>)}
     </div>
    </section>
-   <section className={styles.services} id="services">
+   <section className={styles.services} id="services" style={{width:"min(1180px,88%)",margin:"20px auto 100px",paddingTop:"42px",borderTop:"1px solid rgba(109,173,219,.28)"}}>
     <h2>Що ми <span>пропонуємо</span></h2>
     <p className={styles.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/>управління та розвитку компаній у сфері послуг.</p>
-    <div className={styles.offerings}>{services.map(o=><article className={styles.offer} key={o.title}>
+    <div className={styles.offerings} style={{display:"grid",gap:"16px"}}>{services.map(o=><article className={styles.offer} key={o.title} style={{display:"grid",gridTemplateColumns:"37% minmax(0,1fr)",minHeight:"175px",padding:"28px 32px",border:"1px solid rgba(116,142,196,.34)",borderRadius:"30px",background:"radial-gradient(ellipse at 100% 0%,rgba(38,113,200,.45),transparent 65%),#1b2337"}}>
      <div className={styles.offerHeading}><h3>{o.title}</h3></div>
      <ul>{o.items.map(item=><li key={item}>{item}</li>)}</ul>
     </article>)}</div>
