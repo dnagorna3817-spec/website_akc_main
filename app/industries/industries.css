@@ -651,5 +651,5 @@
 
 /* Small desktop-only position adjustment: move the entire diagram (line and dots) up together without changing geometry or card. */
 @media (min-width: 901px) {
-  .industries-plot { transform: translateY(-24px); }
+  .industries-plot { transform: translateY(-48px); }
 }
