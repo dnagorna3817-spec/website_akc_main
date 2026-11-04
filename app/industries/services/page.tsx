@@ -37,7 +37,7 @@ export default function ServicesIndustryPage() {
   <main>
    <section className={styles.hero}>
     <div className={styles.art} aria-hidden="true" style={{position:"absolute",left:0,top:0,width:"56%",height:"560px",backgroundImage:"url(/akc-services-hero.png)",backgroundSize:"cover",backgroundPosition:"center",backgroundRepeat:"no-repeat"}}/>
-    <div className={styles.heroCopy}>
+    <div className={styles.heroCopy} style={{position:"absolute",zIndex:10,top:"85px",right:"4%",width:"42%",padding:"20px 12px",background:"transparent",color:"#eef4fa",visibility:"visible",opacity:1,display:"block"}}>
      <span>ПОСЛУГИ</span>
      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
      <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
