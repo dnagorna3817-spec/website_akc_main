@@ -748,3 +748,106 @@
     stroke-dashoffset: 0;
   }
 }
+
+
+/* Responsive industry navigator: preserve the desktop composition while
+   keeping every label, dot and floating card within smaller viewports. */
+@media (min-width: 901px) and (max-width: 1199px) {
+  .industries-stage { grid-template-columns: 48% minmax(0, 52%); }
+  .industries-panel { padding: 48px 24px 24px 40px; }
+  .industries-panel h1 { font-size: clamp(30px, 3.4vw, 40px); }
+  .industries-intro { font-size: 15px; }
+  .industries-diagram { margin-top: 34px; }
+  .industries-plot .industries-node span { font-size: 10px; }
+  .industries-plot > .industries-detail { width: 220px; }
+  .industries-plot > .industries-detail-1 { left: calc(-37% - 100px); }
+  .industries-plot > .industries-detail-2 { left: calc(-9% - 100px); }
+  .industries-plot > .industries-detail-3 { left: calc(19% - 100px); }
+  .industries-plot > .industries-detail-4 { left: calc(47% - 100px); }
+  .industries-plot > .industries-detail-5 { left: calc(75% - 100px); }
+}
+@media (max-width: 900px) {
+  .industries-page { height: auto; min-height: 100dvh; overflow-x: clip; }
+  .industries-stage { display: flex; flex-direction: column; min-height: 0; }
+  .industries-panel {
+    order: 0; width: 100%; min-height: 0;
+    padding: clamp(32px, 6vw, 56px) clamp(20px, 5vw, 48px) 42px;
+    overflow: visible;
+  }
+  .industries-kicker {
+    position: static; margin: 0 0 18px;
+    font-size: 13px; letter-spacing: .1em;
+  }
+  .industries-panel h1 {
+    font-size: clamp(30px, 5.2vw, 48px);
+    line-height: 1.1; margin-bottom: 18px;
+  }
+  .industries-intro { max-width: 620px; font-size: clamp(14px, 2vw, 17px); }
+  .industries-diagram {
+    flex: none; display: block; width: 100%; max-width: none;
+    min-height: 0; margin: 35px 0 0;
+  }
+  .industries-plot {
+    height: 250px; margin-bottom: 0;
+    overflow: visible; transform: none;
+  }
+  .industries-plot .industries-line-svg {
+    left: 0; top: 0; width: 100%; height: 100%;
+  }
+  .industries-plot .industries-node {
+    min-width: 48px; min-height: 48px;
+    gap: 8px; padding: 5px 0;
+  }
+  .industries-plot .industries-node span {
+    max-width: 110px; font-size: clamp(10px, 1.5vw, 12px);
+    white-space: normal; overflow-wrap: normal;
+  }
+  .industries-plot > .industries-detail {
+    left: auto; right: 0; top: calc(100% + 14px);
+    width: min(320px, 100%); max-width: 100%;
+  }
+  .industries-image {
+    order: 1; min-height: 220px; opacity: .48;
+    background-position: center 45%;
+  }
+}
+@media (max-width: 600px) {
+  .industries-panel { padding: 28px 18px 32px; }
+  .industries-panel h1 { font-size: clamp(28px, 8vw, 39px); }
+  .industries-intro { font-size: 14px; }
+  .industries-diagram { margin-top: 28px; }
+  .industries-plot { height: 220px; }
+  .industries-plot .industries-node {
+    min-width: 40px; min-height: 44px;
+    gap: 6px; transform: translate(-50%, calc(-100% + 8px));
+  }
+  .industries-plot .industries-node span {
+    font-size: clamp(8px, 2vw, 10px); max-width: 75px;
+    line-height: 1.2;
+  }
+  .industries-plot .industries-node i {
+    width: 14px; height: 14px; flex-basis: 14px;
+  }
+  .industries-plot .industries-node-1 { left: 10%; top: 35%; }
+  .industries-plot .industries-node-2 { left: 30%; top: 42%; }
+  .industries-plot .industries-node-3 { left: 50%; top: 49%; }
+  .industries-plot .industries-node-4 { left: 70%; top: 56%; }
+  .industries-plot .industries-node-5 { left: 90%; top: 63%; }
+  .industries-plot > .industries-detail {
+    top: calc(100% + 8px); left: 0; right: 0;
+    width: 100%; padding: 14px 16px;
+  }
+  .industries-image { min-height: 160px; }
+}
+@media (max-width: 900px) {
+  /* The card stays in normal flow below the timeline on touch screens. */
+  .industries-plot { margin-bottom: 0; height: auto; min-height: 250px; padding-bottom: 0; }
+  .industries-plot > .industries-detail {
+    position: relative; top: auto; left: auto; right: auto;
+    margin: 28px 0 0 auto; animation-duration: .16s;
+  }
+}
+@media (max-width: 600px) {
+  .industries-plot { min-height: 220px; }
+  .industries-plot > .industries-detail { margin-top: 26px; }
+}
