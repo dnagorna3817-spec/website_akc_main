@@ -9,5 +9,47 @@
 .art:before,.art:after{display:none}
 .photo{inset:0;clip-path:none;filter:none;background-image:url('/akc-agribusiness-hero.png');background-position:center;background-size:contain;background-repeat:no-repeat}
 
-/* Blend the bottom of the hero artwork softly into the page background. */
 .art::after{content:"";display:block;position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,transparent 60%,rgba(2,13,21,.22) 75%,#020d15 100%)}
+
+@media (min-width: 901px) {
+  .hero {
+    min-height: 660px;
+    grid-template-columns: 57% 43%;
+  }
+
+  .art {
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: clamp(490px, 39vw, 570px);
+  }
+
+  .photo {
+    background-size: contain;
+    background-position: left top;
+  }
+
+  .heroCopy {
+    grid-column: 2;
+    padding: 120px 28px 0 22px;
+  }
+
+  .audience {
+    top: clamp(450px, 34vw, 505px);
+  }
+}
+/* Плавний перехід фотографії у фон */
+.art::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 65%,
+    rgba(2, 13, 21, 0.35) 82%,
+    #020d15 100%
+  );
+}
