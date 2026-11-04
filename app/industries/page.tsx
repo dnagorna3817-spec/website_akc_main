@@ -25,7 +25,8 @@ export default function IndustriesPage() {
           <h1 id="industries-title">РОЗУМІЄМО<br /><em>КОНТЕКСТ БІЗНЕСУ.</em></h1>
           <p className="industries-intro">Рішення АКЦ враховують специфіку галузі, регулювання та бізнес-процесів.</p>
           <div className="industries-diagram">
-            <svg className="industries-line-svg" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 60 126 L 880 270" /></svg>
+            <div className="industries-plot">
+              <svg className="industries-line-svg" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path d="M 42 128 C 200 128 262 152 330 165 S 485 194 525 202 S 700 239 720 243 S 850 261 910 264" /></svg>
             {sectors.map((sector, i) => (
               <button type="button" key={sector.name}
                 className={`industries-node industries-node-${i + 1}${active === i ? " selected" : ""}`}
@@ -33,6 +34,7 @@ export default function IndustriesPage() {
                 <span>{sector.name}</span><i aria-hidden="true" />
               </button>
             ))}
+            </div>
             <div className="industries-detail" aria-live="polite">
               <strong>{sectors[active].heading}</strong>
               <p>{sectors[active].description}</p>
