@@ -398,3 +398,54 @@
   .industries-plot .industries-node i { width: 12px; height: 12px; flex-basis: 12px; }
   .industries-diagram > .industries-detail { min-height: 115px; }
 }
+
+
+/* 2026-11-04: The industry navigator is the hero; artwork is a supporting accent. */
+@media (min-width: 901px) {
+  .industries-stage { grid-template-columns: minmax(220px, 29%) minmax(0, 71%); }
+  .industries-image {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: .58;
+    background-position: 42% center;
+    position: relative;
+  }
+  .industries-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 42%, #020b12 100%);
+    pointer-events: none;
+  }
+  .industries-panel {
+    grid-column: 2;
+    grid-row: 1;
+    padding-left: clamp(35px, 4vw, 76px);
+    padding-right: clamp(35px, 4vw, 76px);
+  }
+  .industries-panel h1 { font-size: clamp(34px, 3.2vw, 54px); }
+  .industries-intro { max-width: 620px; font-size: clamp(15px, 1.15vw, 18px); }
+  .industries-diagram {
+    width: 100%;
+    max-width: 950px;
+    align-self: center;
+    gap: clamp(20px, 3.5vh, 38px);
+  }
+  .industries-plot { height: clamp(250px, 34vh, 360px); }
+  .industries-plot .industries-node span { font-size: clamp(11px, .9vw, 14px); }
+  .industries-plot .industries-node i { width: 19px; height: 19px; flex-basis: 19px; }
+  .industries-diagram > .industries-detail {
+    max-width: 560px;
+    width: 78%;
+    padding: clamp(15px, 2vh, 23px) 24px;
+  }
+}
+@media (max-width: 900px) {
+  .industries-panel { order: 0; }
+  .industries-image {
+    order: 1;
+    min-height: 190px;
+    opacity: .5;
+    background-position: center 45%;
+  }
+}
