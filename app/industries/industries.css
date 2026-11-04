@@ -976,3 +976,46 @@
   .industries-plot > .industries-detail-4 { left: clamp(4px, calc(71% - 110px), calc(100% - 264px)); top: 148px; }
   .industries-plot > .industries-detail-5 { left: clamp(4px, calc(92% - 110px), calc(100% - 264px)); top: 169px; }
 }
+
+/* Responsive floating cards: reserve space below the entire diagonal.
+   This prevents a selected card from covering the line or other nodes at any width. */
+@media (max-width: 900px) {
+  .industries-plot {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    padding-top: 250px;
+  }
+  .industries-plot > .industries-detail,
+  .industries-plot > .industries-detail-1,
+  .industries-plot > .industries-detail-2,
+  .industries-plot > .industries-detail-3,
+  .industries-plot > .industries-detail-4,
+  .industries-plot > .industries-detail-5 {
+    position: relative;
+    inset: auto;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    order: 2;
+    align-self: flex-end;
+    width: min(290px, 100%);
+    max-width: 100%;
+    margin: 12px 0 0;
+    z-index: 3;
+  }
+}
+@media (max-width: 600px) {
+  .industries-plot { padding-top: 205px; }
+  .industries-plot > .industries-detail,
+  .industries-plot > .industries-detail-1,
+  .industries-plot > .industries-detail-2,
+  .industries-plot > .industries-detail-3,
+  .industries-plot > .industries-detail-4,
+  .industries-plot > .industries-detail-5 {
+    width: min(260px, 100%);
+    margin-top: 12px;
+  }
+}
