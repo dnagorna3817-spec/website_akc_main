@@ -218,3 +218,56 @@
   .services .sectionIntro{gap:12px}
   .services .sectionIntro p{font-size:14px}
 }
+
+/* Manufacturing cinematic CTA: photo left, content right; no benefits sidebar. */
+.cta{
+  isolation:isolate;
+  min-height:470px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:70px clamp(32px,6vw,100px);
+  background:
+    linear-gradient(90deg,rgba(2,13,23,.03) 0%,rgba(2,13,23,.08) 34%,rgba(2,13,23,.78) 61%,#041827 100%),
+    url('/akc-manufacturing-cta.jpg') left center/cover no-repeat,
+    #041827;
+  border-top:1px solid rgba(116,173,215,.36);
+}
+.ctaContent{
+  position:relative;
+  z-index:1;
+  width:min(56%,760px);
+  max-width:none;
+  margin-left:auto;
+}
+.cta h2{max-width:760px;font-size:clamp(27px,2.5vw,40px);line-height:1.4}
+.ctaBenefits{display:none}
+.cta .primary{
+  border:1px solid rgba(219,236,248,.8);
+  border-left:1px solid rgba(219,236,248,.8);
+  border-radius:12px;
+  background:#c9dbea;
+  color:#0b2435;
+  min-width:240px;
+  box-shadow:0 8px 28px rgba(0,0,0,.15);
+}
+.cta .primary span{color:#0b2435}
+.cta .primary:hover{background:#edf6fc;color:#071c2b;border-color:#edf6fc}
+@media(max-width:900px){
+  .cta{min-height:430px;padding:60px 6%;background-position:left center}
+  .ctaContent{width:min(68%,700px)}
+}
+@media(max-width:650px){
+  .cta{
+    min-height:510px;
+    align-items:flex-end;
+    padding:48px 22px;
+    background:
+      linear-gradient(0deg,#041827 0%,rgba(2,13,23,.9) 34%,rgba(2,13,23,.14) 100%),
+      url('/akc-manufacturing-cta.jpg') 24% center/cover no-repeat,
+      #041827;
+  }
+  .ctaContent{width:100%;margin:0}
+  .cta h2{font-size:clamp(24px,6.5vw,34px)}
+  .cta .primary{min-width:0}
+}
