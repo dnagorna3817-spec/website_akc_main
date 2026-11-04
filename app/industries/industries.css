@@ -653,3 +653,60 @@
 @media (min-width: 901px) {
   .industries-plot { transform: translateY(-48px); }
 }
+
+/* Floating Figma-style industry card: follows the selected dot. */
+.industries-plot > .industries-detail {
+  z-index: 5;
+  width: 260px;
+  max-width: none;
+  min-height: 0;
+  right: auto;
+  bottom: auto;
+  padding: 12px 12px 10px;
+  border: 1px solid rgba(48,139,208,.72);
+  border-radius: 13px;
+  background: rgba(5,15,25,.98);
+  box-shadow: 0 3px 14px rgba(29,126,209,.35), 0 0 0 1px rgba(27,80,123,.12);
+  animation: industry-card-appear .22s ease-out both;
+}
+.industries-plot > .industries-detail strong {
+  display: block;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(70,143,198,.65);
+  font-size: 15px;
+  font-weight: 400;
+}
+.industries-plot > .industries-detail p {
+  margin: 12px 0 17px;
+  color: #a3aab3;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.industries-plot > .industries-detail a {
+  color: #dbe7f1;
+  font-size: 11px;
+  text-decoration: none;
+}
+.industries-plot > .industries-detail a:hover { color: #77c7ff; }
+@keyframes industry-card-appear {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (min-width: 901px) {
+  .industries-plot > .industries-detail-1 { left: calc(-37% - 120px); top: calc(38% + 22px); }
+  .industries-plot > .industries-detail-2 { left: calc(-9% - 120px); top: calc(53% + 22px); }
+  .industries-plot > .industries-detail-3 { left: calc(19% - 120px); top: calc(68% + 22px); }
+  .industries-plot > .industries-detail-4 { left: calc(47% - 120px); top: calc(83% + 22px); }
+  .industries-plot > .industries-detail-5 { left: calc(75% - 120px); top: calc(98% + 22px); }
+}
+@media (max-width: 900px) {
+  .industries-plot { margin-bottom: 150px; }
+  .industries-plot > .industries-detail {
+    left: 0;
+    top: calc(100% + 12px);
+    width: min(290px, 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .industries-plot > .industries-detail { animation: none; }
+}
