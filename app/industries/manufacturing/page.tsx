@@ -59,7 +59,7 @@ export default function ManufacturingPage() {
         <div className={styles.sectionIntro}><h2>Що ми <em>пропонуємо</em></h2><p>Комплексний підхід до бухгалтерського обліку, податків, управління та розвитку виробничих підприємств.</p></div>
         <div className={styles.serviceList}>{services.map((s,i)=><article className={styles.serviceCard} key={s.title}><div className={styles.serviceHeading}><span className={styles.serviceNumber}>{String(i+1).padStart(2,"0")}</span><h3>{s.title}</h3></div><ul>{s.items.map(item=><li key={item}>{item}</li>)}</ul>{(i===0||i===2)&&<div className={styles.serviceImage} aria-hidden="true"/>}</article>)}</div>
       </section>
-      <section className={styles.cta}><div className={styles.ctaContent}><p className={styles.eyebrow}>ПОЧНІМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link className={styles.primary} href="/#contacts">Залишити заявку <span aria-hidden="true">→</span></Link></div><div className={styles.ctaBenefits}><p>◷ <span>ШВИДКА КОНСУЛЬТАЦІЯ</span></p><p>▥ <span>ІНДИВІДУАЛЬНИЙ ПІДХІД</span></p><p>⬡ <span>КОНФІДЕНЦІЙНІСТЬ</span></p><p>⚙ <span>РЕЗУЛЬТАТ ДЛЯ ВАШОГО БІЗНЕСУ</span></p></div></section>
+      <section className={styles.cta}><div className={styles.ctaContent}><p className={styles.eyebrow}>ПОЧНІМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link className={styles.primary} href="/#contacts">Залишити заявку <span aria-hidden="true">→</span></Link></div></section>
     </main>
   </div>;
 }
