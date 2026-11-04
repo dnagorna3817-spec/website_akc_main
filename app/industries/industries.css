@@ -522,3 +522,129 @@
 @media (prefers-reduced-motion: reduce) {
   .industries-plot .industries-node { transition: none; }
 }
+
+
+/* Figma reference 5(3).png: 56/44 split, restrained diagram over the seam,
+   compact floating detail card and artwork as a full-height editorial panel. */
+@media (min-width: 901px) {
+  .industries-stage { grid-template-columns: 56% 44%; }
+  .industries-image {
+    grid-column: 1; grid-row: 1;
+    opacity: 1;
+    background-position: center center;
+  }
+  .industries-image::after { display: none; }
+  .industries-panel {
+    grid-column: 2; grid-row: 1;
+    padding: clamp(50px, 8vh, 90px) clamp(36px, 5vw, 82px) 24px clamp(44px, 5.6vw, 95px);
+    overflow: visible;
+    position: relative;
+  }
+  .industries-kicker {
+    position: absolute;
+    top: 34px;
+    left: calc(-127.27% + 48px);
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: .07em;
+    color: #6887a4;
+    z-index: 2;
+  }
+  .industries-panel h1 {
+    font-size: clamp(32px, 2.75vw, 44px);
+    line-height: 1.12;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+  .industries-panel h1 em { color: #527fa8; }
+  .industries-intro {
+    font-size: clamp(15px, 1.2vw, 19px);
+    max-width: 430px;
+    line-height: 1.45;
+    color: #929ca8;
+  }
+  .industries-diagram {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    margin-top: clamp(50px, 8vh, 92px);
+    gap: 20px;
+    position: relative;
+  }
+  .industries-plot {
+    height: clamp(240px, 31vh, 320px);
+    width: 100%;
+    overflow: visible;
+    background: none;
+  }
+  .industries-plot .industries-line-svg {
+    left: -40%;
+    width: 140%;
+    height: 100%;
+    overflow: visible;
+  }
+  .industries-plot .industries-line-svg path {
+    stroke: #385b75;
+    stroke-width: 2px;
+    filter: none;
+  }
+  .industries-plot .industries-node {
+    min-width: 0;
+    min-height: 42px;
+    gap: 11px;
+    transform: translate(-50%, calc(-100% + 9px));
+  }
+  .industries-plot .industries-node span {
+    color: #6d90ae;
+    font-size: clamp(11px, .94vw, 14px);
+    font-weight: 400;
+    letter-spacing: .01em;
+  }
+  .industries-plot .industries-node i {
+    width: 17px; height: 17px; flex-basis: 17px;
+    border: 0;
+    background: #6687a4;
+    box-shadow: none;
+  }
+  .industries-plot .industries-node.selected span { color: #d6e1ed; font-weight: 500; }
+  .industries-plot .industries-node.selected i {
+    background: #75baf0;
+    box-shadow: 0 0 0 8px rgba(67,142,204,.13), 0 0 18px rgba(56,147,225,.4);
+  }
+  .industries-plot .industries-node-1 { left: -37%; top: 38%; }
+  .industries-plot .industries-node-2 { left: -9%; top: 53%; }
+  .industries-plot .industries-node-3 { left: 19%; top: 68%; }
+  .industries-plot .industries-node-4 { left: 47%; top: 83%; }
+  .industries-plot .industries-node-5 { left: 75%; top: 98%; }
+  .industries-diagram > .industries-detail {
+    align-self: flex-end;
+    width: min(290px, 74%);
+    max-width: 290px;
+    min-height: 0;
+    margin-top: 0;
+    padding: 12px 13px;
+    border: 1px solid #275d85;
+    border-radius: 13px;
+    background: rgba(5,16,27,.97);
+    box-shadow: 0 0 13px rgba(44,138,220,.23);
+  }
+  .industries-diagram > .industries-detail strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #315d7b;
+  }
+  .industries-diagram > .industries-detail p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 12px 0 17px;
+    color: #a3a9b1;
+  }
+  .industries-diagram > .industries-detail a { font-size: 11px; color: #d3dce5; }
+}
