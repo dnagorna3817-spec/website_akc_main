@@ -200,3 +200,54 @@
   .audience h2,
   .audience p { align-items: center; text-align: left; }
 }
+
+
+/* Audit-inspired visual skin for agro service cards; dimensions unchanged */
+.offer {
+  /* Preserve existing grid, card width, min-height and padding. */
+  overflow: hidden;
+  border: 1px solid rgba(119, 139, 187, .25);
+  border-radius: 34px;
+  background:
+    radial-gradient(ellipse 55% 85% at 100% 105%, rgba(54, 110, 224, .48) 0%, transparent 72%),
+    radial-gradient(ellipse 50% 95% at 0% -25%, rgba(38, 71, 151, .24) 0%, transparent 75%),
+    #1b2132;
+  box-shadow: none;
+}
+.offer:nth-child(4n + 1) {
+  background:
+    radial-gradient(ellipse 65% 100% at 103% 52%, rgba(49, 101, 220, .72), transparent 78%),
+    radial-gradient(ellipse 50% 70% at 80% 110%, rgba(83, 184, 229, .24), transparent 75%),
+    #1b2132;
+}
+.offer:nth-child(4n + 2) {
+  background:
+    radial-gradient(ellipse 60% 65% at 2% 110%, rgba(72, 200, 208, .62), transparent 65%),
+    radial-gradient(ellipse 65% 65% at 100% 120%, rgba(47, 89, 213, .55), transparent 80%),
+    #1b2132;
+}
+.offer:nth-child(4n + 3) {
+  background:
+    radial-gradient(ellipse 80% 90% at 100% 0%, rgba(50, 172, 238, .92), transparent 70%),
+    radial-gradient(ellipse 75% 95% at 50% 0%, rgba(40, 68, 185, .65), transparent 85%),
+    #1b2132;
+}
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 65% 70% at 100% 110%, rgba(49, 159, 233, .85), transparent 75%),
+    radial-gradient(ellipse 55% 85% at 55% 120%, rgba(41, 75, 175, .5), transparent 80%),
+    #1b2132;
+}
+.offer:hover { border-color: rgba(125, 168, 227, .5); }
+.offerHeading { border-right-color: rgba(177, 193, 221, .2); }
+.number { color: #a7b7d0; }
+.symbol { border-color: rgba(112, 183, 244, .6); color: #80c8ff; }
+.offerHeading h3 { color: #f3f5fc; font-weight: 600; }
+.offer li { color: #c0c8da; }
+.offer li::before { background: #81c6ff; }
+@media (max-width: 1100px) {
+  .offerHeading { border-right: 0; border-bottom-color: rgba(177, 193, 221, .2); }
+}
+@media (max-width: 767px) {
+  .offer { border-radius: 24px; }
+}
