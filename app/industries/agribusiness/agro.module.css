@@ -338,3 +338,17 @@
   .cta a { transition: none; }
   .cta a:hover { transform: none; }
 }
+
+
+/* Unified restrained blue gradient family for all agro service cards */
+.offer,
+.offer:nth-child(4n + 1),
+.offer:nth-child(4n + 2),
+.offer:nth-child(4n + 3),
+.offer:nth-child(4n + 4) {
+  background:
+    radial-gradient(ellipse 76% 95% at 96% 108%, rgba(47, 112, 202, .34) 0%, rgba(38, 82, 163, .14) 44%, transparent 76%),
+    linear-gradient(115deg, #1b2132 0%, #1c2438 65%, #202d49 100%);
+  border-color: rgba(113, 145, 193, .3);
+}
+.offer:hover { border-color: rgba(123, 175, 225, .55); }
