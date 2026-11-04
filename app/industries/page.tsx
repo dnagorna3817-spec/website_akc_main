@@ -34,11 +34,11 @@ export default function IndustriesPage() {
                 <span>{sector.name}</span><i aria-hidden="true" />
               </button>
             ))}
-            </div>
-            <div className="industries-detail" aria-live="polite">
+              <div key={active} className={`industries-detail industries-detail-${active + 1}`} aria-live="polite">
               <strong>{sectors[active].heading}</strong>
               <p>{sectors[active].description}</p>
-              <Link href="/#contacts">Обговорити співпрацю ↗</Link>
+              <Link href="/#contacts">Детальніше →</Link>
+              </div>
             </div>
           </div>
         </div>
