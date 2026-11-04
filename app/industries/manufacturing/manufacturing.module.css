@@ -275,3 +275,19 @@
 /* High-contrast CTA copy over the darkened image transition. */
 .cta h2{color:#f3f7fc;text-shadow:0 2px 18px rgba(0,0,0,.28)}
 .cta .eyebrow{color:#83cfff}
+
+/* Blue metallic ribbon artwork, matching the approved CTA concept. */
+.cta{
+  background:
+    linear-gradient(90deg,rgba(3,17,32,.04) 0%,rgba(3,17,32,.14) 30%,rgba(3,17,32,.85) 49%,#041827 72%),
+    url('/akc-manufacturing-abstract.svg') left center/auto 100% no-repeat,
+    #041827;
+}
+@media(max-width:650px){
+  .cta{
+    background:
+      linear-gradient(0deg,#041827 0%,rgba(3,17,32,.98) 40%,rgba(3,17,32,.12) 100%),
+      url('/akc-manufacturing-abstract.svg') 24% top/auto 75% no-repeat,
+      #041827;
+  }
+}
