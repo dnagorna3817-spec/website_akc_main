@@ -31,24 +31,36 @@ function Icon({name}:{name:string}) {
   };
   return <svg viewBox="0 0 32 32" width="36" height="36" aria-hidden="true" {...common}>{shapes[name]}</svg>;
 }
-export default function ServicesIndustryPage(){
+export default function ServicesIndustryPage() {
  return <div className={`${styles.page} ${expertiseFont}`}>
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
-    <p className={styles.breadcrumb}>03 / Галузі / Послуги</p>
-    <div className={styles.heroVisual} aria-hidden="true"><div className={styles.heroPhoto}/><div className={styles.heroOutline}/></div>
+    <div className={styles.heroVisual} aria-hidden="true"/>
     <div className={styles.heroText}>
-     <p className={styles.eyebrow}>ПОСЛУГИ</p>
-     <h1>Бухгалтерський та<br/>консалтинговий супровід<br/>компаній у сфері <em>послуг</em></h1>
-     <p className={styles.lead}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви бачили, які послуги й клієнти приносять прибуток, і могли масштабувати бізнес.</p>
-     <div className={styles.heroBottom}><Link className={styles.button} href="/#contacts">Залишити заявку <span>→</span></Link><p className={styles.keywords}>ОБЛІК<br/>ПОДАТКИ<br/>ФІНАНСОВА АНАЛІТИКА<br/>РОЗВИТОК</p></div>
+      <p className={styles.breadcrumb}>03 / Галузі / Послуги</p>
+      <p className={styles.eyebrow}>ПОСЛУГИ</p>
+      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
+      <p className={styles.lead}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
+    </div>
+    <div className={styles.audienceStrip}>
+      <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
+      {audiences.map(a=><p key={a.title}>{a.title}</p>)}
     </div>
    </section>
-   <div className={styles.benefits}>{["РОЗУМІННЯ СПЕЦИФІКИ СЕРВІСНОГО БІЗНЕСУ","КОМПЛЕКСНИЙ СУПРОВІД","ПРОЗОРІСТЬ ТА КОНТРОЛЬ","ФОКУС НА РОЗВИТОК ВАШОГО БІЗНЕСУ"].map((b,i)=><div key={b}><span>{String(i+1).padStart(2,"0")}</span><p>{b}</p></div>)}</div>
-   <section className={styles.contentSection}><div className={styles.sectionTitle}><h2>Для кого <em>ми працюємо</em></h2><p>Розуміємо специфіку сервісного бізнесу —<br/>від локальних компаній до міжнародних команд.</p></div><div className={styles.audienceGrid}>{audiences.map(a=><article key={a.title} className={styles.audienceCard}><Icon name={a.icon}/><p>{a.title}</p><span className={styles.circleArrow}>→</span></article>)}</div></section>
-   <section className={styles.contentSection}><div className={styles.sectionTitle}><h2>Що ми <em>пропонуємо</em></h2><p>Комплексний підхід до бухгалтерського обліку, податків<br/>та розвитку компаній у сфері послуг.</p></div><div className={styles.servicesList}>{services.map((s,i)=><article key={s.title} className={styles.serviceRow}><span className={styles.serviceNumber}>{String(i+1).padStart(2,"0")}</span><span className={styles.serviceIcon}><Icon name={s.icon}/></span><h3>{s.title}</h3><ul>{s.items.map(t=><li key={t}>{t}</li>)}</ul></article>)}</div></section>
-   <section className={styles.cta}><div className={styles.ctaGeometry} aria-hidden="true"/><div className={styles.ctaCopy}><p className={styles.eyebrow}>ПОЧНІМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link className={styles.button} href="/#contacts">Залишити заявку <span>→</span></Link></div><div className={styles.ctaAside}>{[{icon:"clock",text:"ШВИДКА КОНСУЛЬТАЦІЯ"},{icon:"chart",text:"ІНДИВІДУАЛЬНИЙ ПІДХІД"},{icon:"shield",text:"КОНФІДЕНЦІЙНІСТЬ"},{icon:"gear",text:"РЕЗУЛЬТАТ ДЛЯ ВАШОГО БІЗНЕСУ"}].map(x=><div key={x.text}><Icon name={x.icon}/><span>{x.text}</span></div>)}</div></section>
+   <section className={styles.servicesSection} id="services">
+    <h2>Що ми <span>пропонуємо</span></h2>
+    <p className={styles.servicesLead}>Комплексний підхід до бухгалтерського обліку, податків,<br/>управління та розвитку компаній у сфері послуг.</p>
+    <div className={styles.servicesList}>
+     {services.map(s=><article key={s.title} className={styles.serviceRow}>
+       <div className={styles.serviceHeading}><h3>{s.title}</h3></div>
+       <ul>{s.items.map(t=><li key={t}>{t}</li>)}</ul>
+     </article>)}
+    </div>
+   </section>
+   <section className={styles.cta}>
+    <div className={styles.ctaCopy}><h2>Залиште заявку</h2><Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link></div>
+   </section>
   </main>
  </div>
 }
