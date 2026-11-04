@@ -53,3 +53,33 @@
 @media(max-width:1100px){.offer{grid-template-columns:1fr}.offerHeading{border-right:0;border-bottom:1px solid rgba(83,158,210,.25);padding:0 0 22px}.offer ul{padding:24px 0 0 26px}}
 @media(max-width:767px){.offer{padding:22px 18px}.offerHeading h3{font-size:18px}.offer li{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.offer{transition:none}.offer:hover{transform:none}}
+
+
+/* Services hero: stable two-column layout; no overlap with audience */
+@media(min-width:1101px){
+.hero{display:grid;grid-template-columns:minmax(0,56%) minmax(0,44%);min-height:850px;padding-bottom:0}
+.art{position:absolute;top:0;left:0;width:56%;height:570px;background:#010b14 url('/akc-services-hero.png') left top/cover no-repeat}
+.art:after{background:linear-gradient(to bottom,transparent 76%,#010b14 100%)}
+.heroCopy{position:relative;grid-column:2;z-index:2;width:100%;min-width:0;padding:68px 44px 0 18px;margin:0;display:block;visibility:visible;opacity:1}
+.heroCopy h1{font-size:clamp(29px,2.7vw,42px);line-height:1.2;overflow-wrap:normal}
+.heroCopy h1 br{display:none}
+.heroDescription{max-width:100%;font-size:15px;line-height:1.6}
+.audience{position:absolute;top:610px;left:6%;right:6%;z-index:3;grid-template-columns:1.1fr repeat(5,minmax(0,1fr));min-height:150px}
+.audience h2,.audience p{min-height:110px}
+}
+@media(min-width:768px) and (max-width:1100px){
+.hero{min-height:950px;display:grid;grid-template-columns:52% 48%;padding-bottom:0}
+.art{width:55%;height:480px;background:#010b14 url('/akc-services-hero.png') left top/cover no-repeat}
+.heroCopy{grid-column:2;position:relative;min-width:0;padding:55px 24px 0 12px;margin:0}
+.heroCopy h1{font-size:clamp(25px,3vw,34px)}
+.heroCopy h1 br{display:none}
+.audience{top:610px;left:5%;right:5%}
+}
+@media(max-width:767px){
+.hero{display:flex;flex-direction:column;min-height:0;padding-bottom:0}
+.art{position:relative;width:100%;height:auto;aspect-ratio:913/579;background:#010b14 url('/akc-services-hero.png') center/cover no-repeat}
+.heroCopy{position:relative;width:100%;padding:28px 6% 36px;margin:0}
+.heroCopy h1{font-size:clamp(27px,6.5vw,39px)}
+.heroCopy h1 br{display:none}
+.audience{position:relative;top:auto;left:auto;right:auto;margin:0 5% 48px}
+}
