@@ -39,7 +39,7 @@ export default function ServicesIndustryPage() {
     <div className={styles.art} aria-hidden="true"/>
     <div className={styles.heroCopy}>
      <span>ПОСЛУГИ</span>
-     <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>компаній у сфері послуг</em></h1>
+     <h1>Бухгалтерський та{" "}консалтинговий супровід{" "}<em>компаній у сфері послуг</em></h1>
      <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
     </div>
     <div className={styles.audience}>
