@@ -36,9 +36,9 @@ export default function ServicesIndustryPage(){
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
+    <p className={styles.breadcrumb}>03 / Галузі / Послуги</p>
     <div className={styles.heroVisual} aria-hidden="true"><div className={styles.heroPhoto}/><div className={styles.heroOutline}/></div>
     <div className={styles.heroText}>
-     <p className={styles.breadcrumb}>03 / Галузі / Послуги</p>
      <p className={styles.eyebrow}>ПОСЛУГИ</p>
      <h1>Бухгалтерський та<br/>консалтинговий супровід<br/>компаній у сфері <em>послуг</em></h1>
      <p className={styles.lead}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви бачили, які послуги й клієнти приносять прибуток, і могли масштабувати бізнес.</p>
