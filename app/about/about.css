@@ -2453,3 +2453,60 @@ body {
     gap: 11px;
   }
 }
+
+
+/* Center the entire title + bullet-list group vertically in each service card.
+   Preserve equal card sizes, left-aligned list text and no dividers. */
+@media (min-width: 1051px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    inset: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .akc-about-figma .services__grid .service .service__content > h3,
+  .akc-about-figma .services__grid .service--4 .service__content > h3 {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 48px;
+    margin: 0 !important;
+  }
+  .akc-about-figma .services__grid > .service .service__bullet-list {
+    flex: 0 0 auto;
+    align-self: stretch;
+    display: grid;
+    gap: 14px;
+    margin: 0;
+  }
+}
+@media (min-width: 601px) and (max-width: 1050px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    inset: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 22px;
+  }
+  .akc-about-figma .services__grid .service .service__content > h3 {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 48px;
+    margin: 0 !important;
+  }
+  .akc-about-figma .services__grid > .service .service__bullet-list {
+    flex: 0 0 auto;
+    align-self: stretch;
+    margin: 0;
+  }
+}
