@@ -38,7 +38,7 @@ export default function IndustriesPage() {
               <div key={active} className={`industries-detail industries-detail-${active + 1}`} aria-live="polite">
               <strong>{sectors[active].heading}</strong>
               <p>{sectors[active].description}</p>
-              <Link href={active === 4 ? "/industries/agribusiness" : active === 3 ? "/industries/manufacturing" : active === 0 ? "/industries/services" : active === 2 ? "/industries/retail" : "/#contacts"}>Детальніше →</Link>
+              <Link href={active === 4 ? "/industries/agribusiness" : active === 3 ? "/industries/manufacturing" : active === 0 ? "/industries/services" : active === 2 ? "/industries/retail" : "/industries/medical"}>Детальніше →</Link>
               </div>
             </div>
           </div>
