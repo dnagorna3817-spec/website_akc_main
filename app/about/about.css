@@ -2510,3 +2510,63 @@ body {
     margin: 0;
   }
 }
+
+
+/* Align every service title and first bullet on the same horizontal baselines.
+   Keep compact cards; do not vertically center each card's content separately. */
+@media (min-width: 1051px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    position: absolute;
+    inset: 68px 22px 20px;
+    display: grid;
+    grid-template-rows: 64px auto;
+    row-gap: 24px;
+    align-content: start;
+    justify-content: stretch;
+    transform: none;
+  }
+}
+@media (min-width: 601px) and (max-width: 1050px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    position: absolute;
+    inset: 58px 24px 20px;
+    display: grid;
+    grid-template-rows: 64px auto;
+    row-gap: 24px;
+    align-content: start;
+    justify-content: stretch;
+    transform: none;
+  }
+}
+@media (min-width: 601px) {
+  .akc-about-figma .services__grid .service .service__content > h3,
+  .akc-about-figma .services__grid .service--4 .service__content > h3 {
+    display: flex !important;
+    flex: none;
+    height: 64px;
+    min-height: 64px;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+  .akc-about-figma .services__grid > .service .service__bullet-list {
+    display: grid;
+    grid-auto-rows: max-content;
+    align-content: start;
+    align-self: start;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}
