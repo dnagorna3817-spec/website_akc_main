@@ -2247,3 +2247,26 @@ body {
     font-size: 20px;
   }
 }
+
+/* Approved card layout: aligned headings and lists, without divider lines.
+   Keep blue bullet dots, card glow artwork, and the original Ukrainian copy. */
+.akc-about-figma .services__grid .service .service__content > h3 {
+  border: 0 !important;
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  box-shadow: none !important;
+}
+.akc-about-figma .services__grid .service .service__content > h3::before,
+.akc-about-figma .services__grid .service .service__content > h3::after,
+.akc-about-figma .services__grid .service .service__content > ul::after {
+  content: none !important;
+  display: none !important;
+}
+.akc-about-figma .services__grid .service .service__content > h3 {
+  align-self: stretch;
+  flex-shrink: 0;
+}
+.akc-about-figma .services__grid .service .service__content > .service__bullet-list {
+  align-self: stretch;
+  text-align: left;
+}
