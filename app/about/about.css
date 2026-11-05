@@ -2338,3 +2338,64 @@ body {
     font-size: 20px;
   }
 }
+
+
+/* Final card proportions: shared heading and list starting lines.
+   Scoped to the About services section, with no dividers or image changes. */
+@media (min-width: 1051px) {
+  .akc-about-figma .services__frame {
+    max-width: 1440px;
+    padding: clamp(24px, 2.6vw, 36px);
+  }
+  .akc-about-figma .services__grid {
+    gap: clamp(14px, 1.35vw, 20px);
+  }
+  .akc-about-figma .services__grid > .service {
+    height: 510px;
+    min-height: 510px;
+  }
+  .akc-about-figma .services__grid > .service .service__content {
+    inset: 72px 22px 24px;
+    grid-template-rows: 82px minmax(0, 1fr);
+    row-gap: 20px;
+  }
+}
+.akc-about-figma .services__grid .service .service__content > h3 {
+  height: 82px;
+  min-height: 82px;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.17;
+}
+.akc-about-figma .services__grid .service .service__content > .service__bullet-list {
+  align-self: start;
+  grid-auto-rows: max-content;
+  gap: 14px;
+}
+@media (min-width: 601px) and (max-width: 1050px) {
+  .akc-about-figma .services__grid > .service {
+    height: 480px;
+    min-height: 480px;
+  }
+  .akc-about-figma .services__grid > .service .service__content {
+    inset: 66px 26px 24px;
+    grid-template-rows: 82px minmax(0, 1fr);
+    row-gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .akc-about-figma .services__grid > .service {
+    height: auto;
+    min-height: 0;
+  }
+  .akc-about-figma .services__grid > .service .service__content {
+    position: relative;
+    inset: auto;
+    grid-template-rows: 76px auto;
+    row-gap: 18px;
+  }
+  .akc-about-figma .services__grid .service .service__content > h3 {
+    height: 76px;
+    min-height: 76px;
+  }
+}
