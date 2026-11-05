@@ -67,7 +67,7 @@ export default function MedicalPage() {
         <h2>Що ми <span>пропонуємо</span></h2>
         <p className={agro.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/> управління та розвитку медичного бізнесу.</p>
         <div className={agro.offerings}>
-          {offerings.map(offer => <article className={agro.offer} key={offer.title}>
+          {offerings.map(offer => <article className={`${agro.offer} ${styles.medicalOffer}`} key={offer.title}>
             <div className={agro.offerHeading}><h3>{offer.title}</h3></div>
             <ul>{offer.items.map(item => <li key={item}>{item}</li>)}</ul>
           </article>)}
