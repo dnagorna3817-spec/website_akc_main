@@ -109,3 +109,11 @@
   .heroDescription { font-size: 12px; line-height: 1.3; margin-bottom: 12px; }
   .keywords { font-size: 10px; line-height: 1.5; }
 }
+
+/* Fill the left hero panel instead of letterboxing the triangle artwork. */
+@media (min-width: 1101px) {
+  .retailHeroImage {
+    object-fit: cover;
+    object-position: center center;
+  }
+}
