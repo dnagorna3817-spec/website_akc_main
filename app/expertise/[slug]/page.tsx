@@ -460,7 +460,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   }
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
-      <ExpertiseHeader />
+      <ExpertiseHeader active={slug === "qualification" ? "qualification" : "expertise"} />
       <main className={styles.serviceMain}>
         <div className={styles.serviceColumns}>
           <div className={styles.serviceIntro}>
