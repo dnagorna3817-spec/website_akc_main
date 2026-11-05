@@ -2399,3 +2399,57 @@ body {
     min-height: 76px;
   }
 }
+
+
+/* Compact About service cards: reduce unused bottom space while retaining
+   equal heights and aligned title/list baselines. */
+@media (min-width: 1051px) {
+  .akc-about-figma .services__grid > .service,
+  .akc-about-figma .services__grid > .service--1,
+  .akc-about-figma .services__grid > .service--2,
+  .akc-about-figma .services__grid > .service--3,
+  .akc-about-figma .services__grid > .service--4 {
+    height: 430px;
+    min-height: 430px;
+  }
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    inset: 32px 22px 22px;
+    grid-template-rows: 66px minmax(0, 1fr);
+    row-gap: 16px;
+  }
+}
+@media (min-width: 601px) and (max-width: 1050px) {
+  .akc-about-figma .services__grid > .service,
+  .akc-about-figma .services__grid > .service--1,
+  .akc-about-figma .services__grid > .service--2,
+  .akc-about-figma .services__grid > .service--3,
+  .akc-about-figma .services__grid > .service--4 {
+    height: 430px;
+    min-height: 430px;
+  }
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    inset: 32px 24px 22px;
+    grid-template-rows: 66px minmax(0, 1fr);
+    row-gap: 16px;
+  }
+}
+@media (min-width: 601px) {
+  .akc-about-figma .services__grid .service .service__content > h3,
+  .akc-about-figma .services__grid .service--4 .service__content > h3 {
+    height: 66px;
+    min-height: 66px;
+    flex-basis: 66px;
+    margin: 0 !important;
+  }
+  .akc-about-figma .services__grid > .service .service__bullet-list {
+    gap: 11px;
+  }
+}
