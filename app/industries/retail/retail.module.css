@@ -18,3 +18,43 @@
 .retailHeroImage { display:block; position:absolute; inset:0; width:100%; height:100%; min-height:0; object-fit:contain; object-position:center center; }
 @media (max-width:1100px) { .retailHeroImage { min-height:0; max-height:none; } }
 @media (max-width:650px) { .retailHeroImage { min-height:0; max-height:none; } }
+
+
+/* Retail landing first screen: fit hero below site navigation on desktop.
+   The sections below remain scrollable; never clip content on smaller displays. */
+@media (min-width: 1101px) {
+  .hero {
+    height: calc(100svh - 104px);
+    min-height: 590px;
+    max-height: 900px;
+    grid-template-columns: 52% 48%;
+    overflow: hidden;
+  }
+  .heroArt {
+    min-height: 0;
+    height: 100%;
+  }
+  .retailHeroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+  .heroContent {
+    min-height: 0;
+    padding: 24px 6% 24px 24px;
+    justify-content: center;
+  }
+  .crumb { margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(30px, 3vw, 46px); margin: 10px 0 18px; }
+  .heroDescription { font-size: 15px; line-height: 1.5; margin-bottom: 22px; }
+  .heroActions { gap: 32px; }
+}
+@media (min-width: 1101px) and (max-height: 780px) {
+  .hero { min-height: 0; height: calc(100svh - 104px); }
+  .heroContent { padding-block: 12px; }
+  .crumb { margin-bottom: 10px; }
+  .hero h1 { font-size: clamp(28px, 2.6vw, 40px); margin: 6px 0 12px; }
+  .heroDescription { font-size: 14px; line-height: 1.4; margin-bottom: 16px; }
+  .primary { min-height: 48px; }
+}
