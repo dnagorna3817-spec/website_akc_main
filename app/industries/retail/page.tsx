@@ -42,7 +42,7 @@ export default function RetailPage(){
   <ExpertiseHeader active="industries"/>
   <main>
    <section className={styles.hero}>
-    <div className={styles.heroArt} aria-hidden="true"><div className={styles.heroPhoto}/><div className={styles.triangle}/></div>
+    <div className={styles.heroArt} aria-hidden="true"><img className={styles.retailHeroImage} src="/media/retail-hero-triangle.png" alt="" /></div>
     <div className={styles.heroContent}>
      <p className={styles.crumb}>03 / Галузі / Роздрібна торгівля</p>
      <p className={styles.eyebrow}>РОЗДРІБНА ТОРГІВЛЯ</p>
