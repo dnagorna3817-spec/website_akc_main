@@ -2270,3 +2270,71 @@ body {
   align-self: stretch;
   text-align: left;
 }
+
+
+/* Unified vertical rhythm for the four About service cards.
+   Override legacy per-card centering without changing artwork or card size. */
+.akc-about-figma .services__grid > .service .service__content,
+.akc-about-figma .services__grid > .service--1 .service__content,
+.akc-about-figma .services__grid > .service--2 .service__content,
+.akc-about-figma .services__grid > .service--3 .service__content,
+.akc-about-figma .services__grid > .service--4 .service__content {
+  position: absolute;
+  inset: 108px 22px 24px;
+  width: auto;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 84px minmax(0, 1fr);
+  align-content: start;
+  row-gap: 24px;
+  padding: 0;
+  transform: none;
+}
+.akc-about-figma .services__grid .service .service__content > h3 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 0;
+  height: 84px;
+  margin: 0 !important;
+  font-size: clamp(17px, 1.45vw, 22px);
+  line-height: 1.18;
+  text-align: center !important;
+}
+.akc-about-figma .services__grid > .service .service__bullet-list {
+  display: grid;
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  text-align: left;
+}
+@media (min-width: 601px) and (max-width: 1050px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    inset: 76px 26px 24px;
+  }
+}
+@media (max-width: 600px) {
+  .akc-about-figma .services__grid > .service .service__content,
+  .akc-about-figma .services__grid > .service--1 .service__content,
+  .akc-about-figma .services__grid > .service--2 .service__content,
+  .akc-about-figma .services__grid > .service--3 .service__content,
+  .akc-about-figma .services__grid > .service--4 .service__content {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    grid-template-rows: 70px auto;
+    row-gap: 20px;
+  }
+  .akc-about-figma .services__grid .service .service__content > h3 {
+    height: 70px;
+    font-size: 20px;
+  }
+}
