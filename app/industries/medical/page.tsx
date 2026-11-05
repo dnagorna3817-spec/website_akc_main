@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import styles from "./medical.module.css";
+import agro from "../agribusiness/agro.module.css";
 
 const audiences = [
   { icon: "✚", title: "Приватні клініки, медичні центри та поліклініки" },
@@ -33,33 +34,51 @@ const reasons = [
 ];
 
 export default function MedicalPage() {
-  return <div className={`${styles.page} ${expertiseFont}`}>
+  const groups = audiences.slice(0, 4).map(({ title }) => title);
+  const offerings = [
+    { title: "Бухгалтерський аутсорсинг", items: [
+      "Бухгалтерський та податковий облік медичних закладів і приватних практик",
+      "Облік медичних послуг, витратних матеріалів, медикаментів і обладнання",
+      "Облік розрахунків із пацієнтами, страхуванням та НСЗУ",
+      "Розрахунок заробітної плати лікарів і медичного персоналу",
+      "Підготовка фінансової, податкової та статистичної звітності",
+    ] },
+    ...services.map(({ title, items }) => ({ title, items })),
+    { title: "Аудит", items: [
+      "Ініціативний аудит фінансової звітності медичного закладу",
+      "Перевірка правильності обліку та підготовка до контролюючих перевірок",
+    ] },
+  ];
+  return <div className={`${agro.page} ${expertiseFont} ${styles.medicalPage}`}>
     <ExpertiseHeader active="industries" />
     <main>
-      <section className={styles.hero}>
-        <div className={styles.heroArt} aria-hidden="true"><div className={styles.heroPhoto}/></div>
-        <div className={styles.heroCopy}>
-          <p className={styles.breadcrumb}>03 / Галузі / Медицина</p>
-          <p className={styles.eyebrow}>МЕДИЦИНА</p>
-          <h1>Податковий та консалтинговий супровід <em>медичного бізнесу</em></h1>
-          <p className={styles.description}>АКЦ допомагає медичним закладам зосередитися на пацієнтах, а не на податках і організаційних питаннях. Ми допомагаємо обрати оптимальну модель оподаткування, налагодити фінансову аналітику та процеси, щоб ви бачили, які напрямки й послуги приносять прибуток, і спокійно розвивали клініку.</p>
-          <div className={styles.heroBottom}><Link href="/#contacts" className={styles.button}>Залишити заявку <span aria-hidden="true">→</span></Link><div className={styles.keywords}><span>ФІНАНСИ</span><span>ПОДАТКИ</span><span>АНАЛІТИКА</span><span>РОЗВИТОК</span></div></div>
+      <section className={agro.hero}>
+        <div className={agro.art} aria-hidden="true"><div className={`${agro.photo} ${styles.medicalPhoto}`} /></div>
+        <div className={agro.heroCopy}>
+          <span>МЕДИЦИНА</span>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>медичного бізнесу</em></h1>
+        </div>
+        <div className={agro.audience}>
+          <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
+          {groups.map(group => <p key={group}>{group}</p>)}
         </div>
       </section>
-      <div className={styles.benefits}>{["РОЗУМІННЯ МЕДИЧНОЇ СПЕЦИФІКИ","КОМПЛЕКСНИЙ СУПРОВІД","ПРОЗОРІСТЬ ТА КОНТРОЛЬ","ФОКУС НА РОЗВИТОК ВАШОГО БІЗНЕСУ"].map((x,i)=><div className={styles.benefit} key={x}><span>{String(i+1).padStart(2,"0")}</span><p>{x}</p></div>)}</div>
-      <section className={styles.section}>
-        <div className={styles.sectionIntro}><h2>Для кого <em>ми працюємо</em></h2><p>Розуміємо специфіку кожного медичного напрямку — від приватних кабінетів до мережевих клінік.</p></div>
-        <div className={styles.audiences}>{audiences.map(x=><article className={styles.audienceCard} key={x.title}><span className={styles.audienceIcon} aria-hidden="true">{x.icon}</span><p>{x.title}</p><span className={styles.circleArrow} aria-hidden="true">→</span></article>)}</div>
+      <section className={agro.services} id="services">
+        <h2>Що ми <span>пропонуємо</span></h2>
+        <p className={agro.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/> управління та розвитку медичного бізнесу.</p>
+        <div className={agro.offerings}>
+          {offerings.map(offer => <article className={agro.offer} key={offer.title}>
+            <div className={agro.offerHeading}><h3>{offer.title}</h3></div>
+            <ul>{offer.items.map(item => <li key={item}>{item}</li>)}</ul>
+          </article>)}
+        </div>
       </section>
-      <section className={styles.section}>
-        <div className={styles.sectionIntro}><h2>Що ми <em>пропонуємо</em></h2><p>Комплексний підхід до податкового супроводу, обліку та розвитку медичних закладів.</p></div>
-        <div className={styles.services}>{services.map((s,i)=><article className={styles.serviceCard} key={s.title}><div className={styles.serviceTitle}><span className={styles.number}>{String(i+1).padStart(2,"0")}</span><span className={styles.serviceIcon} aria-hidden="true">{s.icon}</span><h3>{s.title}</h3></div><ul>{s.items.map(x=><li key={x}>{x}</li>)}</ul><div className={styles.serviceVisual}><span>{s.note}</span></div></article>)}</div>
+      <section className={`${agro.cta} ${styles.medicalCta}`}>
+        <div className={agro.ctaCopy}>
+          <h2>Залиште заявку</h2>
+          <Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
+        </div>
       </section>
-      <section className={styles.section}>
-        <div className={styles.sectionIntro}><h2>Чому <em>обирають АКЦ</em></h2><p>Ми не просто ведемо облік, а стаємо надійним партнером для розвитку вашого медичного бізнесу.</p></div>
-        <div className={styles.reasons}>{reasons.map(x=><article className={styles.reason} key={x.title}><span aria-hidden="true">{x.icon}</span><h3>{x.title}</h3><p>{x.text}</p></article>)}</div>
-      </section>
-      <section className={styles.cta}><div className={styles.ctaCopy}><p className={styles.eyebrow}>ПОЧИНАЄМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link href="/#contacts" className={styles.button}>Залишити заявку <span aria-hidden="true">→</span></Link></div><div className={styles.ctaFeatures}>{["ШВИДКА КОНСУЛЬТАЦІЯ","ІНДИВІДУАЛЬНИЙ ПІДХІД","КОНФІДЕНЦІЙНІСТЬ","РЕЗУЛЬТАТ ДЛЯ ВАШОГО БІЗНЕСУ"].map((x,i)=><p key={x}><span aria-hidden="true">{["◷","▥","◇","⚙"][i]}</span>{x}</p>)}</div></section>
     </main>
   </div>;
 }
