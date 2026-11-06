@@ -534,10 +534,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>ІНФОРМАЦІЯ ДЛЯ ЗАЯВНИКА</p><h2>Усе, що потрібно знати перед іспитом</h2>
           <div className={qualification.qInfoGrid}>
-            <article><h3>Вимоги до кандидатів</h3><p>Одна з умов: кваліфікація «Бухгалтер» і стаж у бухгалтерському обліку від 5 років; або бакалаврський рівень у галузі «Бізнес, адміністрування та право» та 2 роки практичного досвіду; або магістерський рівень у цій галузі.</p></article>
-            <article><h3>Для яких професій актуально?</h3><p>Головні бухгалтери та бухгалтери.</p></article>
-            <article><h3>Який сертифікат видається?</h3><p>Сертифікат фахівця (кваліфікаційний) про присвоєння / підтвердження професійної кваліфікації «Бухгалтер дипломований».</p></article>
-            <article><h3>Форма іспиту</h3><p>Офлайн або онлайн. Актуальні умови участі уточнюються перед реєстрацією.</p></article>
+            {[
+              ["Вимоги до кандидатів", "Одна з умов: кваліфікація «Бухгалтер» і стаж у бухгалтерському обліку від 5 років; або бакалаврський рівень у галузі «Бізнес, адміністрування та право» та 2 роки практичного досвіду; або магістерський рівень у цій галузі."],
+              ["Для яких професій актуально?", "Головні бухгалтери та бухгалтери."],
+              ["Який сертифікат видається?", "Сертифікат фахівця (кваліфікаційний) про присвоєння / підтвердження професійної кваліфікації «Бухгалтер дипломований»."],
+              ["Форма іспиту", "Офлайн або онлайн. Актуальні умови участі уточнюються перед реєстрацією."],
+            ].map(([title, description]) => (
+              <details key={title} className={qualification.qAccordion}>
+                <summary className={qualification.qAccordionTrigger}>
+                  <span>{title}</span>
+                  <svg className={qualification.qAccordionArrow} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                </summary>
+                <div className={qualification.qAccordionContent}><p>{description}</p></div>
+              </details>
+            ))}
           </div>
         </section>
         <section className={qualification.qBand}>
