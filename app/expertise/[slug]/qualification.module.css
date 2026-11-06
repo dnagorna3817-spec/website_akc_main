@@ -203,3 +203,22 @@
   .qTimelineStroke,.qTimelineDot,.qTimelineStep{animation:none!important;opacity:1!important;filter:none}
   .qTimelineStroke{stroke-dasharray:none!important;stroke-dashoffset:0!important}
 }
+
+/* Faster reveal without text blur. */
+@keyframes qTextRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@supports (animation-timeline: view()){
+  .qTimelineStroke{animation-range:entry 0% cover 35%}
+  .qTimelineStep:nth-of-type(1){animation-range:entry 0% cover 10%}
+  .qTimelineStep:nth-of-type(2){animation-range:entry 8% cover 18%}
+  .qTimelineStep:nth-of-type(3){animation-range:entry 16% cover 26%}
+  .qTimelineStep:nth-of-type(4){animation-range:entry 24% cover 34%}
+  .qTimelineDot:nth-of-type(1){animation-range:entry 0% cover 10%}
+  .qTimelineDot:nth-of-type(2){animation-range:entry 8% cover 18%}
+  .qTimelineDot:nth-of-type(3){animation-range:entry 16% cover 26%}
+  .qTimelineDot:nth-of-type(4){animation-range:entry 24% cover 34%}
+}
+@media(max-width:600px){
+  @supports (animation-timeline: view()){
+    .qTimelineStep:nth-of-type(n){animation-range:entry 0% cover 18%}
+  }
+}
