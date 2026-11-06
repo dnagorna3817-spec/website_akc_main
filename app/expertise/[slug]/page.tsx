@@ -489,7 +489,36 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className={qualification.qHeroArt}><Image src="/akc-expertise-geometry.png" alt="" width={793} height={816} priority /></div>
         </section>
         <section className={qualification.qMetricsSection} aria-label="Основні характеристики оцінювання">
-          <div className={qualification.qMetrics} aria-label="Основні характеристики оцінювання"><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◷</span><strong>5 ГОДИН</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✎</span><strong>6 ПРАКТИЧНИХ ЗАВДАНЬ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◎</span><strong>70 ТЕСТІВ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✧</span><strong>СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ</strong></div></div>
+          <div className={qualification.qTimeline}>
+            <svg className={qualification.qTimelineTrack} viewBox="0 0 1000 720" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="qualificationPathGradient" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stopColor="#6db9ee" />
+                  <stop offset="52%" stopColor="#2580c9" />
+                  <stop offset="100%" stopColor="#82c8f5" />
+                </linearGradient>
+              </defs>
+              <path d="M 125 90 H 825 Q 945 90 945 180 Q 945 270 825 270 H 175 Q 55 270 55 360 Q 55 450 175 450 H 825 Q 945 450 945 540 Q 945 630 825 630 H 125" fill="none" stroke="url(#qualificationPathGradient)" strokeWidth="5" strokeLinecap="round" />
+              <circle cx="620" cy="90" r="9" fill="#74bdec" />
+              <circle cx="370" cy="270" r="9" fill="#74bdec" />
+              <circle cx="620" cy="450" r="9" fill="#74bdec" />
+              <circle cx="370" cy="630" r="9" fill="#74bdec" />
+            </svg>
+            {[
+              ["01", "◷", "5 ГОДИН"],
+              ["02", "✎", "6 ПРАКТИЧНИХ ЗАВДАНЬ"],
+              ["03", "◎", "70 ТЕСТІВ"],
+              ["04", "✧", "СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ"],
+            ].map(([number, icon, label]) => (
+              <div className={qualification.qTimelineStep} key={number}>
+                <span className={qualification.qTimelineNumber}>{number}</span>
+                <div className={qualification.qTimelineContent}>
+                  <span className={qualification.qTimelineIcon} aria-hidden="true">{icon}</span>
+                  <strong>{label}</strong>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
         <section className={qualification.qIntroCards}>
           {[
