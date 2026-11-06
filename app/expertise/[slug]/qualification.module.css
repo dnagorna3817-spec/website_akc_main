@@ -129,3 +129,15 @@
 .qHeroText .qStatus + .qMetrics{margin-top:26px}
 @media(max-width:1100px){.qMetrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:480px}.qMetricCard{min-height:135px}.qMetricCard:nth-child(even){transform:none}}
 @media(max-width:600px){.qMetrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.qMetricCard{min-height:125px;padding:16px 9px}.qMetricIcon{font-size:25px;margin-bottom:12px}.qMetricCard strong{font-size:10px}}
+
+
+/* Standalone infographic section, directly after the hero. */
+.qMetricsSection{max-width:1440px;margin:0 auto;padding:36px clamp(24px,4.5vw,80px) 58px}
+.qMetricsSection .qMetrics{max-width:1100px;width:100%;margin:0 auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.qMetricsSection .qMetricCard{min-height:180px;padding:28px 18px 24px}
+.qMetricsSection .qMetricCard:nth-child(even){transform:none}
+.qMetricsSection .qMetricIcon{font-size:36px;margin-bottom:22px}
+.qMetricsSection .qMetricCard strong{font-size:clamp(11px,1.05vw,14px)}
+.qMetricsSection + .qIntroCards{padding-top:38px}
+@media(max-width:900px){.qMetricsSection .qMetrics{grid-template-columns:repeat(2,minmax(0,1fr));max-width:660px}}
+@media(max-width:600px){.qMetricsSection{padding:18px 20px 42px}.qMetricsSection .qMetrics{gap:12px}.qMetricsSection .qMetricCard{min-height:140px;padding:20px 10px}.qMetricsSection .qMetricIcon{font-size:28px;margin-bottom:16px}.qMetricsSection .qMetricCard strong{font-size:11px}}
