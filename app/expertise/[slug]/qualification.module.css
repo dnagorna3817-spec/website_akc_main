@@ -310,3 +310,90 @@
   .qSteps article::after{bottom:12px}
   .qSteps h3{margin:16px 0 8px}
 }
+
+
+/* Connected certification milestones: the glowing dot joins each numeral's arc to its rail. */
+.qSteps article{
+  border-left:0;
+  padding:0 26px 28px 30px;
+  min-height:260px;
+}
+.qSteps article::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:62px;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(180deg,rgba(108,201,255,.82),rgba(79,156,216,.35) 48%,rgba(72,130,176,.06));
+  pointer-events:none;
+}
+.qSteps article::after{
+  left:-4px;
+  top:58px;
+  bottom:auto;
+  width:9px;
+  height:9px;
+  background:#b9efff;
+  box-shadow:0 0 8px 2px rgba(107,209,255,.7),0 0 22px 6px rgba(45,142,226,.28);
+  z-index:3;
+}
+.qSteps article>span{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:102px;
+  height:104px;
+  margin-left:-30px;
+  padding-left:17px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#7bbde9;
+  font-size:clamp(37px,3.6vw,53px);
+  font-weight:300;
+  line-height:1;
+  letter-spacing:-.06em;
+  font-variant-numeric:tabular-nums;
+  isolation:isolate;
+}
+.qSteps article>span::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:102px;
+  height:102px;
+  border-radius:50%;
+  border:1.5px solid transparent;
+  border-top-color:#5bb9f3;
+  border-left-color:#6fcaff;
+  transform:rotate(-6deg);
+  filter:drop-shadow(0 0 4px rgba(73,170,244,.2));
+  pointer-events:none;
+}
+.qSteps article>span::after{
+  content:"";
+  position:absolute;
+  left:1px;
+  top:48px;
+  width:1px;
+  height:17px;
+  background:#83d6ff;
+  pointer-events:none;
+}
+.qSteps h3{margin:12px 0 12px}
+.qSteps p{max-width:290px}
+@media(max-width:900px){
+  .qSteps article{min-height:250px}
+}
+@media(max-width:600px){
+  .qSteps article{min-height:0;padding:0 12px 30px 30px}
+  .qSteps article>span{width:88px;height:90px;font-size:39px}
+  .qSteps article>span::before{width:88px;height:88px}
+  .qSteps article>span::after{top:41px;height:21px}
+  .qSteps article::before{top:54px}
+  .qSteps article::after{top:50px}
+  .qSteps h3{margin:8px 0 9px}
+}
