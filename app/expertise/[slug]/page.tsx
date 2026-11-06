@@ -498,11 +498,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   <stop offset="100%" stopColor="#82c8f5" />
                 </linearGradient>
               </defs>
-              <path d="M 125 90 H 825 Q 945 90 945 180 Q 945 270 825 270 H 175 Q 55 270 55 360 Q 55 450 175 450 H 825 Q 945 450 945 540 Q 945 630 825 630 H 125" fill="none" stroke="url(#qualificationPathGradient)" strokeWidth="5" strokeLinecap="round" />
-              <circle cx="620" cy="90" r="9" fill="#74bdec" />
-              <circle cx="370" cy="270" r="9" fill="#74bdec" />
-              <circle cx="620" cy="450" r="9" fill="#74bdec" />
-              <circle cx="370" cy="630" r="9" fill="#74bdec" />
+              <path className={qualification.qTimelineStroke} pathLength={100} d="M 125 90 H 825 Q 945 90 945 180 Q 945 270 825 270 H 175 Q 55 270 55 360 Q 55 450 175 450 H 825 Q 945 450 945 540 Q 945 630 825 630 H 125" fill="none" stroke="url(#qualificationPathGradient)" strokeWidth="5" strokeLinecap="round" />
+              <circle className={qualification.qTimelineDot} cx="620" cy="90" r="9" fill="#74bdec" />
+              <circle className={qualification.qTimelineDot} cx="370" cy="270" r="9" fill="#74bdec" />
+              <circle className={qualification.qTimelineDot} cx="620" cy="450" r="9" fill="#74bdec" />
+              <circle className={qualification.qTimelineDot} cx="370" cy="630" r="9" fill="#74bdec" />
             </svg>
             {[
               ["01", "◷", "5 ГОДИН"],
