@@ -222,3 +222,8 @@
     .qTimelineStep:nth-of-type(n){animation-range:entry 0% cover 18%}
   }
 }
+
+
+/* Keep the luminous timeline visually continuous behind every label. */
+.qTimelineContent{background:transparent!important;position:relative;z-index:2}
+.qTimelineContent strong{position:relative;text-shadow:0 2px 9px #020c15,0 -2px 9px #020c15,2px 0 9px #020c15,-2px 0 9px #020c15}
