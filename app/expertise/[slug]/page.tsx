@@ -6,6 +6,7 @@ import { Arrow, expertiseFont, ExpertiseHeader } from "../ExpertiseView";
 import { services } from "../services";
 import styles from "../expertise.module.css";
 import audit from "./audit.module.css";
+import qualification from "./qualification.module.css";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -474,62 +475,62 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       "Контактні особи",
       "Бланк сертифікату кваліфікаційного центру",
     ];
-    return <div className={`${styles.page} ${expertiseFont} ${audit.qualificationPage}`}>
+    return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
       <ExpertiseHeader active="qualification" />
-      <main className={audit.qualificationMain}>
-        <section className={audit.qHero}>
-          <div className={audit.qHeroText}>
-            <p className={audit.qEyebrow}>АУДИТ КОНСАЛТИНГ ЦЕНТР / КВАЛІФІКАЦІЙНИЙ ЦЕНТР</p>
+      <main className={qualification.qualificationMain}>
+        <section className={qualification.qHero}>
+          <div className={qualification.qHeroText}>
+            <p className={qualification.qEyebrow}>АУДИТ КОНСАЛТИНГ ЦЕНТР / КВАЛІФІКАЦІЙНИЙ ЦЕНТР</p>
             <h1>ОЦІНЮВАННЯ ТА<br/>ПІДТВЕРДЖЕННЯ<br/><span>ПРОФЕСІЙНОЇ КВАЛІФІКАЦІЇ</span></h1>
             <p>«Бухгалтер дипломований» — професійна сертифікація для бухгалтерів від кваліфікаційного центру, акредитованого Національним агентством кваліфікацій. Вимоги, іспит, комісія, вартість і документи — на цій сторінці.</p>
-            <div className={audit.qStatus}>● АКРЕДИТОВАНИЙ КВАЛІФІКАЦІЙНИЙ ЦЕНТР</div>
-            <div className={audit.qMetrics}><strong>5 ГОДИН · 6 ПРАКТИЧНИХ ЗАВДАНЬ · 70 ТЕСТІВ</strong><span>СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ</span></div>
+            <div className={qualification.qStatus}>● АКРЕДИТОВАНИЙ КВАЛІФІКАЦІЙНИЙ ЦЕНТР</div>
+            <div className={qualification.qMetrics}><strong>5 ГОДИН · 6 ПРАКТИЧНИХ ЗАВДАНЬ · 70 ТЕСТІВ</strong><span>СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ</span></div>
           </div>
-          <div className={audit.qHeroArt}><Image src="/akc-expertise-geometry.png" alt="" width={793} height={816} priority /></div>
+          <div className={qualification.qHeroArt}><Image src="/akc-expertise-geometry.png" alt="" width={793} height={816} priority /></div>
         </section>
-        <section className={audit.qIntroCards}>
+        <section className={qualification.qIntroCards}>
           {[
             ["01","Про кваліфікаційний центр","Ми організовуємо професійне оцінювання бухгалтерів, допомагаємо підготувати документи та пройти шлях від консультації до отримання сертифіката."],
             ["02","Наш статус","Кваліфікаційний центр акредитовано Національним агентством кваліфікацій. Сертифікат №787 від 06.04.2026."],
             ["03","НАК","Національне агентство кваліфікацій забезпечує формування та реалізацію державної політики у сфері професійних кваліфікацій."],
           ].map(([n,title,description])=><article key={n}><span>{n}</span><h2>{title}</h2><p>{description}</p></article>)}
         </section>
-        <section className={audit.qSection} id="process">
-          <p className={audit.qEyebrow}>ПРОЦЕДУРА</p><h2>Як проходить сертифікація?</h2>
-          <div className={audit.qSteps}>{stages.map(([n,title,description])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+        <section className={qualification.qSection} id="process">
+          <p className={qualification.qEyebrow}>ПРОЦЕДУРА</p><h2>Як проходить сертифікація?</h2>
+          <div className={qualification.qSteps}>{stages.map(([n,title,description])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
         </section>
-        <section className={audit.qSection}>
-          <p className={audit.qEyebrow}>ІНФОРМАЦІЯ ДЛЯ ЗАЯВНИКА</p><h2>Усе, що потрібно знати перед іспитом</h2>
-          <div className={audit.qInfoGrid}>
+        <section className={qualification.qSection}>
+          <p className={qualification.qEyebrow}>ІНФОРМАЦІЯ ДЛЯ ЗАЯВНИКА</p><h2>Усе, що потрібно знати перед іспитом</h2>
+          <div className={qualification.qInfoGrid}>
             <article><h3>Вимоги до кандидатів</h3><p>Одна з умов: кваліфікація «Бухгалтер» і стаж у бухгалтерському обліку від 5 років; або бакалаврський рівень у галузі «Бізнес, адміністрування та право» та 2 роки практичного досвіду; або магістерський рівень у цій галузі.</p></article>
             <article><h3>Для яких професій актуально?</h3><p>Головні бухгалтери та бухгалтери.</p></article>
             <article><h3>Який сертифікат видається?</h3><p>Сертифікат фахівця (кваліфікаційний) про присвоєння / підтвердження професійної кваліфікації «Бухгалтер дипломований».</p></article>
             <article><h3>Форма іспиту</h3><p>Офлайн або онлайн. Актуальні умови участі уточнюються перед реєстрацією.</p></article>
           </div>
         </section>
-        <section className={audit.qBand}>
-          <div className={audit.qInner}>
-            <p className={audit.qEyebrow}>ПЕРЕВАГИ</p><h2>Що ви отримаєте після сертифікації?</h2>
-            <div className={audit.qInfoGrid}>
+        <section className={qualification.qBand}>
+          <div className={qualification.qInner}>
+            <p className={qualification.qEyebrow}>ПЕРЕВАГИ</p><h2>Що ви отримаєте після сертифікації?</h2>
+            <div className={qualification.qInfoGrid}>
               <article><h3>Підтвердження кваліфікації</h3><p>Офіційний документ за результатами успішного оцінювання.</p></article>
               <article><h3>Визнання роботодавців</h3><p>Додаткове підтвердження професійних компетентностей.</p></article>
               <article><h3>Актуальні знання</h3><p>Підготовка з урахуванням професійних стандартів і змін законодавства.</p></article>
               <article><h3>Кар’єрні переваги</h3><p>Підсилення професійного профілю на ринку праці.</p></article>
             </div>
-            <div className={audit.qResult}><p className={audit.qEyebrow}>РЕЗУЛЬТАТ ОЦІНЮВАННЯ</p><h2>Після успішного іспиту ви отримаєте сертифікат</h2><p>Сертифікат фахівця про присвоєння або підтвердження професійної кваліфікації. Точна назва документа залежить від обраної кваліфікації.</p><strong>СЕРТИФІКАТ ФАХІВЦЯ</strong></div>
+            <div className={qualification.qResult}><p className={qualification.qEyebrow}>РЕЗУЛЬТАТ ОЦІНЮВАННЯ</p><h2>Після успішного іспиту ви отримаєте сертифікат</h2><p>Сертифікат фахівця про присвоєння або підтвердження професійної кваліфікації. Точна назва документа залежить від обраної кваліфікації.</p><strong>СЕРТИФІКАТ ФАХІВЦЯ</strong></div>
           </div>
         </section>
-        <section className={audit.qSection}>
-          <p className={audit.qEyebrow}>ВАРТІСТЬ ТА УЧАСТЬ</p><h2>Оберіть формат участі</h2><p>Для кваліфікації «Бухгалтер дипломований» у макеті вказані такі варіанти оплати. Актуальність вартості уточнюйте у центрі.</p>
-          <div className={audit.qPriceGrid}>
+        <section className={qualification.qSection}>
+          <p className={qualification.qEyebrow}>ВАРТІСТЬ ТА УЧАСТЬ</p><h2>Оберіть формат участі</h2><p>Для кваліфікації «Бухгалтер дипломований» у макеті вказані такі варіанти оплати. Актуальність вартості уточнюйте у центрі.</p>
+          <div className={qualification.qPriceGrid}>
             <article><h3>ПОВНА ОПЛАТА</h3><p>Оплата іспиту одним платежем.</p><strong>8 800 <small>грн</small></strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
             <article><h3>ОПЛАТА ЧАСТИНАМИ</h3><p>Оплата частинами без переплат.</p><strong>від 2 935 <small>грн / міс</small></strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
             <article><h3>КОРПОРАТИВНИЙ ПАКЕТ</h3><p>Для команди — індивідуальні умови.</p><strong>Індивідуально</strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
           </div>
         </section>
-        <section className={audit.qSection}>
-          <p className={audit.qEyebrow}>ДОСВІД УЧАСНИКІВ</p><h2>Відгуки учасників</h2>
-          <div className={audit.qReviewGrid}>
+        <section className={qualification.qSection}>
+          <p className={qualification.qEyebrow}>ДОСВІД УЧАСНИКІВ</p><h2>Відгуки учасників</h2>
+          <div className={qualification.qReviewGrid}>
             {[
               ["«Дуже професійний підхід та супровід сертифікації, після якої отримала підвищення та матеріальну мотивацію»","Ірина К."],
               ["«Крутий виклик для перевірки рівня знань, після чого став впевненіше працювати зі звітністю, обліком та змінами законодавства»","Сергій С."],
@@ -537,15 +538,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             ].map(([quote,author])=><blockquote key={author}><span>★★★★★</span><p>{quote}</p><footer>{author}</footer></blockquote>)}
           </div>
         </section>
-        <section className={audit.qSection} id="documents">
-          <p className={audit.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали центру. Посилання будуть доступні після додавання файлів.</p>
-          <div className={audit.qDocumentGrid}>{documents.map(title=><div key={title}><span>↗</span>{title}</div>)}</div>
+        <section className={qualification.qSection} id="documents">
+          <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали центру. Посилання будуть доступні після додавання файлів.</p>
+          <div className={qualification.qDocumentGrid}>{documents.map(title=><div key={title}><span>↗</span>{title}</div>)}</div>
         </section>
-        <section className={audit.qSection}>
-          <p className={audit.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
-          <div className={audit.qNormative}><p>Оцінювання проводиться відповідно до вимог професійного стандарту для обраної кваліфікації та затверджених документів кваліфікаційного центру.</p><article><h3>Головний бухгалтер бюджетної установи</h3><p>Наказ Міністерства фінансів України № 364 від 21.07.2025</p></article></div>
+        <section className={qualification.qSection}>
+          <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
+          <div className={qualification.qNormative}><p>Оцінювання проводиться відповідно до вимог професійного стандарту для обраної кваліфікації та затверджених документів кваліфікаційного центру.</p><article><h3>Головний бухгалтер бюджетної установи</h3><p>Наказ Міністерства фінансів України № 364 від 21.07.2025</p></article></div>
         </section>
-        <section className={audit.qFinal} id="next-step"><p className={audit.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><a href="#documents">ПЕРЕГЛЯНУТИ ДОКУМЕНТИ ↗</a></section>
+        <section className={qualification.qFinal} id="next-step"><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><a href="#documents">ПЕРЕГЛЯНУТИ ДОКУМЕНТИ ↗</a></section>
       </main>
     </div>;
   }
