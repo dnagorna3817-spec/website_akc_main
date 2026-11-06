@@ -164,3 +164,6 @@
 
 /* Remove oversized timeline numerals; keep icons, labels and path. */
 .qTimelineNumber{display:none!important}
+
+/* Timeline labels only: hide decorative icons. */
+.qTimelineIcon{display:none!important}
