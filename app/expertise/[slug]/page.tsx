@@ -484,9 +484,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <h1>ОЦІНЮВАННЯ ТА<br/>ПІДТВЕРДЖЕННЯ<br/><span>ПРОФЕСІЙНОЇ КВАЛІФІКАЦІЇ</span></h1>
             <p>«Бухгалтер дипломований» — професійна сертифікація для бухгалтерів від кваліфікаційного центру, акредитованого Національним агентством кваліфікацій. Вимоги, іспит, комісія, вартість і документи — на цій сторінці.</p>
             <div className={qualification.qStatus}>● АКРЕДИТОВАНИЙ КВАЛІФІКАЦІЙНИЙ ЦЕНТР</div>
-            <div className={qualification.qMetrics} aria-label="Основні характеристики оцінювання"><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◷</span><strong>5 ГОДИН</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✎</span><strong>6 ПРАКТИЧНИХ ЗАВДАНЬ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◎</span><strong>70 ТЕСТІВ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✧</span><strong>СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ</strong></div></div>
+
           </div>
           <div className={qualification.qHeroArt}><Image src="/akc-expertise-geometry.png" alt="" width={793} height={816} priority /></div>
+        </section>
+        <section className={qualification.qMetricsSection} aria-label="Основні характеристики оцінювання">
+          <div className={qualification.qMetrics} aria-label="Основні характеристики оцінювання"><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◷</span><strong>5 ГОДИН</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✎</span><strong>6 ПРАКТИЧНИХ ЗАВДАНЬ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">◎</span><strong>70 ТЕСТІВ</strong></div><div className={qualification.qMetricCard}><span className={qualification.qMetricIcon} aria-hidden="true">✧</span><strong>СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ</strong></div></div>
         </section>
         <section className={qualification.qIntroCards}>
           {[
