@@ -227,3 +227,9 @@
 /* Keep the luminous timeline visually continuous behind every label. */
 .qTimelineContent{background:transparent!important;position:relative;z-index:2}
 .qTimelineContent strong{position:relative;text-shadow:0 2px 9px #020c15,0 -2px 9px #020c15,2px 0 9px #020c15,-2px 0 9px #020c15}
+
+
+/* Subtle mask under timeline labels: preserve path continuity without crossing letters. */
+.qTimelineContent{isolation:isolate}
+.qTimelineContent::before{content:"";position:absolute;z-index:-1;inset:0 -10px;background:linear-gradient(90deg,transparent 0%,rgba(2,12,21,.88) 22%,rgba(2,12,21,.96) 50%,rgba(2,12,21,.88) 78%,transparent 100%);pointer-events:none}
+@media(max-width:600px){.qTimelineContent::before{display:none}}
