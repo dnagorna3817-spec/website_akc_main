@@ -7,6 +7,7 @@ import { services } from "../services";
 import styles from "../expertise.module.css";
 import audit from "./audit.module.css";
 import qualification from "./qualification.module.css";
+import CertificateShowcase from "./CertificateShowcase";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -559,7 +560,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <article><h3>Актуальні знання</h3><p>Підготовка з урахуванням професійних стандартів і змін законодавства.</p></article>
               <article><h3>Кар’єрні переваги</h3><p>Підсилення професійного профілю на ринку праці.</p></article>
             </div>
-            <div className={qualification.qResult}><p className={qualification.qEyebrow}>РЕЗУЛЬТАТ ОЦІНЮВАННЯ</p><h2>Після успішного іспиту ви отримаєте сертифікат</h2><p>Сертифікат фахівця про присвоєння або підтвердження професійної кваліфікації. Точна назва документа залежить від обраної кваліфікації.</p><strong>СЕРТИФІКАТ ФАХІВЦЯ</strong></div>
+            <div className={qualification.qCertificateResult}><div className={qualification.qResult}><p className={qualification.qEyebrow}>РЕЗУЛЬТАТ ОЦІНЮВАННЯ</p><h2>Після успішного іспиту ви отримаєте сертифікат</h2><p>Сертифікат фахівця про присвоєння або підтвердження професійної кваліфікації. Точна назва документа залежить від обраної кваліфікації.</p></div><CertificateShowcase /></div>
           </div>
         </section>
         <section className={qualification.qSection}>
