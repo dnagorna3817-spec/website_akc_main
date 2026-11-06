@@ -444,21 +444,21 @@
 }
 
 
-/* Certificate showcase — hover to reveal reverse, tap for touch devices */
+/* Certificate showcase — clean hover swap, no translucent overlap */
 .qCertificateResult{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(28px,4vw,60px);margin-top:55px;padding:50px 0 32px;border-top:1px solid #29475c}
 .qCertificateResult .qResult{margin:0;border:0;padding:0}
 .qCertificateShowcase{min-width:0;width:100%;max-width:580px;margin:0 auto}
 .qCertificateStack{display:block;position:relative;width:100%;height:clamp(260px,27vw,390px);padding:0;border:0;background:transparent;isolation:isolate;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
 .qCertificateStack::before{content:"";position:absolute;inset:15% 7%;background:radial-gradient(ellipse,rgba(42,137,210,.17),transparent 70%);filter:blur(24px);pointer-events:none}
-.qCertificateStack .qCertificateFront,.qCertificateStack .qCertificateBack{position:absolute;display:block;box-sizing:border-box;width:70%;padding:0;border:1px solid rgba(152,207,243,.4);border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 15px 40px rgba(0,0,0,.35);transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease;pointer-events:none}
+.qCertificateStack .qCertificateFront,.qCertificateStack .qCertificateBack{position:absolute;display:block;box-sizing:border-box;width:70%;padding:0;border:1px solid rgba(152,207,243,.4);border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 15px 40px rgba(0,0,0,.35);transition:transform .45s ease,opacity .3s ease;pointer-events:none}
 .qCertificateStack img{display:block;width:100%;height:auto}
 .qCertificateStack .qCertificateFront{left:3%;top:17%;z-index:2;transform:rotate(-5deg);opacity:1}
 .qCertificateStack .qCertificateBack{right:3%;top:10%;z-index:1;transform:rotate(6deg);opacity:1}
 @media(hover:hover) and (pointer:fine){
-.qCertificateStack:hover .qCertificateFront{transform:translate(-14%,12%) rotate(-12deg);opacity:.23}
+.qCertificateStack:hover .qCertificateFront{transform:translate(-10%,8%) rotate(-9deg);opacity:0}
 .qCertificateStack:hover .qCertificateBack{transform:translate(-13%,3%) rotate(0deg) scale(1.04)}
 }
-.qCertificateStack.qCertificateFlipped .qCertificateFront{transform:translate(-14%,12%) rotate(-12deg);opacity:.23}
+.qCertificateStack.qCertificateFlipped .qCertificateFront{transform:translate(-10%,8%) rotate(-9deg);opacity:0}
 .qCertificateStack.qCertificateFlipped .qCertificateBack{transform:translate(-13%,3%) rotate(0deg) scale(1.04)}
 .qCertificateStack:focus-visible{outline:2px solid #82ceff;outline-offset:5px;border-radius:10px}
 .qCertificateHint{margin:8px 0 0;text-align:center;color:#91a9bc!important;font-size:12px!important;letter-spacing:.04em}
