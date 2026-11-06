@@ -167,3 +167,39 @@
 
 /* Timeline labels only: hide decorative icons. */
 .qTimelineIcon{display:none!important}
+
+
+/* Luminous AKC timeline, scroll-progressive where CSS view timelines are supported. */
+.qMetricsSection{position:relative;isolation:isolate}
+.qMetricsSection:before{content:"";position:absolute;inset:8% 0;pointer-events:none;background:radial-gradient(ellipse 52% 40% at 50% 50%,rgba(20,84,139,.085),transparent 78%);z-index:-1}
+.qTimelineTrack{filter:drop-shadow(0 0 5px rgba(64,163,244,.72)) drop-shadow(0 0 18px rgba(28,104,204,.26))}
+.qTimelineStroke{stroke-width:5.5;stroke-linecap:round}
+.qTimelineDot{filter:drop-shadow(0 0 7px rgba(112,197,255,.8))}
+.qTimelineContent strong{text-shadow:0 0 14px rgba(100,174,234,.09)}
+@keyframes qLineDraw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes qTextRise{from{opacity:0;transform:translateY(20px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes qDotAppear{from{opacity:0;transform:scale(.4);transform-box:fill-box;transform-origin:center}to{opacity:1;transform:scale(1);transform-box:fill-box;transform-origin:center}}
+@supports (animation-timeline: view()){
+  .qMetricsSection{view-timeline-name:--qualification-flow;view-timeline-axis:block}
+  .qTimelineStroke{stroke-dasharray:100;stroke-dashoffset:100;animation:qLineDraw linear both;animation-timeline:--qualification-flow;animation-range:entry 0% cover 78%}
+  .qTimelineDot{opacity:0;animation:qDotAppear linear both;animation-timeline:--qualification-flow}
+  .qTimelineDot:nth-of-type(1){animation-range:entry 15% cover 28%}
+  .qTimelineDot:nth-of-type(2){animation-range:entry 35% cover 48%}
+  .qTimelineDot:nth-of-type(3){animation-range:entry 52% cover 65%}
+  .qTimelineDot:nth-of-type(4){animation-range:entry 68% cover 82%}
+  .qTimelineStep{animation:qTextRise linear both;animation-timeline:--qualification-flow}
+  .qTimelineStep:nth-of-type(1){animation-range:entry 8% cover 23%}
+  .qTimelineStep:nth-of-type(2){animation-range:entry 29% cover 44%}
+  .qTimelineStep:nth-of-type(3){animation-range:entry 48% cover 63%}
+  .qTimelineStep:nth-of-type(4){animation-range:entry 66% cover 81%}
+}
+@media(max-width:600px){
+  .qTimeline{border-left-color:#58a8e4;filter:drop-shadow(0 0 5px rgba(73,164,239,.25))}
+  @supports (animation-timeline: view()){
+    .qTimelineStep:nth-of-type(n){animation-range:entry 0% cover 50%}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .qTimelineStroke,.qTimelineDot,.qTimelineStep{animation:none!important;opacity:1!important;filter:none}
+  .qTimelineStroke{stroke-dasharray:none!important;stroke-dashoffset:0!important}
+}
