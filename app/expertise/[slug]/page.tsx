@@ -564,14 +564,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
         <section className={qualification.qSection}>
-          <p className={qualification.qEyebrow}>ВАРТІСТЬ ТА УЧАСТЬ</p><h2>Оберіть формат участі</h2><p>Для кваліфікації «Бухгалтер дипломований» у макеті вказані такі варіанти оплати. Актуальність вартості уточнюйте у центрі.</p>
-          <div className={qualification.qPriceGrid}>
-            <article><h3>ПОВНА ОПЛАТА</h3><p>Оплата іспиту одним платежем.</p><strong>8 800 <small>грн</small></strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
-            <article><h3>ОПЛАТА ЧАСТИНАМИ</h3><p>Оплата частинами без переплат.</p><strong>від 2 935 <small>грн / міс</small></strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
-            <article><h3>КОРПОРАТИВНИЙ ПАКЕТ</h3><p>Для команди — індивідуальні умови.</p><strong>Індивідуально</strong><a href="#next-step">ЗАЛИШИТИ ЗАЯВКУ ↗</a></article>
-          </div>
-        </section>
-        <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>ДОСВІД УЧАСНИКІВ</p><h2>Відгуки учасників</h2>
           <div className={qualification.qReviewGrid}>
             {[
