@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useExpertiseTransition } from "./components/ExpertiseTransition";
 import LogoIntro from "./components/LogoIntro";
 import "./home.css";
+import "./home-about.css";
 
 const directions = [
   { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
