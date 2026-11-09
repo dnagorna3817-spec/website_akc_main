@@ -467,14 +467,40 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       ["03", "Оцінювання", "Перевірка професійних компетентностей за встановленими критеріями."],
       ["04", "Результат", "Повідомлення про результат і видача документа в разі успішного проходження."],
     ];
-    const documents = [
-      { title: "Наказ про створення кваліфікаційного центру", url: "/documents/nakaz-pro-stvorennya.pdf" },
-      { title: "Положення про кваліфікаційний центр ТОВ «АКЦ»", url: "/documents/polozhennya-kc.pdf" },
-      { title: "Сертифікат про акредитацію — «Бухгалтер дипломований»", url: "/documents/akredytaciya-buhgalter.pdf" },
-      { title: "Матеріально-технічна база", url: "/documents/materialno-tehnichna-baza.pdf" },
-      { title: "Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»", url: "/documents/akredytaciya-golovnyi-buhgalter.pdf" },
-      { title: "Бланк сертифіката кваліфікаційного центру", url: "/documents/blank-sertyfikata.pdf" },
-    ];
+    const documentGroups = [
+      { title: "Документи кваліфікаційного центру", items: [
+        ["Наказ про створення кваліфікаційного центру", "nakaz-pro-stvorennya.pdf"],
+        ["Положення про кваліфікаційний центр ТОВ «АКЦ»", "polozhennya-kc.pdf"],
+        ["Матеріально-технічна база", "materialno-tehnichna-baza.pdf"],
+        ["Бланк сертифіката кваліфікаційного центру", "blank-sertyfikata.pdf"],
+        ["Сертифікат про акредитацію — «Бухгалтер дипломований»", "akredytaciya-buhgalter.pdf"],
+        ["Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»", "akredytaciya-golovnyi-buhgalter.pdf"],
+      ] },
+      { title: "Бухгалтер дипломований", items: [
+        ["Професійний стандарт", "buh-standart.pdf"],
+        ["Порядок присвоєння та підтвердження кваліфікації", "buh-poryadok.pdf"],
+        ["Умови допуску до професійної сертифікації", "buh-umovy.pdf"],
+        ["Професійні компетентності, що підлягають оцінюванню", "buh-kompetentnosti.pdf"],
+        ["Структура контрольних та оцінювальних матеріалів", "buh-oczinyuvannya.pdf"],
+        ["Склад комісії та інформація про екзаменаторів", "buh-komisiya.pdf"],
+        ["Перелік питань для підготовки до іспиту", "buh-pytannya.pdf"],
+      ] },
+      { title: "Головний бухгалтер бюджетної установи", items: [
+        ["Професійний стандарт", "golbuh-standart.pdf"],
+        ["Порядок присвоєння та підтвердження кваліфікації", "golbuh-poryadok.pdf"],
+        ["Професійні компетентності, що підлягають оцінюванню", "golbuh-kompetentnosti.pdf"],
+        ["Склад комісії та інформація про екзаменаторів", "golbuh-komisiya.pdf"],
+        ["Умови допуску до професійної сертифікації", "golbuh-umovy.pdf"],
+        ["Структура контрольних та оцінювальних матеріалів", "golbuh-oczinyuvannya.pdf"],
+      ] },
+      { title: "Процедури та документи для заявників", items: [
+        ["Процедура присвоєння та підтвердження професійної кваліфікації", "procedura-sertyfikaciyi.pdf"],
+        ["Контрольні терміни процедури сертифікації", "terminy-sertyfikaciyi.pdf"],
+        ["Порядок оскарження результатів сертифікації", "oskarzhennya-rezultativ.pdf"],
+        ["Документ за посиланням «Заява» — назву потрібно перевірити", "zayava.pdf"],
+        ["Публічний договір про надання послуг", "publichnyi-dogovir.pdf"],
+      ] },
+    ] as const;
     return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
       <ExpertiseHeader active="qualification" />
       <main className={qualification.qualificationMain}>
@@ -582,7 +608,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
         <section className={qualification.qSection} id="documents">
           <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали кваліфікаційного центру. Натисніть на назву, щоб відкрити PDF.</p>
-          <div className={qualification.qDocumentGrid}>{documents.map(({title,url})=><a key={url} href={url} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span aria-hidden="true">↗</span>{title}</a>)}</div>
+          <div className={qualification.qDocumentGroups}>{documentGroups.map((group, index)=><details key={group.title} className={qualification.qDocumentGroup} open={index===0}><summary><span className={qualification.qDocumentGroupTitle}>{group.title}</span><span className={qualification.qDocumentCount}>{group.items.length} документів</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary><div className={qualification.qDocumentGrid}>{group.items.map(([title,file])=><a key={file} href={`/documents/${file}`} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span aria-hidden="true">↗</span>{title}</a>)}</div></details>)}</div>
         </section>
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
