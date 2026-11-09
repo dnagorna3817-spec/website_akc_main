@@ -647,3 +647,71 @@
 .qualificationPage .qFinalContent{max-width:1050px}
 .qualificationPage .qFinalContent h2{max-width:1000px}
 @media(max-width:767px){.qualificationPage .qFinal{padding:65px 20px 80px;background:radial-gradient(ellipse 100% 65% at 100% 85%,rgba(38,119,178,.22),transparent 76%),linear-gradient(130deg,#03111d,#071d30)}}
+
+
+/* Qualification hero: oversized seamless geometry, matching the approved visual. */
+@media (min-width: 901px) {
+  .qualificationPage .qHero {
+    grid-template-columns: minmax(0, 1.03fr) minmax(0, .97fr);
+    gap: clamp(12px, 2vw, 34px);
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .qualificationPage .qHeroText {
+    z-index: 2;
+  }
+  .qualificationPage .qHeroArt {
+    position: relative;
+    align-self: stretch;
+    width: calc(100% + clamp(35px, 5vw, 90px));
+    max-height: none;
+    min-height: 0;
+    margin: calc(-1 * clamp(70px, 7vw, 110px)) calc(-1 * clamp(24px, 4.5vw, 80px)) calc(-1 * clamp(75px, 8vw, 120px)) -5%;
+    overflow: hidden;
+    border-radius: 0;
+    isolation: isolate;
+    pointer-events: none;
+  }
+  .qualificationPage .qHeroArt img {
+    position: absolute;
+    inset: -8% -13% -8% -10%;
+    width: 123%;
+    height: 116%;
+    max-height: none;
+    object-fit: cover;
+    object-position: 48% center;
+    filter: none;
+    -webkit-mask-image: radial-gradient(ellipse 78% 79% at 60% 48%, #000 36%, rgba(0,0,0,.93) 53%, rgba(0,0,0,.55) 73%, transparent 100%);
+    mask-image: radial-gradient(ellipse 78% 79% at 60% 48%, #000 36%, rgba(0,0,0,.93) 53%, rgba(0,0,0,.55) 73%, transparent 100%);
+  }
+  .qualificationPage .qHeroArt::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, #020c15 0%, rgba(2,12,21,.72) 8%, transparent 34%),
+      linear-gradient(0deg, #020c15 0%, transparent 20%, transparent 79%, #020c15 100%);
+  }
+  .qualificationPage .qHeroArt::before {
+    z-index: 0;
+    inset: 0;
+    filter: none;
+    background: radial-gradient(ellipse at 60% 45%, rgba(27,94,150,.16), transparent 75%);
+  }
+}
+@media (max-width: 900px) {
+  .qualificationPage .qHeroArt {
+    border-radius: 0;
+    overflow: hidden;
+    -webkit-mask-image: radial-gradient(ellipse 83% 75% at 50% 50%, #000 46%, transparent 100%);
+    mask-image: radial-gradient(ellipse 83% 75% at 50% 50%, #000 46%, transparent 100%);
+  }
+  .qualificationPage .qHeroArt img {
+    width: 112%;
+    max-width: none;
+    object-fit: cover;
+    filter: none;
+  }
+}
