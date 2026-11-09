@@ -2749,7 +2749,7 @@ body {
   bottom: 0;
   width: 61%;
   pointer-events: none;
-  background-image: linear-gradient(90deg, #01040b 0%, rgba(1,4,11,.75) 12%, transparent 40%), linear-gradient(0deg, #01040b, transparent 15%, transparent 84%, #01040b), url("/media/akc-about-metal-blue.svg");
+  background-image: linear-gradient(90deg, #01040b 0%, rgba(1,4,11,.75) 12%, transparent 40%), linear-gradient(0deg, #01040b, transparent 15%, transparent 84%, #01040b), url("/media/akc-about-original.jpg");
   background-repeat: no-repeat;
   background-position: center, center, 50% 50%;
   background-size: cover;
