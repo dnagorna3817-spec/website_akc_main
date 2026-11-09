@@ -2,7 +2,7 @@ import "../about/about.css";
 
 export default function ContactsPage() {
   return (
-    <div className="akc-about-figma page">
+    <div className="akc-about-figma akc-contacts-page page">
       <header className="nav">
         <a className="nav__brand" href="/" aria-label="Аудит Консалтинг Центр — головна">
           <img className="nav__logo" src="/akc-brand-white.png" alt="" width="48" height="48" />
