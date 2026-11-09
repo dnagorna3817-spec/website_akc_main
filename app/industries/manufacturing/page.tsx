@@ -47,7 +47,7 @@ export default function ManufacturingPage() {
           <p className={styles.eyebrow}>ВИРОБНИЦТВО</p>
           <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>виробничих підприємств</em></h1>
           <p className={styles.heroDescription}>АКЦ забезпечує виробництву точний облік собівартості та прозорі фінанси. Ми беремо на себе облік, податки, звітність та управлінську аналітику, щоб ви бачили реальну рентабельність кожного виробу та приймали рішення на основі цифр.</p>
-          <div className={styles.heroActions}><Link className={styles.primary} href="/#contacts">Залишити заявку <span aria-hidden="true">→</span></Link><span className={styles.heroKeywords}>ОБЛІК СОБІВАРТОСТІ<br/>АНАЛІТИКА<br/>СТАБІЛЬНИЙ РОЗВИТОК</span></div>
+          <div className={styles.heroActions}><Link className={styles.primary} href="/#contacts" data-lead-cta>Залишити заявку <span aria-hidden="true">→</span></Link><span className={styles.heroKeywords}>ОБЛІК СОБІВАРТОСТІ<br/>АНАЛІТИКА<br/>СТАБІЛЬНИЙ РОЗВИТОК</span></div>
         </div>
       </section>
       <div className={styles.benefits}>{["ГЛИБОКЕ РОЗУМІННЯ ВИРОБНИЧИХ ПРОЦЕСІВ","КОМПЛЕКСНИЙ СУПРОВІД","ПРОЗОРІСТЬ І КОНТРОЛЬ","ФОКУС НА РОЗВИТОК ВАШОГО БІЗНЕСУ"].map((t,i)=><div className={styles.benefit} key={t}><span>{String(i+1).padStart(2,"0")}</span><p>{t}</p></div>)}</div>
@@ -59,7 +59,7 @@ export default function ManufacturingPage() {
         <div className={styles.sectionIntro}><h2>Що ми <em>пропонуємо</em></h2><p>Комплексний підхід до бухгалтерського обліку, податків, управління та розвитку виробничих підприємств.</p></div>
         <div className={styles.serviceList}>{services.map((s,i)=><article className={styles.serviceCard} key={s.title}><div className={styles.serviceHeading}><span className={styles.serviceNumber}>{String(i+1).padStart(2,"0")}</span><h3>{s.title}</h3></div><ul>{s.items.map(item=><li key={item}>{item}</li>)}</ul>{(i===0||i===2)&&<div className={styles.serviceImage} aria-hidden="true"/>}</article>)}</div>
       </section>
-      <section className={styles.cta}><div className={styles.ctaContent}><p className={styles.eyebrow}>ПОЧНІМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link className={styles.primary} href="/#contacts">Залишити заявку <span aria-hidden="true">→</span></Link></div></section>
+      <section className={styles.cta}><div className={styles.ctaContent}><p className={styles.eyebrow}>ПОЧНІМО СПІВПРАЦЮ</p><h2><em>Залиште заявку,</em> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link className={styles.primary} href="/#contacts" data-lead-cta>Залишити заявку <span aria-hidden="true">→</span></Link></div></section>
     </main>
   </div>;
 }
