@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { ExpertiseHeader, expertiseFont } from "../expertise/ExpertiseView";
 import styles from "./insights.module.css";
+import EventRegistration from "./EventRegistration";
 
 import { articles, categories, type Category } from "./articles";
 
 export default function InsightsPage() {
   const [category, setCategory] = useState<Category>("Усі");
+  const [registrationTitle, setRegistrationTitle] = useState<string | null>(null);
   const filtered = useMemo(() => category === "Усі" ? articles : articles.filter(item => item.category === category), [category]);
   const [lead, ...rest] = filtered;
   return (
@@ -33,7 +35,7 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{lead.category}</span><span>{lead.date}</span></div>
             <h2><Link href={`/insights/${lead.slug}`} className={styles.titleLink}>{lead.title}</Link></h2>
             <p>{lead.summary}</p>
-            <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <span aria-hidden="true">↗</span></Link>
+            {lead.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(lead.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
           </div>
         </article>}
         {rest.length > 0 && <div className={styles.grid}>
@@ -42,11 +44,12 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{article.category}</span><span>{article.date}</span></div>
             <h3><Link href={`/insights/${article.slug}`} className={styles.titleLink}>{article.title}</Link></h3>
             <p>{article.summary}</p>
-            <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <span aria-hidden="true">↗</span></Link>
+            {article.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
           </article>)}
         </div>}
         <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <span aria-hidden="true">↗</span></Link></footer>
       </main>
+      {registrationTitle && <EventRegistration title={registrationTitle} onClose={() => setRegistrationTitle(null)} />}
     </div>
   );
 }
