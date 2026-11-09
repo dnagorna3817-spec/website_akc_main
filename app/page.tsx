@@ -310,11 +310,22 @@ export default function Home() {
         </div>
       </section>
       <div className="akc-sections">
-        <section id="about" className="akc-content-section">
-          <p className="akc-eyebrow">01 / ПРО АКЦ</p>
-          <h2>Аудит Консалтинг Центр</h2>
-          <p>Аудит, облік і консалтинг — напрями, у яких важливі точність, відповідальність і зрозумілі рішення.</p>
-          <a href="#expertise-section" className="akc-section-link">Переглянути напрями діяльності <span aria-hidden="true">↗</span></a>
+        <section id="about" className="akc-home-about" aria-labelledby="akc-home-about-title">
+          <div className="akc-home-about__inner">
+            <div className="akc-home-about__copy">
+              <p className="akc-home-about__eyebrow">01 / ПРО АУДИТ КОНСАЛТИНГ ЦЕНТР</p>
+              <h2 id="akc-home-about-title">АУДИТ КОНСАЛТИНГ<br /><span>ЦЕНТР</span></h2>
+              <p className="akc-home-about__lead">Професійний партнер для розвитку бізнесу.</p>
+              <p className="akc-home-about__description">Команда професіоналів АКЦ допомагає бізнесу працювати впевнено та розвиватися. Ми поєднуємо аудиторську практику, бухгалтерський облік і консалтингові рішення, щоб допомагати компаніям мінімізувати ризики та вирішувати складні завдання.</p>
+              <Link href="/about" className="akc-home-about__link">ДІЗНАТИСЯ БІЛЬШЕ ПРО АКЦ <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="akc-home-about__art" aria-hidden="true">
+              <div className="akc-home-about__halo" />
+              <div className="akc-home-about__outline"><span>АКЦ</span></div>
+              <span className="akc-home-about__art-caption">ТОЧНІСТЬ / ДОВІРА / РІШЕННЯ</span>
+            </div>
+          </div>
+          <a href="#expertise-section" className="akc-home-about__next" aria-label="Прокрутити до експертизи">↓</a>
         </section>
         <section id="expertise-section" className="akc-content-section">
           <p className="akc-eyebrow">02 / ЕКСПЕРТИЗА</p>
