@@ -1038,3 +1038,25 @@
     mask-image:radial-gradient(ellipse 80% 83% at 50% 50%,#000 42%,transparent 100%);
   }
 }
+
+
+/* Safari-safe edge blending: the image is mirrored, so fade its source-left
+   edge (the visible right edge) to the exact adjacent panel colour. */
+@media(min-width:901px){
+  .industries-page .industries-image{
+    position:relative;
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+  .industries-page .industries-image::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(to left,
+      transparent 35%,
+      rgba(2,9,15,.22) 56%,
+      rgba(2,9,15,.76) 80%,
+      #02090f 100%);
+  }
+}
