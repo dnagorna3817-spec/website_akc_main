@@ -55,7 +55,7 @@ export default function ServicesIndustryPage() {
      <ul>{o.items.map(item=><li key={item}>{item}</li>)}</ul>
     </article>)}</div>
    </section>
-   <section className={styles.cta}><div className={styles.ctaArt} aria-hidden="true"><span className={styles.ribbonOne}/><span className={styles.ribbonTwo}/></div><div className={styles.ctaCopy}><span className={styles.ctaEyebrow}>ПОЧНІМО СПІВПРАЦЮ</span><h2><span>Залиште заявку,</span> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link href="/#contacts">Залишити заявку <span aria-hidden="true">⟶</span></Link></div></section>
+   <section className={styles.cta}><div className={styles.ctaArt} aria-hidden="true"><span className={styles.ribbonOne}/><span className={styles.ribbonTwo}/></div><div className={styles.ctaCopy}><span className={styles.ctaEyebrow}>ПОЧНІМО СПІВПРАЦЮ</span><h2><span>Залиште заявку,</span> і ми безкоштовно проаналізуємо ваш поточний стан обліку та запропонуємо оптимальний формат супроводу.</h2><Link href="/#contacts" data-lead-cta>Залишити заявку <span aria-hidden="true">⟶</span></Link></div></section>
   </main>
  </div>;
 }
