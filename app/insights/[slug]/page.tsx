@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
@@ -20,19 +19,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <main className={styles.hero}>
         <section className={styles.content}>
           <p className={styles.kicker}>{String(index).padStart(2, "0")} / Новини</p>
-          <div className={styles.status}><span className={styles.glow} /> {article.category}</div>
+          <div className={styles.status}><span className={styles.glow} /> {article.category}</div><p className={styles.index}>0{index} <span>/</span> <strong>АКЦ</strong></p>
           <h1>{article.title}</h1>
           <p className={styles.description}>{article.summary}</p>
           <div className={styles.separator} />
-          <p className={styles.note}>Повний матеріал буде опубліковано після затвердження редакцією АКЦ.</p>
+          
           <nav className={styles.links} aria-label="Навігація публікації">
             <Link href="/insights">Усі новини <span aria-hidden="true">⟶</span></Link>
-            <Link href="/">На головну <span aria-hidden="true">⟶</span></Link>
+            
           </nav>
         </section>
         <div className={styles.art} aria-hidden="true">
-          <Image src="/media/akc-audit-card.jpg" alt="" fill priority sizes="(max-width: 800px) 100vw, 55vw" />
-          <div className={styles.overlay} />
+          <div className={styles.geometry}><div className={styles.facetOne} /><div className={styles.facetTwo} /><div className={styles.facetThree} /><div className={styles.edge} /></div>
         </div>
       </main>
     </div>
