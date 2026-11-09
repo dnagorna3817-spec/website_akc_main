@@ -1,6 +1,14 @@
 import "../about/about.css";
 import "./contacts.css";
 
+function SocialIcon({ kind }: { kind: "facebook" | "instagram" }) {
+  return (
+    <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {kind === "facebook" ? <path fill="currentColor" stroke="none" d="M14.2 21v-7.9h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.6 0-4.3 1.6-4.3 4.5V10H8v3.1h2.7V21h3.5Z" /> : <><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" /></>}
+    </svg>
+  );
+}
+
 function ContactIcon({ kind }: { kind: "map" | "phone" | "mail" | "clock" }) {
   const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   return (
@@ -41,6 +49,10 @@ export default function ContactsPage() {
           <div className="akc-contact-section__column">
             <h3><span className="akc-contact-icon"><ContactIcon kind="map" /></span> Наша адреса</h3>
             <address>18000, м. Черкаси,<br />вул. Гоголя, 224</address>
+            <div className="akc-contact-section__socials" aria-label="Соціальні мережі АКЦ">
+              <span className="akc-contact-section__social" role="img" aria-label="Facebook"><SocialIcon kind="facebook" /></span>
+              <span className="akc-contact-section__social" role="img" aria-label="Instagram"><SocialIcon kind="instagram" /></span>
+            </div>
           </div>
           <div className="akc-contact-section__column">
             <h3><span className="akc-contact-icon"><ContactIcon kind="phone" /></span> Телефон</h3>
