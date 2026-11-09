@@ -6,7 +6,7 @@ import styles from "./EventRegistration.module.css";
 export default function EventRegistration({ title, onClose }: { title: string; onClose: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
+  const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [prepared, setPrepared] = useState(false);
 
@@ -22,7 +22,7 @@ export default function EventRegistration({ title, onClose }: { title: string; o
     event.preventDefault();
     if (!consent) return;
     const subject = encodeURIComponent(`Заявка на захід: ${title}`);
-    const body = encodeURIComponent(`Захід: ${title}\nПІБ: ${name}\nEmail: ${email}\nКомпанія: ${company || "Не вказано"}\nЗгода на обробку персональних даних: так`);
+    const body = encodeURIComponent(`Захід: ${title}\nПІБ: ${name}\nEmail: ${email}\nТелефон: ${phone}\nЗгода на обробку персональних даних: так`);
     window.location.href = `mailto:akc@audit-centr.com.ua?subject=${subject}&body=${body}`;
     setPrepared(true);
   }
@@ -40,7 +40,7 @@ export default function EventRegistration({ title, onClose }: { title: string; o
         <form onSubmit={submit}>
           <label>Ім’я та прізвище<input autoFocus required maxLength={120} autoComplete="name" placeholder="Наприклад, Олена Коваленко" value={name} onChange={e => setName(e.target.value)} /></label>
           <label>Email<input required type="email" maxLength={200} autoComplete="email" placeholder="your@email.com" value={email} onChange={e => setEmail(e.target.value)} /></label>
-          <label>Компанія<input maxLength={160} autoComplete="organization" placeholder="Назва компанії" value={company} onChange={e => setCompany(e.target.value)} /></label>
+          <label>Номер телефону<input required type="tel" inputMode="tel" maxLength={24} autoComplete="tel" placeholder="+380 XX XXX XX XX" value={phone} onChange={e => setPhone(e.target.value)} /></label>
           <label className={styles.consent}><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} required /><span>Я погоджуюсь на обробку персональних даних для розгляду заявки на участь у заході.</span></label>
           <button className={styles.submit} type="submit">Подати заявку</button>
         </form>
