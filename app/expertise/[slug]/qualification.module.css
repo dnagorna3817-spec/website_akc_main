@@ -37,8 +37,8 @@
 .qPriceGrid p,.qReviewGrid p{color:#b8c6d3;line-height:1.6;min-height:65px}
 .qPriceGrid strong{display:block;font-size:28px;margin:22px 0;color:#f3f8fb}
 .qPriceGrid strong small{font-size:14px;font-weight:400}
-.qPriceGrid a,.qFinal a{display:inline-flex;text-decoration:none;background:#69b7e8;color:#061321;padding:14px 20px;font-weight:700;font-size:13px}
-.qPriceGrid a:hover,.qFinal a:hover{background:#9bd5f5}
+.qPriceGrid a,.qFinal :is(a,button){display:inline-flex;text-decoration:none;background:#69b7e8;color:#061321;padding:14px 20px;font-weight:700;font-size:13px}
+.qPriceGrid a:hover,.qFinal :is(a,button):hover{background:#9bd5f5}
 .qReviewGrid blockquote span{color:#f4d27b;letter-spacing:.14em}
 .qReviewGrid footer{color:#86c5e9;margin-top:16px;font-size:14px}
 .qDocumentGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 34px;margin-top:30px}
@@ -49,7 +49,7 @@
 .qNormative h3{font-size:19px;margin:0 0 14px}
 .qFinal{padding-top:80px;padding-bottom:110px}
 .qFinal>p:not(.qEyebrow){max-width:760px}
-.qFinal a{margin-top:24px}
+.qFinal :is(a,button){margin-top:24px}
 @media(max-width:900px){.qHero{grid-template-columns:1fr;padding-top:50px;min-height:auto}.qHeroArt{max-height:370px}.qHeroArt img{max-height:370px}.qIntroCards,.qPriceGrid,.qReviewGrid{grid-template-columns:1fr}.qSteps{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.qHero{padding:38px 20px}.qHero h1{font-size:clamp(30px,8vw,42px)}.qIntroCards,.qSection,.qInner,.qFinal{padding:45px 20px}.qSteps,.qInfoGrid,.qDocumentGrid,.qNormative{grid-template-columns:1fr}.qPriceGrid,.qReviewGrid{grid-template-columns:1fr}.qHeroArt{max-height:290px}.qHeroArt img{max-height:290px}.qIntroCards{gap:12px}}
 
@@ -98,8 +98,8 @@
 .qPriceGrid h3{font-size:12px;letter-spacing:.13em;color:#86c6ee}
 .qPriceGrid p{font-size:14px;min-height:0}
 .qPriceGrid strong{font-size:clamp(24px,2.3vw,34px);letter-spacing:-.03em;margin:auto 0 26px;padding-top:26px}
-.qPriceGrid a,.qFinal a{border-radius:7px;min-height:47px;align-items:center;justify-content:center;transition:background .2s ease,transform .2s ease}
-.qPriceGrid a:hover,.qFinal a:hover{transform:translateY(-2px)}
+.qPriceGrid a,.qFinal :is(a,button){border-radius:7px;min-height:47px;align-items:center;justify-content:center;transition:background .2s ease,transform .2s ease}
+.qPriceGrid a:hover,.qFinal :is(a,button):hover{transform:translateY(-2px)}
 .qReviewGrid blockquote{min-height:240px}
 .qReviewGrid blockquote span{font-size:14px}
 .qReviewGrid p{min-height:0;font-size:14px;line-height:1.75;margin:24px 0}
@@ -112,10 +112,10 @@
 .qNormative article{border:1px solid var(--q-line);background:linear-gradient(145deg,#0c283d,#071a2b);border-radius:12px;padding:35px}
 .qFinal{padding-top:100px;padding-bottom:125px;border-top:1px solid rgba(119,174,209,.14)}
 .qFinal>p:not(.qEyebrow){line-height:1.8;color:#a9bacb}
-.qFinal a{margin-top:30px}
+.qFinal :is(a,button){margin-top:30px}
 @media(max-width:900px){.qHero{min-height:auto;gap:20px}.qHeroArt{min-height:280px}.qIntroCards{padding-top:40px}.qIntroCards article{min-height:0}.qSection,.qInner{padding-top:65px;padding-bottom:65px}}
 @media(max-width:600px){.qHero{padding:45px 20px 55px}.qHero h1{font-size:clamp(30px,8vw,42px)}.qHeroArt{min-height:210px}.qHeroArt img{max-height:290px}.qIntroCards,.qSection,.qInner,.qFinal{padding:50px 20px}.qIntroCards{gap:14px}.qIntroCards article,.qInfoGrid article,.qPriceGrid article,.qReviewGrid blockquote{padding:25px}.qSteps{gap:22px}.qSection h2,.qInner h2,.qFinal h2{font-size:clamp(28px,7vw,36px)}.qPriceGrid article,.qReviewGrid blockquote{min-height:0}.qPriceGrid strong{margin:12px 0 24px}}
-@media(prefers-reduced-motion:reduce){.qIntroCards article,.qPriceGrid a,.qFinal a{transition:none}}
+@media(prefers-reduced-motion:reduce){.qIntroCards article,.qPriceGrid a,.qFinal :is(a,button){transition:none}}
 
 
 /* Four-piece qualification infographic: original text, no new image asset. */
@@ -750,3 +750,6 @@
     font-size:15px;
   }
 }
+
+/* Keep qualification application button visually identical to the previous CTA link. */
+.qualificationPage .qFinal button{font:inherit;cursor:pointer;text-align:center}
