@@ -13,7 +13,7 @@ import "./home.css";
 const directions = [
   { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
   { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 11, y: 27, lineX: 25, lineY: 36, angle: -160, length: "clamp(78px, 9vw, 130px)" },
-  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "#qualification", x: 84, y: 27, lineX: 75, lineY: 36, angle: -20, length: "clamp(78px, 9vw, 130px)", wide: true },
+  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 84, y: 27, lineX: 75, lineY: 36, angle: -20, length: "clamp(78px, 9vw, 130px)", wide: true },
   { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 11, y: 78, lineX: 25, lineY: 64, angle: 160, length: "clamp(78px, 9vw, 130px)" },
   { id: "insights", label: "НОВИНИ", href: "#insights", x: 89, y: 78, lineX: 75, lineY: 64, angle: 20, length: "clamp(78px, 9vw, 130px)" },
 ];
@@ -326,7 +326,7 @@ export default function Home() {
           <p className="akc-eyebrow">03 / КВАЛІФІКАЦІЙНИЙ ЦЕНТР</p>
           <h2>Професійна кваліфікація</h2>
           <p>Інформація про кваліфікаційний напрям та відповідні матеріали.</p>
-          <a href="#contacts" className="akc-section-link">Перейти до контактного розділу <span aria-hidden="true">↗</span></a>
+          <Link href="/expertise/qualification" className="akc-section-link">Перейти до кваліфікаційного центру <span aria-hidden="true">↗</span></Link>
         </section>
         <section id="industries" className="akc-industries" aria-labelledby="industries-heading">
           <div className="akc-industries-art" aria-hidden="true" />
