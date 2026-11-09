@@ -497,8 +497,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         ["Процедура присвоєння та підтвердження професійної кваліфікації", "procedura-sertyfikaciyi.pdf"],
         ["Контрольні терміни процедури сертифікації", "terminy-sertyfikaciyi.pdf"],
         ["Порядок оскарження результатів сертифікації", "oskarzhennya-rezultativ.pdf"],
-        ["Документ за посиланням «Заява» — назву потрібно перевірити", "zayava.pdf"],
-        ["Публічний договір про надання послуг", "publichnyi-dogovir.pdf"],
+        ["Договір про надання інформаційно-консультаційних послуг (01.09.2026)", "zayava.pdf"],
+        ["Публічний договір про надання послуг (01.06.2026)", "publichnyi-dogovir.pdf"],
       ] },
     ] as const;
     return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
@@ -607,12 +607,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
         <section className={qualification.qSection} id="documents">
-          <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали кваліфікаційного центру. Натисніть на назву, щоб відкрити PDF.</p>
+          <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали кваліфікаційного центру. Натисніть на назву, щоб відкрити PDF. Зверніть увагу: посилання «Заява» на попередньому сайті веде до договору, а не до бланка заяви.</p>
           <div className={qualification.qDocumentGroups}>{documentGroups.map((group, index)=><details key={group.title} className={qualification.qDocumentGroup} open={index===0}><summary><span className={qualification.qDocumentGroupTitle}>{group.title}</span><span className={qualification.qDocumentCount}>{group.items.length} документів</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary><div className={qualification.qDocumentGrid}>{group.items.map(([title,file])=><a key={file} href={`/documents/${file}`} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span aria-hidden="true">↗</span>{title}</a>)}</div></details>)}</div>
         </section>
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
           <div className={qualification.qNormative}><p>Оцінювання проводиться відповідно до вимог професійного стандарту для обраної кваліфікації та затверджених документів кваліфікаційного центру.</p><article><h3>Головний бухгалтер бюджетної установи</h3><p>Наказ Міністерства фінансів України № 364 від 21.07.2025</p></article></div>
+          <div className={qualification.qDocumentGroups}>
+            <details className={qualification.qDocumentGroup}>
+              <summary><span className={qualification.qDocumentGroupTitle}>Нормативно-правові акти України</span><span className={qualification.qDocumentCount}>6 посилань</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary>
+              <div className={qualification.qDocumentGrid}>
+                {([
+                  ["Закон України № 2179-IX про функціонування національної системи кваліфікацій", "https://zakon.rada.gov.ua/laws/show/2179-20"],
+                  ["Постанова КМУ № 956 — порядок присвоєння та підтвердження кваліфікацій", "https://zakon.rada.gov.ua/laws/show/956-2021-%D0%BF"],
+                  ["Постанова КМУ № 620 — Реєстр кваліфікацій", "https://zakon.rada.gov.ua/laws/show/620-2021-%D0%BF"],
+                  ["Постанова КМУ № 576 — визнання іноземних професійних кваліфікацій", "https://zakon.rada.gov.ua/laws/show/576-2021-%D0%BF"],
+                  ["Постанова КМУ № 1341 — Національна рамка кваліфікацій", "https://zakon.rada.gov.ua/laws/show/1341-2011-%D0%BF"],
+                  ["Постанова КМУ № 986 — порядок визнання результатів навчання", "https://zakon.rada.gov.ua/laws/show/986-2021-%D0%BF"],
+                ] as const).map(([title,url])=><a key={url} href={url} target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span>{title}</a>)}
+              </div>
+            </details>
+          </div>
         </section>
         <section className={qualification.qFinal} id="next-step"><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><a href="#documents">ПЕРЕГЛЯНУТИ ДОКУМЕНТИ ↗</a></section>
       </main>
