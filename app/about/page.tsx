@@ -385,7 +385,7 @@ function AboutPage() {
         <nav className="nav__links" aria-label="Основна навігація">
           <a className="nav__active" href="/about" aria-current="page">Про АКЦ</a>
           <a href="/insights">Новини</a>
-          <a href="/qualification-center">Кваліфікаційний центр</a>
+          <a href="/expertise/qualification">Кваліфікаційний центр</a>
           <a href="/industries">Галузі</a>
           <a href="/expertise">Експертиза</a>
         </nav>
