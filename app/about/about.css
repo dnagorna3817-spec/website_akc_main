@@ -2668,3 +2668,27 @@ body {
   .akc-contacts-page .akc-contact-section__intro { margin-bottom: 24px; }
   .akc-contacts-page .akc-contact-section__grid { padding-bottom: 20px; }
 }
+
+/* About landing: fit the complete first hero in one desktop viewport below navigation. */
+@media (min-width: 769px) {
+  .akc-about-figma .hero {
+    min-height: calc(100svh - 102px);
+    height: calc(100svh - 102px);
+    max-height: none;
+    align-items: center;
+  }
+  .akc-about-figma .hero__copy {
+    box-sizing: border-box;
+    padding-top: clamp(24px, 4.5vh, 56px);
+    padding-bottom: clamp(24px, 4.5vh, 56px);
+  }
+  .akc-about-figma .hero .kicker { margin-bottom: clamp(22px, 5vh, 54px) !important; }
+  .akc-about-figma .hero h1 { font-size: clamp(42px, 5.1vw, 78px); margin-bottom: clamp(20px, 3vh, 32px); }
+  .akc-about-figma .hero__body { margin-bottom: clamp(24px, 3.5vh, 38px) !important; }
+}
+@media (min-width: 769px) and (max-height: 740px) {
+  .akc-about-figma .hero .kicker { margin-bottom: 16px !important; }
+  .akc-about-figma .hero h1 { font-size: clamp(36px, 4vw, 58px); margin-bottom: 16px; }
+  .akc-about-figma .hero__body { font-size: 14px; line-height: 1.6; margin-bottom: 18px !important; }
+  .akc-about-figma .hero__copy { padding-block: 18px; }
+}
