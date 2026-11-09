@@ -27,3 +27,11 @@
 .submit{min-height:46px;border-radius:11px}
 .note,.notice{margin-top:12px}
 @media(max-width:560px){.dialog{width:min(100%,420px);padding:23px 20px;border-radius:16px}.dialog h2{font-size:30px}.header{margin-bottom:18px}}
+
+/* Consistent inner alignment, including Safari form controls */
+.dialog,.dialog *,.dialog *::before,.dialog *::after{box-sizing:border-box}
+.dialog form,.dialog form label,.dialog form input,.dialog .header,.dialog .eventBlock{min-width:0;max-width:100%}
+.dialog form{width:100%}
+.dialog label:not(.consent){width:100%}
+.dialog input:not([type=checkbox]){display:block;width:100%;max-width:100%;margin:0}
+.submit{justify-content:center;text-align:center;padding-inline:18px}
