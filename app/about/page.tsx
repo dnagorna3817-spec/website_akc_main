@@ -536,38 +536,37 @@ function AboutPage({ embedded = false }: { embedded?: boolean }) {
         </div>
       </section>
 
-      <section className="closing closing--light-waves" id="contacts" data-enter>
-        <div className="closing__light-waves" aria-hidden="true">
-          <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice" fill="none" focusable="false">
-            <defs>
-              <linearGradient id="akc-closing-wave-main" x1="0" y1="0.8" x2="1" y2="0.1">
-                <stop offset="0" stopColor="#256bd5" stopOpacity="0"/>
-                <stop offset=".38" stopColor="#3f9cff" stopOpacity=".68"/>
-                <stop offset=".74" stopColor="#74c9ff" stopOpacity=".92"/>
-                <stop offset="1" stopColor="#3999fc" stopOpacity="0"/>
-              </linearGradient>
-              <linearGradient id="akc-closing-wave-upper" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0" stopColor="#2c7fe7" stopOpacity="0"/>
-                <stop offset=".55" stopColor="#3eabff" stopOpacity=".7"/>
-                <stop offset="1" stopColor="#4ca9fa" stopOpacity="0"/>
-              </linearGradient>
-              <filter id="akc-closing-wave-glow" x="-35%" y="-100%" width="170%" height="300%">
-                <feGaussianBlur stdDeviation="15"/>
-              </filter>
-            </defs>
-            <path d="M65 630 C290 405 555 300 945 350" stroke="#237cff" strokeWidth="24" opacity=".22" filter="url(#akc-closing-wave-glow)"/>
-            <path d="M65 630 C290 405 555 300 945 350" stroke="url(#akc-closing-wave-main)" strokeWidth="1.7"/>
-            <path d="M350 520 C525 230 705 120 960 -10" stroke="url(#akc-closing-wave-upper)" strokeWidth="1.35"/>
-          </svg>
+      <section className="akc-contact-section" id="contacts" aria-labelledby="akc-contact-title" data-enter>
+        <div className="akc-contact-section__glow" aria-hidden="true" />
+        <div className="akc-contact-section__intro">
+          <p className="akc-contact-section__eyebrow"><span /> КОНТАКТИ</p>
+          <h2 id="akc-contact-title">Зв’яжіться з нами</h2>
+          <p>Ми відкриті до співпраці та готові відповісти на ваші запитання.</p>
         </div>
-        <div className="closing__copy">
-          <h2>
-            ПОТРІБНА КОНСУЛЬТАЦІЯ
-            <br />
-            ЩОДО ВАШОГО БІЗНЕСУ?
-          </h2>
-          <DiscussButton />
+        <div className="akc-contact-section__grid">
+          <div className="akc-contact-section__column">
+            <h3><span aria-hidden="true">⌖</span> Наша адреса</h3>
+            <address>18000, м. Черкаси,<br />вул. Гоголя, 224</address>
+          </div>
+          <div className="akc-contact-section__column">
+            <h3><span aria-hidden="true">↗</span> Телефон</h3>
+            <ul className="akc-contact-section__phones">
+              {["068 165 80 33", "068 556 81 44", "068 760 09 55", "096 037 86 77", "096 400 95 40", "096 779 61 77", "097 215 33 30"].map((number) => (
+                <li key={number}><a href={`tel:+38${number.replace(/\\s/g, "")}`}>{number}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="akc-contact-section__column">
+            <h3><span aria-hidden="true">✉</span> Email</h3>
+            <a href="mailto:akc@audit-centr.com.ua">akc@audit-centr.com.ua</a>
+          </div>
+          <div className="akc-contact-section__column">
+            <h3><span aria-hidden="true">◷</span> Графік роботи</h3>
+            <p>Пн. – Пт. 09:00 – 17:05</p>
+            <p>Сб. – Нд. — вихідний</p>
+          </div>
         </div>
+        <footer className="akc-contact-section__footer">© 2026 Аудит Консалтинг Центр. Всі права збережено.</footer>
       </section>
     </div>
   )
