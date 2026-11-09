@@ -59,7 +59,7 @@ export default function EventRegistration({ title, onClose, mode = "event" }: { 
           <button className={styles.submit} type="submit" disabled={status === "sending"}>{status === "sending" ? "Надсилання..." : "Подати заявку"}</button>
         </form>
         {status === "error" && <p className={styles.notice} role="alert">{errorMessage}</p>}
-        <p className={styles.note}>Після надсилання заявки організатори отримають повідомлення та зв’яжуться з вами.</p></>}
+        <p className={styles.note}>Після надсилання заявки адміністратори отримають повідомлення та зв’яжуться з вами.</p></>}
       </section>
     </div>
   );
