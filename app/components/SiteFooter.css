@@ -1,0 +1,18 @@
+.akc-site-footer{position:relative;z-index:5;width:100%;flex-shrink:0;background:#071827;color:#eaf2fa;border-top:1px solid rgba(117,170,207,.3);font-family:Arial,Helvetica,sans-serif}
+.akc-site-footer *{box-sizing:border-box}
+.akc-site-footer__inner{max-width:1500px;margin:0 auto;padding:56px clamp(24px,5vw,80px);display:grid;grid-template-columns:1.05fr 1.3fr 1.05fr 1.15fr;gap:clamp(24px,3.5vw,65px)}
+.akc-site-footer__brand>a{display:flex;align-items:center;gap:12px;color:#f5f9fc;text-decoration:none;font-size:17px;font-weight:650;line-height:1.22}
+.akc-site-footer__brand img{object-fit:contain}
+.akc-site-footer__socials{display:flex;gap:12px;margin-top:30px}
+.akc-site-footer__socials a{width:36px;height:36px;border:1px solid rgba(130,189,230,.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#9dc8e6;text-decoration:none;font-size:22px;transition:background .2s,color .2s}
+.akc-site-footer__socials a:hover{background:#78b5df;color:#061521}
+.akc-site-footer__column{min-width:0}
+.akc-site-footer__column h2{margin:0 0 22px;padding:0 0 15px;border-bottom:1px solid rgba(130,189,230,.38);font-size:clamp(19px,1.65vw,25px);font-weight:500;line-height:1.3}
+.akc-site-footer__column address,.akc-site-footer__column p,.akc-site-footer__column li,.akc-site-footer__column>a{font-size:15px;line-height:1.85;color:#b2c5d4;font-style:normal}
+.akc-site-footer__column p{margin:20px 0 0}
+.akc-site-footer__column ul{list-style:none;margin:0;padding:0}
+.akc-site-footer__column a{color:#c5ddec;text-decoration:none;overflow-wrap:anywhere}
+.akc-site-footer__column a:hover{text-decoration:underline;color:#fff}
+.akc-site-footer__bottom{padding:22px 20px;border-top:1px solid rgba(130,189,230,.22);text-align:center;font-size:13px;color:#8eaabd;background:#061420}
+@media(max-width:900px){.akc-site-footer__inner{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}}
+@media(max-width:560px){.akc-site-footer__inner{grid-template-columns:1fr;padding:38px 24px;gap:30px}.akc-site-footer__column h2{margin-bottom:12px}.akc-site-footer__brand>a{font-size:16px}}
