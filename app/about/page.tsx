@@ -357,7 +357,7 @@ function ServiceArtwork({ variant }: { variant: string }) {
   )
 }
 
-function AboutPage() {
+function AboutPage({ embedded = false }: { embedded?: boolean }) {
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-enter]")
     const observer = new IntersectionObserver(
@@ -376,8 +376,8 @@ function AboutPage() {
   }, [])
 
   return (
-    <main className="akc-about-figma page">
-      <header className="nav">
+    <div className="akc-about-figma page">
+      {!embedded && <header className="nav">
         <a className="nav__brand" href="/" aria-label="Аудит Консалтинг Центр — головна">
           <img className="nav__logo" src="/akc-brand-white.png" alt="" width="48" height="48" />
           <span>Аудит Консалтинг Центр</span>
@@ -390,7 +390,7 @@ function AboutPage() {
           <a href="/expertise">Експертиза</a>
         </nav>
         <a className="nav__contact" href="#contacts">Контакти <span aria-hidden="true">→</span></a>
-      </header>
+      </header>}
 
       <section className="hero" aria-labelledby="page-title">
         <div className="hero__copy">
@@ -569,7 +569,7 @@ function AboutPage() {
           <DiscussButton />
         </div>
       </section>
-    </main>
+    </div>
   )
 }
 
