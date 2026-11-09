@@ -722,7 +722,7 @@
   position:absolute;
   z-index:3;
   left:12.5%;
-  top:calc(87.5% + 22px);
+  top:calc(87.5% - 19px);
   display:block;
   width:max-content;
   max-width:340px;
@@ -732,6 +732,9 @@
   font-weight:650;
   letter-spacing:.025em;
   text-align:left;
+  padding:3px 12px;
+  margin-left:-12px;
+  background:#020c15;
   opacity:1;
 }
 @media(max-width:600px){
@@ -742,6 +745,8 @@
     width:auto;
     max-width:none;
     padding:8px 0 20px;
+    margin-left:0;
+    background:transparent;
     font-size:15px;
   }
 }
