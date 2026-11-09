@@ -15,6 +15,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Очікується JSON." }, { status: 415 });
   }
 
+  const origin = request.headers.get("origin");
+  if (origin && origin !== request.nextUrl.origin) {
+    return NextResponse.json({ ok: false, message: "Недозволене джерело запиту." }, { status: 403 });
+  }
+
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) {
