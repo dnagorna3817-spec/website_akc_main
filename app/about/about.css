@@ -2692,3 +2692,48 @@ body {
   .akc-about-figma .hero__body { font-size: 14px; line-height: 1.6; margin-bottom: 18px !important; }
   .akc-about-figma .hero__copy { padding-block: 18px; }
 }
+
+
+/* AKC About hero: artwork on the right with seamless dark edges. */
+.akc-about-figma .hero {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+  min-height: min(820px, calc(100svh - 74px));
+  overflow: hidden;
+  isolation: isolate;
+}
+.akc-about-figma .hero__copy {
+  z-index: 2;
+  padding-right: clamp(16px, 2vw, 36px);
+}
+.akc-about-figma .hero::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  inset: 0 0 0 43%;
+  background:
+    linear-gradient(90deg, #01040b 0%, rgba(1,4,11,.86) 9%, transparent 40%),
+    linear-gradient(0deg, #01040b 0%, transparent 17%, transparent 82%, #01040b 100%),
+    linear-gradient(270deg, rgba(1,4,11,.4), transparent 15%),
+    url("/media/akc-about-metal-blue.png") center center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 17%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 17%);
+}
+@media (max-width: 768px) {
+  .akc-about-figma .hero {
+    min-height: max(760px, 100svh);
+  }
+  .akc-about-figma .hero__copy {
+    padding-right: var(--edge);
+  }
+  .akc-about-figma .hero::after {
+    inset: 29% 0 0 13%;
+    opacity: .62;
+    background-position: center;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%, #000 65%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 26%, #000 65%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akc-about-figma .hero::after { animation: none; }
+}
