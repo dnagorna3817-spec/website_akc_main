@@ -598,3 +598,19 @@
 .qualificationPage .qNormative article{border:1px solid rgba(122,183,222,.25);border-radius:14px;background:linear-gradient(135deg,rgba(17,53,80,.85),rgba(7,28,44,.6));padding:clamp(24px,3vw,42px)}
 @media(max-width:767px){.qualificationPage .qDocumentGroup>summary{min-height:78px;gap:12px;padding:18px 8px}.qDocumentIndex{min-width:26px;font-size:12px}.qualificationPage .qDocumentGroupTitle{font-size:16px}.qualificationPage .qDocumentCount{font-size:11px}.qualificationPage .qDocumentChevron{width:28px;height:28px;font-size:18px}.qualificationPage .qDocumentGroup .qDocumentGrid{grid-template-columns:1fr;padding:0 8px 18px}.qualificationPage .qDocumentGroup .qDocumentGrid>a{min-height:70px;font-size:13px;gap:11px}.qDocumentFileIcon{width:31px;height:37px;font-size:9px}.qualificationPage .qNormative{grid-template-columns:1fr;gap:18px}}
 @media(prefers-reduced-motion:reduce){.qualificationPage .qDocumentGroup>summary,.qualificationPage .qDocumentGroup .qDocumentGrid>a,.qualificationPage .qDocumentGroup .qDocumentGrid>a .qDocumentFileArrow{transition:none}}
+
+/* Document archive refinement: quiet typography and precisely aligned controls */
+.qualificationPage .qDocumentGroup[open]{background:linear-gradient(90deg,rgba(22,56,78,.12),transparent 65%)}
+.qualificationPage .qDocumentGroup>summary{display:grid;grid-template-columns:42px minmax(0,1fr) 96px 34px;column-gap:24px;align-items:center;padding:22px 24px;min-height:88px}
+.qualificationPage .qDocumentGroupTitle{font-weight:550;color:#e8eef5;letter-spacing:-.01em}
+.qualificationPage .qDocumentGroup>summary:hover{background:rgba(95,152,191,.035)}
+.qualificationPage .qDocumentGroup>summary:hover .qDocumentGroupTitle{color:#f6f9fc}
+.qualificationPage .qDocumentCount{justify-self:end;text-align:right;color:#849caf;font-size:12px}
+.qualificationPage .qDocumentChevron{justify-self:center;box-sizing:border-box;width:30px;height:30px;border:1px solid rgba(133,171,198,.28);color:#9db8cc;background:transparent;font-size:19px}
+.qualificationPage .qDocumentGroup[open] .qDocumentChevron{background:transparent;border-color:rgba(133,171,198,.38)}
+.qualificationPage .qDocumentGroup .qDocumentGrid{padding:0 24px 22px;gap:0 42px}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a{gap:12px;min-height:65px;padding:13px 0;color:#c4d3df;font-size:14px;border-bottom:1px solid rgba(122,170,200,.13);background:transparent}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a:hover{color:#f1f6fb;background:transparent}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a .qDocumentFileArrow{color:#7e9fb6;font-size:17px;opacity:.75}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a:hover .qDocumentFileArrow{color:#a5d4ef;opacity:1}
+@media(max-width:767px){.qualificationPage .qDocumentGroup>summary{grid-template-columns:25px minmax(0,1fr) 56px 28px;column-gap:10px;padding:18px 8px;min-height:76px}.qualificationPage .qDocumentCount{font-size:10px;letter-spacing:0}.qualificationPage .qDocumentChevron{width:27px;height:27px}.qualificationPage .qDocumentGroup .qDocumentGrid{padding:0 8px 16px;gap:0}.qualificationPage .qDocumentGroup .qDocumentGrid>a{min-height:60px;font-size:13px}}
