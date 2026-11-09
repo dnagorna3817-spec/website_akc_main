@@ -27,7 +27,7 @@ export default function InsightsPage() {
         <div className={styles.intro}>
           <div>
             <p className={styles.eyebrow}>АКЦ / АНАЛІТИКА ТА ПУБЛІКАЦІЇ</p>
-            <h1>Insights<span className={styles.period}>.</span></h1>
+            <h1>Новини<span className={styles.period}>.</span></h1>
             <p className={styles.lead}>Аналітика, експертні погляди та матеріали для рішень у бізнесі.</p>
           </div>
           <div className={styles.filters} role="group" aria-label="Категорії публікацій">
@@ -53,7 +53,7 @@ export default function InsightsPage() {
             <span className={styles.cardMore}>Матеріал готується <span aria-hidden="true">↗</span></span>
           </article>)}
         </div>}
-        <footer className={styles.footer}><span>АКЦ / INSIGHTS</span><Link href="/">На головну <span aria-hidden="true">↗</span></Link></footer>
+        <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <span aria-hidden="true">↗</span></Link></footer>
       </main>
     </div>
   );
