@@ -552,7 +552,7 @@ function AboutPage({ embedded = false }: { embedded?: boolean }) {
             <h3><span aria-hidden="true">↗</span> Телефон</h3>
             <ul className="akc-contact-section__phones">
               {["068 165 80 33", "068 556 81 44", "068 760 09 55", "096 037 86 77", "096 400 95 40", "096 779 61 77", "097 215 33 30"].map((number) => (
-                <li key={number}><a href={`tel:+38${number.replace(/\\s/g, "")}`}>{number}</a></li>
+                <li key={number}><a href={`tel:+38${number.replace(/\s/g, "")}`}>{number}</a></li>
               ))}
             </ul>
           </div>
