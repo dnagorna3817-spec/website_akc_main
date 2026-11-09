@@ -540,10 +540,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               ["Для яких професій актуально?", "Головні бухгалтери та бухгалтери."],
               ["Який сертифікат видається?", "Сертифікат фахівця (кваліфікаційний) про присвоєння / підтвердження професійної кваліфікації «Бухгалтер дипломований»."],
               ["Форма іспиту", "Офлайн або онлайн. Актуальні умови участі уточнюються перед реєстрацією."],
-            ].map(([title, description]) => (
+            ].map(([title, description], index) => (
               <details key={title} className={qualification.qAccordion}>
                 <summary className={qualification.qAccordionTrigger}>
-                  <span>{title}</span>
+                  <span className={qualification.qAccordionHeading}><span className={qualification.qAccordionNumber}>{String(index + 1).padStart(2, "0")}</span><span>{title}</span></span>
                   <svg className={qualification.qAccordionArrow} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                 </summary>
                 <div className={qualification.qAccordionContent}><p>{description}</p></div>
