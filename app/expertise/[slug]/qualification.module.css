@@ -640,3 +640,10 @@
 .qFinalArtCaption{position:absolute;bottom:2%;font-size:10px;letter-spacing:.25em;color:#739bb8}
 @media(max-width:767px){.qualificationPage .qFinal{grid-template-columns:1fr;gap:12px;min-height:0;padding-top:60px;padding-bottom:70px}.qFinalArt{width:min(72vw,270px);opacity:.7;margin-top:4px}.qFinalArtCaption{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.qFinalArt,.qFinalOrbitOne,.qFinalOrbitTwo,.qFinalOrbitThree{animation:none}}
+
+/* Final CTA — atmospheric gradient instead of geometric illustration */
+.qualificationPage .qFinal{display:block;min-height:0;margin-top:12px;padding:clamp(65px,7vw,112px) clamp(24px,4.5vw,80px) clamp(75px,8vw,130px);background:radial-gradient(ellipse 62% 75% at 88% 58%,rgba(38,119,178,.23),transparent 72%),radial-gradient(ellipse 52% 68% at 48% 112%,rgba(50,66,165,.20),transparent 72%),linear-gradient(105deg,#03111d 12%,#071d30 74%,#09263b 100%);border-top:1px solid rgba(114,179,219,.16)}
+.qualificationPage .qFinal::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(110,191,238,.045) 70%,transparent 95%)}
+.qualificationPage .qFinalContent{max-width:1050px}
+.qualificationPage .qFinalContent h2{max-width:1000px}
+@media(max-width:767px){.qualificationPage .qFinal{padding:65px 20px 80px;background:radial-gradient(ellipse 100% 65% at 100% 85%,rgba(38,119,178,.22),transparent 76%),linear-gradient(130deg,#03111d,#071d30)}}
