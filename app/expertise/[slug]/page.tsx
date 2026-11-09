@@ -468,12 +468,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       ["04", "Результат", "Повідомлення про результат і видача документа в разі успішного проходження."],
     ];
     const documents = [
-      { title: "Наказ про створення кваліфікаційного центру", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/nakaz-pro-stvorennya-kcz.pdf" },
-      { title: "Положення про кваліфікаційний центр ТОВ «АКЦ»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/polozhennya_pro_kvalifikaczijnyj_czentr_tov_akcz-1.pdf-1.pdf" },
-      { title: "Сертифікат про акредитацію — «Бухгалтер дипломований»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/08/1.-sertyfikat-pro-akredytacziyu-pk-buh.dyplomovanyj.pdf" },
-      { title: "Матеріально-технічна база", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/materialno-tehnichna-baza.pdf.pdf" },
-      { title: "Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/08/2.-sertyfikat-pro-akredytacziyu-pk-gol.buh.-bu.pdf" },
-      { title: "Бланк сертифіката кваліфікаційного центру", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/blank_sertyfikat_pro_prysv_pidtv_pk.pdf.pdf" },
+      { title: "Наказ про створення кваліфікаційного центру", url: "/documents/nakaz-pro-stvorennya.pdf" },
+      { title: "Положення про кваліфікаційний центр ТОВ «АКЦ»", url: "/documents/polozhennya-kc.pdf" },
+      { title: "Сертифікат про акредитацію — «Бухгалтер дипломований»", url: "/documents/akredytaciya-buhgalter.pdf" },
+      { title: "Матеріально-технічна база", url: "/documents/materialno-tehnichna-baza.pdf" },
+      { title: "Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»", url: "/documents/akredytaciya-golovnyi-buhgalter.pdf" },
+      { title: "Бланк сертифіката кваліфікаційного центру", url: "/documents/blank-sertyfikata.pdf" },
     ];
     return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
       <ExpertiseHeader active="qualification" />
