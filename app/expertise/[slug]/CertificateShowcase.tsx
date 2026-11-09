@@ -13,7 +13,7 @@ export default function CertificateShowcase() {
         className={`${styles.qCertificateStack} ${showBackOnTouch ? styles.qCertificateFlipped : ""}`}
         onClick={(event) => {
           // Hover devices reveal the reverse with CSS only; clicks never lock that state.
-          if (event.nativeEvent.pointerType === "mouse") return;
+          if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
           setShowBackOnTouch((value) => !value);
         }}
         aria-label="Переглянути іншу сторону сертифіката"
