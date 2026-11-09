@@ -504,3 +504,19 @@
   .qAccordionContent p{font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){.qInfoGrid > .qAccordion{transition:none}}
+
+/* Compact applicant accordions: each card grows only with its own content */
+.qSection .qInfoGrid:has(> .qAccordion){align-items:start;row-gap:18px}
+.qInfoGrid > .qAccordion{min-height:0;align-self:start;border-radius:24px}
+.qAccordionTrigger{min-height:0;padding:25px 30px 26px;font-size:clamp(19px,1.55vw,23px)}
+.qAccordionHeading{gap:13px}
+.qAccordionArrow{margin-top:18px}
+.qAccordionContent{padding:0 30px 27px}
+.qAccordionContent p{font-size:15px;line-height:1.65}
+@media(max-width:767px){
+  .qInfoGrid > .qAccordion{min-height:0;border-radius:20px}
+  .qAccordionTrigger{min-height:0;padding:22px 24px 23px;font-size:19px}
+  .qAccordionHeading{gap:12px}
+  .qAccordionArrow{margin-top:16px}
+  .qAccordionContent{padding:0 24px 24px}
+}
