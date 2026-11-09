@@ -1,4 +1,5 @@
 import "../about/about.css";
+import "./contacts.css";
 
 export default function ContactsPage() {
   return (
