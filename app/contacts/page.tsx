@@ -17,7 +17,7 @@ export default function ContactsPage() {
         </nav>
         <a className="nav__contact" href="/contacts" aria-current="page">Контакти <span aria-hidden="true">→</span></a>
       </header>
-      <section className="akc-contact-section" id="contacts" aria-labelledby="akc-contact-title" data-enter>
+      <section className="akc-contact-section" id="contacts" aria-labelledby="akc-contact-title">
         <div className="akc-contact-section__glow" aria-hidden="true" />
         <div className="akc-contact-section__intro">
           <p className="akc-contact-section__eyebrow"><span /> КОНТАКТИ</p>
