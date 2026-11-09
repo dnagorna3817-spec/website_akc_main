@@ -626,3 +626,17 @@
 .qualificationPage .qNormativeReference h3{margin:0 0 16px;font-size:clamp(20px,1.65vw,27px);line-height:1.35;letter-spacing:-.02em;font-weight:540;color:#e8f1fb}
 .qualificationPage .qNormativeReference p{margin:0;color:#a7b9cb;font-size:clamp(14px,1.05vw,16px);line-height:1.65}
 @media(max-width:767px){.qualificationPage .qNormative{grid-template-columns:1fr;gap:30px;min-height:0;padding:30px 25px;border-radius:25px;margin-top:26px}.qualificationPage .qNormativeIntro h3{font-size:26px}.qualificationPage .qNormativeReference{padding:26px 0 0;border-left:0;border-top:1px solid rgba(134,179,213,.27)}.qualificationPage .qNormativeOverline,.qualificationPage .qNormativeReferenceNumber{font-size:10px;margin-bottom:14px}}
+
+/* Next step — architectural qualification mark, drawn in CSS, no external assets */
+.qualificationPage .qFinal{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(270px,.75fr);gap:clamp(24px,5vw,80px);align-items:center;min-height:440px;padding-top:75px;padding-bottom:105px;overflow:hidden}
+.qFinalContent{position:relative;z-index:2}
+.qualificationPage .qFinalContent>p:not(.qEyebrow){max-width:760px}
+.qFinalArt{position:relative;width:min(100%,430px);aspect-ratio:1;justify-self:center;display:grid;place-items:center;pointer-events:none}
+.qFinalArt::before{content:"";position:absolute;inset:7%;border-radius:50%;background:radial-gradient(circle,rgba(50,121,178,.18),rgba(25,76,127,.07) 38%,transparent 72%);filter:blur(15px)}
+.qFinalOrbitOne,.qFinalOrbitTwo,.qFinalOrbitThree{position:absolute;display:block;aspect-ratio:1;border:1px solid rgba(103,172,219,.19);border-radius:50%}
+.qFinalOrbitOne{width:95%}.qFinalOrbitTwo{width:76%;border-color:rgba(103,172,219,.27)}.qFinalOrbitThree{width:56%;border-color:rgba(103,172,219,.17)}
+.qFinalArtCore{position:relative;display:block;width:46%;aspect-ratio:1;clip-path:polygon(50% 3%,97% 87%,3% 87%);background:linear-gradient(140deg,#87d2f5 0%,#3567c7 55%,#77c1e9 100%);filter:drop-shadow(0 0 15px rgba(66,151,215,.16))}
+.qFinalArtCore>span{position:absolute;inset:4px;display:block;clip-path:polygon(50% 7%,92% 84%,8% 84%);background:#041421}
+.qFinalArtCaption{position:absolute;bottom:2%;font-size:10px;letter-spacing:.25em;color:#739bb8}
+@media(max-width:767px){.qualificationPage .qFinal{grid-template-columns:1fr;gap:12px;min-height:0;padding-top:60px;padding-bottom:70px}.qFinalArt{width:min(72vw,270px);opacity:.7;margin-top:4px}.qFinalArtCaption{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.qFinalArt,.qFinalOrbitOne,.qFinalOrbitTwo,.qFinalOrbitThree{animation:none}}
