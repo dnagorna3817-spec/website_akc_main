@@ -9,7 +9,7 @@
   display: grid; place-content: center; position: absolute; inset: 0;
   color: #6cc4ff; font-size: 12px; text-align: center;
 }
-:global([data-scene-fallback])::before {
+.root :global([data-scene-fallback])::before {
   content: "△"; font-size: clamp(100px, 20vw, 270px); line-height: 1;
   color: #1764a6; text-shadow: 2px 3px #031a35, 0 0 18px #1268b0;
 }
