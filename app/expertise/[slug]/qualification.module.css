@@ -734,7 +734,7 @@
   text-align:left;
   padding:3px 12px;
   margin-left:-12px;
-  background:transparent;
+  background:linear-gradient(to bottom, transparent 0%, transparent 36%, #020c15 43%, #020c15 59%, transparent 67%, transparent 100%);
   opacity:1;
 }
 @media(max-width:600px){
