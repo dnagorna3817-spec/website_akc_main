@@ -752,4 +752,6 @@
 }
 
 /* Keep qualification application button visually identical to the previous CTA link. */
-.qualificationPage .qFinal button{font:inherit;cursor:pointer;text-align:center}
+.qualificationPage .qFinal button{font-family:inherit;font-size:13px;font-weight:700;line-height:1.2;letter-spacing:normal;cursor:pointer;text-align:center;border:0;appearance:none;-webkit-appearance:none;box-shadow:none;outline-offset:3px}
+.qualificationPage .qFinal button:focus:not(:focus-visible){outline:none}
+.qualificationPage .qFinal button:focus-visible{outline:2px solid #b8e6ff}
