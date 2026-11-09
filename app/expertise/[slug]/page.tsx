@@ -612,7 +612,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
-          <div className={qualification.qNormative}><p>Оцінювання проводиться відповідно до вимог професійного стандарту для обраної кваліфікації та затверджених документів кваліфікаційного центру.</p><article><h3>Головний бухгалтер бюджетної установи</h3><p>Наказ Міністерства фінансів України № 364 від 21.07.2025</p></article></div>
+          <div className={qualification.qNormative}><div className={qualification.qNormativeIntro}><span className={qualification.qNormativeOverline}>ПРАВОВА ОСНОВА ОЦІНЮВАННЯ</span><h3>Стандарти, на які можна спиратися</h3><p>Оцінювання проводиться відповідно до вимог професійного стандарту для обраної кваліфікації та затверджених документів кваліфікаційного центру.</p></div><div className={qualification.qNormativeReference}><span className={qualification.qNormativeReferenceNumber}>01 / ПРОФЕСІЙНИЙ СТАНДАРТ</span><h3>Головний бухгалтер бюджетної установи</h3><p>Наказ Міністерства фінансів України № 364 від 21.07.2025</p></div></div>
           <div className={qualification.qDocumentGroups}>
             <details className={qualification.qDocumentGroup}>
               <summary><span className={qualification.qDocumentIndex}>05</span><span className={qualification.qDocumentGroupTitle}>Нормативно-правові акти України</span><span className={qualification.qDocumentCount}>6 посилань</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary>
