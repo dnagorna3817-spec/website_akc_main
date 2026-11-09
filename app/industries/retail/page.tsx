@@ -72,7 +72,7 @@ export default function RetailPage() {
       <section className={`${styles.cta} ${retail.retailCta}`}>
         <div className={styles.ctaCopy}>
           <h2>Залиште заявку</h2>
-          <Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
+          <Link href="/#contacts" data-lead-cta>ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
         </div>
       </section>
     </main>
