@@ -468,13 +468,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       ["04", "Результат", "Повідомлення про результат і видача документа в разі успішного проходження."],
     ];
     const documents = [
-      "Наказ про створення кваліфікаційного центру",
-      "Положення про кваліфікаційний центр ТОВ «АКЦ»",
-      "Сертифікат про акредитацію — «Бухгалтер дипломований»",
-      "Матеріально-технічна база",
-      "Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»",
-      "Контактні особи",
-      "Бланк сертифікату кваліфікаційного центру",
+      { title: "Наказ про створення кваліфікаційного центру", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/nakaz-pro-stvorennya-kcz.pdf" },
+      { title: "Положення про кваліфікаційний центр ТОВ «АКЦ»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/polozhennya_pro_kvalifikaczijnyj_czentr_tov_akcz-1.pdf-1.pdf" },
+      { title: "Сертифікат про акредитацію — «Бухгалтер дипломований»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/08/1.-sertyfikat-pro-akredytacziyu-pk-buh.dyplomovanyj.pdf" },
+      { title: "Матеріально-технічна база", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/materialno-tehnichna-baza.pdf.pdf" },
+      { title: "Сертифікат про акредитацію — «Головний бухгалтер бюджетної установи»", url: "https://audit-centr.com.ua/wp-content/uploads/2026/08/2.-sertyfikat-pro-akredytacziyu-pk-gol.buh.-bu.pdf" },
+      { title: "Бланк сертифіката кваліфікаційного центру", url: "https://audit-centr.com.ua/wp-content/uploads/2026/04/blank_sertyfikat_pro_prysv_pidtv_pk.pdf.pdf" },
     ];
     return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
       <ExpertiseHeader active="qualification" />
@@ -582,8 +581,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
         <section className={qualification.qSection} id="documents">
-          <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали центру. Посилання будуть доступні після додавання файлів.</p>
-          <div className={qualification.qDocumentGrid}>{documents.map(title=><div key={title}><span>↗</span>{title}</div>)}</div>
+          <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали кваліфікаційного центру. Натисніть на назву, щоб відкрити PDF.</p>
+          <div className={qualification.qDocumentGrid}>{documents.map(({title,url})=><a key={url} href={url} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span aria-hidden="true">↗</span>{title}</a>)}</div>
         </section>
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
