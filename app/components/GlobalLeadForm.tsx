@@ -25,8 +25,8 @@ export default function GlobalLeadForm() {
       event.preventDefault();
       setSource(`${label.slice(0, 90) || "Заявка"} — ${window.location.pathname}`);
     }
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, []);
   return source ? <EventRegistration title={source} onClose={() => setSource(null)} mode="lead" /> : null;
 }
