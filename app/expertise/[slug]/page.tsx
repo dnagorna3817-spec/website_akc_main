@@ -534,7 +534,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               ["01", "◷", "5 ГОДИН"],
               ["02", "✎", "6 ПРАКТИЧНИХ ЗАВДАНЬ"],
               ["03", "◎", "70 ТЕСТІВ"],
-              ["04", "✧", "СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ · ВІДОМОСТІ В ДЕРЖАВНОМУ РЕЄСТРІ"],
+              ["04", "✧", "СЕРТИФІКАТ ПІСЛЯ УСПІШНОГО ІСПИТУ"],
             ].map(([number, icon, label]) => (
               <div className={qualification.qTimelineStep} key={number}>
                 <span className={qualification.qTimelineNumber}>{number}</span>
@@ -544,6 +544,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </div>
               </div>
             ))}
+            <span className={qualification.qRegistryLabel}>ВІДОМОСТІ В<br/>ДЕРЖАВНОМУ РЕЄСТРІ</span>
           </div>
         </section>
         <section className={qualification.qIntroCards}>
