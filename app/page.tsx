@@ -204,7 +204,7 @@ export default function Home() {
                 {item.label}
               </Link>
             ))}
-            <a className="mobile-native-menu-link" href="#contacts">НАШІ КОНТАКТИ</a>
+            <Link className="mobile-native-menu-link" href="/contacts">НАШІ КОНТАКТИ</Link>
           </nav>
         </details>
       </header>
@@ -223,19 +223,7 @@ export default function Home() {
                 <span>{item.label}</span>
               </Link>
             ))}
-            <button
-              className="menu-link menu-contact-link"
-              type="button"
-              aria-expanded={showContacts}
-              onClick={() => setShowContacts((value) => !value)}
-            >
-              <span>НАШІ КОНТАКТИ</span>
-            </button>
-            {showContacts && (
-              <div className="menu-contact-info">
-                Контактні дані будуть опубліковані тут після підтвердження.
-              </div>
-            )}
+            <Link className="menu-link menu-contact-link" href="/contacts" onClick={() => setMenuOpen(false)}><span>НАШІ КОНТАКТИ</span></Link>
           </nav>
         </>,
         document.body
