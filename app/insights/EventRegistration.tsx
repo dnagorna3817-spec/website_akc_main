@@ -42,7 +42,7 @@ export default function EventRegistration({ title, onClose }: { title: string; o
           <label>Email<input required type="email" maxLength={200} autoComplete="email" placeholder="your@email.com" value={email} onChange={e => setEmail(e.target.value)} /></label>
           <label>Компанія<input maxLength={160} autoComplete="organization" placeholder="Назва компанії" value={company} onChange={e => setCompany(e.target.value)} /></label>
           <label className={styles.consent}><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} required /><span>Я погоджуюсь на обробку персональних даних для розгляду заявки на участь у заході.</span></label>
-          <button className={styles.submit} type="submit"><span>Підготувати заявку</span><span className={styles.buttonArrow} aria-hidden="true">↗</span></button>
+          <button className={styles.submit} type="submit">Подати заявку</button>
         </form>
         {prepared ? <p className={styles.notice} role="status">Лист із заявкою підготовлено у вашій поштовій програмі. Для завершення реєстрації натисніть «Надіслати» в листі. Підтвердження надійде після опрацювання заявки.</p> : <p className={styles.note}>Відкриється ваша поштова програма. Заявка не надсилається автоматично.</p>}
       </section>
