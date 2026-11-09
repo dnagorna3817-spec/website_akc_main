@@ -520,3 +520,23 @@
   .qAccordionArrow{margin-top:16px}
   .qAccordionContent{padding:0 24px 24px}
 }
+
+/* Benefits — numbered premium gradient cards */
+.qBand .qBenefitGrid{gap:20px;align-items:stretch}
+.qBand .qBenefitGrid article{
+  display:flex;flex-direction:column;justify-content:flex-start;
+  min-height:205px;padding:30px 34px 32px;
+  border:1px solid rgba(142,183,228,.32);border-radius:28px;
+  background:radial-gradient(ellipse at 95% 110%,rgba(47,104,188,.47),transparent 55%),linear-gradient(145deg,#1a2539,#1b2a44);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  transition:border-color .25s ease,transform .25s ease;
+}
+.qBand .qBenefitGrid article:nth-child(2){background:radial-gradient(ellipse at 8% 110%,rgba(47,137,148,.35),transparent 55%),linear-gradient(145deg,#1b2639,#1c2a4d)}
+.qBand .qBenefitGrid article:nth-child(3){background:radial-gradient(ellipse at 95% 110%,rgba(46,111,188,.43),transparent 55%),linear-gradient(145deg,#1a2539,#1a2a42)}
+.qBand .qBenefitGrid article:nth-child(4){background:radial-gradient(ellipse at 10% 110%,rgba(44,111,183,.37),transparent 55%),linear-gradient(145deg,#1b2639,#1b2a43)}
+.qBand .qBenefitGrid article:hover{border-color:rgba(143,198,241,.66);transform:translateY(-2px)}
+.qBenefitNumber{display:block;margin-bottom:22px;color:#9bc7f0;font-size:13px;font-weight:700;letter-spacing:.18em}
+.qBand .qBenefitGrid article h3{margin:0 0 12px;color:#f0f5fc;font-size:clamp(19px,1.6vw,24px);line-height:1.3;font-weight:650}
+.qBand .qBenefitGrid article p{margin:0;color:#b9c7d8;font-size:16px;line-height:1.6}
+@media(max-width:767px){.qBand .qBenefitGrid{gap:14px}.qBand .qBenefitGrid article{min-height:0;padding:25px 26px;border-radius:22px}.qBenefitNumber{margin-bottom:16px}.qBand .qBenefitGrid article p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.qBand .qBenefitGrid article{transition:none}}
