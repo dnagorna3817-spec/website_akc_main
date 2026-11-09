@@ -27,7 +27,7 @@ export default function InsightsPage() {
         <div className={styles.intro}>
           <div>
             <p className={styles.eyebrow}>АКЦ / АНАЛІТИКА ТА ПУБЛІКАЦІЇ</p>
-            <h1>Новини<span className={styles.period}>.</span></h1>
+            <h1>Новини</h1>
             <p className={styles.lead}>Аналітика, експертні погляди та матеріали для рішень у бізнесі.</p>
           </div>
           <div className={styles.filters} role="group" aria-label="Категорії публікацій">
