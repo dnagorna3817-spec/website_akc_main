@@ -76,7 +76,7 @@ export default function MedicalPage() {
       <section className={`${agro.cta} ${styles.medicalCta}`}>
         <div className={agro.ctaCopy}>
           <h2>Залиште заявку</h2>
-          <Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
+          <Link href="/#contacts" data-lead-cta>ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
         </div>
       </section>
     </main>
