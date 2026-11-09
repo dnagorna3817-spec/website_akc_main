@@ -574,3 +574,27 @@
 .qDocumentGroup .qDocumentGrid > a{min-height:72px;font-size:14px}
 @media(max-width:767px){.qDocumentGroup > summary{min-height:76px;gap:10px}.qDocumentGroupTitle{font-size:17px}.qDocumentCount{font-size:12px}.qDocumentGroup .qDocumentGrid{grid-template-columns:minmax(0,1fr);padding-bottom:18px}.qDocumentGroup .qDocumentGrid > a{min-height:66px}}
 @media(prefers-reduced-motion:reduce){.qDocumentChevron{transition:none}}
+
+/* Qualification archive — restrained premium editorial treatment */
+.qualificationPage .qDocumentGroups{margin-top:30px;border-top:1px solid rgba(121,183,221,.32)}
+.qualificationPage .qDocumentGroup{border-bottom:1px solid rgba(121,183,221,.24);position:relative}
+.qualificationPage .qDocumentGroup[open]{background:linear-gradient(110deg,rgba(22,69,103,.24),rgba(7,27,43,.12) 60%,transparent)}
+.qualificationPage .qDocumentGroup>summary{min-height:92px;padding:20px clamp(14px,2.3vw,32px);gap:clamp(14px,2.2vw,30px);transition:background .2s ease}
+.qualificationPage .qDocumentGroup>summary:hover{background:rgba(99,166,213,.07)}
+.qDocumentIndex{font-size:14px;letter-spacing:.12em;color:#71b6e0;font-weight:500;min-width:34px;font-variant-numeric:tabular-nums}
+.qualificationPage .qDocumentGroupTitle{font-size:clamp(18px,1.55vw,23px);letter-spacing:-.015em;font-weight:560}
+.qualificationPage .qDocumentCount{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#9db6c8}
+.qualificationPage .qDocumentChevron{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(122,183,222,.25);border-radius:50%;font-size:21px}
+.qualificationPage .qDocumentGroup[open] .qDocumentChevron{border-color:rgba(121,194,239,.6);background:rgba(65,151,209,.12)}
+.qualificationPage .qDocumentGroup .qDocumentGrid{margin:0;padding:0 clamp(14px,2.3vw,32px) 26px clamp(14px,2.3vw,32px);gap:0 26px}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a{display:flex;align-items:center;gap:14px;min-height:76px;padding:13px 2px;color:#dbe8f2;border-bottom:1px solid rgba(121,183,221,.17);font-size:14px;line-height:1.45;text-decoration:none;transition:color .2s ease,background .2s ease}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a:hover{color:#fff;background:rgba(83,151,197,.055)}
+.qDocumentFileIcon{flex:none;display:grid;place-items:center;width:37px;height:43px;border:1px solid rgba(116,185,227,.42);border-radius:5px;color:#8acaf0;font-size:10px;font-weight:700;letter-spacing:.07em;background:rgba(62,130,177,.1)}
+.qDocumentFileName{flex:1;min-width:0}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a .qDocumentFileArrow{flex:none;margin-left:auto;font-size:19px;color:#80bde5;transition:transform .2s ease}
+.qualificationPage .qDocumentGroup .qDocumentGrid>a:hover .qDocumentFileArrow{transform:translate(3px,-3px)}
+.qualificationPage .qNormative{align-items:stretch;gap:24px}
+.qualificationPage .qNormative>p{align-self:center;max-width:600px}
+.qualificationPage .qNormative article{border:1px solid rgba(122,183,222,.25);border-radius:14px;background:linear-gradient(135deg,rgba(17,53,80,.85),rgba(7,28,44,.6));padding:clamp(24px,3vw,42px)}
+@media(max-width:767px){.qualificationPage .qDocumentGroup>summary{min-height:78px;gap:12px;padding:18px 8px}.qDocumentIndex{min-width:26px;font-size:12px}.qualificationPage .qDocumentGroupTitle{font-size:16px}.qualificationPage .qDocumentCount{font-size:11px}.qualificationPage .qDocumentChevron{width:28px;height:28px;font-size:18px}.qualificationPage .qDocumentGroup .qDocumentGrid{grid-template-columns:1fr;padding:0 8px 18px}.qualificationPage .qDocumentGroup .qDocumentGrid>a{min-height:70px;font-size:13px;gap:11px}.qDocumentFileIcon{width:31px;height:37px;font-size:9px}.qualificationPage .qNormative{grid-template-columns:1fr;gap:18px}}
+@media(prefers-reduced-motion:reduce){.qualificationPage .qDocumentGroup>summary,.qualificationPage .qDocumentGroup .qDocumentGrid>a,.qualificationPage .qDocumentGroup .qDocumentGrid>a .qDocumentFileArrow{transition:none}}
