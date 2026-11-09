@@ -629,7 +629,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </details>
           </div>
         </section>
-        <section className={qualification.qFinal} id="next-step"><div className={qualification.qFinalContent}><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><a href="#documents">ПЕРЕГЛЯНУТИ ДОКУМЕНТИ ↗</a></div><div className={qualification.qFinalArt} aria-hidden="true"><span className={qualification.qFinalOrbitOne}></span><span className={qualification.qFinalOrbitTwo}></span><span className={qualification.qFinalOrbitThree}></span><span className={qualification.qFinalArtCore}><span></span></span><span className={qualification.qFinalArtCaption}>АКЦ / КВАЛІФІКАЦІЯ</span></div></section>
+        <section className={qualification.qFinal} id="next-step"><div className={qualification.qFinalContent}><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><a href="#documents">ПЕРЕГЛЯНУТИ ДОКУМЕНТИ ↗</a></div></section>
       </main>
     </div>;
   }
