@@ -734,7 +734,7 @@
   text-align:left;
   padding:3px 12px;
   margin-left:-12px;
-  background:#020c15;
+  background:transparent;
   opacity:1;
 }
 @media(max-width:600px){
