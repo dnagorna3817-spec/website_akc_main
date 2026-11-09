@@ -1019,3 +1019,22 @@
     margin-top: 12px;
   }
 }
+
+
+/* Seamless industries artwork: fade the image itself into the navy canvas. */
+.industries-page .industries-image{
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 9%, #000 68%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 9%, #000 87%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 9%, #000 68%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 9%, #000 87%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+@media(max-width:900px){
+  .industries-page .industries-image{
+    -webkit-mask-image:radial-gradient(ellipse 80% 83% at 50% 50%,#000 42%,transparent 100%);
+    mask-image:radial-gradient(ellipse 80% 83% at 50% 50%,#000 42%,transparent 100%);
+  }
+}
