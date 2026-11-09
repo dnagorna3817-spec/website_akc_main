@@ -18,3 +18,7 @@
 @media(max-width:1050px){.akc-contacts-page .akc-contact-section{height:auto;min-height:calc(100svh - 102px);padding-top:72px}.akc-contacts-page .akc-contact-section__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:42px 36px}}
 @media(max-width:600px){.akc-contacts-page .akc-contact-section{padding:60px 24px 0}.akc-contacts-page .akc-contact-section__grid{grid-template-columns:1fr;gap:30px;padding-bottom:55px}.akc-contacts-page .akc-contact-section__intro{margin-bottom:42px}.akc-contacts-page .akc-contact-section__intro h2{font-size:clamp(38px,10vw,54px)}}
 @media(min-width:1051px) and (max-height:760px){.akc-contacts-page .akc-contact-section{height:auto;min-height:calc(100svh - 102px)}}
+
+.akc-contacts-page .akc-contact-section__socials{display:flex;align-items:center;gap:14px;margin-top:24px}
+.akc-contacts-page .akc-contact-section__social{width:46px;height:46px;border:1px solid rgba(94,185,244,.75);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#e8f1fa;background:rgba(5,32,55,.24)}
+@media(max-width:600px){.akc-contacts-page .akc-contact-section__socials{margin-top:20px}}
