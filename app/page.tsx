@@ -15,7 +15,7 @@ const directions = [
   { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 11, y: 27, lineX: 25, lineY: 36, angle: -160, length: "clamp(78px, 9vw, 130px)" },
   { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 84, y: 27, lineX: 75, lineY: 36, angle: -20, length: "clamp(78px, 9vw, 130px)", wide: true },
   { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 11, y: 78, lineX: 25, lineY: 64, angle: 160, length: "clamp(78px, 9vw, 130px)" },
-  { id: "insights", label: "НОВИНИ", href: "#insights", x: 89, y: 78, lineX: 75, lineY: 64, angle: 20, length: "clamp(78px, 9vw, 130px)" },
+  { id: "insights", label: "НОВИНИ", href: "/insights", x: 89, y: 78, lineX: 75, lineY: 64, angle: 20, length: "clamp(78px, 9vw, 130px)" },
 ];
 
 export default function Home() {
@@ -357,7 +357,7 @@ export default function Home() {
         <section id="insights" className="akc-content-section">
           <p className="akc-eyebrow">05 / НОВИНИ</p>
           <h2>Новини та матеріали</h2>
-          <p>Тут з’являтимуться оновлення та корисні матеріали АКЦ.</p>
+          <p>Аналітика, експертні погляди та матеріали для рішень у бізнесі.</p>\n          <Link href="/insights" className="akc-section-link">Переглянути новини <span aria-hidden="true">↗</span></Link>
         </section>
         <footer id="contacts" className="akc-footer">
           <span>АКЦ · Аудит Консалтинг Центр</span>
