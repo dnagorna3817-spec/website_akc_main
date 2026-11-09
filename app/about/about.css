@@ -2570,3 +2570,60 @@ body {
     text-align: left;
   }
 }
+
+
+/* AKC contacts — restrained navy editorial finish */
+.akc-about-figma .akc-contact-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 610px;
+  padding: clamp(76px, 9vw, 136px) clamp(24px, 5vw, 80px) 0;
+  background: radial-gradient(ellipse at 84% 70%, rgba(12, 76, 135, .24), transparent 52%), #020e19;
+  color: #e8f1fa;
+}
+.akc-about-figma .akc-contact-section__glow {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(142deg, transparent 48%, rgba(20, 89, 154, .12) 66%, transparent 88%);
+}
+.akc-about-figma .akc-contact-section__glow::after {
+  content: "";
+  position: absolute;
+  width: min(56vw, 720px);
+  height: min(56vw, 720px);
+  right: -22%;
+  top: -35%;
+  transform: rotate(-28deg);
+  border-left: 1px solid rgba(76, 167, 235, .28);
+  background: linear-gradient(110deg, transparent 40%, rgba(26, 108, 191, .14), transparent 75%);
+}
+.akc-about-figma .akc-contact-section__intro { max-width: 850px; margin-bottom: clamp(54px, 6vw, 90px); }
+.akc-about-figma .akc-contact-section__eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 12px; letter-spacing: .2em; color: #9abbd2; margin-bottom: 25px;
+}
+.akc-about-figma .akc-contact-section__eyebrow span { display: block; width: 35px; height: 1px; background: #5ab6ef; }
+.akc-about-figma .akc-contact-section__intro h2 { font-size: clamp(42px, 5.3vw, 78px); font-weight: 500; line-height: 1.07; letter-spacing: -.055em; margin-bottom: 22px; }
+.akc-about-figma .akc-contact-section__intro > p:last-child { font-size: clamp(15px, 1.25vw, 19px); color: #9eb2c4; line-height: 1.65; }
+.akc-about-figma .akc-contact-section__grid { display: grid; grid-template-columns: 1.1fr 1fr 1.12fr 1fr; gap: clamp(24px, 3vw, 56px); padding-bottom: clamp(72px, 8vw, 120px); }
+.akc-about-figma .akc-contact-section__column { min-width: 0; }
+.akc-about-figma .akc-contact-section__column h3 { display: flex; align-items: center; gap: 12px; padding-bottom: 22px; margin-bottom: 24px; border-bottom: 1px solid rgba(127, 175, 208, .35); font-size: clamp(17px, 1.3vw, 21px); font-weight: 600; }
+.akc-about-figma .akc-contact-section__column h3 span { color: #63bdf7; font-size: 24px; font-weight: 400; }
+.akc-about-figma .akc-contact-section__column address,
+.akc-about-figma .akc-contact-section__column p,
+.akc-about-figma .akc-contact-section__column a { color: #c7d7e5; font-size: clamp(14px, 1.1vw, 17px); line-height: 1.85; font-style: normal; text-decoration: none; overflow-wrap: anywhere; }
+.akc-about-figma .akc-contact-section__column a:hover { color: #6dc6ff; }
+.akc-about-figma .akc-contact-section__phones { list-style: none; margin: 0; padding: 0; }
+.akc-about-figma .akc-contact-section__footer { border-top: 1px solid rgba(127, 175, 208, .22); padding: 32px 0 38px; text-align: center; color: #8fa7bc; font-size: 13px; }
+@media (max-width: 1050px) {
+  .akc-about-figma .akc-contact-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 50px 36px; }
+}
+@media (max-width: 600px) {
+  .akc-about-figma .akc-contact-section { padding: 72px 24px 0; }
+  .akc-about-figma .akc-contact-section__grid { grid-template-columns: 1fr; gap: 36px; padding-bottom: 70px; }
+  .akc-about-figma .akc-contact-section__column h3 { margin-bottom: 14px; padding-bottom: 13px; }
+  .akc-about-figma .akc-contact-section__intro { margin-bottom: 52px; }
+}
