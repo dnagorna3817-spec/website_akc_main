@@ -47,7 +47,7 @@ export default function AgribusinessPage() {
         <p className={styles.lead}>Комплексний підхід до бухгалтерського обліку, податків,<br/> управління та розвитку агробізнесу.</p>
         <div className={styles.offerings}>{offerings.map(o=><article className={styles.offer} key={o.title}><div className={styles.offerHeading}><h3>{o.title}</h3></div><ul>{o.items.map(item=><li key={item}>{item}</li>)}</ul></article>)}</div>
       </section>
-      <section className={styles.cta}><div className={styles.ctaCopy}><h2>Залиште заявку</h2><Link href="/#contacts">ЗАЛИШИТИ ЗАЯВКУ ↗</Link></div></section>
+      <section className={styles.cta}><div className={styles.ctaCopy}><h2>Залиште заявку</h2><Link href="/#contacts" data-lead-cta>ЗАЛИШИТИ ЗАЯВКУ ↗</Link></div></section>
     </main>
   </div>;
 }
