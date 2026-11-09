@@ -50,7 +50,7 @@ export default function ContactsPage() {
             <h3><span className="akc-contact-icon"><ContactIcon kind="map" /></span> Наша адреса</h3>
             <address>18000, м. Черкаси,<br />вул. Гоголя, 224</address>
             <div className="akc-contact-section__socials" aria-label="Соціальні мережі АКЦ">
-              <span className="akc-contact-section__social" role="img" aria-label="Facebook"><SocialIcon kind="facebook" /></span>
+              <a className="akc-contact-section__social" href="https://www.facebook.com/auditkonsaltingcentr/" target="_blank" rel="noopener noreferrer" aria-label="Facebook АКЦ — відкрити сторінку"><SocialIcon kind="facebook" /></a>
               <a className="akc-contact-section__social" href="https://www.instagram.com/audit_konsalting_centr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram АКЦ — відкрити профіль"><SocialIcon kind="instagram" /></a>
             </div>
           </div>
