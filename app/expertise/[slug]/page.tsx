@@ -554,11 +554,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className={qualification.qBand}>
           <div className={qualification.qInner}>
             <p className={qualification.qEyebrow}>ПЕРЕВАГИ</p><h2>Що ви отримаєте після сертифікації?</h2>
-            <div className={qualification.qInfoGrid}>
-              <article><h3>Підтвердження кваліфікації</h3><p>Офіційний документ за результатами успішного оцінювання.</p></article>
-              <article><h3>Визнання роботодавців</h3><p>Додаткове підтвердження професійних компетентностей.</p></article>
-              <article><h3>Актуальні знання</h3><p>Підготовка з урахуванням професійних стандартів і змін законодавства.</p></article>
-              <article><h3>Кар’єрні переваги</h3><p>Підсилення професійного профілю на ринку праці.</p></article>
+            <div className={`${qualification.qInfoGrid} ${qualification.qBenefitGrid}`}>
+              <article><span className={qualification.qBenefitNumber}>01</span><h3>Підтвердження кваліфікації</h3><p>Офіційний документ за результатами успішного оцінювання.</p></article>
+              <article><span className={qualification.qBenefitNumber}>02</span><h3>Визнання роботодавців</h3><p>Додаткове підтвердження професійних компетентностей.</p></article>
+              <article><span className={qualification.qBenefitNumber}>03</span><h3>Актуальні знання</h3><p>Підготовка з урахуванням професійних стандартів і змін законодавства.</p></article>
+              <article><span className={qualification.qBenefitNumber}>04</span><h3>Кар’єрні переваги</h3><p>Підсилення професійного профілю на ринку праці.</p></article>
             </div>
             <div className={qualification.qCertificateResult}><div className={qualification.qResult}><p className={qualification.qEyebrow}>РЕЗУЛЬТАТ ОЦІНЮВАННЯ</p><h2>Після успішного іспиту ви отримаєте сертифікат</h2><p>Сертифікат фахівця про присвоєння або підтвердження професійної кваліфікації. Точна назва документа залежить від обраної кваліфікації.</p></div><CertificateShowcase /></div>
           </div>
