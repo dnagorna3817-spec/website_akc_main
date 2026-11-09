@@ -393,6 +393,7 @@ function AboutPage({ embedded = false }: { embedded?: boolean }) {
       </header>}
 
       <section className="hero" aria-labelledby="page-title">
+        <div className="hero__metal-art" aria-hidden="true" />
         <div className="hero__copy">
           <p className="kicker">01 / Про Аудит Консалтинг Центр</p>
           <h1 id="page-title">
