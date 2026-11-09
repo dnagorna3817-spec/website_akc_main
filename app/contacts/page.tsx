@@ -72,7 +72,6 @@ export default function ContactsPage() {
             <p>Сб. – Нд. — вихідний</p>
           </div>
         </div>
-        <footer className="akc-contact-section__footer">© 2026 Аудит Консалтинг Центр. Всі права збережено.</footer>
       </section>
     </div>
   );
