@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
   const email = clean(data.email, 200);
   const phone = clean(data.phone, 24);
   const eventTitle = clean(data.eventTitle, 180);
+  const isLead = data.requestType === "lead";
   const phoneDigits = phone.replace(/\D/g, "");
 
   if (!name || !email || !phone || !eventTitle || data.consent !== true) {
@@ -61,14 +62,14 @@ export async function POST(request: NextRequest) {
   }
 
   const text = [
-    "🔔 Нова заявка на захід — сайт АКЦ",
+    isLead ? "🔔 Нове звернення — сайт АКЦ" : "🔔 Нова заявка на захід — сайт АКЦ",
     "",
-    `Захід: ${eventTitle}`,
+    `${isLead ? "Джерело звернення" : "Захід"}: ${eventTitle}`,
     `Ім'я та прізвище: ${name}`,
     `Телефон: ${phone}`,
     `Email: ${email}`,
     "Згода на обробку персональних даних: Так",
-    "Джерело: сайт АКЦ / План заходів",
+    isLead ? "Джерело: сайт АКЦ / Форма зворотного зв’язку" : "Джерело: сайт АКЦ / План заходів",
     `Час: ${new Date().toLocaleString("uk-UA", { timeZone: "Europe/Kyiv" })}`,
   ].join("\n");
 
