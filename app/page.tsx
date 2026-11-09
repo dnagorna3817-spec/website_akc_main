@@ -10,6 +10,7 @@ import { useExpertiseTransition } from "./components/ExpertiseTransition";
 import LogoIntro from "./components/LogoIntro";
 import "./home.css";
 import "./home-about.css";
+import AboutPage from "./about/page";
 
 const directions = [
   { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
@@ -310,72 +311,9 @@ export default function Home() {
           <span className="hero-index">01 / 06</span>
         </div>
       </section>
-      <div className="akc-sections">
-        <section id="about" className="akc-home-about" aria-labelledby="akc-home-about-title">
-          <div className="akc-home-about__inner">
-            <div className="akc-home-about__copy">
-              <p className="akc-home-about__eyebrow">01 / ПРО АУДИТ КОНСАЛТИНГ ЦЕНТР</p>
-              <h2 id="akc-home-about-title">АУДИТ КОНСАЛТИНГ<br /><span>ЦЕНТР</span></h2>
-              <p className="akc-home-about__lead">Професійний партнер для розвитку бізнесу.</p>
-              <p className="akc-home-about__description">Команда професіоналів АКЦ допомагає бізнесу працювати впевнено та розвиватися. Ми поєднуємо аудиторську практику, бухгалтерський облік і консалтингові рішення, щоб допомагати компаніям мінімізувати ризики та вирішувати складні завдання.</p>
-              <Link href="/about" className="akc-home-about__link">ДІЗНАТИСЯ БІЛЬШЕ ПРО АКЦ <span aria-hidden="true">↗</span></Link>
-            </div>
-            <div className="akc-home-about__art" aria-hidden="true">
-              <div className="akc-home-about__halo" />
-              <div className="akc-home-about__outline"><span>АКЦ</span></div>
-              <span className="akc-home-about__art-caption">ТОЧНІСТЬ / ДОВІРА / РІШЕННЯ</span>
-            </div>
-          </div>
-          <a href="#expertise-section" className="akc-home-about__next" aria-label="Прокрутити до експертизи">↓</a>
-        </section>
-        <section id="expertise-section" className="akc-content-section">
-          <p className="akc-eyebrow">02 / ЕКСПЕРТИЗА</p>
-          <h2>Наші напрями</h2>
-          <p>Ознайомтеся з послугами та професійними напрямами АКЦ.</p>
-          <Link href="/expertise" className="akc-section-link">Перейти до експертизи <span aria-hidden="true">↗</span></Link>
-        </section>
-        <section id="qualification" className="akc-content-section">
-          <p className="akc-eyebrow">03 / КВАЛІФІКАЦІЙНИЙ ЦЕНТР</p>
-          <h2>Професійна кваліфікація</h2>
-          <p>Інформація про кваліфікаційний напрям та відповідні матеріали.</p>
-          <Link href="/expertise/qualification" className="akc-section-link">Перейти до кваліфікаційного центру <span aria-hidden="true">↗</span></Link>
-        </section>
-        <section id="industries" className="akc-industries" aria-labelledby="industries-heading">
-          <div className="akc-industries-art" aria-hidden="true" />
-          <div className="akc-industries-content">
-            <p className="akc-industries-eyebrow">03 / Галузі</p>
-            <h2 id="industries-heading">РОЗУМІЄМО<br /><span>КОНТЕКСТ БІЗНЕСУ.</span></h2>
-            <p className="akc-industries-description">Рішення АКЦ враховують специфіку галузі, регулювання та бізнес-процесів.</p>
-            <div className="akc-industries-map">
-              <div className="akc-industries-track" aria-hidden="true" />
-              {industries.map((industry, index) => (
-                <button key={industry.name} type="button"
-                  className={`akc-industry-point akc-industry-point--${index + 1}${selectedIndustry === index ? " is-selected" : ""}`}
-                  aria-pressed={selectedIndustry === index}
-                  onClick={() => setSelectedIndustry(index)}>
-                  <span className="akc-industry-name">{industry.name}</span>
-                  <span className="akc-industry-dot" />
-                </button>
-              ))}
-              <div className="akc-industry-detail" aria-live="polite">
-                <strong>{industries[selectedIndustry].name}</strong>
-                <p>{industries[selectedIndustry].detail}</p>
-                <a href="#contacts">Обговорити напрям <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-            <a href="#contacts" className="akc-industries-all">ОБГОВОРИТИ ВАШУ ГАЛУЗЬ <span aria-hidden="true">↗</span></a>
-          </div>
-        </section>
-        <section id="insights" className="akc-content-section">
-          <p className="akc-eyebrow">05 / НОВИНИ</p>
-          <h2>Новини та матеріали</h2>
-          <p>Аналітика, експертні погляди та матеріали для рішень у бізнесі.</p>\n          <Link href="/insights" className="akc-section-link">Переглянути новини <span aria-hidden="true">↗</span></Link>
-        </section>
-        <footer id="contacts" className="akc-footer">
-          <span>АКЦ · Аудит Консалтинг Центр</span>
-          <a href="#home">Повернутися нагору ↑</a>
-        </footer>
-      </div>
+      <section id="about" className="akc-home-embedded-about" aria-label="Про АКЦ">
+        <AboutPage embedded />
+      </section>
     </main>
   );
 }
