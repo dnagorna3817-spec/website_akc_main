@@ -35,3 +35,12 @@
 .dialog label:not(.consent){width:100%}
 .dialog input:not([type=checkbox]){display:block;width:100%;max-width:100%;margin:0}
 .submit{justify-content:center;text-align:center;padding-inline:18px}
+
+/* Telegram registration confirmation and submission states */
+.submit:disabled{cursor:wait;opacity:.7;transform:none}
+.success{text-align:center;padding:34px 0 10px}
+.success .eyebrow{justify-content:center;margin:0 0 18px}
+.successIcon{width:64px;height:64px;border:1px solid #6bb9ed;border-radius:50%;display:grid;place-items:center;color:#89c9f1;margin:0 auto 25px;font-size:31px;box-shadow:0 0 35px rgba(74,160,226,.1)}
+.success h2{margin:0 0 20px}
+.success p{color:#afc4d3;font-size:13px;line-height:1.65;margin:0 0 12px}
+.success .submit{margin-top:30px}
