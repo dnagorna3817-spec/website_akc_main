@@ -34,7 +34,7 @@ export default function InsightsPage() {
             {categories.map(item => <button key={item} type="button" className={category === item ? styles.selected : ""} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
           </div>
         </div>
-        <p className={styles.demoNote}>Демонстраційне наповнення — тексти та дати будуть замінені на затверджені матеріали АКЦ.</p>
+        
         {lead && <article className={styles.featured}>
           <div className={`${styles.visual} ${styles.featureVisual}`} aria-hidden="true"><Image src="/media/akc-audit-card.jpg" alt="" fill sizes="(max-width: 760px) 100vw, 48vw" /></div>
           <div className={styles.featureText}>
