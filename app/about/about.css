@@ -2737,3 +2737,29 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .akc-about-figma .hero::after { animation: none; }
 }
+
+/* Explicit artwork layer: visible on desktop and softened into the page background. */
+.akc-about-figma .hero { position: relative; isolation: isolate; }
+.akc-about-figma .hero::after { content: none !important; }
+.akc-about-figma .hero__metal-art {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 61%;
+  pointer-events: none;
+  background-image: linear-gradient(90deg, #01040b 0%, rgba(1,4,11,.75) 12%, transparent 40%), linear-gradient(0deg, #01040b, transparent 15%, transparent 84%, #01040b), url("/media/akc-about-metal-blue.svg");
+  background-repeat: no-repeat;
+  background-position: center, center, 50% 50%;
+  background-size: cover;
+  opacity: 1;
+}
+.akc-about-figma .hero__copy { position: relative; z-index: 2; }
+@media (max-width: 768px) {
+  .akc-about-figma .hero__metal-art {
+    top: 31%; width: 100%; opacity: .5;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%, #000 72%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 25%, #000 72%, transparent);
+  }
+}
