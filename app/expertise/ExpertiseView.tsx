@@ -24,7 +24,7 @@ export function ExpertiseHeader({ active = "expertise" }: { active?: "expertise"
       </Link>
       <nav className={styles.nav} aria-label="Основна навігація">
         <Link href="/about" style={{ color: "#f5f7f8", textDecoration: "none" }}>Про АКЦ</Link>
-        <span aria-disabled="true" title="Сторінка ще не опублікована">Новини</span>
+        <Link href="/insights" style={{ color: "#f5f7f8", textDecoration: "none" }}>Новини</Link>
         <Link href="/expertise/qualification" className={active === "qualification" ? styles.active : undefined} style={{ color: active === "qualification" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Кваліфікаційний центр</Link>
         <Link href="/industries" className={active === "industries" ? styles.active : undefined} style={{ color: active === "industries" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Галузі</Link>
         <Link href="/expertise" className={active === "expertise" ? styles.active : undefined} style={{ color: active === "expertise" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Експертиза</Link>
