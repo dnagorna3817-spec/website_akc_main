@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
@@ -215,8 +214,6 @@ export default function Home() {
                         root: scene.current,
                         freeze: () => {
                           transitioning.current = true;
-                          const wasPaused = intro.current?.paused();
-                          intro.current?.pause();
                           return () => {
                             transitioning.current = false;
                                           };
