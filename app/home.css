@@ -1606,7 +1606,7 @@ html { scroll-padding-top: 72px; }
     min-height: 480px;
   }
   /* The large-screen overrides formerly forced the qualification label down. */
-  .nav-node--qualification .nav-label { top: 20% !important; }
+  .nav-node--qualification .nav-label { top: 17% !important; }
   .nav-node--about .nav-label { top: 7% !important; }
   .nav-node--about .nav-line,
   .nav-node--about .nav-dot { top: 16% !important; }
