@@ -92,7 +92,18 @@ export default function Home() {
   useEffect(() => {
     // The video event is primary. A fallback ensures links never stay hidden
     // if Safari drops an ended/error event or the media is already complete.
-    const ready = () => setMobileNavReady(true);
+    const ready = () => {
+      setMobileNavReady(true);
+      // A paused GSAP from() timeline can leave inline opacity:0 on the
+      // navigation even after CSS makes its container visible.
+      intro.current?.progress(1).pause();
+      const root = scene.current;
+      if (root) {
+        gsap.set(root.querySelectorAll(".nav-line, .nav-dot, .nav-label"), {
+          clearProps: "opacity,visibility,transform",
+        });
+      }
+    };
     window.addEventListener("akc:intro-ready", ready);
     // The intro can finish before this effect subscribes (Safari/fast cache).
     // Also recover if video completion events fail, so navigation is never lost.
