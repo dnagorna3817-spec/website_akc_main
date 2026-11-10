@@ -1601,5 +1601,8 @@ html { scroll-padding-top: 72px; }
   .logo-intro-layer .logo-intro-video--mobile {
     transform: scale(0.78) !important;
     transform-origin: center center !important;
+    /* Fade the scaled video's rectangular edges into the existing hero. */
+    -webkit-mask-image: radial-gradient(ellipse 72% 65% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.88) 66%, transparent 96%) !important;
+    mask-image: radial-gradient(ellipse 72% 65% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.88) 66%, transparent 96%) !important;
   }
 }
