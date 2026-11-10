@@ -1682,11 +1682,19 @@ html { scroll-padding-top: 72px; }
   }
 }
 
-/* Mobile only: vertical lower connectors, without moving labels or video. */
+/* Mobile only: actual lower connectors are ::after pseudo-elements.
+   Draw a vertical line downward from each dot, leaving positions unchanged. */
 @media (max-width: 767px) {
-  .nav-node--industries .nav-line,
-  .nav-node--insights .nav-line {
-    transform: rotate(90deg) !important;
-    width: 30px !important;
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    left: 0 !important;
+    right: auto !important;
+    top: 0 !important;
+    width: 1px !important;
+    max-width: 1px !important;
+    height: 24px !important;
+    background-image: none !important;
+    background: linear-gradient(to bottom, #4abaff, rgba(72,186,255,.75)) !important;
+    transform: none !important;
   }
 }
