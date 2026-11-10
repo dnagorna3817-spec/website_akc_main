@@ -1595,3 +1595,11 @@ html { scroll-padding-top: 72px; }
 @media(max-width:900px){.akc-home-about__inner{grid-template-columns:1fr;padding-top:110px;padding-bottom:110px}.akc-home-about__art{min-height:230px}.akc-home-about__outline{width:180px;box-shadow:0 0 0 35px rgba(61,130,196,.035),0 0 0 70px rgba(61,130,196,.018)}.akc-home-about__outline span{font-size:60px}.akc-home-about__art-caption{bottom:-20px}}
 @media(max-width:600px){.akc-home-about__inner{gap:38px;padding:90px 24px 95px}.akc-home-about h2{font-size:clamp(36px,9vw,58px)}.akc-home-about__lead{margin-top:25px}.akc-home-about__link{margin-top:28px;font-size:11px;gap:12px}.akc-home-about__art{min-height:190px}.akc-home-about__outline{width:145px}.akc-home-about__outline span{font-size:46px}}
 @media(prefers-reduced-motion:reduce){.akc-home-about__link{transition:none}}
+
+/* Mobile-only: reduce the visible intro video without affecting desktop. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    transform: scale(0.78) !important;
+    transform-origin: center center !important;
+  }
+}
