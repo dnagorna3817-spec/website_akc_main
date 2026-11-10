@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useExpertiseTransition } from "./components/ExpertiseTransition";
 import LogoIntro from "./components/LogoIntro";
+import LatestEventToast from "./components/LatestEventToast";
 import "./home.css";
 import "./home-about.css";
 import AboutPage from "./about/page";
@@ -176,6 +177,7 @@ export default function Home() {
   return (
     <main className="akc-page" ref={scene}>
       <LogoIntro />
+      <LatestEventToast />
       <header className="brand">
         <a className="brand-symbol" href="#home" aria-label="АКЦ">
           <Image src="/akc-brand-white.png" width={40} height={40} alt="" priority />
