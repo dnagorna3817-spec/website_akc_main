@@ -1606,3 +1606,23 @@ html { scroll-padding-top: 72px; }
     mask-image: radial-gradient(ellipse 72% 65% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.88) 66%, transparent 96%) !important;
   }
 }
+
+/* Mobile finishing pass: keep the existing portrait film and desktop intact. */
+@media (max-width: 767px) {
+  .nav-node--about { top: 24% !important; }
+  .nav-node--about .nav-label { top: -38px !important; }
+  .nav-node--expertise { left: 15% !important; top: 44% !important; }
+  .nav-node--qualification { left: 85% !important; top: 44% !important; }
+  .nav-node--industries { left: 15% !important; top: 57% !important; }
+  .nav-node--insights { left: 85% !important; top: 57% !important; }
+  .nav-node--expertise .nav-label,
+  .nav-node--qualification .nav-label { top: -40px !important; }
+  .nav-node--industries .nav-label,
+  .nav-node--insights .nav-label { top: 30px !important; }
+  .nav-node .nav-label { font-size: clamp(11px, 2.9vw, 14px) !important; line-height: 1.3; }
+  .nav-node--qualification .nav-label { max-width: 38vw; }
+}
+@media (max-width: 375px) {
+  .nav-node .nav-label { font-size: 11px !important; }
+  .nav-node--qualification .nav-label { max-width: 35vw; }
+}
