@@ -94,8 +94,13 @@ export default function Home() {
     // if Safari drops an ended/error event or the media is already complete.
     const ready = () => setMobileNavReady(true);
     window.addEventListener("akc:intro-ready", ready);
+    // The intro can finish before this effect subscribes (Safari/fast cache).
+    // Also recover if video completion events fail, so navigation is never lost.
+    if (document.querySelector('.logo-intro-layer[data-intro-mode="static"]')) ready();
+    const fallback = window.setTimeout(ready, 9000);
     return () => {
       window.removeEventListener("akc:intro-ready", ready);
+      window.clearTimeout(fallback);
     };
   }, []);
 
