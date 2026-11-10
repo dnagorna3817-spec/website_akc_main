@@ -20,23 +20,12 @@ export default function LatestEventToast() {
   useEffect(() => {
     setMounted(true);
     if (!latestEvent) return;
-    let revealTimer: ReturnType<typeof setTimeout> | undefined;
-    const reveal = () => {
-      if (revealTimer) clearTimeout(revealTimer);
-      revealTimer = setTimeout(() => setVisible(true), 1100);
-    };
-    // Show after the logo intro, including when the video cannot finish.
-    const fallbackTimer = setTimeout(() => setVisible(true), 9600);
-    const onIntroReady = () => {
-      clearTimeout(fallbackTimer);
-      reveal();
-    };
-    window.addEventListener("akc:intro-ready", onIntroReady, { once: true });
-    return () => {
-      window.removeEventListener("akc:intro-ready", onIntroReady);
-      clearTimeout(fallbackTimer);
-      if (revealTimer) clearTimeout(revealTimer);
-    };
+
+    // Entirely self-contained: never reads or changes the triangle,
+    // its GSAP timeline, its DOM nodes, or the hero navigation.
+    // A fixed delay keeps the notice out of the opening animation.
+    const timer = window.setTimeout(() => setVisible(true), 8500);
+    return () => window.clearTimeout(timer);
   }, []);
 
   if (!mounted || !latestEvent) return null;
