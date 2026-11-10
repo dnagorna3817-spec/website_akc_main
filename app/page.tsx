@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { createPortal } from "react-dom";
 import Link from "next/link";
@@ -41,7 +41,6 @@ export default function Home() {
   const sceneFrame = useRef<HTMLDivElement>(null);
   const network = useRef<HTMLDivElement>(null);
   const heroBottom = useRef<HTMLDivElement>(null);
-  const intro = useRef<gsap.core.Timeline | null>(null);
   const transitioning = useRef(false);
   const expertiseTransition = useExpertiseTransition();
 
@@ -94,15 +93,6 @@ export default function Home() {
     // if Safari drops an ended/error event or the media is already complete.
     const ready = () => {
       setMobileNavReady(true);
-      // A paused GSAP from() timeline can leave inline opacity:0 on the
-      // navigation even after CSS makes its container visible.
-      intro.current?.progress(1).pause();
-      const root = scene.current;
-      if (root) {
-        gsap.set(root.querySelectorAll(".nav-line, .nav-dot, .nav-label"), {
-          clearProps: "opacity,visibility,transform",
-        });
-      }
     };
     window.addEventListener("akc:intro-ready", ready);
     // The intro can finish before this effect subscribes (Safari/fast cache).
@@ -115,63 +105,6 @@ export default function Home() {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    const root = scene.current;
-    if (!root) return;
-
-    const motion = gsap.matchMedia();
-    motion.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-      let removeIntroListener = () => {};
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-        intro.current = tl;
-
-        tl.from(".nav-line", {
-            scaleX: 0,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.035,
-            transformOrigin: "left center",
-          }, 0)
-          .from(".nav-dot", {
-            scale: 0,
-            opacity: 0,
-            duration: 0.2,
-            stagger: 0.035,
-          }, 0.15)
-          .from(".nav-label", {
-            opacity: 0,
-            y: 8,
-            duration: 0.35,
-            stagger: 0.035,
-          }, 0.18)
-          .from(".hero-bottom", {
-            opacity: 0,
-            y: 12,
-            duration: 0.4,
-          }, 0.2);
-
-        const revealNavigation = (event: Event) => {
-          if (transitioning.current) return;
-          const animateMenu = (event as CustomEvent<{ animateMenu?: boolean }>).detail?.animateMenu;
-          if (animateMenu) tl.play(0);
-          else tl.progress(1).pause();
-        };
-        window.addEventListener("akc:intro-ready", revealNavigation);
-        removeIntroListener = () => window.removeEventListener("akc:intro-ready", revealNavigation);
-
-      }, root);
-
-      return () => {
-        removeIntroListener();
-        ctx.revert();
-        intro.current = null;
-      };
-    }, root);
-
-    // Revert to the CSS final state when reduced motion is enabled, including mid-reveal.
-    return () => motion.revert();
-  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -286,8 +219,7 @@ export default function Home() {
                           intro.current?.pause();
                           return () => {
                             transitioning.current = false;
-                            if (!wasPaused) intro.current?.resume();
-                          };
+                                          };
                         },
                       });
                     }}
