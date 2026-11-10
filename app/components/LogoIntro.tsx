@@ -24,7 +24,7 @@ export default function LogoIntro() {
     const update = () => setIsMobile(media.matches);
     update();
     media.addEventListener("change", update);
-    const timer = window.setTimeout(() => finish(false), 8500);
+    const timer = window.setTimeout(() => finish(false), 9500);
     return () => {
       window.clearTimeout(timer);
       media.removeEventListener("change", update);
@@ -36,7 +36,12 @@ export default function LogoIntro() {
     const video = isMobile ? mobileRef.current : desktopRef.current;
     if (!video) return;
     video.muted = true;
-    video.play().catch(() => finish(false));
+    video.pause();
+    video.currentTime = 0;
+    const startTimer = window.setTimeout(() => {
+      video.play().catch(() => finish(false));
+    }, 1000);
+    return () => window.clearTimeout(startTimer);
   }, [isMobile, finish]);
 
 
@@ -47,7 +52,6 @@ export default function LogoIntro() {
         className="logo-intro-video logo-intro-video--mobile"
         src={MOBILE_VIDEO}
         muted
-        autoPlay
         playsInline
         preload="auto"
         onEnded={() => finish(true)}
