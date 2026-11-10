@@ -42,29 +42,34 @@ export default function LogoIntro() {
 
   return (
     <div className="logo-intro-layer" data-intro-mode={playing ? "playing" : "static"} aria-label="Анімований логотип АКЦ">
-      <video
-        ref={mobileRef}
-        className="logo-intro-video logo-intro-video--mobile"
-        src={MOBILE_VIDEO}
-        muted
-        autoPlay
-        playsInline
-        preload="auto"
-        onEnded={() => finish(true)}
-        onError={() => finish(false)}
-        aria-hidden="true"
-      />
-      <video
-        ref={desktopRef}
-        className="logo-intro-video logo-intro-video--desktop"
-        src={DESKTOP_VIDEO}
-        muted
-        autoPlay
-        playsInline
-        preload="auto"
-        onEnded={() => finish(true)}
-        aria-hidden="true"
-      />
+      {isMobile === true && (
+        <video
+          ref={mobileRef}
+          className="logo-intro-video logo-intro-video--mobile"
+          src={MOBILE_VIDEO}
+          muted
+          autoPlay
+          playsInline
+          preload="auto"
+          onEnded={() => finish(true)}
+          onError={() => finish(false)}
+          aria-hidden="true"
+        />
+      )}
+      {isMobile === false && (
+        <video
+          ref={desktopRef}
+          className="logo-intro-video logo-intro-video--desktop"
+          src={DESKTOP_VIDEO}
+          muted
+          autoPlay
+          playsInline
+          preload="auto"
+          onEnded={() => finish(true)}
+          onError={() => finish(false)}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }
