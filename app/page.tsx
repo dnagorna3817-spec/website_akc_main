@@ -14,11 +14,11 @@ import "./home-about.css";
 import AboutPage from "./about/page";
 
 const directions = [
-  { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
-  { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 11, y: 27, lineX: 25, lineY: 36, angle: -160, length: "clamp(78px, 9vw, 130px)" },
-  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 84, y: 27, lineX: 75, lineY: 36, angle: -20, length: "clamp(78px, 9vw, 130px)", wide: true },
-  { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 11, y: 78, lineX: 25, lineY: 64, angle: 160, length: "clamp(78px, 9vw, 130px)" },
-  { id: "insights", label: "НОВИНИ", href: "/insights", x: 89, y: 78, lineX: 75, lineY: 64, angle: 20, length: "clamp(78px, 9vw, 130px)" },
+  { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 7, lineX: 50, lineY: 16, angle: -90, length: "clamp(36px, 3vw, 48px)" },
+  { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 19, y: 20, lineX: 30.5, lineY: 27, angle: -160, length: "clamp(68px, 7vw, 110px)" },
+  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 81, y: 20, lineX: 69.5, lineY: 27, angle: -20, length: "clamp(68px, 7vw, 110px)", wide: true },
+  { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 19, y: 61, lineX: 30.5, lineY: 50, angle: 160, length: "clamp(68px, 7vw, 110px)" },
+  { id: "insights", label: "НОВИНИ", href: "/insights", x: 85, y: 61, lineX: 69.5, lineY: 50, angle: 20, length: "clamp(68px, 7vw, 110px)" },
 ];
 
 export default function Home() {
