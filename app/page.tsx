@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,11 +14,11 @@ import "./home-about.css";
 import AboutPage from "./about/page";
 
 const directions = [
-  { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 7, lineX: 50, lineY: 16, angle: -90, length: "clamp(36px, 3vw, 48px)" },
-  { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 21, y: 20, lineX: 31.5, lineY: 27, angle: -160, length: "clamp(68px, 7vw, 110px)" },
-  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 79, y: 20, lineX: 68.5, lineY: 27, angle: -20, length: "clamp(68px, 7vw, 110px)", wide: true },
-  { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 21, y: 61, lineX: 31.5, lineY: 50, angle: 160, length: "clamp(68px, 7vw, 110px)" },
-  { id: "insights", label: "НОВИНИ", href: "/insights", x: 79, y: 61, lineX: 68.5, lineY: 50, angle: 20, length: "clamp(68px, 7vw, 110px)" },
+  { id: "about", label: "ПРО АКЦ", href: "/about", x: 50, y: 8, lineX: 50, lineY: 19, angle: -90, length: "clamp(46px, 5vw, 72px)" },
+  { id: "expertise", label: "ЕКСПЕРТИЗА", href: "/expertise", x: 11, y: 27, lineX: 25, lineY: 36, angle: -160, length: "clamp(78px, 9vw, 130px)" },
+  { id: "qualification", label: "КВАЛІФІКАЦІЙНИЙ ЦЕНТР", href: "/expertise/qualification", x: 84, y: 27, lineX: 75, lineY: 36, angle: -20, length: "clamp(78px, 9vw, 130px)", wide: true },
+  { id: "industries", label: "ГАЛУЗІ", href: "/industries", x: 11, y: 78, lineX: 25, lineY: 64, angle: 160, length: "clamp(78px, 9vw, 130px)" },
+  { id: "insights", label: "НОВИНИ", href: "/insights", x: 89, y: 78, lineX: 75, lineY: 64, angle: 20, length: "clamp(78px, 9vw, 130px)" },
 ];
 
 export default function Home() {
@@ -40,6 +41,7 @@ export default function Home() {
   const sceneFrame = useRef<HTMLDivElement>(null);
   const network = useRef<HTMLDivElement>(null);
   const heroBottom = useRef<HTMLDivElement>(null);
+  const intro = useRef<gsap.core.Timeline | null>(null);
   const transitioning = useRef(false);
   const expertiseTransition = useExpertiseTransition();
 
@@ -90,20 +92,73 @@ export default function Home() {
   useEffect(() => {
     // The video event is primary. A fallback ensures links never stay hidden
     // if Safari drops an ended/error event or the media is already complete.
-    const ready = () => {
-      setMobileNavReady(true);
-    };
+    const ready = () => setMobileNavReady(true);
     window.addEventListener("akc:intro-ready", ready);
-    // The intro can finish before this effect subscribes (Safari/fast cache).
-    // Also recover if video completion events fail, so navigation is never lost.
-    if (document.querySelector('.logo-intro-layer[data-intro-mode="static"]')) ready();
-    const fallback = window.setTimeout(ready, 9000);
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const fallback = mobile ? window.setTimeout(ready, 5200) : null;
     return () => {
       window.removeEventListener("akc:intro-ready", ready);
-      window.clearTimeout(fallback);
+      if (fallback !== null) window.clearTimeout(fallback);
     };
   }, []);
 
+  useLayoutEffect(() => {
+    const root = scene.current;
+    if (!root) return;
+
+    const motion = gsap.matchMedia();
+    motion.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      let removeIntroListener = () => {};
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        intro.current = tl;
+
+        tl.from(".nav-line", {
+            scaleX: 0,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.035,
+            transformOrigin: "left center",
+          }, 0)
+          .from(".nav-dot", {
+            scale: 0,
+            opacity: 0,
+            duration: 0.2,
+            stagger: 0.035,
+          }, 0.15)
+          .from(".nav-label", {
+            opacity: 0,
+            y: 8,
+            duration: 0.35,
+            stagger: 0.035,
+          }, 0.18)
+          .from(".hero-bottom", {
+            opacity: 0,
+            y: 12,
+            duration: 0.4,
+          }, 0.2);
+
+        const revealNavigation = (event: Event) => {
+          if (transitioning.current) return;
+          const animateMenu = (event as CustomEvent<{ animateMenu?: boolean }>).detail?.animateMenu;
+          if (animateMenu) tl.play(0);
+          else tl.progress(1).pause();
+        };
+        window.addEventListener("akc:intro-ready", revealNavigation);
+        removeIntroListener = () => window.removeEventListener("akc:intro-ready", revealNavigation);
+
+      }, root);
+
+      return () => {
+        removeIntroListener();
+        ctx.revert();
+        intro.current = null;
+      };
+    }, root);
+
+    // Revert to the CSS final state when reduced motion is enabled, including mid-reveal.
+    return () => motion.revert();
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -180,7 +235,7 @@ export default function Home() {
         <div className="network-frame" ref={sceneFrame}>
           <div className="network-scale">
             <div className="network" ref={network} aria-label="Напрями Аудит Консалтинг Центру">
-            <div className="nav-list" data-intro-ready={mobileNavReady ? "true" : "false"}>
+            <div className="nav-list" data-mobile-intro-ready={mobileNavReady ? "true" : "false"}>
               {directions.map((item) => (
                 <div
                   key={item.label}
@@ -214,9 +269,12 @@ export default function Home() {
                         root: scene.current,
                         freeze: () => {
                           transitioning.current = true;
+                          const wasPaused = intro.current?.paused();
+                          intro.current?.pause();
                           return () => {
                             transitioning.current = false;
-                                          };
+                            if (!wasPaused) intro.current?.resume();
+                          };
                         },
                       });
                     }}
