@@ -1636,3 +1636,16 @@ html { scroll-padding-top: 72px; }
     mask-image: radial-gradient(ellipse 76% 67% at 50% 50%, #000 0%, #000 38%, rgba(0,0,0,.94) 52%, rgba(0,0,0,.52) 70%, transparent 92%) !important;
   }
 }
+
+/* Mobile video: fit the entire portrait frame instead of cropping its sides.
+   Overrides legacy cover rules; desktop and navigation are untouched. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(0.78) !important;
+    transform-origin: center center !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
