@@ -1298,24 +1298,30 @@ html { scroll-padding-top: 72px; }
 
 
 /* Navigation is hidden until the actual logo-intro-ready event on every screen. */
+/* The fallback animation must not compete with !important opacity/visibility.
+   It reveals the navigation even when React misses the intro event. */
+@keyframes akc-nav-appear {
+  from { opacity: 0; visibility: hidden; }
+  to { opacity: 1; visibility: visible; }
+}
 .nav-list[data-intro-ready="false"] {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+  opacity: 1;
+  visibility: visible;
+  animation: akc-nav-appear 500ms ease-out 8.5s both;
+  pointer-events: none;
 }
 .nav-list[data-intro-ready="true"] {
   opacity: 1 !important;
   visibility: visible !important;
-  transition: opacity 480ms ease-out;
+  animation: akc-nav-appear 480ms ease-out both !important;
+  pointer-events: auto;
 }
 @media (max-width: 767px) {
   .nav-list[data-intro-ready="false"] {
     display: block !important;
-    animation: none !important;
   }
   .nav-list[data-intro-ready="true"] {
     display: block !important;
-    animation: none !important;
   }
   .nav-node,
   .nav-node .nav-label,
@@ -1615,29 +1621,4 @@ html { scroll-padding-top: 72px; }
   .nav-node--about .nav-label { top: 7% !important; }
   .nav-node--about .nav-line,
   .nav-node--about .nav-dot { top: 16% !important; }
-}
-
-
-/* Safari-safe intro reveal fallback: independent of React hydration and video events. */
-@keyframes akc-nav-fallback-reveal {
-  0%, 99% { opacity: 0; visibility: hidden; }
-  100% { opacity: 1; visibility: visible; }
-}
-/* Even when data-intro-ready never changes, the links must not remain hidden. */
-.akc-page .nav-list[data-intro-ready="false"] {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  animation: akc-nav-fallback-reveal 8.7s steps(1, end) both !important;
-  pointer-events: auto !important;
-}
-.akc-page .nav-list[data-intro-ready="true"] {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  animation: none !important;
-  pointer-events: auto !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  .akc-page .nav-list[data-intro-ready="false"] { animation-duration: .01ms !important; }
 }
