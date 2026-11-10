@@ -29,9 +29,9 @@ export function ExpertiseHeader({ active = "expertise" }: { active?: "expertise"
         <Link href="/industries" className={active === "industries" ? styles.active : undefined} style={{ color: active === "industries" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Галузі</Link>
         <Link href="/expertise" className={active === "expertise" ? styles.active : undefined} style={{ color: active === "expertise" ? "#64a6d8" : "#f5f7f8", textDecoration: "none" }}>Експертиза</Link>
       </nav>
-      <span className={styles.contacts} aria-disabled="true" title="Контактні дані ще не додано">
+      <Link href="/contacts" className={styles.contacts}>
         Контакти <Arrow />
-      </span>
+      </Link>
       <details className={styles.mobileMenu}>
         <summary aria-label="Меню">Меню <span aria-hidden="true">☰</span></summary>
         <nav aria-label="Мобільна навігація">
