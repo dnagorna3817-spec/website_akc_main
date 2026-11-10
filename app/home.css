@@ -1626,3 +1626,13 @@ html { scroll-padding-top: 72px; }
   .nav-node .nav-label { font-size: 11px !important; }
   .nav-node--qualification .nav-label { max-width: 35vw; }
 }
+
+/* Mobile-only: blend away the portrait video's visible rectangular edges.
+   No changes to its size, playback, navigation, or desktop layout. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    mix-blend-mode: screen !important;
+    -webkit-mask-image: radial-gradient(ellipse 76% 67% at 50% 50%, #000 0%, #000 38%, rgba(0,0,0,.94) 52%, rgba(0,0,0,.52) 70%, transparent 92%) !important;
+    mask-image: radial-gradient(ellipse 76% 67% at 50% 50%, #000 0%, #000 38%, rgba(0,0,0,.94) 52%, rgba(0,0,0,.52) 70%, transparent 92%) !important;
+  }
+}
