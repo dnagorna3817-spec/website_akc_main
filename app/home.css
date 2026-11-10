@@ -1681,3 +1681,12 @@ html { scroll-padding-top: 72px; }
     left: 0 !important;
   }
 }
+
+/* Mobile only: horizontal lower connectors, without moving labels or video. */
+@media (max-width: 767px) {
+  .nav-node--industries .nav-line,
+  .nav-node--insights .nav-line {
+    transform: rotate(0deg) !important;
+    width: 30px !important;
+  }
+}
