@@ -1297,31 +1297,20 @@ html { scroll-padding-top: 72px; }
 }
 
 
-/* Navigation is hidden until the actual logo-intro-ready event on every screen. */
-/* The fallback animation must not compete with !important opacity/visibility.
-   It reveals the navigation even when React misses the intro event. */
-@keyframes akc-nav-appear {
-  from { opacity: 0; visibility: hidden; }
-  to { opacity: 1; visibility: visible; }
-}
-.nav-list[data-intro-ready="false"] {
-  opacity: 1;
-  visibility: visible;
-  animation: akc-nav-appear 500ms ease-out 8.5s both;
-  pointer-events: none;
-}
-.nav-list[data-intro-ready="true"] {
-  opacity: 1 !important;
-  visibility: visible !important;
-  animation: akc-nav-appear 480ms ease-out both !important;
-  pointer-events: auto;
+/* Stable iPhone reveal: no JS visibility gate or competing GSAP timeline.
+   4.1s matches the portrait intro duration; opacity animation works in Safari. */
+@keyframes akc-mobile-reveal {
+  0%, 1% { opacity: 0; }
+  100% { opacity: 1; }
 }
 @media (max-width: 767px) {
-  .nav-list[data-intro-ready="false"] {
+  .nav-list,
+  .nav-list[data-mobile-intro-ready="false"],
+  .nav-list[data-mobile-intro-ready="true"] {
     display: block !important;
-  }
-  .nav-list[data-intro-ready="true"] {
-    display: block !important;
+    visibility: visible !important;
+    opacity: 1;
+    animation: akc-mobile-reveal 650ms ease-out 4.1s both !important;
   }
   .nav-node,
   .nav-node .nav-label,
@@ -1606,19 +1595,3 @@ html { scroll-padding-top: 72px; }
 @media(max-width:900px){.akc-home-about__inner{grid-template-columns:1fr;padding-top:110px;padding-bottom:110px}.akc-home-about__art{min-height:230px}.akc-home-about__outline{width:180px;box-shadow:0 0 0 35px rgba(61,130,196,.035),0 0 0 70px rgba(61,130,196,.018)}.akc-home-about__outline span{font-size:60px}.akc-home-about__art-caption{bottom:-20px}}
 @media(max-width:600px){.akc-home-about__inner{gap:38px;padding:90px 24px 95px}.akc-home-about h2{font-size:clamp(36px,9vw,58px)}.akc-home-about__lead{margin-top:25px}.akc-home-about__link{margin-top:28px;font-size:11px;gap:12px}.akc-home-about__art{min-height:190px}.akc-home-about__outline{width:145px}.akc-home-about__outline span{font-size:46px}}
 @media(prefers-reduced-motion:reduce){.akc-home-about__link{transition:none}}
-
-
-/* Desktop hero navigation alignment: keep the emblem/video and toast untouched. */
-@media (min-width: 768px) {
-  /* Match the original compact navigation envelope rather than the stretched 1160x650 grid. */
-  .network {
-    width: min(calc(100vw - 48px), 960px);
-    height: clamp(480px, 52vw, 540px);
-    min-height: 480px;
-  }
-  /* The large-screen overrides formerly forced the qualification label down. */
-  .nav-node--qualification .nav-label { top: 17% !important; }
-  .nav-node--about .nav-label { top: 7% !important; }
-  .nav-node--about .nav-line,
-  .nav-node--about .nav-dot { top: 16% !important; }
-}
