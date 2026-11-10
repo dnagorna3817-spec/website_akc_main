@@ -21,11 +21,23 @@ export default function LatestEventToast() {
     setMounted(true);
     if (!latestEvent) return;
 
-    // Entirely self-contained: never reads or changes the triangle,
-    // its GSAP timeline, its DOM nodes, or the hero navigation.
-    // A fixed delay keeps the notice out of the opening animation.
-    const timer = window.setTimeout(() => setVisible(true), 8500);
-    return () => window.clearTimeout(timer);
+    // The existing intro-ready event is emitted when the video ends.
+    // The navigation reveal takes about 0.5 seconds, then wait 1 more
+    // second before showing the toast. Do not modify the intro or GSAP.
+    let timer: number | undefined;
+    const showAfterIntro = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => setVisible(true), 1500);
+    };
+    window.addEventListener("akc:intro-ready", showAfterIntro);
+    // Handle the event having fired before this component subscribed.
+    if (document.querySelector('.logo-intro-layer[data-intro-mode="static"]')) {
+      showAfterIntro();
+    }
+    return () => {
+      window.removeEventListener("akc:intro-ready", showAfterIntro);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   if (!mounted || !latestEvent) return null;
