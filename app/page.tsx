@@ -94,11 +94,8 @@ export default function Home() {
     // if Safari drops an ended/error event or the media is already complete.
     const ready = () => setMobileNavReady(true);
     window.addEventListener("akc:intro-ready", ready);
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const fallback = mobile ? window.setTimeout(ready, 5200) : null;
     return () => {
       window.removeEventListener("akc:intro-ready", ready);
-      if (fallback !== null) window.clearTimeout(fallback);
     };
   }, []);
 
@@ -235,7 +232,7 @@ export default function Home() {
         <div className="network-frame" ref={sceneFrame}>
           <div className="network-scale">
             <div className="network" ref={network} aria-label="Напрями Аудит Консалтинг Центру">
-            <div className="nav-list" data-mobile-intro-ready={mobileNavReady ? "true" : "false"}>
+            <div className="nav-list" data-intro-ready={mobileNavReady ? "true" : "false"}>
               {directions.map((item) => (
                 <div
                   key={item.label}
