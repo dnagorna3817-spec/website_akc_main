@@ -1649,3 +1649,16 @@ html { scroll-padding-top: 72px; }
     max-height: 100% !important;
   }
 }
+
+/* Mobile intro composition: soften the actual video frame, not the labels.
+   The mobile film remains fully visible; desktop styles are unchanged. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(1) !important;
+    mix-blend-mode: normal !important;
+    -webkit-mask-image: radial-gradient(ellipse 46% 27% at 50% 50%, #000 0%, #000 54%, rgba(0,0,0,.85) 68%, rgba(0,0,0,.35) 82%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 46% 27% at 50% 50%, #000 0%, #000 54%, rgba(0,0,0,.85) 68%, rgba(0,0,0,.35) 82%, transparent 100%) !important;
+  }
+}
