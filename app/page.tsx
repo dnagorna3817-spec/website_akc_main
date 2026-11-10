@@ -145,7 +145,19 @@ export default function Home() {
           else tl.progress(1).pause();
         };
         window.addEventListener("akc:intro-ready", revealNavigation);
-        removeIntroListener = () => window.removeEventListener("akc:intro-ready", revealNavigation);
+        // If Safari misses the video event, do not leave the paused GSAP
+        // timeline hiding the navigation and hero text indefinitely.
+        const fallbackTimer = window.setTimeout(() => {
+          if (!transitioning.current && tl.progress() < 1) tl.progress(1).pause();
+        }, 9000);
+        // Covers the case where the video ended before this listener mounted.
+        if (document.querySelector('.logo-intro-layer[data-intro-mode="static"]')) {
+          tl.progress(1).pause();
+        }
+        removeIntroListener = () => {
+          window.removeEventListener("akc:intro-ready", revealNavigation);
+          window.clearTimeout(fallbackTimer);
+        };
 
       }, root);
 
