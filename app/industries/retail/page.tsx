@@ -1,3 +1,4 @@
+import { cmsText } from "../../lib/cms";
 import Link from "next/link";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import styles from "../agribusiness/agro.module.css";
@@ -37,7 +38,8 @@ const offerings = [
   ]},
 ];
 
-export default function RetailPage() {
+export default async function RetailPage() {
+  const cmsHeading = await cmsText("industries.retail.heading", "роздрібної торгівлі");
   return <div className={`${styles.page} ${expertiseFont}`}>
     <ExpertiseHeader active="industries" />
     <nav aria-label="Навігація галузями" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/industries" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ГАЛУЗІ</Link></nav>
@@ -48,7 +50,7 @@ export default function RetailPage() {
         </div>
         <div className={styles.heroCopy}>
           <span>РОЗДРІБНА ТОРГІВЛЯ</span>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>роздрібної торгівлі</em></h1>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1>
         </div>
         <div className={styles.audience}>
           <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
