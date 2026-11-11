@@ -70,7 +70,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
           <div className={audit.ctaBottom}>
             <div><strong>Почнімо з вашого завдання</strong><p>Обговоримо можливості співпраці</p></div>
-            <Link href="/about" className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></Link>
+            <button type="button" data-lead-cta className={audit.ctaButton}>Зв’язатися з АКЦ <Arrow /></button>
           </div>
         </section>
         <footer className={audit.footer}><Link href="/expertise">← Усі напрями експертизи</Link></footer>
