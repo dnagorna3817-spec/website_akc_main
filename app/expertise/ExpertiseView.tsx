@@ -36,9 +36,12 @@ export function ExpertiseHeader({ active = "expertise" }: { active?: "expertise"
         <summary aria-label="Меню">Меню <span aria-hidden="true">☰</span></summary>
         <nav aria-label="Мобільна навігація">
           <Link href="/">Головна</Link>
-          <Link href="/expertise">Експертиза</Link>
+          <Link href="/about">Про АКЦ</Link>
+          <Link href="/insights">Новини</Link>
           <Link href="/expertise/qualification">Кваліфікаційний центр</Link>
           <Link href="/industries">Галузі</Link>
+          <Link href="/expertise">Експертиза</Link>
+          <Link href="/contacts">Контакти</Link>
         </nav>
       </details>
     </header>
