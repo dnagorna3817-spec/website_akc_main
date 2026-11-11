@@ -1686,8 +1686,8 @@ html { scroll-padding-top: 72px; }
   }
 }
 
-/* Mobile video frame blending: feather inside the portrait film's letterboxed
-   edges (roughly 25%-75% of its container), not outside the video frame. */
+/* Mobile portrait video: dissolve its horizontal frame edges into the hero.
+   The gradient is vertical (full width), so no straight seam can remain. */
 @media (max-width: 767px) {
   .logo-intro-layer {
     background: transparent !important;
@@ -1703,8 +1703,7 @@ html { scroll-padding-top: 72px; }
     transform: scale(1.28) !important;
     transform-origin: center center !important;
     mix-blend-mode: screen !important;
-    -webkit-mask-image: radial-gradient(ellipse 70% 31% at 50% 50%, #000 0%, #000 37%, rgba(0,0,0,.94) 48%, rgba(0,0,0,.52) 65%, rgba(0,0,0,.1) 80%, transparent 95%) !important;
-    mask-image: radial-gradient(ellipse 70% 31% at 50% 50%, #000 0%, #000 37%, rgba(0,0,0,.94) 48%, rgba(0,0,0,.52) 65%, rgba(0,0,0,.1) 80%, transparent 95%) !important;
-    opacity: 1 !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,.12) 29%, rgba(0,0,0,.6) 36%, #000 43%, #000 65%, rgba(0,0,0,.7) 71%, rgba(0,0,0,.2) 78%, transparent 84%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,.12) 29%, rgba(0,0,0,.6) 36%, #000 43%, #000 65%, rgba(0,0,0,.7) 71%, rgba(0,0,0,.2) 78%, transparent 84%, transparent 100%) !important;
   }
 }
