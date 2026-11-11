@@ -36,6 +36,7 @@ const offerings = [
 export default function AgribusinessPage() {
   return <div className={`${styles.page} ${expertiseFont}`}>
     <ExpertiseHeader active="industries" />
+    <nav aria-label="Навігація галузями" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/industries" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ГАЛУЗІ</Link></nav>
     <main>
       <section className={styles.hero}>
         <div className={styles.art} aria-hidden="true"><div className={styles.photo} /></div>
