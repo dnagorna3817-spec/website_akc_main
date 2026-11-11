@@ -2763,3 +2763,14 @@ body {
     mask-image: linear-gradient(180deg, transparent, #000 25%, #000 72%, transparent);
   }
 }
+
+/* Mobile About hero: place the heading and CTA in the upper half of the screen. */
+@media (max-width: 768px) {
+  .akc-about-figma .hero {
+    align-items: flex-start;
+  }
+  .akc-about-figma .hero__copy {
+    padding-top: clamp(150px, 21svh, 205px);
+    padding-bottom: 40px;
+  }
+}
