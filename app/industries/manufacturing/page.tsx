@@ -1,3 +1,4 @@
+import { cmsText } from "../../lib/cms";
 import Link from "next/link";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import styles from "./manufacturing.module.css";
@@ -36,7 +37,8 @@ const services = [
   ]},
 ];
 
-export default function ManufacturingPage() {
+export default async function ManufacturingPage() {
+  const cmsHeading = await cmsText("industries.manufacturing.heading", "виробничих підприємств");
   return <div className={`${styles.page} ${expertiseFont}`}>
     <ExpertiseHeader active="industries" />
     <nav aria-label="Навігація галузями" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/industries" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ГАЛУЗІ</Link></nav>
@@ -46,7 +48,7 @@ export default function ManufacturingPage() {
         <div className={styles.heroContent}>
           <p className={styles.kicker}>03 / Галузі / Виробництво</p>
           <p className={styles.eyebrow}>ВИРОБНИЦТВО</p>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>виробничих підприємств</em></h1>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1>
           <p className={styles.heroDescription}>АКЦ забезпечує виробництву точний облік собівартості та прозорі фінанси. Ми беремо на себе облік, податки, звітність та управлінську аналітику, щоб ви бачили реальну рентабельність кожного виробу та приймали рішення на основі цифр.</p>
           <div className={styles.heroActions}><Link className={styles.primary} href="/#contacts" data-lead-cta>Залишити заявку <span aria-hidden="true">→</span></Link><span className={styles.heroKeywords}>ОБЛІК СОБІВАРТОСТІ<br/>АНАЛІТИКА<br/>СТАБІЛЬНИЙ РОЗВИТОК</span></div>
         </div>
