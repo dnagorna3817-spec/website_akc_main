@@ -2857,3 +2857,19 @@ body {
     padding: 42px var(--edge) 52px;
   }
 }
+
+/* Mobile viewport fit: no clipped CTA, headline or contact link. */
+@media (max-width: 768px) {
+  .akc-about-figma.page, .akc-about-figma.page .hero,
+  .akc-about-figma.page .hero__copy { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; }
+  .akc-about-figma.page > .nav { box-sizing: border-box; grid-template-columns: minmax(0, 1fr) max-content; padding-inline: 16px; overflow: hidden; }
+  .akc-about-figma.page > .nav > .nav__brand { overflow: hidden; font-size: clamp(10px, 2.7vw, 13px); }
+  .akc-about-figma.page > .nav > .nav__brand span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .akc-about-figma.page > .nav > .nav__contact { justify-self: end; flex-shrink: 0; white-space: nowrap; font-size: 12px; }
+  .akc-about-figma.page > .nav > .nav__links { box-sizing: border-box; grid-column: 1 / -1; min-width: 0; width: 100%; overflow-x: auto; }
+  .akc-about-figma.page > .hero > .hero__copy { box-sizing: border-box; width: 100%; max-width: 100%; padding: 28px 20px 48px; overflow-wrap: anywhere; }
+  .akc-about-figma.page .hero h1 { max-width: 100%; font-size: clamp(30px, 8vw, 42px); line-height: 1.12; overflow-wrap: anywhere; }
+  .akc-about-figma.page .hero__body { max-width: 100%; font-size: clamp(14px, 3.6vw, 17px); overflow-wrap: break-word; }
+  .akc-about-figma.page .hero .action { box-sizing: border-box; display: flex; width: 100%; max-width: 100%; min-width: 0; justify-content: space-between; }
+  .akc-about-figma.page .hero .action svg { flex-shrink: 0; }
+}
