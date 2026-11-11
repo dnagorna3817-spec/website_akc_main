@@ -1698,3 +1698,15 @@ html { scroll-padding-top: 72px; }
     transform: none !important;
   }
 }
+
+
+/* Slightly enlarge only the mobile triangle film, keeping its center aligned.
+   Desktop film, navigation connectors, header, and intro timing are unchanged. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    transform: scale(1.12) !important;
+    transform-origin: center center !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
