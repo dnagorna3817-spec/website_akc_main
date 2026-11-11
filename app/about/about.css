@@ -2764,13 +2764,16 @@ body {
   }
 }
 
-/* Mobile About hero: place the heading and CTA in the upper half of the screen. */
+/* Mobile About: start the landing content immediately below the navigation. */
 @media (max-width: 768px) {
   .akc-about-figma .hero {
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
   }
   .akc-about-figma .hero__copy {
-    padding-top: clamp(90px, 12svh, 125px);
+    flex: 0 0 auto;
+    padding-top: 28px;
     padding-bottom: 40px;
   }
 }
