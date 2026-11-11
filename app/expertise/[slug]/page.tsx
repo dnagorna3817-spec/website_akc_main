@@ -39,6 +39,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     ];
     return <div className={styles.page + " " + expertiseFont + " " + audit.page}>
       <ExpertiseHeader />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
@@ -91,6 +92,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     ];
     return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
       <ExpertiseHeader />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
@@ -201,6 +203,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 ];
     return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
       <ExpertiseHeader />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
@@ -311,6 +314,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 ];
     return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.accountingPage}>
       <ExpertiseHeader />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
@@ -393,6 +397,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     ];
     return <div className={styles.page + " " + expertiseFont + " " + audit.page + " " + audit.legalPage}>
       <ExpertiseHeader />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main>
         <section className={audit.hero}>
           <div className={audit.heroText}>
@@ -503,6 +508,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     ] as const;
     return <div className={`${styles.page} ${expertiseFont} ${qualification.qualificationPage}`}>
       <ExpertiseHeader active="qualification" />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main className={qualification.qualificationMain}>
         <section className={qualification.qHero}>
           <div className={qualification.qHeroText}>
@@ -637,6 +643,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
       <ExpertiseHeader active={slug === "qualification" ? "qualification" : "expertise"} />
+      <nav aria-label="Навігація експертизою" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/expertise" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ПОСЛУГИ</Link></nav>
       <main className={styles.serviceMain}>
         <div className={styles.serviceColumns}>
           <div className={styles.serviceIntro}>
