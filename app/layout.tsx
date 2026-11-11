@@ -6,6 +6,7 @@ import ExpertiseTransition from "./components/ExpertiseTransition";
 import GlobalSectionReveal from "./components/GlobalSectionReveal";
 import SiteFooter from "./components/SiteFooter";
 import GlobalLeadForm from "./components/GlobalLeadForm";
+import MobileSiteHeader from "./components/MobileSiteHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col"><ExpertiseTransition>{children}</ExpertiseTransition><GlobalSectionReveal /><SiteFooter /><GlobalLeadForm /></body>
+      <body className="min-h-full flex flex-col"><MobileSiteHeader /><ExpertiseTransition>{children}</ExpertiseTransition><GlobalSectionReveal /><SiteFooter /><GlobalLeadForm /></body>
     </html>
   );
 }
