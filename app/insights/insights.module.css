@@ -5,3 +5,58 @@
 .titleLink{color:inherit;text-decoration:none}.titleLink:hover{color:#80c5f0}.readMore,.cardMore{text-decoration:none}.readMore:hover,.cardMore:hover{text-decoration:underline}
 
 .registrationButton{display:inline-flex;align-items:center;gap:10px;margin-top:15px;padding:0;border:0;background:transparent;color:#6dbbec;font:inherit;font-size:12px;cursor:pointer}.registrationButton:hover{text-decoration:underline}.registrationButton:focus-visible{outline:2px solid #6dbbec;outline-offset:5px}
+
+/* News-only mobile header: show actual navigation instead of a lone hamburger. */
+@media (max-width: 767px) {
+  .page :global(header[data-transition-header]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 112px;
+    padding: 14px 18px 12px;
+    gap: 10px 8px;
+  }
+  .page :global(header[data-transition-header] > a[aria-label="АКЦ — головна"]) {
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+  .page :global(header[data-transition-header] > a[aria-label="АКЦ — головна"] span) {
+    white-space: normal;
+    font-size: 13px;
+  }
+  .page :global(header[data-transition-header] > a[href="/contacts"]) {
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  .page :global(header[data-transition-header] > a[href="/contacts"] svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .page :global(header[data-transition-header] > nav[aria-label="Основна навігація"]) {
+    display: flex;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px 14px;
+    white-space: normal;
+  }
+  .page :global(header[data-transition-header] > nav[aria-label="Основна навігація"] a) {
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .page :global(header[data-transition-header] > details) { display: none; }
+  .main { padding-top: 42px; }
+}
