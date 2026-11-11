@@ -1650,19 +1650,6 @@ html { scroll-padding-top: 72px; }
   }
 }
 
-/* Mobile intro composition: soften the actual video frame, not the labels.
-   The mobile film remains fully visible; desktop styles are unchanged. */
-@media (max-width: 767px) {
-  .logo-intro-layer .logo-intro-video--mobile {
-    object-fit: contain !important;
-    object-position: center center !important;
-    transform: scale(1) !important;
-    mix-blend-mode: normal !important;
-    -webkit-mask-image: radial-gradient(ellipse 46% 27% at 50% 50%, #000 0%, #000 54%, rgba(0,0,0,.85) 68%, rgba(0,0,0,.35) 82%, transparent 100%) !important;
-    mask-image: radial-gradient(ellipse 46% 27% at 50% 50%, #000 0%, #000 54%, rgba(0,0,0,.85) 68%, rgba(0,0,0,.35) 82%, transparent 100%) !important;
-  }
-}
-
 /* Mobile navigation placement only: About nearer the apex;
    Industries and News below the triangle instead of beside it. */
 @media (max-width: 767px) {
@@ -1699,17 +1686,23 @@ html { scroll-padding-top: 72px; }
   }
 }
 
-
-/* Mobile triangle: enlarge the visible artwork, not only the masked video.
-   Expand the mask along with the video so the triangle actually appears larger.
-   Desktop and navigation positions are unchanged. */
+/* Canonical mobile intro sizing. Keep the video frame identical during playback
+   and after it ends; never change the desktop source or navigation positions. */
 @media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
   .logo-intro-layer .logo-intro-video--mobile {
-    transform: scale(1.42) !important;
-    transform-origin: center center !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: contain !important;
     object-position: center center !important;
-    -webkit-mask-image: radial-gradient(ellipse 62% 36% at 50% 50%, #000 0%, #000 62%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 88%, transparent 100%) !important;
-    mask-image: radial-gradient(ellipse 62% 36% at 50% 50%, #000 0%, #000 62%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 88%, transparent 100%) !important;
+    transform: scale(1.28) !important;
+    transform-origin: 50% 50% !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    opacity: 1 !important;
   }
 }
