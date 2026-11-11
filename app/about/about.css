@@ -2799,3 +2799,61 @@ body {
     transform: none;
   }
 }
+
+/* About mobile: prevent the desktop header from overflowing the viewport.
+   Keep the navigation within its own width and place hero copy under it. */
+@media (max-width: 768px) {
+  .akc-about-figma.page { width: 100%; max-width: 100%; overflow-x: clip; }
+  .akc-about-figma.page > .nav {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    gap: 12px 8px;
+    padding: 14px 20px 12px;
+  }
+  .akc-about-figma.page > .nav > .nav__brand {
+    min-width: 0;
+    max-width: 100%;
+    font-size: 12px;
+    white-space: normal;
+  }
+  .akc-about-figma.page > .nav > .nav__contact {
+    min-width: 0;
+    max-width: 100%;
+    font-size: 12px;
+    gap: 5px;
+    padding: 5px 8px;
+  }
+  .akc-about-figma.page > .nav > .nav__links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    order: initial;
+    display: flex;
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .akc-about-figma.page > .nav > .nav__links::-webkit-scrollbar { display: none; }
+  .akc-about-figma.page > .nav > .nav__links a { flex: 0 0 auto; font-size: 12px; }
+  .akc-about-figma.page > .hero {
+    display: block;
+    min-height: calc(100svh - 112px);
+    height: auto;
+  }
+  .akc-about-figma.page > .hero > .hero__copy {
+    padding: 42px var(--edge) 52px;
+  }
+}
