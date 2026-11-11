@@ -1570,3 +1570,41 @@ html { scroll-padding-top: 72px; }
 @media(max-width:900px){.akc-industries{grid-template-columns:1fr}.akc-industries-art{min-height:300px;background-position:center 45%}.akc-industries-content{min-height:560px}.akc-industries-map{min-height:340px}}
 @media(max-width:540px){.akc-industries-art{min-height:235px}.akc-industries-content{padding:30px 20px 35px;min-height:600px}.akc-industries-map{min-height:385px}.akc-industry-point{min-width:65px;padding:6px 2px}.akc-industry-name{font-size:9px;white-space:normal;text-align:center;max-width:85px}.akc-industry-point--1{left:0;top:9%}.akc-industry-point--2{left:17%;top:21%}.akc-industry-point--3{left:37%;top:33%}.akc-industry-point--4{left:57%;top:45%}.akc-industry-point--5{left:76%;top:57%}.akc-industry-detail{width:75%;bottom:0}.akc-industries-track{top:29%}}
 @media(prefers-reduced-motion:reduce){.akc-industry-point,.akc-industry-dot{transition:none}}
+
+
+/* Seamless cinematic intro: dissolve the encoded video background into the
+   page, rather than exposing its rectangular frame on mobile Safari. */
+.akc-page {
+  background-color: #020810;
+}
+.logo-intro-layer {
+  background: transparent;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 52%, #000 43%, rgba(0,0,0,.96) 58%, rgba(0,0,0,.55) 78%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 52%, #000 43%, rgba(0,0,0,.96) 58%, rgba(0,0,0,.55) 78%, transparent 100%);
+}
+@media (max-width: 767px) {
+  .akc-page {
+    background: radial-gradient(ellipse 95% 54% at 50% 54%, #06152e 0%, #030d1d 43%, #020810 83%);
+  }
+  .logo-intro-layer {
+    /* Earlier mobile rules disabled the mask, leaving a hard video rectangle. */
+    -webkit-mask-image: radial-gradient(ellipse 83% 62% at 50% 51%, #000 40%, rgba(0,0,0,.98) 53%, rgba(0,0,0,.7) 70%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 83% 62% at 50% 51%, #000 40%, rgba(0,0,0,.98) 53%, rgba(0,0,0,.7) 70%, transparent 100%) !important;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 8% 0 9%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse 62% 40% at 50% 51%, rgba(22,103,219,.20), rgba(6,38,91,.10) 54%, transparent 100%);
+    animation: akc-ambient-breathe 5.5s ease-in-out infinite alternate;
+  }
+}
+@keyframes akc-ambient-breathe {
+  from { opacity: .65; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
