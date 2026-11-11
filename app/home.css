@@ -1704,7 +1704,7 @@ html { scroll-padding-top: 72px; }
    Desktop film, navigation connectors, header, and intro timing are unchanged. */
 @media (max-width: 767px) {
   .logo-intro-layer .logo-intro-video--mobile {
-    transform: scale(1.12) !important;
+    transform: scale(1.25) !important;
     transform-origin: center center !important;
     object-fit: contain !important;
     object-position: center center !important;
