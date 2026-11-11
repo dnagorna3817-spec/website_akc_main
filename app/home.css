@@ -1686,10 +1686,11 @@ html { scroll-padding-top: 72px; }
   }
 }
 
-/* Canonical mobile intro sizing. Keep the video frame identical during playback
-   and after it ends; never change the desktop source or navigation positions. */
+/* Mobile video frame blending: feather inside the portrait film's letterboxed
+   edges (roughly 25%-75% of its container), not outside the video frame. */
 @media (max-width: 767px) {
   .logo-intro-layer {
+    background: transparent !important;
     -webkit-mask-image: none !important;
     mask-image: none !important;
   }
@@ -1700,12 +1701,10 @@ html { scroll-padding-top: 72px; }
     object-fit: contain !important;
     object-position: center center !important;
     transform: scale(1.28) !important;
-    transform-origin: 50% 50% !important;
-    /* Screen removes the encoded black background; the feathered mask
-       hides the blue rectangle without changing the triangle's scale. */
+    transform-origin: center center !important;
     mix-blend-mode: screen !important;
-    -webkit-mask-image: radial-gradient(ellipse 62% 38% at 50% 50%, #000 0%, #000 57%, rgba(0,0,0,.9) 72%, rgba(0,0,0,.45) 87%, transparent 100%) !important;
-    mask-image: radial-gradient(ellipse 62% 38% at 50% 50%, #000 0%, #000 57%, rgba(0,0,0,.9) 72%, rgba(0,0,0,.45) 87%, transparent 100%) !important;
+    -webkit-mask-image: radial-gradient(ellipse 70% 31% at 50% 50%, #000 0%, #000 37%, rgba(0,0,0,.94) 48%, rgba(0,0,0,.52) 65%, rgba(0,0,0,.1) 80%, transparent 95%) !important;
+    mask-image: radial-gradient(ellipse 70% 31% at 50% 50%, #000 0%, #000 37%, rgba(0,0,0,.94) 48%, rgba(0,0,0,.52) 65%, rgba(0,0,0,.1) 80%, transparent 95%) !important;
     opacity: 1 !important;
   }
 }
