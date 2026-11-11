@@ -2873,3 +2873,73 @@ body {
   .akc-about-figma.page .hero .action { box-sizing: border-box; display: flex; width: 100%; max-width: 100%; min-width: 0; justify-content: space-between; }
   .akc-about-figma.page .hero .action svg { flex-shrink: 0; }
 }
+
+/* Mobile About navigation: show the entire contact button and every link.
+   Two natural link rows instead of a clipped horizontal strip. */
+@media (max-width: 768px) {
+  .akc-about-figma.page > .nav {
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    padding: 14px 16px 16px;
+    column-gap: 10px;
+    row-gap: 14px;
+  }
+  .akc-about-figma.page > .nav > .nav__brand {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+    gap: 8px;
+    font-size: clamp(10px, 2.8vw, 13px);
+    white-space: nowrap;
+  }
+  .akc-about-figma.page > .nav > .nav__logo { flex: 0 0 30px; width: 30px; height: 30px; }
+  .akc-about-figma.page > .nav > .nav__brand span { min-width: 0; max-width: 100%; }
+  .akc-about-figma.page > .nav > .nav__contact {
+    grid-column: 2;
+    grid-row: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: auto;
+    min-width: max-content;
+    max-width: none;
+    flex: none;
+    padding: 6px 9px;
+    gap: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .akc-about-figma.page > .nav > .nav__contact span { font-size: 18px; line-height: 1; }
+  .akc-about-figma.page > .nav > .nav__links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: none;
+    gap: 10px 16px;
+    padding: 0;
+    overflow: visible;
+    white-space: normal;
+  }
+  .akc-about-figma.page > .nav > .nav__links a {
+    display: inline-block;
+    flex: 0 0 auto;
+    font-size: clamp(11px, 2.8vw, 13px);
+    white-space: nowrap;
+  }
+}
