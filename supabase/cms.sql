@@ -13,12 +13,16 @@ alter table public.cms_admins enable row level security;
 alter table public.cms_content enable row level security;
 revoke all on public.cms_admins from anon, authenticated;
 grant select on public.cms_admins to authenticated;
-grant select on public.cms_content to anon, authenticated;
+grant select on public.cms_content to authenticated;
+create or replace view public.cms_published as select key, value from public.cms_content;
+grant select on public.cms_published to anon, authenticated;
 grant insert, update on public.cms_content to authenticated;
 create policy "Admins can see own membership" on public.cms_admins
 for select to authenticated using (user_id = (select auth.uid()));
-create policy "Anyone can read published content" on public.cms_content
-for select to anon, authenticated using (true);
+create policy "Admins can read drafts" on public.cms_content
+for select to authenticated using (
+ exists(select 1 from public.cms_admins a where a.user_id = (select auth.uid()))
+);
 create policy "Admins can insert content" on public.cms_content
 for insert to authenticated with check (
  exists(select 1 from public.cms_admins a where a.user_id = (select auth.uid()))
