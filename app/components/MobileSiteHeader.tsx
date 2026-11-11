@@ -37,6 +37,8 @@ export default function MobileSiteHeader() {
     };
   }, [open]);
 
+  if (pathname === "/") return null;
+
   return (
     <header className="akc-global-mobile-header" ref={root}>
       <Link href="/" className="akc-global-mobile-brand" onClick={() => setOpen(false)} aria-label="АКЦ — головна">
