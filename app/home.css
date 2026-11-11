@@ -1785,3 +1785,10 @@ html { scroll-padding-top: 72px; }
     padding-top: 64px;
   }
 }
+
+/* Open hamburger takes visual priority over the floating event notification.
+   Hide the toast only while the native menu is expanded; restore on close. */
+body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід АКЦ"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
