@@ -1759,3 +1759,29 @@ html { scroll-padding-top: 72px; }
     background: radial-gradient(ellipse 58% 34% at 50% 43%, rgba(19,83,172,.13), transparent 100%);
   }
 }
+
+/* Keep the global brand/header and hamburger visible while the page scrolls.
+   Fixed positioning avoids Safari sticky failures inside clipped ancestors. */
+.akc-page > .brand {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10001 !important;
+  background: rgba(2, 8, 16, .92) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.akc-page {
+  padding-top: var(--header-height);
+}
+@media (max-width: 767px) {
+  .akc-page > .brand {
+    top: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .akc-page {
+    padding-top: 64px;
+  }
+}
