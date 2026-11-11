@@ -51,7 +51,7 @@ export default function LatestEventToast() {
           <span className={styles.eyebrow}><span className={styles.dot} /> АКЦ / ПЛАН ЗАХОДІВ</span>
           <h2>{latestEvent.title}</h2>
           <div className={styles.actions}>
-            <button type="button" className={styles.register} onClick={() => setRegistrationOpen(true)}>Зареєструватися <span aria-hidden="true">↗</span></button>
+            <button type="button" className={styles.register} onClick={() => setRegistrationOpen(true)}>Зареєструватися</button>
             <Link href={`/insights/${latestEvent.slug}`} className={styles.details}>Детальніше</Link>
           </div>
         </aside>
