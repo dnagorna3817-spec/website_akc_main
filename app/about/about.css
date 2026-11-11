@@ -2777,3 +2777,25 @@ body {
     padding-bottom: 40px;
   }
 }
+
+
+/* Mobile About landing: anchor the copy below the two-row navigation.
+   Override inherited hero centering and large vertical padding only on phones. */
+@media (max-width: 768px) {
+  .akc-about-figma.page > .hero {
+    display: block;
+    position: relative;
+    min-height: calc(100svh - 112px);
+    height: auto;
+    padding: 0;
+  }
+  .akc-about-figma.page > .hero > .hero__copy {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 28px var(--edge) 48px;
+    transform: none;
+  }
+}
