@@ -1744,3 +1744,18 @@ html { scroll-padding-top: 72px; }
 @media (prefers-reduced-motion: reduce) {
   .hero::before { animation: none; }
 }
+
+/* Fix visible bottom edge: blend the entire video layer into the exact
+   page base color, even when the video frame itself is brighter. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 52%, rgba(0,0,0,.94) 60%, rgba(0,0,0,.65) 70%, rgba(0,0,0,.22) 79%, transparent 89%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 52%, rgba(0,0,0,.94) 60%, rgba(0,0,0,.65) 70%, rgba(0,0,0,.22) 79%, transparent 89%) !important;
+  }
+  .akc-page {
+    background: #020810 !important;
+  }
+  .hero::before {
+    background: radial-gradient(ellipse 58% 34% at 50% 43%, rgba(19,83,172,.13), transparent 100%);
+  }
+}
