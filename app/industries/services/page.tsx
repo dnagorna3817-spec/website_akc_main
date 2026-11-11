@@ -1,3 +1,4 @@
+import { cmsText } from "../../lib/cms";
 import Link from "next/link";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import styles from "./services.module.css";
@@ -31,7 +32,8 @@ function Icon({name}:{name:string}) {
   };
   return <svg viewBox="0 0 32 32" width="36" height="36" aria-hidden="true" {...common}>{shapes[name]}</svg>;
 }
-export default function ServicesIndustryPage() {
+export default async function ServicesIndustryPage() {
+  const cmsHeading = await cmsText("industries.services.heading", "компаній у сфері послуг");
  return <div className={`${styles.page} ${expertiseFont}`}>
   <ExpertiseHeader active="industries"/>
     <nav aria-label="Навігація галузями" style={{position:"relative",zIndex:5,background:"#020c15",padding:"8px clamp(20px, 5vw, 64px) 4px"}}><Link href="/industries" style={{display:"inline-flex",alignItems:"center",gap:10,minHeight:44,color:"#9bd0f5",fontSize:11,fontWeight:600,letterSpacing:".12em",textDecoration:"none"}}><span aria-hidden="true" style={{display:"grid",placeItems:"center",width:30,height:30,border:"1px solid rgba(112,190,243,.55)",borderRadius:"50%",fontSize:20}}>←</span>УСІ ГАЛУЗІ</Link></nav>
@@ -40,7 +42,7 @@ export default function ServicesIndustryPage() {
     <div className={styles.art} aria-hidden="true"/>
     <div className={styles.heroCopy}>
      <span>ПОСЛУГИ</span>
-     <h1>Бухгалтерський та{" "}консалтинговий супровід{" "}<em>компаній у сфері послуг</em></h1>
+     <h1>Бухгалтерський та{" "}консалтинговий супровід{" "}<em>{cmsHeading}</em></h1>
      <p className={styles.heroDescription}>АКЦ допомагає сервісному бізнесу працювати без паперового навантаження. Ми беремо на себе облік, податки, звітність та фінансову аналітику, щоб ви могли зосередитися на розвитку бізнесу.</p>
     </div>
     <div className={styles.audience}>
