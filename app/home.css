@@ -1700,13 +1700,16 @@ html { scroll-padding-top: 72px; }
 }
 
 
-/* Slightly enlarge only the mobile triangle film, keeping its center aligned.
-   Desktop film, navigation connectors, header, and intro timing are unchanged. */
+/* Mobile triangle: enlarge the visible artwork, not only the masked video.
+   Expand the mask along with the video so the triangle actually appears larger.
+   Desktop and navigation positions are unchanged. */
 @media (max-width: 767px) {
   .logo-intro-layer .logo-intro-video--mobile {
-    transform: scale(1.25) !important;
+    transform: scale(1.42) !important;
     transform-origin: center center !important;
     object-fit: contain !important;
     object-position: center center !important;
+    -webkit-mask-image: radial-gradient(ellipse 62% 36% at 50% 50%, #000 0%, #000 62%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 88%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 62% 36% at 50% 50%, #000 0%, #000 62%, rgba(0,0,0,.85) 75%, rgba(0,0,0,.35) 88%, transparent 100%) !important;
   }
 }
