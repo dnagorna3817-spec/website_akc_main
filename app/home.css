@@ -1668,8 +1668,8 @@ html { scroll-padding-top: 72px; }
 @media (max-width: 767px) {
   .nav-node--about { top: 31% !important; }
   .nav-node--about .nav-label { top: -34px !important; }
-  .nav-node--industries { left: 28% !important; top: 69% !important; }
-  .nav-node--insights { left: 72% !important; top: 69% !important; }
+  .nav-node--industries { left: 28% !important; top: 66% !important; }
+  .nav-node--insights { left: 72% !important; top: 66% !important; }
   .nav-node--industries .nav-line,
   .nav-node--insights .nav-line {
     width: 28px !important;
