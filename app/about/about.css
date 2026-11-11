@@ -2943,3 +2943,61 @@ body {
     white-space: nowrap;
   }
 }
+
+/* Final mobile header layout: override legacy flex-basis/nowrap rules reliably. */
+@media screen and (max-width: 900px) {
+  .akc-about-figma.page > header.nav {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) max-content !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    padding: 14px 16px 16px !important;
+    gap: 12px 8px !important;
+    overflow: visible !important;
+  }
+  .akc-about-figma.page > header.nav > .nav__brand {
+    grid-area: 1 / 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    flex-basis: auto !important;
+    overflow: hidden !important;
+  }
+  .akc-about-figma.page > header.nav > .nav__brand span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  .akc-about-figma.page > header.nav > .nav__contact {
+    grid-area: 1 / 2 !important;
+    justify-self: end !important;
+    min-width: max-content !important;
+    max-width: none !important;
+    flex-basis: auto !important;
+    padding: 6px 9px !important;
+    white-space: nowrap !important;
+  }
+  .akc-about-figma.page > header.nav > .nav__links {
+    grid-area: 2 / 1 / 3 / 3 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-basis: auto !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 10px 16px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  .akc-about-figma.page > header.nav > .nav__links a {
+    flex: 0 0 auto !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+}
