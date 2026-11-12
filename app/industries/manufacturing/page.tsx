@@ -48,7 +48,7 @@ export default async function ManufacturingPage() {
         <div className={styles.heroContent}>
           <p className={styles.kicker}>03 / Галузі / Виробництво</p>
           <p className={styles.eyebrow}>ВИРОБНИЦТВО</p>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em data-cms-key="industries.manufacturing.heading">{cmsHeading}</em></h1>
           <p className={styles.heroDescription}>АКЦ забезпечує виробництву точний облік собівартості та прозорі фінанси. Ми беремо на себе облік, податки, звітність та управлінську аналітику, щоб ви бачили реальну рентабельність кожного виробу та приймали рішення на основі цифр.</p>
           <div className={styles.heroActions}><Link className={styles.primary} href="/#contacts" data-lead-cta>Залишити заявку <span aria-hidden="true">→</span></Link><span className={styles.heroKeywords}>ОБЛІК СОБІВАРТОСТІ<br/>АНАЛІТИКА<br/>СТАБІЛЬНИЙ РОЗВИТОК</span></div>
         </div>
