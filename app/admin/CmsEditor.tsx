@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import VisualEditor from "./VisualEditor";
+import NewsEditor from "./NewsEditor";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
@@ -17,6 +19,7 @@ export default function CmsEditor() {
  const [token,setToken]=useState(""); const [uid,setUid]=useState("");
  const [items,setItems]=useState<Item[]>([]); const [message,setMessage]=useState("");
  const [busy,setBusy]=useState(false);
+ const [tab,setTab]=useState<"visual"|"news"|"fields">("visual");
  async function request(path:string,init:RequestInit={},jwt=token){
   const response=await fetch(url+"/rest/v1/"+path,{...init,headers:{"apikey":key,"Authorization":"Bearer "+(jwt||key),"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
   if(!response.ok) throw new Error("Помилка доступу або збереження ("+response.status+")");
@@ -35,12 +38,12 @@ export default function CmsEditor() {
  }
  function draftFor(k:string){return items.find(x=>x.key===k)?.draft??items.find(x=>x.key===k)?.value??"";}
  function change(k:string,v:string){setItems(old=>old.some(x=>x.key===k)?old.map(x=>x.key===k?{...x,draft:v}:x):[...old,{key:k,value:"",draft:v}]);}
- async function save(k:string,publish:boolean){setBusy(true);setMessage("");
+ async function save(k:string,publish:boolean,override?:string){setBusy(true);setMessage("");
   try {
-   const existing=items.find(x=>x.key===k);const draft=draftFor(k);
+   const existing=items.find(x=>x.key===k);const draft=override??draftFor(k);
    const payload={key:k,value:publish?draft:(existing?.value||""),draft:publish?null:draft,updated_by:uid};
    await request("cms_content?on_conflict=key",{method:"POST",headers:{"Prefer":"resolution=merge-duplicates,return=minimal"},body:JSON.stringify(payload)});
-   setItems(old=>old.map(x=>x.key===k?{...x,...payload}:x));
+   setItems(old=>old.some(x=>x.key===k)?old.map(x=>x.key===k?{...x,...payload}:x):[...old,{...payload}]);
    setMessage(publish?"Опубліковано.":"Чернетку збережено.");
   }catch(err){setMessage(err instanceof Error?err.message:"Не вдалося зберегти");}finally{setBusy(false);}
  }
@@ -54,7 +57,10 @@ export default function CmsEditor() {
  <label>Пароль<input type="password" required autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} style={{...style,width:"100%",display:"block",marginTop:8}}/></label>
  <button disabled={busy} style={{...style,cursor:"pointer",background:"#a6dfff",color:"#041421",fontWeight:700}}>Увійти</button></form>:
  <><button onClick={()=>{setToken("");setUid("");setItems([]);}} style={{...style,cursor:"pointer",marginBottom:22}}>Вийти</button>
- {fields.map(([k,label])=><section key={k} style={{...style,marginBottom:16}}>
+ <nav aria-label="Розділи CMS" style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:24}}>{([["visual","Редагувати сайт"],["news","Новини ＋"],["fields","Текстові поля"]] as const).map(([id,label])=><button key={id} onClick={()=>setTab(id)} style={{...style,background:tab===id?"#a6dfff":"#10263a",color:tab===id?"#041421":"white",cursor:"pointer"}}>{label}</button>)}</nav>
+ {tab==="visual"&&<VisualEditor items={items} save={(k,v,p)=>save(k,p,v)}/>}
+ {tab==="news"&&<NewsEditor token={token} uid={uid}/>}
+ {tab==="fields"&&fields.map(([k,label])=><section key={k} style={{...style,marginBottom:16}}>
  <label htmlFor={k} style={{display:"block",fontWeight:700,marginBottom:10}}>{label}</label>
  <textarea id={k} value={draftFor(k)} onChange={e=>change(k,e.target.value)} rows={3} style={{...style,width:"100%",resize:"vertical"}}/>
  <div style={{display:"flex",gap:10,marginTop:12,flexWrap:"wrap"}}>
