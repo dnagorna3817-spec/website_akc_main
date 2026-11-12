@@ -14,7 +14,7 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
  const [current,setCurrent]=useState<News|null>(null);
  const [error,setError]=useState("");
  const [busy,setBusy]=useState(false);
- const [advanced,setAdvanced]=useState(false);
+ const [photo,setPhoto]=useState<File|null>(null);const [preview,setPreview]=useState<string|null>(null);
  async function request(path:string,init:RequestInit={}){
   const res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
   if(!res.ok)throw new Error("Помилка Supabase: "+res.status+" — перевірте налаштування cms_news.");
@@ -27,16 +27,30 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
   if(!current.title.trim()||!current.body.trim()){setError("Заповніть заголовок і текст новини.");return;}
   const slug=current.slug||makeSlug(current.title);
   if(!slug){setError("Не вдалося сформувати адресу. Введіть інший заголовок.");return;}
-  if(current.image_url&&!/^https:\/\//i.test(current.image_url)){setError("Посилання на фото має починатися з https://");return;}
+
   setBusy(true);setError("");
   try{
+   let image_url=current.image_url;
+   if(photo){
+    const ext=photo.type==="image/png"?"png":photo.type==="image/webp"?"webp":"jpg";
+    const filename=crypto.randomUUID()+"."+ext;
+    const upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":photo.type,"x-upsert":"false"},body:photo});
+    if(!upload.ok)throw new Error("Не вдалося завантажити фото ("+upload.status+"). Перевірте Storage bucket cms-news та права доступу.");
+    image_url=url+"/storage/v1/object/public/cms-news/"+filename;
+   }
    const {id,published_at,...fields}=current;
-   const payload={...fields,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
+   const payload={...fields,image_url,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
    await request(id?"cms_news?id=eq."+encodeURIComponent(id):"cms_news",{method:id?"PATCH":"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify(payload)});
    setCurrent(null);await load();
   }catch(e){setError(String(e));}finally{setBusy(false);}
  }
- function open(item:News){setCurrent({...item});setError("");setAdvanced(false);}
+ function open(item:News){setCurrent({...item});setError("");setPhoto(null);setPreview(null);}
+ function selectPhoto(file?:File){
+  if(!file)return;
+  if(!["image/jpeg","image/png","image/webp"].includes(file.type)){setError("Дозволено JPG, PNG або WebP.");return;}
+  if(file.size>5*1024*1024){setError("Максимальний розмір фото — 5 МБ.");return;}
+  setPhoto(file);setPreview(URL.createObjectURL(file));setError("");
+ }
  return <div style={{display:"grid",gap:20,maxWidth:980}}>
   {!current?<><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,flexWrap:"wrap"}}>
    <div><h2 style={{fontSize:26,margin:0}}>Новини</h2><p style={{color:"#a5bed0",marginTop:6}}>Створюйте та публікуйте новини без технічних налаштувань.</p></div>
@@ -52,15 +66,15 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
    <label style={{fontWeight:600}}>Заголовок<input autoFocus placeholder="Наприклад: Нові можливості для бізнесу" value={current.title} onChange={e=>setCurrent({...current,title:e.target.value})} style={inputStyle}/></label>
    <label style={{fontWeight:600}}>Короткий опис <span style={{fontWeight:400,color:"#a5bed0"}}>(необов’язково)</span><textarea placeholder="Коротко про що ця новина..." rows={2} value={current.summary} onChange={e=>setCurrent({...current,summary:e.target.value})} style={{...inputStyle,resize:"vertical"}}/></label>
    <label style={{fontWeight:600}}>Текст новини<textarea placeholder="Напишіть новину тут..." rows={12} value={current.body} onChange={e=>setCurrent({...current,body:e.target.value})} style={{...inputStyle,resize:"vertical",lineHeight:1.7}}/></label>
-   <details open={advanced} onToggle={e=>setAdvanced(e.currentTarget.open)} style={{borderTop:"1px solid #34536b",paddingTop:16}}>
-    <summary style={{cursor:"pointer",color:"#a6dfff"}}>Фото та додаткові налаштування</summary>
-    <div style={{display:"grid",gap:16,marginTop:16}}>
-     <label>Посилання на фото<input placeholder="https://..." value={current.image_url||""} onChange={e=>setCurrent({...current,image_url:e.target.value||null})} style={inputStyle}/></label>
-     {current.image_url&&/^https:\/\//i.test(current.image_url)&&<img src={current.image_url} alt="Попередній перегляд обкладинки" style={{maxWidth:320,width:"100%",borderRadius:10}}/>}
-     <label>Категорія<select value={current.category} onChange={e=>setCurrent({...current,category:e.target.value})} style={inputStyle}>{["Новини","Статті","План заходів"].map(x=><option key={x}>{x}</option>)}</select></label>
-     <p style={{color:"#a5bed0",fontSize:13}}>Адреса статті створюється автоматично із заголовка.</p>
-    </div>
-   </details>
+   <div style={{display:"grid",gap:12}}>
+    <label style={{fontWeight:600}}>Тип публікації</label>
+    <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>{["Новини","Статті","План заходів"].map(x=><button type="button" key={x} aria-pressed={current.category===x} onClick={()=>setCurrent({...current,category:x})} style={current.category===x?primary:secondary}>{x==="Новини"?"Новина":x==="Статті"?"Стаття":"План заходу"}</button>)}</div>
+   </div>
+   <div style={{display:"grid",gap:12}}>
+    <label style={{fontWeight:600}}>Фото обкладинки (JPG, PNG або WebP, до 5 МБ)</label>
+    <label style={{...secondary,width:"fit-content",display:"inline-block",cursor:"pointer"}}>＋ {photo?"Замінити фото":"Завантажити фото"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>selectPhoto(e.target.files?.[0])} style={{position:"absolute",width:1,height:1,opacity:0}}/></label>
+    {(preview||current.image_url)&&<img src={preview||current.image_url||""} alt="Попередній перегляд обкладинки" style={{width:"100%",maxWidth:460,maxHeight:270,objectFit:"cover",borderRadius:12}}/>}
+   </div>
    {error&&<p role="alert" style={{color:"#ffb5b5"}}>{error}</p>}
    <div style={{display:"flex",gap:12,flexWrap:"wrap",borderTop:"1px solid #34536b",paddingTop:20}}>
     <button disabled={busy} style={secondary} onClick={()=>save("draft")}>Зберегти чернетку</button>
