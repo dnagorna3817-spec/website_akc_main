@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ExpertiseHeader, expertiseFont } from "../expertise/ExpertiseView";
@@ -10,9 +10,16 @@ import EventRegistration from "./EventRegistration";
 import { articles, categories, type Category } from "./articles";
 
 export default function InsightsPage() {
+  const [cmsArticles,setCmsArticles]=useState<typeof articles>([]);
+  useEffect(()=>{
+   const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+   if(!url||!key)return;
+   fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,published_at&order=published_at.desc",{headers:{apikey:key,Authorization:"Bearer "+key}})
+    .then(r=>r.ok?r.json():[]).then((rows:{slug:string;title:string;summary:string;category:string;published_at:string}[])=>setCmsArticles(rows.map((n,i)=>({id:1000+i,slug:n.slug,title:n.title,summary:n.summary,category:n.category as typeof articles[number]["category"],date:new Date(n.published_at).toLocaleDateString("uk-UA"),visual:"lines"})))).catch(()=>{});
+  },[]);
   const [category, setCategory] = useState<Category>("Усі");
   const [registrationTitle, setRegistrationTitle] = useState<string | null>(null);
-  const filtered = useMemo(() => category === "Усі" ? articles : articles.filter(item => item.category === category), [category]);
+  const filtered = useMemo(() => category === "Усі" ? [...cmsArticles,...articles] : [...cmsArticles,...articles].filter(item => item.category === category), [category,cmsArticles]);
   const [lead, ...rest] = filtered;
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
