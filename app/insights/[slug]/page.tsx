@@ -38,6 +38,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className={styles.status}><span className={styles.glow} /> {article.category}</div>
           <h1>{article.title}</h1>
           <p className={styles.description}>{article.summary}</p>
+          {body && <div className={styles.inlineBody}>{body}</div>}
           <div className={styles.separator} />
           
           <nav className={styles.links} aria-label="Навігація публікації">
@@ -47,7 +48,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </section>
         <ArticleCover slug={slug} initialUrl={coverUrl} />
       </main>
-      {body && <section className={styles.articleBody} aria-label="Текст публікації"><div className={styles.articleBodyInner}>{body}</div></section>}
     </div>
   );
 }
