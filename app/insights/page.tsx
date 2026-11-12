@@ -14,8 +14,8 @@ export default function InsightsPage() {
   useEffect(()=>{
    const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
    if(!url||!key)return;
-   fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,published_at&order=published_at.desc",{headers:{apikey:key,Authorization:"Bearer "+key}})
-    .then(r=>r.ok?r.json():[]).then((rows:{slug:string;title:string;summary:string;category:string;published_at:string}[])=>setCmsArticles(rows.map((n,i)=>({id:1000+i,slug:n.slug,title:n.title,summary:n.summary,category:n.category as typeof articles[number]["category"],date:new Date(n.published_at).toLocaleDateString("uk-UA"),visual:"lines"})))).catch(()=>{});
+   fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,published_at,image_url&order=published_at.desc",{headers:{apikey:key,Authorization:"Bearer "+key}})
+    .then(r=>r.ok?r.json():[]).then((rows:{slug:string;title:string;summary:string;category:string;published_at:string;image_url:string|null}[])=>setCmsArticles(rows.map((n,i)=>({id:1000+i,slug:n.slug,title:n.title,summary:n.summary,category:n.category as typeof articles[number]["category"],date:new Date(n.published_at).toLocaleDateString("uk-UA"),visual:"lines",image_url:n.image_url||null})))).catch(()=>{});
   },[]);
   const [category, setCategory] = useState<Category>("Усі");
   const [registrationTitle, setRegistrationTitle] = useState<string | null>(null);
@@ -37,7 +37,7 @@ export default function InsightsPage() {
         </div>
         
         {lead && <article className={styles.featured}>
-          <div className={`${styles.visual} ${styles.featureVisual}`} aria-hidden="true"><Image src="/media/akc-audit-card.jpg" alt="" fill sizes="(max-width: 760px) 100vw, 48vw" /></div>
+          <div className={`${styles.visual} ${styles.featureVisual}`} aria-hidden="true"><Image src={("image_url" in lead && typeof lead.image_url === "string" && lead.image_url) || "/media/akc-audit-card.jpg"} unoptimized alt="" fill sizes="(max-width: 760px) 100vw, 48vw" /></div>
           <div className={styles.featureText}>
             <div className={styles.meta}><span>{lead.category}</span><span>{lead.date}</span></div>
             <h2><Link href={`/insights/${lead.slug}`} className={styles.titleLink}>{lead.title}</Link></h2>
@@ -47,7 +47,7 @@ export default function InsightsPage() {
         </article>}
         {rest.length > 0 && <div className={styles.grid}>
           {rest.map(article => <article key={article.id} className={styles.card}>
-            <div className={`${styles.cardVisual} ${styles[article.visual]}`} aria-hidden="true"><span /></div>
+            <div className={`${styles.cardVisual} ${styles[article.visual]}`} aria-hidden="true" style={("image_url" in article && typeof article.image_url === "string" && article.image_url) ? {backgroundImage:`url("${article.image_url.replace(/["\\]/g,"")}")`,backgroundSize:"cover",backgroundPosition:"center"} : undefined}><span /></div>
             <div className={styles.meta}><span>{article.category}</span><span>{article.date}</span></div>
             <h3><Link href={`/insights/${article.slug}`} className={styles.titleLink}>{article.title}</Link></h3>
             <p>{article.summary}</p>
