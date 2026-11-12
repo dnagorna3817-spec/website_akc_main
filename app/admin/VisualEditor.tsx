@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 const pages = [
- ["Медицина","/industries/medical"],["Роздрібна торгівля","/industries/retail"],["Виробництво","/industries/manufacturing"],["Агробізнес","/industries/agribusiness"],["Послуги","/industries/services"]
+ ["Медицина","/industries/medical"],["Роздрібна торгівля","/industries/retail"],["Виробництво","/industries/manufacturing"],["Агробізнес","/industries/agribusiness"],["Послуги","/industries/services"],["Головна","/"],["Про АКЦ","/about"],["Експертиза","/expertise"],["Галузі","/industries"],["Новини","/insights"],["Контакти","/contacts"],["Кваліфікаційний центр","/expertise/qualification"]
 ] as const;
 type Item={key:string;value:string;draft:string|null};
 export default function VisualEditor({items,save}:{items:Item[];save:(key:string,value:string,publish:boolean)=>Promise<void>}){
@@ -13,8 +13,8 @@ export default function VisualEditor({items,save}:{items:Item[];save:(key:string
   const attach=()=>{
    const doc=iframe.contentDocument;if(!doc)return;
    // Defer DOM decoration until the embedded Next.js app has hydrated.
-   const root=doc.querySelector("main")||doc.body;
-   const excluded="nav,header,footer,button,a,input,textarea,select,option,script,style,[contenteditable],[data-cms-ignore],[role=button]";
+   const root=doc.body;
+   const excluded="nav,header,button,a,input,textarea,select,option,script,style,[contenteditable],[data-cms-ignore],[role=button]";
    const nodes=Array.from(root.querySelectorAll<HTMLElement>("h1,h2,h3,h4,h5,h6,p,li,span,small,strong,em,blockquote,label,figcaption,td,th")).filter(el=>!el.closest(excluded)&&!el.querySelector("h1,h2,h3,h4,h5,h6,p,li,span,small,strong,em,blockquote,label,figcaption,td,th")&&!!el.textContent?.trim());
    nodes.forEach(node=>{
     if(!node.dataset.cmsKey){
