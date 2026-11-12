@@ -50,7 +50,7 @@ export default async function RetailPage() {
         </div>
         <div className={styles.heroCopy}>
           <span>РОЗДРІБНА ТОРГІВЛЯ</span>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em data-cms-key="industries.retail.heading">{cmsHeading}</em></h1>
         </div>
         <div className={styles.audience}>
           <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
