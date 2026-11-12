@@ -35,3 +35,14 @@
 /* Give portrait news photos breathing room inside the right panel. */
 .artWithPhoto .coverImage{inset:0;width:84%;height:88%;top:6%;left:8%;object-fit:contain;object-position:center}
 @media(max-width:800px){.artWithPhoto .coverImage{width:90%;height:88%;left:5%;top:6%}}
+
+/* Fixed-height media viewport: long event descriptions must never scale the cover. */
+.hero{align-items:start}
+.art{height:calc(100svh - 88px);min-height:0;max-height:calc(100svh - 88px);align-self:start}
+.artWithPhoto .coverImage{top:6%;left:8%;width:84%;height:88%;object-fit:contain}
+@media(max-width:800px){
+ .hero{align-items:stretch}
+ .art{height:clamp(300px,55vw,460px);min-height:0;max-height:none;order:-1}
+ .artWithPhoto .coverImage{top:6%;left:5%;width:90%;height:88%}
+}
+@media(max-width:480px){.art{height:300px;min-height:0}}
