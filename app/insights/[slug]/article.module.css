@@ -57,3 +57,8 @@
 
 /* News body follows summary in the left editorial column. */
 .inlineBody{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;max-width:100%;margin:24px auto 0;color:#c5d5e3;font-size:clamp(15px,1.1vw,18px);line-height:1.7;text-align:left}
+
+/* Separator stays inside the editorial text column, aligned with the copy. */
+.content .separator{display:block;box-sizing:border-box;width:100%;max-width:470px;height:1px;margin:32px auto 18px;background:linear-gradient(90deg,transparent,#6a8192 12%,#6a8192 88%,transparent);opacity:.65}
+.content .links{max-width:470px;width:100%;margin:0 auto}
+.content .links a{max-width:245px;margin:0 auto}
