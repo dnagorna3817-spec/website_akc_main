@@ -13,8 +13,15 @@ export default function VisualEditor({items,save}:{items:Item[];save:(key:string
   const attach=()=>{
    const doc=iframe.contentDocument;if(!doc)return;
    // Defer DOM decoration until the embedded Next.js app has hydrated.
-   const nodes=doc.querySelectorAll<HTMLElement>("[data-cms-key]");
+   const root=doc.querySelector("main")||doc.body;
+   const excluded="nav,header,footer,button,a,input,textarea,select,option,script,style,[contenteditable],[data-cms-ignore],[role=button]";
+   const nodes=Array.from(root.querySelectorAll<HTMLElement>("h1,h2,h3,h4,h5,h6,p,li,span,small,strong,em,blockquote,label,figcaption,td,th")).filter(el=>!el.closest(excluded)&&!el.querySelector("h1,h2,h3,h4,h5,h6,p,li,span,small,strong,em,blockquote,label,figcaption,td,th")&&!!el.textContent?.trim());
    nodes.forEach(node=>{
+    if(!node.dataset.cmsKey){
+     const parts:string[]=[];let n:Element|null=node;
+     while(n&&n!==root){const parent:Element|null=n.parentElement;const index=parent?Array.from(parent.children).indexOf(n):0;parts.unshift(n.tagName.toLowerCase()+index);n=parent;}
+     node.dataset.cmsKey="page."+path.split("/").filter(Boolean).join(".")+"."+parts.join(".");
+    }
     if(node.dataset.cmsEditorAttached==="1")return;
     node.dataset.cmsEditorAttached="1";
     node.style.cursor="text";node.style.outlineOffset="5px";node.title="Двічі натисніть, щоб редагувати";
