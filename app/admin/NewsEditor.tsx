@@ -9,7 +9,7 @@ function makeSlug(s:string){return Array.from(s.toLowerCase().trim()).map(ch=>tr
 const inputStyle={width:"100%",padding:"14px 16px",border:"1px solid #416580",borderRadius:12,background:"#061a2a",color:"#f2f8ff",fontSize:16,marginTop:8} as const;
 const primary={padding:"13px 22px",borderRadius:11,border:"1px solid #9bd7fb",background:"#a6dfff",color:"#041421",fontWeight:700,cursor:"pointer"} as const;
 const secondary={...primary,background:"#112a40",color:"#d9efff",border:"1px solid #416580"} as const;
-export default function NewsEditor({token,uid}:{token:string;uid:string}){
+export default function NewsEditor({token,uid,getAccessToken,refreshAccessToken}:{token:string;uid:string;getAccessToken:()=>Promise<string>;refreshAccessToken:()=>Promise<string>}){
  const [list,setList]=useState<News[]>([]);
  const [current,setCurrent]=useState<News|null>(null);
  const [error,setError]=useState("");
@@ -18,7 +18,12 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
  const [photos,setPhotos]=useState<{vertical:File|null;horizontal:File|null}>({vertical:null,horizontal:null});
  const [previews,setPreviews]=useState<{vertical:string|null;horizontal:string|null}>({vertical:null,horizontal:null});
  async function request(path:string,init:RequestInit={}){
-  const res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  const credential=await getAccessToken();
+  let res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+credential,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  if(res.status===401){
+   const renewed=await refreshAccessToken();
+   res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+renewed,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  }
   if(!res.ok)throw new Error("Помилка Supabase: "+res.status+" — перевірте налаштування cms_news.");
   const txt=await res.text();return txt?JSON.parse(txt):[];
  }
@@ -36,7 +41,12 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
     if(!file)return existing||null;
     const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
     const filename=crypto.randomUUID()+"."+ext;
-    const upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":file.type,"x-upsert":"false"},body:file});
+    const credential=await getAccessToken();
+    let upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+credential,"Content-Type":file.type,"x-upsert":"false"},body:file});
+    if(upload.status===401){
+     const renewed=await refreshAccessToken();
+     upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+renewed,"Content-Type":file.type,"x-upsert":"false"},body:file});
+    }
     if(!upload.ok)throw new Error("Не вдалося завантажити фото ("+upload.status+"). Перевірте Storage cms-news.");
     return url+"/storage/v1/object/public/cms-news/"+filename;
    };
