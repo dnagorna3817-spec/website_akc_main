@@ -2,8 +2,8 @@
 import {useEffect,useState} from "react";
 const url=process.env.NEXT_PUBLIC_SUPABASE_URL||"";
 const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY||"";
-type News={id?:string;slug:string;title:string;summary:string;body:string;category:string;image_url:string|null;status:string;published_at?:string|null};
-const blank:News={slug:"",title:"",summary:"",body:"",category:"Новини",image_url:null,status:"draft"};
+type News={id?:string;slug:string;title:string;summary:string;body:string;category:string;image_url:string|null;banner_image_url?:string|null;status:string;published_at?:string|null};
+const blank:News={slug:"",title:"",summary:"",body:"",category:"Новини",image_url:null,banner_image_url:null,status:"draft"};
 const translit:Record<string,string>={а:"a",б:"b",в:"v",г:"h",ґ:"g",д:"d",е:"e",є:"ye",ж:"zh",з:"z",и:"y",і:"i",ї:"yi",й:"i",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"kh",ц:"ts",ч:"ch",ш:"sh",щ:"shch",ь:"",ю:"yu",я:"ya",ы:"y",э:"e",ё:"yo",ъ:""};
 function makeSlug(s:string){return Array.from(s.toLowerCase().trim()).map(ch=>translit[ch]??ch).join("").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,90);}
 const inputStyle={width:"100%",padding:"14px 16px",border:"1px solid #416580",borderRadius:12,background:"#061a2a",color:"#f2f8ff",fontSize:16,marginTop:8} as const;
@@ -15,7 +15,8 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
  const [error,setError]=useState("");
  const [busy,setBusy]=useState(false);
  const [confirmDelete,setConfirmDelete]=useState(false);
- const [photo,setPhoto]=useState<File|null>(null);const [preview,setPreview]=useState<string|null>(null);
+ const [photos,setPhotos]=useState<{vertical:File|null;horizontal:File|null}>({vertical:null,horizontal:null});
+ const [previews,setPreviews]=useState<{vertical:string|null;horizontal:string|null}>({vertical:null,horizontal:null});
  async function request(path:string,init:RequestInit={}){
   const res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
   if(!res.ok)throw new Error("Помилка Supabase: "+res.status+" — перевірте налаштування cms_news.");
@@ -31,16 +32,18 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
 
   setBusy(true);setError("");
   try{
-   let image_url=current.image_url;
-   if(photo){
-    const ext=photo.type==="image/png"?"png":photo.type==="image/webp"?"webp":"jpg";
+   const uploadPhoto=async(file:File|null,existing:string|null|undefined)=>{
+    if(!file)return existing||null;
+    const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
     const filename=crypto.randomUUID()+"."+ext;
-    const upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":photo.type,"x-upsert":"false"},body:photo});
-    if(!upload.ok)throw new Error("Не вдалося завантажити фото ("+upload.status+"). Перевірте Storage bucket cms-news та права доступу.");
-    image_url=url+"/storage/v1/object/public/cms-news/"+filename;
-   }
+    const upload=await fetch(url+"/storage/v1/object/cms-news/"+filename,{method:"POST",headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":file.type,"x-upsert":"false"},body:file});
+    if(!upload.ok)throw new Error("Не вдалося завантажити фото ("+upload.status+"). Перевірте Storage cms-news.");
+    return url+"/storage/v1/object/public/cms-news/"+filename;
+   };
+   const image_url=await uploadPhoto(photos.vertical,current.image_url);
+   const banner_image_url=await uploadPhoto(photos.horizontal,current.banner_image_url);
    const {id,published_at,...fields}=current;
-   const payload={...fields,image_url,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
+   const payload={...fields,image_url,banner_image_url,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
    await request(id?"cms_news?id=eq."+encodeURIComponent(id):"cms_news",{method:id?"PATCH":"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify(payload)});
    setCurrent(null);await load();
   }catch(e){setError(String(e));}finally{setBusy(false);}
@@ -48,16 +51,21 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
  async function deleteNews(){
   if(!current?.id)return;
   setBusy(true);setError("");
-  try{await request("cms_news?id=eq."+encodeURIComponent(current.id),{method:"DELETE"});setCurrent(null);setConfirmDelete(false);setPhoto(null);setPreview(null);await load();}
+  try{await request("cms_news?id=eq."+encodeURIComponent(current.id),{method:"DELETE"});setCurrent(null);setConfirmDelete(false);setPhotos({vertical:null,horizontal:null});setPreviews({vertical:null,horizontal:null});await load();}
   catch(e){setError(String(e));}finally{setBusy(false);}
  }
- function removePhoto(){if(preview)URL.revokeObjectURL(preview);setPhoto(null);setPreview(null);if(current)setCurrent({...current,image_url:null});}
- function open(item:News){setCurrent({...item});setError("");setPhoto(null);setPreview(null);setConfirmDelete(false);}
- function selectPhoto(file?:File){
+ function removePhoto(kind:"vertical"|"horizontal"){
+  if(previews[kind])URL.revokeObjectURL(previews[kind]!);
+  setPhotos(old=>({...old,[kind]:null}));setPreviews(old=>({...old,[kind]:null}));
+  if(current)setCurrent({...current,[kind==="vertical"?"image_url":"banner_image_url"]:null});
+ }
+ function open(item:News){setCurrent({...item});setError("");setPhotos({vertical:null,horizontal:null});setPreviews({vertical:null,horizontal:null});setConfirmDelete(false);}
+ function selectPhoto(kind:"vertical"|"horizontal",file?:File){
   if(!file)return;
   if(!["image/jpeg","image/png","image/webp"].includes(file.type)){setError("Дозволено JPG, PNG або WebP.");return;}
   if(file.size>5*1024*1024){setError("Максимальний розмір фото — 5 МБ.");return;}
-  setPhoto(file);setPreview(URL.createObjectURL(file));setError("");
+  if(previews[kind])URL.revokeObjectURL(previews[kind]!);
+  setPhotos(old=>({...old,[kind]:file}));setPreviews(old=>({...old,[kind]:URL.createObjectURL(file)}));setError("");
  }
  return <div style={{display:"grid",gap:20,maxWidth:980}}>
   {!current?<><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:16,flexWrap:"wrap"}}>
@@ -78,11 +86,15 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
     <label style={{fontWeight:600}}>Тип публікації</label>
     <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>{["Новини","Статті","План заходів"].map(x=><button type="button" key={x} aria-pressed={current.category===x} onClick={()=>setCurrent({...current,category:x})} style={current.category===x?primary:secondary}>{x==="Новини"?"Новина":x==="Статті"?"Стаття":"План заходу"}</button>)}</div>
    </div>
-   <div style={{display:"grid",gap:12}}>
-    <label style={{fontWeight:600}}>Фото обкладинки (JPG, PNG або WebP, до 5 МБ)</label>
-    <label style={{...secondary,width:"fit-content",display:"inline-block",cursor:"pointer"}}>＋ {photo?"Замінити фото":"Завантажити фото"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>selectPhoto(e.target.files?.[0])} style={{position:"absolute",width:1,height:1,opacity:0}}/></label>
-    {(preview||current.image_url)&&<div style={{display:"grid",gap:12,justifyItems:"start"}}><img src={preview||current.image_url||""} alt="Попередній перегляд обкладинки" style={{width:"100%",maxWidth:460,maxHeight:270,objectFit:"cover",borderRadius:12}}/><button type="button" disabled={busy} style={secondary} onClick={removePhoto}>Видалити фото</button><small style={{color:"#a5bed0"}}>Зміна збережеться після натискання «Опублікувати» або «Зберегти чернетку».</small></div>}
-   </div>
+   {(["horizontal","vertical"] as const).map(kind=>{
+    const isWide=kind==="horizontal";const value=previews[kind]||(isWide?current.banner_image_url:current.image_url);
+    return <div key={kind} style={{display:"grid",gap:12,padding:18,border:"1px solid #34536b",borderRadius:14}}>
+     <strong>{isWide?"Горизонтальне фото — банер і список новин":"Вертикальне фото — сторінка новини"}</strong>
+     <span style={{color:"#a5bed0",fontSize:13}}>{isWide?"Рекомендовано 1600 × 900 px (16:9)":"Рекомендовано 900 × 1200 px (3:4)"} · JPG, PNG, WebP · до 5 МБ</span>
+     <label style={{...secondary,width:"fit-content",display:"inline-block",cursor:"pointer"}}>＋ {value?"Замінити фото":"Завантажити фото"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>{selectPhoto(kind,e.target.files?.[0]);e.target.value="";}} style={{position:"absolute",width:1,height:1,opacity:0}}/></label>
+     {value&&<div style={{display:"grid",gap:12,justifyItems:"start"}}><img src={value} alt={isWide?"Горизонтальна обкладинка":"Вертикальна обкладинка"} style={{width:"100%",maxWidth:isWide?520:280,aspectRatio:isWide?"16 / 9":"3 / 4",objectFit:"cover",borderRadius:12}}/><button type="button" disabled={busy} style={secondary} onClick={()=>removePhoto(kind)}>Видалити фото</button></div>}
+    </div>;
+   })}
    {error&&<p role="alert" style={{color:"#ffb5b5"}}>{error}</p>}
    <div style={{display:"flex",gap:12,flexWrap:"wrap",borderTop:"1px solid #34536b",paddingTop:20}}>
     <button disabled={busy} style={secondary} onClick={()=>save("draft")}>Зберегти чернетку</button>
