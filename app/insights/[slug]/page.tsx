@@ -13,7 +13,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   let article = articles.find((item) => item.slug === slug);
   let body: string | undefined;
   let coverUrl: string | null = null;
-  if (!article && /^[a-z0-9-]+$/.test(slug)) {
+  if (/^[a-z0-9-]+$/.test(slug)) {
     const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if(url&&key) {
       try {
