@@ -42,7 +42,7 @@ export default async function AgribusinessPage() {
     <main>
       <section className={styles.hero}>
         <div className={styles.art} aria-hidden="true"><div className={styles.photo} /></div>
-        <div className={styles.heroCopy}><span>АГРОБІЗНЕС</span><h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1></div>
+        <div className={styles.heroCopy}><span>АГРОБІЗНЕС</span><h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em data-cms-key="industries.agribusiness.heading">{cmsHeading}</em></h1></div>
         <div className={styles.audience}><h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>{groups.map(g=><p key={g}>{g}</p>)}</div>
       </section>
       <section className={styles.services} id="services">
