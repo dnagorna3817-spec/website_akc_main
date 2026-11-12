@@ -2,8 +2,8 @@
 import {useEffect,useState} from "react";
 const url=process.env.NEXT_PUBLIC_SUPABASE_URL||"";
 const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY||"";
-type News={id?:string;slug:string;title:string;summary:string;body:string;category:string;image_url:string|null;banner_image_url?:string|null;status:string;published_at?:string|null};
-const blank:News={slug:"",title:"",summary:"",body:"",category:"Новини",image_url:null,banner_image_url:null,status:"draft"};
+type News={id?:string;slug:string;title:string;summary:string;body:string;category:string;image_url:string|null;banner_image_url?:string|null;status:string;registration_enabled?:boolean;published_at?:string|null};
+const blank:News={slug:"",title:"",summary:"",body:"",category:"Новини",image_url:null,banner_image_url:null,status:"draft",registration_enabled:false};
 const translit:Record<string,string>={а:"a",б:"b",в:"v",г:"h",ґ:"g",д:"d",е:"e",є:"ye",ж:"zh",з:"z",и:"y",і:"i",ї:"yi",й:"i",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"kh",ц:"ts",ч:"ch",ш:"sh",щ:"shch",ь:"",ю:"yu",я:"ya",ы:"y",э:"e",ё:"yo",ъ:""};
 function makeSlug(s:string){return Array.from(s.toLowerCase().trim()).map(ch=>translit[ch]??ch).join("").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,90);}
 const inputStyle={width:"100%",padding:"14px 16px",border:"1px solid #416580",borderRadius:12,background:"#061a2a",color:"#f2f8ff",fontSize:16,marginTop:8} as const;
@@ -53,7 +53,7 @@ export default function NewsEditor({token,uid,getAccessToken,refreshAccessToken}
    const image_url=await uploadPhoto(photos.vertical,current.image_url);
    const banner_image_url=await uploadPhoto(photos.horizontal,current.banner_image_url);
    const {id,published_at,...fields}=current;
-   const payload={...fields,image_url,banner_image_url,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
+   const payload={...fields,registration_enabled:current.registration_enabled===true,image_url,banner_image_url,slug,status,updated_by:uid,published_at:status==="published"?(published_at||new Date().toISOString()):null};
    await request(id?"cms_news?id=eq."+encodeURIComponent(id):"cms_news",{method:id?"PATCH":"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify(payload)});
    setCurrent(null);await load();
   }catch(e){setError(String(e));}finally{setBusy(false);}
@@ -96,6 +96,7 @@ export default function NewsEditor({token,uid,getAccessToken,refreshAccessToken}
     <label style={{fontWeight:600}}>Тип публікації</label>
     <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>{["Новини","Статті","План заходів"].map(x=><button type="button" key={x} aria-pressed={current.category===x} onClick={()=>setCurrent({...current,category:x})} style={current.category===x?primary:secondary}>{x==="Новини"?"Новина":x==="Статті"?"Стаття":"План заходу"}</button>)}</div>
    </div>
+   <label style={{display:"flex",alignItems:"center",gap:12,padding:16,border:"1px solid #34536b",borderRadius:12,cursor:"pointer"}}><input type="checkbox" checked={current.registration_enabled===true} onChange={e=>setCurrent({...current,registration_enabled:e.target.checked})} style={{width:20,height:20}}/><span><strong>Увімкнути реєстрацію</strong><br/><small style={{color:"#a5bed0"}}>Показувати кнопку «Зареєструватися» для цієї публікації</small></span></label>
    {(["horizontal","vertical"] as const).map(kind=>{
     const isWide=kind==="horizontal";const value=previews[kind]||(isWide?current.banner_image_url:current.image_url);
     return <div key={kind} style={{display:"grid",gap:12,padding:18,border:"1px solid #34536b",borderRadius:14}}>
