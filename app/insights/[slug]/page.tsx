@@ -4,6 +4,7 @@ import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import { articles } from "../articles";
 import styles from "./article.module.css";
 import ArticleCover from "./ArticleCover";
+import RegistrationAction from "./RegistrationAction";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -14,15 +15,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   let article = articles.find((item) => item.slug === slug);
   let body: string | undefined;
   let coverUrl: string | null = null;
+  let registrationEnabled = false;
   if (/^[a-z0-9-]+$/.test(slug)) {
     const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if(url&&key) {
       try {
-        const response=await fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,body,published_at,image_url,banner_image_url&slug=eq."+encodeURIComponent(slug),{headers:{apikey:key,Authorization:"Bearer "+key},cache:"no-store"});
+        const response=await fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,body,published_at,image_url,banner_image_url,registration_enabled&slug=eq."+encodeURIComponent(slug),{headers:{apikey:key,Authorization:"Bearer "+key},cache:"no-store"});
         if(response.ok) {
-          const rows=await response.json() as {slug:string;title:string;summary:string;category:string;body:string;published_at:string;image_url:string|null;banner_image_url:string|null}[];
+          const rows=await response.json() as {slug:string;title:string;summary:string;category:string;body:string;published_at:string;image_url:string|null;banner_image_url:string|null;registration_enabled:boolean|null}[];
           const item=rows[0];
-          if(item){body=item.body;coverUrl=item.image_url||item.banner_image_url;article={id:9999,slug:item.slug,title:item.title,summary:item.summary,category:item.category as typeof articles[number]["category"],date:new Date(item.published_at).toLocaleDateString("uk-UA"),visual:"lines"};}
+          if(item){registrationEnabled=item.registration_enabled===true;body=item.body;coverUrl=item.image_url||item.banner_image_url;article={id:9999,slug:item.slug,title:item.title,summary:item.summary,category:item.category as typeof articles[number]["category"],date:new Date(item.published_at).toLocaleDateString("uk-UA"),visual:"lines"};}
         }
       }catch{}
     }
@@ -39,6 +41,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <h1>{article.title}</h1>
           <p className={styles.description}>{article.summary}</p>
           {body && <div className={styles.inlineBody}>{body}</div>}
+          {registrationEnabled && <RegistrationAction title={article.title} />}
           <div className={styles.separator} />
           
           <nav className={styles.links} aria-label="Навігація публікації">
