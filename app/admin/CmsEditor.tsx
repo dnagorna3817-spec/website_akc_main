@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import VisualEditor from "./VisualEditor";
 import NewsEditor from "./NewsEditor";
@@ -20,8 +20,41 @@ export default function CmsEditor() {
  const [items,setItems]=useState<Item[]>([]); const [message,setMessage]=useState("");
  const [busy,setBusy]=useState(false);
  const [tab,setTab]=useState<"visual"|"news"|"fields">("visual");
+ const accessRef=useRef("");
+ const refreshRef=useRef("");
+ const expiryRef=useRef(0);
+ const pendingRefresh=useRef<Promise<string>|null>(null);
+ async function refreshSession():Promise<string>{
+  if(pendingRefresh.current)return pendingRefresh.current;
+  pendingRefresh.current=(async()=>{
+   if(!refreshRef.current)throw new Error("Сесія завершилась. Увійдіть знову.");
+   const response=await fetch(url+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{apikey:key,"Content-Type":"application/json"},body:JSON.stringify({refresh_token:refreshRef.current})});
+   if(!response.ok)throw new Error("Сесія завершилась. Увійдіть знову.");
+   const session=await response.json();
+   accessRef.current=session.access_token;refreshRef.current=session.refresh_token;
+   expiryRef.current=Date.now()+session.expires_in*1000;
+   setToken(session.access_token);
+   return session.access_token as string;
+  })();
+  try{return await pendingRefresh.current}finally{pendingRefresh.current=null}
+ }
+ async function validToken(){
+  if(!accessRef.current)throw new Error("Увійдіть у CMS.");
+  if(Date.now()>expiryRef.current-60000)return refreshSession();
+  return accessRef.current;
+ }
+ useEffect(()=>{
+  if(!token)return;
+  const interval=setInterval(()=>{if(Date.now()>expiryRef.current-120000)void refreshSession().catch(()=>setMessage("Сесія завершилась. Увійдіть знову."));},60000);
+  return ()=>clearInterval(interval);
+ },[Boolean(token)]);
  async function request(path:string,init:RequestInit={},jwt=token){
-  const response=await fetch(url+"/rest/v1/"+path,{...init,headers:{"apikey":key,"Authorization":"Bearer "+(jwt||key),"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  const credential=jwt===token&&accessRef.current?await validToken():jwt;
+  let response=await fetch(url+"/rest/v1/"+path,{...init,headers:{"apikey":key,"Authorization":"Bearer "+(credential||key),"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  if(response.status===401&&refreshRef.current&&jwt===token){
+   const renewed=await refreshSession();
+   response=await fetch(url+"/rest/v1/"+path,{...init,headers:{"apikey":key,"Authorization":"Bearer "+renewed,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
+  }
   if(!response.ok) throw new Error("Помилка доступу або збереження ("+response.status+")");
   const body=await response.text(); return body?JSON.parse(body):null;
  }
@@ -33,6 +66,7 @@ export default function CmsEditor() {
    const membership=await request("cms_admins?select=user_id&user_id=eq."+encodeURIComponent(session.user.id),{},session.access_token);
    if(!membership?.length) throw new Error("Цей акаунт не має прав адміністратора");
    const data=await request("cms_content?select=key,value,draft&order=key",{},session.access_token);
+   accessRef.current=session.access_token;refreshRef.current=session.refresh_token;expiryRef.current=Date.now()+session.expires_in*1000;
    setUid(session.user.id);setToken(session.access_token);setItems(data||[]);setPassword("");
   }catch(err){setMessage(err instanceof Error?err.message:"Помилка входу");}finally{setBusy(false);}
  }
@@ -56,10 +90,10 @@ export default function CmsEditor() {
  <label>Email адміністратора<input type="email" required autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)} style={{...style,width:"100%",display:"block",marginTop:8}}/></label>
  <label>Пароль<input type="password" required autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} style={{...style,width:"100%",display:"block",marginTop:8}}/></label>
  <button disabled={busy} style={{...style,cursor:"pointer",background:"#a6dfff",color:"#041421",fontWeight:700}}>Увійти</button></form>:
- <><button onClick={()=>{setToken("");setUid("");setItems([]);}} style={{...style,cursor:"pointer",marginBottom:22}}>Вийти</button>
+ <><button onClick={()=>{accessRef.current="";refreshRef.current="";expiryRef.current=0;setToken("");setUid("");setItems([]);}} style={{...style,cursor:"pointer",marginBottom:22}}>Вийти</button>
  <nav aria-label="Розділи CMS" style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:24}}>{([["visual","Редагувати сайт"],["news","Новини ＋"],["fields","Текстові поля"]] as const).map(([id,label])=><button key={id} onClick={()=>setTab(id)} style={{...style,background:tab===id?"#a6dfff":"#10263a",color:tab===id?"#041421":"white",cursor:"pointer"}}>{label}</button>)}</nav>
  {tab==="visual"&&<VisualEditor items={items} save={(k,v,p)=>save(k,p,v)}/>}
- {tab==="news"&&<NewsEditor token={token} uid={uid}/>}
+ {tab==="news"&&<NewsEditor token={token} uid={uid} getAccessToken={validToken} refreshAccessToken={refreshSession}/>}
  {tab==="fields"&&fields.map(([k,label])=><section key={k} style={{...style,marginBottom:16}}>
  <label htmlFor={k} style={{display:"block",fontWeight:700,marginBottom:10}}>{label}</label>
  <textarea id={k} value={draftFor(k)} onChange={e=>change(k,e.target.value)} rows={3} style={{...style,width:"100%",resize:"vertical"}}/>
