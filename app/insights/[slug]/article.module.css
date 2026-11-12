@@ -4,6 +4,10 @@
 .artWithPhoto{background:#071827}
 .cover{position:absolute;inset:-2%;background-size:cover;background-position:center;filter:saturate(.82) contrast(1.04);transform:scale(1.025)}
 .artWithPhoto::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(90deg,#020d17 0%,rgba(2,13,23,.72) 8%,rgba(2,13,23,.18) 35%,rgba(2,13,23,.04) 70%),linear-gradient(0deg,rgba(2,13,23,.62),transparent 24%,transparent 75%,rgba(2,13,23,.28))}
-.artWithPhoto .geometry{z-index:2;opacity:.17;mix-blend-mode:screen;pointer-events:none}
+.artWithPhoto .geometry{display:none}
 .artWithPhoto .edge{opacity:.32}
 @media(max-width:800px){.artWithPhoto::after{background:linear-gradient(0deg,#020d17 0%,rgba(2,13,23,.1) 40%,rgba(2,13,23,.2) 100%)}.cover{background-position:center}}
+
+/* Keep photo dominant, with a soft fade into the text panel. */
+.artWithPhoto .cover{background-position:center center;filter:saturate(.9) contrast(1.03)}
+.artWithPhoto::after{background:linear-gradient(90deg,#020d17 0%,rgba(2,13,23,.78) 9%,rgba(2,13,23,.16) 34%,transparent 65%),linear-gradient(0deg,rgba(2,13,23,.42),transparent 26%,transparent 76%,rgba(2,13,23,.2))}
