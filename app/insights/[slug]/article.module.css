@@ -31,3 +31,7 @@
  .artWithPhoto .coverImage{object-fit:contain}
 }
 @media(max-width:480px){.art{min-height:270px}}
+
+/* Give portrait news photos breathing room inside the right panel. */
+.artWithPhoto .coverImage{inset:0;width:84%;height:88%;top:6%;left:8%;object-fit:contain;object-position:center}
+@media(max-width:800px){.artWithPhoto .coverImage{width:90%;height:88%;left:5%;top:6%}}
