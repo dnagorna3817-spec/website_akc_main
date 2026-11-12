@@ -46,3 +46,11 @@
  .artWithPhoto .coverImage{top:6%;left:5%;width:90%;height:88%}
 }
 @media(max-width:480px){.art{height:300px;min-height:0}}
+
+/* Full article text lives below the image hero, never in its grid row. */
+.articleBody{width:100%;padding:clamp(36px,6vw,90px) clamp(24px,6vw,100px) 110px;background:#020d17}
+.articleBodyInner{max-width:850px;margin:0 auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;color:#c5d5e3;font-size:clamp(16px,1.2vw,19px);line-height:1.8}
+.hero{min-height:calc(100svh - 88px)}
+.content{align-self:center}
+.art{height:calc(100svh - 88px);min-height:0;max-height:calc(100svh - 88px)}
+@media(max-width:800px){.hero{min-height:0}.art{height:clamp(300px,55vw,460px);min-height:0;max-height:none}}
