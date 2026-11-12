@@ -14,8 +14,8 @@ export default function InsightsPage() {
   useEffect(()=>{
    const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
    if(!url||!key)return;
-   fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,published_at,image_url,banner_image_url&order=published_at.desc",{headers:{apikey:key,Authorization:"Bearer "+key}})
-    .then(r=>r.ok?r.json():[]).then((rows:{slug:string;title:string;summary:string;category:string;published_at:string;image_url:string|null;banner_image_url:string|null}[])=>setCmsArticles(rows.map((n,i)=>({id:1000+i,slug:n.slug,title:n.title,summary:n.summary,category:n.category as typeof articles[number]["category"],date:new Date(n.published_at).toLocaleDateString("uk-UA"),visual:"lines",image_url:n.banner_image_url||n.image_url||null})))).catch(()=>{});
+   fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,published_at,image_url,banner_image_url,registration_enabled&order=published_at.desc",{headers:{apikey:key,Authorization:"Bearer "+key}})
+    .then(r=>r.ok?r.json():[]).then((rows:{slug:string;title:string;summary:string;category:string;published_at:string;image_url:string|null;banner_image_url:string|null;registration_enabled:boolean|null}[])=>setCmsArticles(rows.map((n,i)=>({id:1000+i,slug:n.slug,title:n.title,summary:n.summary,category:n.category as typeof articles[number]["category"],date:new Date(n.published_at).toLocaleDateString("uk-UA"),visual:"lines",image_url:n.banner_image_url||n.image_url||null,registration_enabled:n.registration_enabled===true})))).catch(()=>{});
   },[]);
   const [category, setCategory] = useState<Category>("Усі");
   const [registrationTitle, setRegistrationTitle] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{lead.category}</span><span>{lead.date}</span></div>
             <h2><Link href={`/insights/${lead.slug}`} className={styles.titleLink}>{lead.title}</Link></h2>
             <p>{lead.summary}</p>
-            {lead.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(lead.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
+            {("registration_enabled" in lead ? lead.registration_enabled === true : false) ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(lead.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
           </div>
         </article>}
         {rest.length > 0 && <div className={styles.grid}>
@@ -51,7 +51,7 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{article.category}</span><span>{article.date}</span></div>
             <h3><Link href={`/insights/${article.slug}`} className={styles.titleLink}>{article.title}</Link></h3>
             <p>{article.summary}</p>
-            {article.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
+            {("registration_enabled" in article ? article.registration_enabled === true : false) ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
           </article>)}
         </div>}
         <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <span aria-hidden="true">↗</span></Link></footer>
