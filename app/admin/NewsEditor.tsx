@@ -14,6 +14,7 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
  const [current,setCurrent]=useState<News|null>(null);
  const [error,setError]=useState("");
  const [busy,setBusy]=useState(false);
+ const [confirmDelete,setConfirmDelete]=useState(false);
  const [photo,setPhoto]=useState<File|null>(null);const [preview,setPreview]=useState<string|null>(null);
  async function request(path:string,init:RequestInit={}){
   const res=await fetch(url+"/rest/v1/"+path,{...init,headers:{apikey:key,Authorization:"Bearer "+token,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});
@@ -44,7 +45,14 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
    setCurrent(null);await load();
   }catch(e){setError(String(e));}finally{setBusy(false);}
  }
- function open(item:News){setCurrent({...item});setError("");setPhoto(null);setPreview(null);}
+ async function deleteNews(){
+  if(!current?.id)return;
+  setBusy(true);setError("");
+  try{await request("cms_news?id=eq."+encodeURIComponent(current.id),{method:"DELETE"});setCurrent(null);setConfirmDelete(false);setPhoto(null);setPreview(null);await load();}
+  catch(e){setError(String(e));}finally{setBusy(false);}
+ }
+ function removePhoto(){if(preview)URL.revokeObjectURL(preview);setPhoto(null);setPreview(null);if(current)setCurrent({...current,image_url:null});}
+ function open(item:News){setCurrent({...item});setError("");setPhoto(null);setPreview(null);setConfirmDelete(false);}
  function selectPhoto(file?:File){
   if(!file)return;
   if(!["image/jpeg","image/png","image/webp"].includes(file.type)){setError("Дозволено JPG, PNG або WebP.");return;}
@@ -73,13 +81,15 @@ export default function NewsEditor({token,uid}:{token:string;uid:string}){
    <div style={{display:"grid",gap:12}}>
     <label style={{fontWeight:600}}>Фото обкладинки (JPG, PNG або WebP, до 5 МБ)</label>
     <label style={{...secondary,width:"fit-content",display:"inline-block",cursor:"pointer"}}>＋ {photo?"Замінити фото":"Завантажити фото"}<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>selectPhoto(e.target.files?.[0])} style={{position:"absolute",width:1,height:1,opacity:0}}/></label>
-    {(preview||current.image_url)&&<img src={preview||current.image_url||""} alt="Попередній перегляд обкладинки" style={{width:"100%",maxWidth:460,maxHeight:270,objectFit:"cover",borderRadius:12}}/>}
+    {(preview||current.image_url)&&<div style={{display:"grid",gap:12,justifyItems:"start"}}><img src={preview||current.image_url||""} alt="Попередній перегляд обкладинки" style={{width:"100%",maxWidth:460,maxHeight:270,objectFit:"cover",borderRadius:12}}/><button type="button" disabled={busy} style={secondary} onClick={removePhoto}>Видалити фото</button><small style={{color:"#a5bed0"}}>Зміна збережеться після натискання «Опублікувати» або «Зберегти чернетку».</small></div>}
    </div>
    {error&&<p role="alert" style={{color:"#ffb5b5"}}>{error}</p>}
    <div style={{display:"flex",gap:12,flexWrap:"wrap",borderTop:"1px solid #34536b",paddingTop:20}}>
     <button disabled={busy} style={secondary} onClick={()=>save("draft")}>Зберегти чернетку</button>
     <button disabled={busy} style={primary} onClick={()=>save("published")}>{busy?"Збереження...":"Опублікувати"}</button>
+    {current.id&&<button type="button" disabled={busy} onClick={()=>setConfirmDelete(true)} style={{...secondary,borderColor:"#b85c69",color:"#ffc5cb",marginLeft:"auto"}}>Видалити новину</button>}
    </div>
+   {confirmDelete&&<div role="alertdialog" aria-modal="true" aria-labelledby="delete-news-title" style={{padding:20,border:"1px solid #b85c69",borderRadius:14,background:"#271b29",display:"grid",gap:14}}><strong id="delete-news-title">Видалити цю новину назавжди?</strong><p style={{margin:0}}>«{current.title}» зникне із сайту. Цю дію неможливо скасувати.</p><div style={{display:"flex",gap:12,flexWrap:"wrap"}}><button type="button" disabled={busy} style={secondary} onClick={()=>setConfirmDelete(false)}>Скасувати</button><button type="button" disabled={busy} onClick={deleteNews} style={{...primary,background:"#ffb9bf",borderColor:"#ffb9bf"}}>{busy?"Видалення...":"Так, видалити назавжди"}</button></div></div>}
   </section>}
   {!current&&error&&<p role="alert" style={{color:"#ffb5b5"}}>{error}</p>}
  </div>;
