@@ -54,3 +54,6 @@
 .content{align-self:center}
 .art{height:calc(100svh - 88px);min-height:0;max-height:calc(100svh - 88px)}
 @media(max-width:800px){.hero{min-height:0}.art{height:clamp(300px,55vw,460px);min-height:0;max-height:none}}
+
+/* News body follows summary in the left editorial column. */
+.inlineBody{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;max-width:100%;margin:24px auto 0;color:#c5d5e3;font-size:clamp(15px,1.1vw,18px);line-height:1.7;text-align:left}
