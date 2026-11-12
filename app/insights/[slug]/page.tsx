@@ -12,15 +12,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   let article = articles.find((item) => item.slug === slug);
   let body: string | undefined;
+  let coverUrl: string | null = null;
   if (!article && /^[a-z0-9-]+$/.test(slug)) {
     const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if(url&&key) {
       try {
-        const response=await fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,body,published_at&slug=eq."+encodeURIComponent(slug),{headers:{apikey:key,Authorization:"Bearer "+key},cache:"no-store"});
+        const response=await fetch(url+"/rest/v1/cms_published_news?select=slug,title,summary,category,body,published_at,image_url&slug=eq."+encodeURIComponent(slug),{headers:{apikey:key,Authorization:"Bearer "+key},cache:"no-store"});
         if(response.ok) {
-          const rows=await response.json() as {slug:string;title:string;summary:string;category:string;body:string;published_at:string}[];
+          const rows=await response.json() as {slug:string;title:string;summary:string;category:string;body:string;published_at:string;image_url:string|null}[];
           const item=rows[0];
-          if(item){body=item.body;article={id:9999,slug:item.slug,title:item.title,summary:item.summary,category:item.category as typeof articles[number]["category"],date:new Date(item.published_at).toLocaleDateString("uk-UA"),visual:"lines"};}
+          if(item){body=item.body;coverUrl=item.image_url;article={id:9999,slug:item.slug,title:item.title,summary:item.summary,category:item.category as typeof articles[number]["category"],date:new Date(item.published_at).toLocaleDateString("uk-UA"),visual:"lines"};}
         }
       }catch{}
     }
@@ -45,6 +46,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </nav>
         </section>
         <div className={styles.art} aria-hidden="true">
+          {coverUrl && <img src={coverUrl} alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",zIndex:2}} />}
           <div className={styles.geometry}><div className={styles.facetOne} /><div className={styles.facetTwo} /><div className={styles.facetThree} /><div className={styles.edge} /></div>
         </div>
       </main>
