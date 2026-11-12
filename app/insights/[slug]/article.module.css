@@ -16,3 +16,18 @@
 .coverImage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;z-index:1;filter:saturate(.9) contrast(1.03)}
 .artWithPhoto .geometry{display:none}
 .artWithPhoto::after{z-index:2}
+
+/* Keep the editorial split stable with arbitrary CMS copy and portrait images. */
+.hero{grid-template-columns:minmax(0,42%) minmax(0,58%)}
+.content{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:normal}
+.content h1,.description{overflow-wrap:anywhere}
+.art{min-width:0;min-height:calc(100svh - 88px)}
+.artWithPhoto{background:#020d17}
+.artWithPhoto .coverImage{inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transform:none}
+.artWithPhoto::after{background:linear-gradient(90deg,#020d17 0%,rgba(2,13,23,.32) 7%,transparent 23%)}
+@media(max-width:800px){
+ .hero{grid-template-columns:minmax(0,1fr)}
+ .art{min-height:360px}
+ .artWithPhoto .coverImage{object-fit:contain}
+}
+@media(max-width:480px){.art{min-height:270px}}
