@@ -36,6 +36,7 @@ const reasons = [
 
 export default async function MedicalPage() {
   const cmsHeading = await cmsText("industries.medical.heading", "медичного бізнесу");
+  const cmsLead = await cmsText("industries.medical.heroLead", "Бухгалтерський та\nконсалтинговий супровід");
   const groups = audiences.slice(0, 4).map(({ title }) => title);
   const offerings = [
     { title: "Бухгалтерський аутсорсинг", items: [
@@ -59,7 +60,7 @@ export default async function MedicalPage() {
         <div className={agro.art} aria-hidden="true"><div className={`${agro.photo} ${styles.medicalPhoto}`} /></div>
         <div className={agro.heroCopy}>
           <span>МЕДИЦИНА</span>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em data-cms-key="industries.medical.heading">{cmsHeading}</em></h1>
+          <h1><span data-cms-key="industries.medical.heroLead" style={{whiteSpace:"pre-line"}}>{cmsLead}</span><br/><em data-cms-key="industries.medical.heading">{cmsHeading}</em></h1>
         </div>
         <div className={agro.audience}>
           <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
