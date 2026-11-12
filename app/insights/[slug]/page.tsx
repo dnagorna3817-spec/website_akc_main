@@ -27,14 +27,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     }
   }
   if (!article) notFound();
-  const index = articles.findIndex((item) => item.slug === slug) + 1;
+  
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
       <ExpertiseHeader />
       <main className={styles.hero}>
         <section className={styles.content}>
-          <p className={styles.kicker}>{String(index).padStart(2, "0")} / Новини</p>
-          <div className={styles.status}><span className={styles.glow} /> {article.category}</div><p className={styles.index}>0{index} <span>/</span> <strong>АКЦ</strong></p>
+          <p className={styles.kicker}>АКЦ / Новини</p>
+          <div className={styles.status}><span className={styles.glow} /> {article.category}</div>
           <h1>{article.title}</h1>
           <p className={styles.description}>{article.summary}</p>
           {body&&<div style={{whiteSpace:"pre-wrap",lineHeight:1.8,marginTop:28,maxWidth:760}}>{body}</div>}
@@ -45,8 +45,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             
           </nav>
         </section>
-        <div className={styles.art} aria-hidden="true">
-          {coverUrl && <img src={coverUrl} alt="" style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",zIndex:2}} />}
+        <div className={`${styles.art} ${coverUrl ? styles.artWithPhoto : ""}`} aria-hidden="true">
+          {coverUrl && <div className={styles.cover} style={{backgroundImage:`url("${coverUrl.replace(/["\\]/g,"")}")`}} />}
           <div className={styles.geometry}><div className={styles.facetOne} /><div className={styles.facetTwo} /><div className={styles.facetThree} /><div className={styles.edge} /></div>
         </div>
       </main>
