@@ -9,6 +9,8 @@ export default function ArticleCover({ slug, initialUrl }: { slug: string; initi
   useEffect(() => {
     setPhoto(initialUrl);
     setFailed(false);
+    // Preserve the server-rendered cover to prevent a visible swap after hydration.
+    if (initialUrl) return;
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!url || !key) {
