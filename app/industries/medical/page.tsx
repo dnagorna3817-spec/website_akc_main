@@ -59,7 +59,7 @@ export default async function MedicalPage() {
         <div className={agro.art} aria-hidden="true"><div className={`${agro.photo} ${styles.medicalPhoto}`} /></div>
         <div className={agro.heroCopy}>
           <span>МЕДИЦИНА</span>
-          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em>{cmsHeading}</em></h1>
+          <h1>Бухгалтерський та<br/>консалтинговий супровід<br/><em data-cms-key="industries.medical.heading">{cmsHeading}</em></h1>
         </div>
         <div className={agro.audience}>
           <h2>ДЛЯ КОГО<br/>МИ ПРАЦЮЄМО</h2>
