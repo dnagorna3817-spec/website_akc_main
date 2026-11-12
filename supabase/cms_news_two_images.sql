@@ -3,6 +3,6 @@
 alter table public.cms_news add column if not exists banner_image_url text;
 -- Public view must expose the banner field for the listing page.
 create or replace view public.cms_published_news with (security_invoker=true) as
-select id, slug, title, summary, body, category, image_url, banner_image_url, published_at
+select id, slug, title, summary, body, category, image_url, published_at, banner_image_url
 from public.cms_news where status='published';
 grant select on public.cms_published_news to anon, authenticated;
