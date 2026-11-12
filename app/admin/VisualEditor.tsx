@@ -9,10 +9,14 @@ export default function VisualEditor({items,save}:{items:Item[];save:(key:string
  const [value,setValue]=useState("");const [busy,setBusy]=useState(false);const frame=useRef<HTMLIFrameElement>(null);
  useEffect(()=>{
   const iframe=frame.current;if(!iframe)return;
+  let timer: ReturnType<typeof setTimeout> | undefined;
   const attach=()=>{
    const doc=iframe.contentDocument;if(!doc)return;
+   // Defer DOM decoration until the embedded Next.js app has hydrated.
    const nodes=doc.querySelectorAll<HTMLElement>("[data-cms-key]");
    nodes.forEach(node=>{
+    if(node.dataset.cmsEditorAttached==="1")return;
+    node.dataset.cmsEditorAttached="1";
     node.style.cursor="text";node.style.outlineOffset="5px";node.title="Натисніть, щоб змінити текст";
     node.addEventListener("mouseenter",()=>node.style.outline="2px dashed #71c8ff");
     node.addEventListener("mouseleave",()=>node.style.outline="");
@@ -23,8 +27,9 @@ export default function VisualEditor({items,save}:{items:Item[];save:(key:string
     },true);
    });
   };
-  iframe.addEventListener("load",attach);attach();
-  return()=>iframe.removeEventListener("load",attach);
+  const schedule=()=>{if(timer)clearTimeout(timer);timer=setTimeout(attach,1800);};
+  iframe.addEventListener("load",schedule);schedule();
+  return()=>{iframe.removeEventListener("load",schedule);if(timer)clearTimeout(timer);};
  },[path,items]);
  async function submit(publish:boolean){if(!selected)return;setBusy(true);try{await save(selected.key,value,publish);if(publish)frame.current?.contentWindow?.location.reload();setSelected(null);}finally{setBusy(false);}}
  return <div style={{display:"grid",gap:14}}>
