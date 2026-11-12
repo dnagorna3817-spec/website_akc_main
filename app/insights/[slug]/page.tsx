@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import { articles } from "../articles";
 import styles from "./article.module.css";
+import ArticleCover from "./ArticleCover";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -45,10 +46,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             
           </nav>
         </section>
-        <div className={`${styles.art} ${coverUrl ? styles.artWithPhoto : ""}`} aria-hidden="true">
-          {coverUrl && <div className={styles.cover} style={{backgroundImage:`url("${coverUrl.replace(/["\\]/g,"")}")`}} />}
-          <div className={styles.geometry}><div className={styles.facetOne} /><div className={styles.facetTwo} /><div className={styles.facetThree} /><div className={styles.edge} /></div>
-        </div>
+        <ArticleCover slug={slug} initialUrl={coverUrl} />
       </main>
     </div>
   );
