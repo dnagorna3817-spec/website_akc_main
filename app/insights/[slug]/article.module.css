@@ -11,3 +11,8 @@
 /* Keep photo dominant, with a soft fade into the text panel. */
 .artWithPhoto .cover{background-position:center center;filter:saturate(.9) contrast(1.03)}
 .artWithPhoto::after{background:linear-gradient(90deg,#020d17 0%,rgba(2,13,23,.78) 9%,rgba(2,13,23,.16) 34%,transparent 65%),linear-gradient(0deg,rgba(2,13,23,.42),transparent 26%,transparent 76%,rgba(2,13,23,.2))}
+
+/* Reliable image element for CMS covers; remains visible above the decorative background. */
+.coverImage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;z-index:1;filter:saturate(.9) contrast(1.03)}
+.artWithPhoto .geometry{display:none}
+.artWithPhoto::after{z-index:2}
