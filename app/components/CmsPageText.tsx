@@ -18,13 +18,14 @@ export default function CmsPageText(){
  const pathname=usePathname();
  useEffect(()=>{
   if(!api||!anon||pathname.startsWith("/admin"))return;
+  const anonKey=anon;
   let cancelled=false;let timer:ReturnType<typeof setTimeout>;
   async function update(){
    const nodes=cmsTextNodes(document,pathname);
    const keys=nodes.map(n=>n.key);
    if(!keys.length)return;
    try{
-    const response=await fetch(api+"/rest/v1/cms_published?select=key,value&key=in.("+keys.map(k=>'"'+k+'"').join(",")+")",{headers:{apikey:anon,Authorization:"Bearer "+anon}});
+    const response=await fetch(api+"/rest/v1/cms_published?select=key,value&key=in.("+keys.map(k=>'"'+k+'"').join(",")+")",{headers:{apikey:anonKey,Authorization:"Bearer "+anonKey}});
     if(!response.ok)return;
     const rows=await response.json() as {key:string;value:string}[];
     if(cancelled)return;
