@@ -121,12 +121,25 @@ body {
   }
 }
 
-/* Keep the shared desktop site navigation visible while each page scrolls. */
+/* Keep every desktop site header visible while the page scrolls. */
 @media (min-width: 768px) {
-  header[data-transition-header] {
+  header[data-transition-header],
+  .akc-about-figma.page > header.nav,
+  .akc-page > header.brand {
     position: sticky;
     top: 0;
     z-index: 1000;
+  }
+
+  header[data-transition-header] {
     background: #010910;
+  }
+
+  .akc-about-figma.page > header.nav {
+    background: #030b0f;
+  }
+
+  .akc-page > header.brand {
+    background: #020810;
   }
 }
