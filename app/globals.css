@@ -123,23 +123,25 @@ body {
 
 /* Keep every desktop site header visible while the page scrolls. */
 @media (min-width: 768px) {
+  /* Keep every desktop navigation variant pinned to the top while scrolling. */
   header[data-transition-header],
-  .akc-about-figma.page > header.nav,
-  .akc-page > header.brand {
-    position: sticky;
+  header.nav,
+  header.brand {
+    position: sticky !important;
     top: 0;
     z-index: 1000;
+    align-self: start;
   }
 
   header[data-transition-header] {
     background: #010910;
   }
 
-  .akc-about-figma.page > header.nav {
+  header.nav {
     background: #030b0f;
   }
 
-  .akc-page > header.brand {
+  header.brand {
     background: #020810;
   }
 }
