@@ -120,3 +120,13 @@ body {
     display: flex !important;
   }
 }
+
+/* Keep the shared desktop site navigation visible while each page scrolls. */
+@media (min-width: 768px) {
+  header[data-transition-header] {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #010910;
+  }
+}
