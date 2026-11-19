@@ -3001,3 +3001,20 @@ body {
     white-space: nowrap !important;
   }
 }
+
+/* About page: let the main document scroll so the navigation can remain sticky. */
+@media (min-width: 769px) {
+  .akc-about-figma.page {
+    overflow: visible;
+  }
+
+  .akc-about-figma > header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .akc-about-figma > .hero > .hero__copy {
+    padding-top: 68px;
+  }
+}
