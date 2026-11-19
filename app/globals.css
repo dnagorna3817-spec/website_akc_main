@@ -145,3 +145,13 @@ body {
     background: #020810;
   }
 }
+
+/* Sticky headers fail when their page wrapper clips overflow.
+   Keep page wrappers scroll-transparent on desktop so sticky works on every route. */
+@media (min-width: 768px) {
+  body :is(div, main):has(> header[data-transition-header]),
+  body :is(div, main):has(> header.nav),
+  body :is(div, main):has(> header.brand) {
+    overflow: visible !important;
+  }
+}
