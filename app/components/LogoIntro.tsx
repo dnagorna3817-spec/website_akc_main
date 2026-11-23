@@ -199,7 +199,6 @@ export default function LogoIntro() {
             if (finishState.current !== "pending") return;
             awaitingManualPlay.current = true;
             setRetainMobileVideo(true);
-            setManualPlayError(null);
             logIntroDiagnostic("autoplay-waiting-for-user-gesture", video, {
               reason: "autoplay-rejection",
               ...describePlayError(error),
@@ -236,7 +235,6 @@ export default function LogoIntro() {
             manualPlayPending.current = false;
             awaitingManualPlay.current = false;
             manualPlaybackSucceeded.current = true;
-            setShowMobilePlayPrompt(false);
             setManualPlaybackStarted(true);
             logIntroDiagnostic("page-gesture-play-resolved", video);
           },
