@@ -60,12 +60,17 @@ export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
   const mobileRef = useRef<HTMLVideoElement>(null);
   const finishState = useRef<"pending" | "fallback" | "success">("pending");
-  const awaitingAutoplayRetry = useRef(false);
+  const awaitingManualPlay = useRef(false);
+  const manualPlaybackSucceeded = useRef(false);
+  const manualPlayPending = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
   const [retainMobileVideo, setRetainMobileVideo] = useState(false);
+  const [showMobilePlayPrompt, setShowMobilePlayPrompt] = useState(false);
+  const [manualPlayError, setManualPlayError] = useState<string | null>(null);
+  const [manualPlaybackStarted, setManualPlaybackStarted] = useState(false);
 
   const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
     if (animateMenu) {
@@ -96,7 +101,7 @@ export default function LogoIntro() {
   const completePlayback = useCallback((video?: HTMLVideoElement | null) => {
     logIntroDiagnostic("video-ended", video, { duration: video?.duration ?? null });
     setCrossfading(true);
-    finish(true);
+    finish(true, manualPlaybackSucceeded.current);
   }, [finish]);
 
   useEffect(() => {
@@ -104,6 +109,8 @@ export default function LogoIntro() {
     const timer = window.setTimeout(() => {
       setCrossfading(false);
       setRetainMobileVideo(false);
+      setManualPlaybackStarted(false);
+      manualPlaybackSucceeded.current = false;
     }, 850);
     return () => window.clearTimeout(timer);
   }, [crossfading]);
@@ -148,7 +155,7 @@ export default function LogoIntro() {
     motion.addEventListener("change", update);
 
     const timer = window.setTimeout(() => {
-      if (finishState.current !== "pending" || awaitingAutoplayRetry.current) return;
+      if (finishState.current !== "pending" || awaitingManualPlay.current) return;
       logIntroDiagnostic("poster-fallback", mobileRef.current ?? desktopRef.current, {
         reason: "timeout",
         timeoutMs: 8500,
@@ -166,7 +173,7 @@ export default function LogoIntro() {
   useEffect(() => {
     if (isMobile === null) return;
     if (reducedMotion) {
-      awaitingAutoplayRetry.current = false;
+      awaitingManualPlay.current = false;
       logIntroDiagnostic("poster-fallback", null, { reason: "prefers-reduced-motion" });
       finish(false);
       return;
@@ -192,12 +199,16 @@ export default function LogoIntro() {
         (error: unknown) => {
           if (isMobile && getPlayErrorName(error) === "NotAllowedError") {
             if (finishState.current !== "pending") return;
-            awaitingAutoplayRetry.current = true;
+            awaitingManualPlay.current = true;
             setRetainMobileVideo(true);
-            logIntroDiagnostic("autoplay-retry-waiting-for-canplay", video, {
-              reason: "initial-not-allowed",
+            setShowMobilePlayPrompt(true);
+            setManualPlayError(null);
+            logIntroDiagnostic("poster-fallback", video, {
+              reason: "autoplay-rejection",
               ...describePlayError(error),
+              manualPlaybackAvailable: true,
             });
+            finish(false);
             return;
           }
           failPlayback(video, "autoplay-rejection", error);
@@ -208,7 +219,68 @@ export default function LogoIntro() {
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
 
-  const introMode = crossfading ? "crossfading" : playing && !reducedMotion ? "playing" : "static";
+  const playMobileVideoFromClick = useCallback(() => {
+    const video = mobileRef.current;
+    if (!video) {
+      setManualPlayError("Відео недоступне. Спробуйте оновити сторінку.");
+      return;
+    }
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    if (manualPlayPending.current) return;
+
+    let playPromise: Promise<void>;
+    try {
+      manualPlayPending.current = true;
+      playPromise = video.play();
+    } catch (error) {
+      manualPlayPending.current = false;
+      video.pause();
+      awaitingManualPlay.current = true;
+      setManualPlayError("Не вдалося запустити інтро. Спробуйте ще раз.");
+      setManualPlaybackStarted(false);
+      logIntroDiagnostic("manual-play-rejected", video, describePlayError(error));
+      return;
+    }
+
+    setManualPlayError(null);
+    logIntroDiagnostic("manual-play-request", video, {
+      muted: video.muted,
+      defaultMuted: video.defaultMuted,
+      playsInline: video.playsInline,
+    });
+    void playPromise.then(
+      () => {
+        manualPlayPending.current = false;
+        awaitingManualPlay.current = false;
+        manualPlaybackSucceeded.current = true;
+        setShowMobilePlayPrompt(false);
+        setManualPlaybackStarted(true);
+        logIntroDiagnostic("manual-play-resolved", video);
+      },
+      (error: unknown) => {
+        manualPlayPending.current = false;
+        video.pause();
+        awaitingManualPlay.current = true;
+        setShowMobilePlayPrompt(true);
+        setManualPlaybackStarted(false);
+        setManualPlayError("Не вдалося запустити інтро. Спробуйте ще раз.");
+        logIntroDiagnostic("manual-play-rejected", video, describePlayError(error));
+      },
+    );
+  }, []);
+
+  const introMode = showMobilePlayPrompt && isMobile === true
+    ? "manual-prompt"
+    : crossfading
+      ? "crossfading"
+      : manualPlaybackStarted
+        ? "manual-playing"
+        : playing && !reducedMotion
+          ? "playing"
+          : "static";
 
   return (
     <div
@@ -239,30 +311,22 @@ export default function LogoIntro() {
           controls={false}
           preload="auto"
           onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
-          onCanPlay={(event) => {
-            const video = event.currentTarget;
-            logIntroDiagnostic("canplay", video);
-            if (!awaitingAutoplayRetry.current || finishState.current !== "pending") return;
-            awaitingAutoplayRetry.current = false;
-            video.muted = true;
-            video.defaultMuted = true;
-            video.playsInline = true;
-            logIntroDiagnostic("canplay-autoplay-retry", video);
-            try {
-              void video.play().then(
-                () => logIntroDiagnostic("canplay-autoplay-retry-resolved", video),
-                (error: unknown) => failPlayback(video, "autoplay-rejection", error),
-              );
-            } catch (error) {
-              failPlayback(video, "play-exception", error);
-            }
-          }}
+          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
           onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
           onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
           onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
           onEnded={(event) => completePlayback(event.currentTarget)}
           onError={(event) => {
             logIntroDiagnostic("error", event.currentTarget);
+            if (retainMobileVideo) {
+              event.currentTarget.pause();
+              awaitingManualPlay.current = true;
+              manualPlaybackSucceeded.current = false;
+              setManualPlaybackStarted(false);
+              setShowMobilePlayPrompt(true);
+              setManualPlayError("Не вдалося відтворити інтро. Спробуйте ще раз.");
+              return;
+            }
             failPlayback(event.currentTarget, "media-error");
           }}
           aria-hidden="true"
@@ -290,6 +354,22 @@ export default function LogoIntro() {
           }}
           aria-hidden="true"
         />
+      )}
+      {!reducedMotion && isMobile === true && showMobilePlayPrompt && (
+        <div className="logo-intro-play-control">
+          <button
+            className="logo-intro-play-button"
+            type="button"
+            aria-label="Відтворити інтро"
+            onClick={playMobileVideoFromClick}
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path d="M6 3.8a.8.8 0 0 1 1.2-.7l10 6.2a.8.8 0 0 1 0 1.4l-10 6.2a.8.8 0 0 1-1.2-.7z" fill="currentColor" />
+            </svg>
+            <span>Відтворити інтро</span>
+          </button>
+          {manualPlayError && <p className="logo-intro-play-error" role="status" aria-live="polite">{manualPlayError}</p>}
+        </div>
       )}
     </div>
   );
