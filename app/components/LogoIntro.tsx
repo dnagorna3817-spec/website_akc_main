@@ -170,6 +170,32 @@ export default function LogoIntro() {
     };
   }, [finish]);
 
+  // iOS Safari may block autoplay even for muted inline video.
+  // Keep the video mounted behind the poster and retry directly inside the
+  // first real user gesture, without adding a visible play button.
+  useEffect(() => {
+    if (isMobile !== true || !retainMobileVideo || manualPlaybackStarted) return;
+
+    const startFromGesture = () => {
+      const video = mobileRef.current;
+      if (!video || !video.paused) return;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      void video.play().then(
+        () => logIntroDiagnostic("gesture-play-resolved", video),
+        (error: unknown) => logIntroDiagnostic("gesture-play-rejected", video, describePlayError(error)),
+      );
+    };
+
+    window.addEventListener("pointerdown", startFromGesture, { capture: true, once: true });
+    window.addEventListener("touchstart", startFromGesture, { capture: true, once: true });
+    return () => {
+      window.removeEventListener("pointerdown", startFromGesture, true);
+      window.removeEventListener("touchstart", startFromGesture, true);
+    };
+  }, [isMobile, retainMobileVideo, manualPlaybackStarted]);
+
   useEffect(() => {
     if (isMobile === null) return;
     if (reducedMotion) {
