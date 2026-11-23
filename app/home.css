@@ -1792,3 +1792,11 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* Prevent browser playback overlays from appearing over the cinematic intro. */
+.logo-intro-layer .logo-intro-video::-webkit-media-controls,
+.logo-intro-layer .logo-intro-video::-webkit-media-controls-start-playback-button,
+.logo-intro-layer .logo-intro-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
