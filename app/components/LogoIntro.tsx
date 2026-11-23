@@ -51,18 +51,11 @@ function describePlayError(error: unknown) {
   return { errorMessage: String(error) };
 }
 
-function getPlayErrorName(error: unknown) {
-  if (typeof error !== "object" || error === null || !("name" in error)) return "";
-  return String(error.name);
-}
-
 export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
   const mobileRef = useRef<HTMLVideoElement>(null);
   const finishState = useRef<"pending" | "fallback" | "success">("pending");
-  const awaitingManualPlay = useRef(false);
   const manualPlaybackSucceeded = useRef(false);
-  const manualPlayPending = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
@@ -99,8 +92,6 @@ export default function LogoIntro() {
   const handleMobilePlaying = useCallback((video: HTMLVideoElement) => {
     // Safari may reject the early play() call but still honor the native
     // muted autoplay attribute once the media becomes ready.
-    awaitingManualPlay.current = false;
-    manualPlayPending.current = false;
     manualPlaybackSucceeded.current = true;
     setRetainMobileVideo(true);
     setManualPlaybackStarted(true);
@@ -164,7 +155,7 @@ export default function LogoIntro() {
     motion.addEventListener("change", update);
 
     const timer = window.setTimeout(() => {
-      if (finishState.current !== "pending" || awaitingManualPlay.current) return;
+      if (finishState.current !== "pending") return;
       logIntroDiagnostic("poster-fallback", mobileRef.current ?? desktopRef.current, {
         reason: "timeout",
         timeoutMs: 8500,
@@ -182,7 +173,6 @@ export default function LogoIntro() {
   useEffect(() => {
     if (isMobile === null) return;
     if (reducedMotion) {
-      awaitingManualPlay.current = false;
       logIntroDiagnostic("poster-fallback", null, { reason: "prefers-reduced-motion" });
       finish(false);
       return;
@@ -219,15 +209,13 @@ export default function LogoIntro() {
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
 
-  const introMode = awaitingManualPlay.current && isMobile === true
-    ? "tap-to-play"
-    : crossfading
-      ? "crossfading"
-      : manualPlaybackStarted
-        ? "manual-playing"
-        : playing && !reducedMotion
-          ? "playing"
-          : "static";
+  const introMode = crossfading
+    ? "crossfading"
+    : manualPlaybackStarted
+      ? "manual-playing"
+      : playing && !reducedMotion
+        ? "playing"
+        : "static";
 
   return (
     <div
@@ -270,13 +258,6 @@ export default function LogoIntro() {
           onEnded={(event) => completePlayback(event.currentTarget)}
           onError={(event) => {
             logIntroDiagnostic("error", event.currentTarget);
-            if (retainMobileVideo) {
-              event.currentTarget.pause();
-              awaitingManualPlay.current = true;
-              manualPlaybackSucceeded.current = false;
-              setManualPlaybackStarted(false);
-              return;
-            }
             failPlayback(event.currentTarget, "media-error");
           }}
           aria-hidden="true"
