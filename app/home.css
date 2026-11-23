@@ -1940,3 +1940,33 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
     opacity: 0;
   }
 }
+
+
+/* Mobile sequence: start directly with the film; reveal the poster only
+   after the video ends, using a single smooth crossfade. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-poster,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-poster {
+    opacity: 0 !important;
+    z-index: 0 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-video--mobile,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    opacity: 1 !important;
+    z-index: 1 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster {
+    opacity: 1 !important;
+    z-index: 2 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video--mobile {
+    opacity: 0 !important;
+    z-index: 1 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+}
