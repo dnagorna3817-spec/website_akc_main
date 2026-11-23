@@ -68,8 +68,6 @@ export default function LogoIntro() {
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
   const [retainMobileVideo, setRetainMobileVideo] = useState(false);
-  const [showMobilePlayPrompt, setShowMobilePlayPrompt] = useState(false);
-  const [manualPlayError, setManualPlayError] = useState<string | null>(null);
   const [manualPlaybackStarted, setManualPlaybackStarted] = useState(false);
 
   const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
@@ -201,7 +199,6 @@ export default function LogoIntro() {
             if (finishState.current !== "pending") return;
             awaitingManualPlay.current = true;
             setRetainMobileVideo(true);
-            setShowMobilePlayPrompt(false);
             setManualPlayError(null);
             logIntroDiagnostic("autoplay-waiting-for-user-gesture", video, {
               reason: "autoplay-rejection",
@@ -266,64 +263,9 @@ export default function LogoIntro() {
     };
   }, [isMobile, reducedMotion, retainMobileVideo]);
 
-  const playMobileVideoFromClick = useCallback(() => {
-    const video = mobileRef.current;
-    if (!video) {
-      setManualPlayError("Відео недоступне. Спробуйте оновити сторінку.");
-      return;
-    }
-
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    if (manualPlayPending.current) return;
-
-    let playPromise: Promise<void>;
-    try {
-      manualPlayPending.current = true;
-      playPromise = video.play();
-    } catch (error) {
-      manualPlayPending.current = false;
-      video.pause();
-      awaitingManualPlay.current = true;
-      setManualPlayError("Не вдалося запустити інтро. Спробуйте ще раз.");
-      setManualPlaybackStarted(false);
-      logIntroDiagnostic("manual-play-rejected", video, describePlayError(error));
-      return;
-    }
-
-    setManualPlayError(null);
-    logIntroDiagnostic("manual-play-request", video, {
-      muted: video.muted,
-      defaultMuted: video.defaultMuted,
-      playsInline: video.playsInline,
-    });
-    void playPromise.then(
-      () => {
-        manualPlayPending.current = false;
-        awaitingManualPlay.current = false;
-        manualPlaybackSucceeded.current = true;
-        setShowMobilePlayPrompt(false);
-        setManualPlaybackStarted(true);
-        logIntroDiagnostic("manual-play-resolved", video);
-      },
-      (error: unknown) => {
-        manualPlayPending.current = false;
-        video.pause();
-        awaitingManualPlay.current = true;
-        setShowMobilePlayPrompt(true);
-        setManualPlaybackStarted(false);
-        setManualPlayError("Не вдалося запустити інтро. Спробуйте ще раз.");
-        logIntroDiagnostic("manual-play-rejected", video, describePlayError(error));
-      },
-    );
-  }, []);
-
-  const introMode = showMobilePlayPrompt && isMobile === true
-    ? "manual-prompt"
-    : awaitingManualPlay.current && isMobile === true
-      ? "tap-to-play"
-      : crossfading
+  const introMode = awaitingManualPlay.current && isMobile === true
+    ? "tap-to-play"
+    : crossfading
       ? "crossfading"
       : manualPlaybackStarted
         ? "manual-playing"
@@ -372,8 +314,6 @@ export default function LogoIntro() {
               awaitingManualPlay.current = true;
               manualPlaybackSucceeded.current = false;
               setManualPlaybackStarted(false);
-              setShowMobilePlayPrompt(true);
-              setManualPlayError("Не вдалося відтворити інтро. Спробуйте ще раз.");
               return;
             }
             failPlayback(event.currentTarget, "media-error");
