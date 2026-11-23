@@ -148,7 +148,7 @@ export default function LogoIntro() {
     motion.addEventListener("change", update);
 
     const timer = window.setTimeout(() => {
-      if (finishState.current !== "pending") return;
+      if (finishState.current !== "pending" || awaitingAutoplayRetry.current) return;
       logIntroDiagnostic("poster-fallback", mobileRef.current ?? desktopRef.current, {
         reason: "timeout",
         timeoutMs: 8500,
