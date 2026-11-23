@@ -1839,3 +1839,89 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
     transition: none !important;
   }
 }
+
+/* Keep the mobile poster visible when autoplay is blocked, with a tappable
+   manual-play control above the hero and a short fade into successful playback. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="manual-prompt"] {
+    z-index: 2;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-prompt"] .logo-intro-poster {
+    z-index: 2;
+    opacity: 1;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-prompt"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-poster {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-play-control {
+    position: absolute;
+    z-index: 4;
+    top: 68%;
+    left: 50%;
+    width: min(88vw, 340px);
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto;
+    text-align: center;
+  }
+
+  .logo-intro-play-button {
+    min-height: 54px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 22px;
+    border: 1px solid rgba(112, 196, 255, .7);
+    border-radius: 999px;
+    background: rgba(4, 18, 38, .88);
+    box-shadow: 0 0 28px rgba(37, 143, 255, .28), inset 0 0 18px rgba(73, 164, 255, .1);
+    color: #f3f8ff;
+    font: 600 15px/1.2 Arial, sans-serif;
+    letter-spacing: .01em;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .logo-intro-play-button svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .logo-intro-play-button:focus-visible {
+    outline: 3px solid #8ed4ff;
+    outline-offset: 4px;
+  }
+
+  .logo-intro-play-error {
+    max-width: 34ch;
+    margin: 0;
+    color: #e5eef9;
+    font: 13px/1.45 Arial, sans-serif;
+    text-shadow: 0 1px 8px #020810;
+  }
+}
