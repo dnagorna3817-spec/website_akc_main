@@ -289,7 +289,9 @@ export default function LogoIntro() {
           />
         </div>
       )}
-      {!reducedMotion && (playing || crossfading || (isMobile === true && retainMobileVideo)) && isMobile === true && (
+      {/* Mount the mobile video before matchMedia resolves so Safari can
+          begin fetching it during hydration instead of waiting for the effect. */}
+      {!reducedMotion && (playing || crossfading || (isMobile !== false && retainMobileVideo)) && isMobile !== false && (
         <video
           ref={mobileRef}
           className="logo-intro-video logo-intro-video--mobile"
