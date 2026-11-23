@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const DESKTOP_VIDEO = "/media/desktop.mp4";
-const MOBILE_VIDEO = "/media/mobile.mp4";
+const MOBILE_ANIMATION = "/media/akc-intro/mobile-animation.webp";
 const DESKTOP_POSTER = "/media/akc-intro/desktop-poster.png";
 const MOBILE_POSTER = "/media/akc-intro/mobile-poster.png";
 const INTRO_DIAGNOSTIC_PARAM = "akcIntroDebug";
@@ -205,7 +205,13 @@ export default function LogoIntro() {
       return;
     }
 
-    const video = isMobile ? mobileRef.current : desktopRef.current;
+    if (isMobile) {
+      // Animated WebP avoids the HTML video autoplay policy on iOS.
+      const timer = window.setTimeout(() => completePlayback(null), 4150);
+      return () => window.clearTimeout(timer);
+    }
+
+    const video = desktopRef.current;
     if (!video) return;
 
     // Set iOS autoplay requirements before requesting playback.
@@ -241,7 +247,7 @@ export default function LogoIntro() {
     } catch (error) {
       failPlayback(video, "play-exception", error);
     }
-  }, [isMobile, reducedMotion, failPlayback, finish]);
+  }, [isMobile, reducedMotion, failPlayback, finish, completePlayback]);
 
   // On iPhone, keep the poster visible until Safari confirms real playback.
   // A pending play() request is not proof that frames are being rendered.
@@ -273,46 +279,14 @@ export default function LogoIntro() {
           />
         </div>
       )}
-      {/* Mount the mobile video before matchMedia resolves so Safari can
-          begin fetching it during hydration instead of waiting for the effect. */}
-      {!reducedMotion && (playing || crossfading || (isMobile !== false && retainMobileVideo)) && isMobile !== false && (
-        <video
-          ref={mobileRef}
-          className="logo-intro-video logo-intro-video--mobile"
-          src={MOBILE_VIDEO}
-          muted
-          autoPlay
-          playsInline
-          controls={false}
-          preload="auto"
-          onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
-          onCanPlay={(event) => {
-            const video = event.currentTarget;
-            logIntroDiagnostic("canplay", video);
-            if (video.paused && !mobileCanPlayRetry.current) {
-              mobileCanPlayRetry.current = true;
-              video.muted = true;
-              video.defaultMuted = true;
-              video.playsInline = true;
-              logIntroDiagnostic("automatic-canplay-retry", video);
-              void video.play().then(
-                () => logIntroDiagnostic("automatic-canplay-retry-resolved", video),
-                (error: unknown) => logIntroDiagnostic("automatic-canplay-retry-rejected", video, describePlayError(error)),
-              );
-            }
-          }}
-          onPlaying={(event) => {
-            logIntroDiagnostic("playing", event.currentTarget);
-            handleMobilePlaying(event.currentTarget);
-          }}
-          onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
-          onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
-          onEnded={(event) => completePlayback(event.currentTarget)}
-          onError={(event) => {
-            logIntroDiagnostic("error", event.currentTarget);
-            failPlayback(event.currentTarget, "media-error");
-          }}
+      {/* Animated WebP avoids iOS Safari's video autoplay gesture restriction. */}
+      {!reducedMotion && (playing || crossfading) && isMobile === true && (
+        <img
+          className="logo-intro-video logo-intro-video--mobile logo-intro-animation"
+          src={MOBILE_ANIMATION}
+          alt=""
           aria-hidden="true"
+          draggable={false}
         />
       )}
       {!reducedMotion && (playing || crossfading) && isMobile === false && (
