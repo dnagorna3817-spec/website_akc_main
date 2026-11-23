@@ -279,24 +279,7 @@ export default function LogoIntro() {
           controls={false}
           preload="auto"
           onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
-          onCanPlay={(event) => {
-            const video = event.currentTarget;
-            logIntroDiagnostic("canplay", video);
-            if (!awaitingAutoplayRetry.current || finishState.current !== "pending") return;
-            awaitingAutoplayRetry.current = false;
-            video.muted = true;
-            video.defaultMuted = true;
-            video.playsInline = true;
-            logIntroDiagnostic("canplay-autoplay-retry", video);
-            try {
-              void video.play().then(
-                () => logIntroDiagnostic("canplay-autoplay-retry-resolved", video),
-                (error: unknown) => failPlayback(video, "autoplay-rejection", error),
-              );
-            } catch (error) {
-              failPlayback(video, "play-exception", error);
-            }
-          }}
+          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
           onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
           onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
           onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
@@ -308,7 +291,6 @@ export default function LogoIntro() {
           aria-hidden="true"
         />
       )}
-}
     </div>
   );
 }
