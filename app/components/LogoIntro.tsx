@@ -196,81 +196,28 @@ export default function LogoIntro() {
     video.defaultMuted = true;
     video.playsInline = true;
     video.autoplay = true;
-    logIntroDiagnostic("play-request", video, {
+    logIntroDiagnostic("autoplay-ready", video, {
       muted: video.muted,
       defaultMuted: video.defaultMuted,
       playsInline: video.playsInline,
       autoplay: video.autoplay,
+      strategy: isMobile ? "native-ios-autoplay" : "scripted-desktop-play",
     });
+
+    // On iPhone, let Safari's native autoplay attribute start the muted,
+    // inline video as soon as it is ready. Calling play() too early (before
+    // media readiness) can reject with NotAllowedError and cancel autoplay.
+    if (isMobile) return;
+
     try {
       void video.play().then(
         () => logIntroDiagnostic("play-resolved", video),
-        (error: unknown) => {
-          if (isMobile && getPlayErrorName(error) === "NotAllowedError") {
-            if (finishState.current !== "pending") return;
-            awaitingManualPlay.current = true;
-            setRetainMobileVideo(true);
-            logIntroDiagnostic("autoplay-waiting-for-user-gesture", video, {
-              reason: "autoplay-rejection",
-              ...describePlayError(error),
-            });
-            return;
-          }
-          failPlayback(video, "autoplay-rejection", error);
-        },
+        (error: unknown) => failPlayback(video, "autoplay-rejection", error),
       );
     } catch (error) {
       failPlayback(video, "play-exception", error);
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
-
-  // iOS Safari may reject autoplay even for muted inline video.
-  // Keep the poster visible and start the film on the first natural page touch,
-  // without adding a visible play button over the triangle.
-  useEffect(() => {
-    if (!isMobile || !awaitingManualPlay.current || reducedMotion) return;
-
-    const startFromGesture = () => {
-      const video = mobileRef.current;
-      if (!video || !awaitingManualPlay.current || manualPlayPending.current) return;
-
-      video.muted = true;
-      video.defaultMuted = true;
-      video.playsInline = true;
-      try {
-        manualPlayPending.current = true;
-        const promise = video.play();
-        logIntroDiagnostic("page-gesture-play-request", video);
-        void promise.then(
-          () => {
-            manualPlayPending.current = false;
-            awaitingManualPlay.current = false;
-            manualPlaybackSucceeded.current = true;
-            setManualPlaybackStarted(true);
-            logIntroDiagnostic("page-gesture-play-resolved", video);
-          },
-          (error: unknown) => {
-            manualPlayPending.current = false;
-            video.pause();
-            awaitingManualPlay.current = true;
-            setManualPlaybackStarted(false);
-            logIntroDiagnostic("page-gesture-play-rejected", video, describePlayError(error));
-          },
-        );
-      } catch (error) {
-        manualPlayPending.current = false;
-        awaitingManualPlay.current = true;
-        logIntroDiagnostic("page-gesture-play-exception", video, describePlayError(error));
-      }
-    };
-
-    document.addEventListener("touchstart", startFromGesture, { passive: true });
-    document.addEventListener("pointerdown", startFromGesture, { passive: true });
-    return () => {
-      document.removeEventListener("touchstart", startFromGesture);
-      document.removeEventListener("pointerdown", startFromGesture);
-    };
-  }, [isMobile, reducedMotion, retainMobileVideo]);
 
   const introMode = awaitingManualPlay.current && isMobile === true
     ? "tap-to-play"
