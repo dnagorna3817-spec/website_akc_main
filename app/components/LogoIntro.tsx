@@ -31,6 +31,11 @@ export default function LogoIntro() {
     finish(false);
   }, [finish]);
 
+  const completePlayback = useCallback(() => {
+    setShowPoster(true);
+    finish(true);
+  }, [finish]);
+
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -106,7 +111,7 @@ export default function LogoIntro() {
           playsInline
           controls={false}
           preload="auto"
-          onEnded={() => finish(true)}
+          onEnded={completePlayback}
           onError={(event) => failPlayback(event.currentTarget)}
           aria-hidden="true"
         />
@@ -121,7 +126,7 @@ export default function LogoIntro() {
           playsInline
           controls={false}
           preload="auto"
-          onEnded={() => finish(true)}
+          onEnded={completePlayback}
           onError={(event) => failPlayback(event.currentTarget)}
           aria-hidden="true"
         />
