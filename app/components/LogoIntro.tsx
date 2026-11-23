@@ -207,6 +207,8 @@ export default function LogoIntro() {
 
     if (isMobile) {
       // Animated WebP avoids the HTML video autoplay policy on iOS.
+      setRetainMobileVideo(true);
+      setManualPlaybackStarted(true);
       const timer = window.setTimeout(() => completePlayback(null), 4150);
       return () => window.clearTimeout(timer);
     }
