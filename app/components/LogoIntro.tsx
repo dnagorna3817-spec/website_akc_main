@@ -56,6 +56,7 @@ export default function LogoIntro() {
   const mobileRef = useRef<HTMLVideoElement>(null);
   const finishState = useRef<"pending" | "fallback" | "success">("pending");
   const manualPlaybackSucceeded = useRef(false);
+  const mobileCanPlayRetry = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
@@ -281,7 +282,21 @@ export default function LogoIntro() {
           controls={false}
           preload="auto"
           onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
-          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
+          onCanPlay={(event) => {
+            const video = event.currentTarget;
+            logIntroDiagnostic("canplay", video);
+            if (video.paused && !mobileCanPlayRetry.current) {
+              mobileCanPlayRetry.current = true;
+              video.muted = true;
+              video.defaultMuted = true;
+              video.playsInline = true;
+              logIntroDiagnostic("automatic-canplay-retry", video);
+              void video.play().then(
+                () => logIntroDiagnostic("automatic-canplay-retry-resolved", video),
+                (error: unknown) => logIntroDiagnostic("automatic-canplay-retry-rejected", video, describePlayError(error)),
+              );
+            }
+          }
           onPlaying={(event) => {
             logIntroDiagnostic("playing", event.currentTarget);
             handleMobilePlaying(event.currentTarget);
