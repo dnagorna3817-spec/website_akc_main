@@ -201,14 +201,12 @@ export default function LogoIntro() {
             if (finishState.current !== "pending") return;
             awaitingManualPlay.current = true;
             setRetainMobileVideo(true);
-            setShowMobilePlayPrompt(true);
+            setShowMobilePlayPrompt(false);
             setManualPlayError(null);
-            logIntroDiagnostic("poster-fallback", video, {
+            logIntroDiagnostic("autoplay-waiting-for-user-gesture", video, {
               reason: "autoplay-rejection",
               ...describePlayError(error),
-              manualPlaybackAvailable: true,
             });
-            finish(false);
             return;
           }
           failPlayback(video, "autoplay-rejection", error);
@@ -218,6 +216,55 @@ export default function LogoIntro() {
       failPlayback(video, "play-exception", error);
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
+
+  // iOS Safari may reject autoplay even for muted inline video.
+  // Keep the poster visible and start the film on the first natural page touch,
+  // without adding a visible play button over the triangle.
+  useEffect(() => {
+    if (!isMobile || !awaitingManualPlay.current || reducedMotion) return;
+
+    const startFromGesture = () => {
+      const video = mobileRef.current;
+      if (!video || !awaitingManualPlay.current || manualPlayPending.current) return;
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      try {
+        manualPlayPending.current = true;
+        const promise = video.play();
+        logIntroDiagnostic("page-gesture-play-request", video);
+        void promise.then(
+          () => {
+            manualPlayPending.current = false;
+            awaitingManualPlay.current = false;
+            manualPlaybackSucceeded.current = true;
+            setShowMobilePlayPrompt(false);
+            setManualPlaybackStarted(true);
+            logIntroDiagnostic("page-gesture-play-resolved", video);
+          },
+          (error: unknown) => {
+            manualPlayPending.current = false;
+            video.pause();
+            awaitingManualPlay.current = true;
+            setManualPlaybackStarted(false);
+            logIntroDiagnostic("page-gesture-play-rejected", video, describePlayError(error));
+          },
+        );
+      } catch (error) {
+        manualPlayPending.current = false;
+        awaitingManualPlay.current = true;
+        logIntroDiagnostic("page-gesture-play-exception", video, describePlayError(error));
+      }
+    };
+
+    document.addEventListener("touchstart", startFromGesture, { passive: true });
+    document.addEventListener("pointerdown", startFromGesture, { passive: true });
+    return () => {
+      document.removeEventListener("touchstart", startFromGesture);
+      document.removeEventListener("pointerdown", startFromGesture);
+    };
+  }, [isMobile, reducedMotion, retainMobileVideo]);
 
   const playMobileVideoFromClick = useCallback(() => {
     const video = mobileRef.current;
@@ -274,7 +321,9 @@ export default function LogoIntro() {
 
   const introMode = showMobilePlayPrompt && isMobile === true
     ? "manual-prompt"
-    : crossfading
+    : awaitingManualPlay.current && isMobile === true
+      ? "tap-to-play"
+      : crossfading
       ? "crossfading"
       : manualPlaybackStarted
         ? "manual-playing"
@@ -355,22 +404,7 @@ export default function LogoIntro() {
           aria-hidden="true"
         />
       )}
-      {!reducedMotion && isMobile === true && showMobilePlayPrompt && (
-        <div className="logo-intro-play-control">
-          <button
-            className="logo-intro-play-button"
-            type="button"
-            aria-label="Відтворити інтро"
-            onClick={playMobileVideoFromClick}
-          >
-            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-              <path d="M6 3.8a.8.8 0 0 1 1.2-.7l10 6.2a.8.8 0 0 1 0 1.4l-10 6.2a.8.8 0 0 1-1.2-.7z" fill="currentColor" />
-            </svg>
-            <span>Відтворити інтро</span>
-          </button>
-          {manualPlayError && <p className="logo-intro-play-error" role="status" aria-live="polite">{manualPlayError}</p>}
-        </div>
-      )}
+
     </div>
   );
 }
