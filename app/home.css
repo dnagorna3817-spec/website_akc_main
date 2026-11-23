@@ -1926,3 +1926,17 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
     text-shadow: 0 1px 8px #020810;
   }
 }
+
+
+/* iPhone fallback: no visible play control. Keep the triangle poster in place
+   until the first natural touch anywhere on the page starts the muted film. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="tap-to-play"] .logo-intro-poster {
+    z-index: 2;
+    opacity: 1;
+  }
+  .logo-intro-layer[data-intro-mode="tap-to-play"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 0;
+  }
+}
