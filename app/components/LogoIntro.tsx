@@ -243,10 +243,14 @@ export default function LogoIntro() {
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
 
+  // On iPhone, keep the poster visible until Safari confirms real playback.
+  // A pending play() request is not proof that frames are being rendered.
   const introMode = crossfading
     ? "crossfading"
-    : manualPlaybackStarted
-      ? "manual-playing"
+    : isMobile === true
+      ? manualPlaybackStarted
+        ? "manual-playing"
+        : "static"
       : playing && !reducedMotion
         ? "playing"
         : "static";
