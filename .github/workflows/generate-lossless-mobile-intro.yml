@@ -1,0 +1,60 @@
+name: Generate lossless mobile intro animation
+
+on:
+  push:
+    branches:
+      - codex/akc-intro-ios-autoplay-retry-20261124
+    paths:
+      - .github/workflows/generate-lossless-mobile-intro.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: true
+
+      - name: Install FFmpeg and Pillow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install --user pillow
+
+      - name: Generate maximum-quality one-shot WebP
+        run: |
+          ffmpeg -y -i public/media/mobile.mp4 -an \
+            -vf "fps=24,scale=1112:834:flags=lanczos" \
+            -loop 1 -c:v libwebp_anim -lossless 1 -q:v 100 \
+            -compression_level 6 -preset photo -vsync 0 \
+            public/media/akc-intro/mobile-animation.webp
+
+      - name: Validate every animation frame
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          import os
+          path = "public/media/akc-intro/mobile-animation.webp"
+          image = Image.open(path)
+          assert image.size == (1112, 834), image.size
+          assert image.n_frames == 97, image.n_frames
+          assert image.info.get("loop") == 1, image.info.get("loop")
+          for frame in range(image.n_frames):
+              image.seek(frame)
+              image.load()
+          print(f"Validated lossless WebP: {image.size}, {image.n_frames} frames, {os.path.getsize(path)} bytes")
+          PY
+
+      - name: Commit asset and remove this temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/akc-intro/mobile-animation.webp
+          git rm .github/workflows/generate-lossless-mobile-intro.yml
+          git commit -m "Use lossless full-frame mobile intro animation"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
