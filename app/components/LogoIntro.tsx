@@ -7,6 +7,43 @@ const DESKTOP_VIDEO = "/media/desktop.mp4";
 const MOBILE_VIDEO = "/media/mobile.mp4";
 const DESKTOP_POSTER = "/media/akc-intro/desktop-poster.png";
 const MOBILE_POSTER = "/media/akc-intro/mobile-poster.png";
+const INTRO_DIAGNOSTIC_PARAM = "akcIntroDebug";
+
+function logIntroDiagnostic(
+  event: string,
+  video?: HTMLVideoElement | null,
+  details: Record<string, unknown> = {},
+) {
+  if (
+    typeof window === "undefined" ||
+    new URLSearchParams(window.location.search).get(INTRO_DIAGNOSTIC_PARAM) !== "1"
+  ) return;
+
+  let videoPath: string | null = null;
+  const source = video?.currentSrc || video?.getAttribute("src");
+  if (source) {
+    try {
+      videoPath = new URL(source, window.location.href).pathname;
+    } catch {
+      videoPath = source.split("?")[0];
+    }
+  }
+
+  console.info("[AKC Intro diagnostic]", event, {
+    videoPath,
+    mediaErrorCode: video?.error?.code ?? null,
+    mediaErrorMessage: video?.error?.message ?? null,
+    readyState: video?.readyState ?? null,
+    networkState: video?.networkState ?? null,
+    currentTime: video ? Number(video.currentTime.toFixed(3)) : null,
+    ...details,
+  });
+}
+
+function describePlayError(error: unknown) {
+  if (error instanceof Error) return { errorName: error.name, errorMessage: error.message };
+  return { errorMessage: String(error) };
+}
 
 export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
@@ -24,13 +61,22 @@ export default function LogoIntro() {
     window.dispatchEvent(new CustomEvent("akc:intro-ready", { detail: { animateMenu } }));
   }, []);
 
-  const failPlayback = useCallback((video?: HTMLVideoElement | null) => {
+  const failPlayback = useCallback((
+    video: HTMLVideoElement | null | undefined,
+    reason: "autoplay-rejection" | "media-error" | "play-exception",
+    error?: unknown,
+  ) => {
     if (finished.current) return;
+    logIntroDiagnostic("poster-fallback", video, {
+      reason,
+      ...(error === undefined ? {} : describePlayError(error)),
+    });
     video?.pause();
     finish(false);
   }, [finish]);
 
-  const completePlayback = useCallback(() => {
+  const completePlayback = useCallback((video?: HTMLVideoElement | null) => {
+    logIntroDiagnostic("video-ended", video, { duration: video?.duration ?? null });
     setCrossfading(true);
     finish(true);
   }, [finish]);
@@ -42,11 +88,38 @@ export default function LogoIntro() {
   }, [crossfading]);
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get(INTRO_DIAGNOSTIC_PARAM) !== "1") return;
+
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.removedNodes) {
+          if (!(node instanceof Element)) continue;
+          const videos = node.matches("video") ? [node] : Array.from(node.querySelectorAll("video"));
+          for (const removedVideo of videos) {
+            logIntroDiagnostic("video-removed-from-dom", removedVideo as HTMLVideoElement, {
+              isConnected: removedVideo.isConnected,
+            });
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => {
       setIsMobile(media.matches);
       setReducedMotion(motion.matches);
+      logIntroDiagnostic("device-preferences", null, {
+        isMobile: media.matches,
+        prefersReducedMotion: motion.matches,
+        userAgent: navigator.userAgent,
+        visibilityState: document.visibilityState,
+      });
     };
 
     update();
@@ -55,6 +128,10 @@ export default function LogoIntro() {
 
     const timer = window.setTimeout(() => {
       if (finished.current) return;
+      logIntroDiagnostic("poster-fallback", mobileRef.current ?? desktopRef.current, {
+        reason: "timeout",
+        timeoutMs: 8500,
+      });
       finish(false);
     }, 8500);
 
@@ -68,6 +145,7 @@ export default function LogoIntro() {
   useEffect(() => {
     if (isMobile === null) return;
     if (reducedMotion) {
+      logIntroDiagnostic("poster-fallback", null, { reason: "prefers-reduced-motion" });
       finish(false);
       return;
     }
@@ -80,10 +158,19 @@ export default function LogoIntro() {
     video.defaultMuted = true;
     video.playsInline = true;
     video.autoplay = true;
+    logIntroDiagnostic("play-request", video, {
+      muted: video.muted,
+      defaultMuted: video.defaultMuted,
+      playsInline: video.playsInline,
+      autoplay: video.autoplay,
+    });
     try {
-      void video.play().catch(() => failPlayback(video));
-    } catch {
-      failPlayback(video);
+      void video.play().then(
+        () => logIntroDiagnostic("play-resolved", video),
+        (error: unknown) => failPlayback(video, "autoplay-rejection", error),
+      );
+    } catch (error) {
+      failPlayback(video, "play-exception", error);
     }
   }, [isMobile, reducedMotion, failPlayback, finish]);
 
@@ -115,8 +202,16 @@ export default function LogoIntro() {
           playsInline
           controls={false}
           preload="auto"
-          onEnded={completePlayback}
-          onError={(event) => failPlayback(event.currentTarget)}
+          onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
+          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
+          onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
+          onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
+          onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
+          onEnded={(event) => completePlayback(event.currentTarget)}
+          onError={(event) => {
+            logIntroDiagnostic("error", event.currentTarget);
+            failPlayback(event.currentTarget, "media-error");
+          }}
           aria-hidden="true"
         />
       )}
@@ -130,8 +225,16 @@ export default function LogoIntro() {
           playsInline
           controls={false}
           preload="auto"
-          onEnded={completePlayback}
-          onError={(event) => failPlayback(event.currentTarget)}
+          onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
+          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
+          onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
+          onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
+          onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
+          onEnded={(event) => completePlayback(event.currentTarget)}
+          onError={(event) => {
+            logIntroDiagnostic("error", event.currentTarget);
+            failPlayback(event.currentTarget, "media-error");
+          }}
           aria-hidden="true"
         />
       )}
