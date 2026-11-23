@@ -296,7 +296,7 @@ export default function LogoIntro() {
                 (error: unknown) => logIntroDiagnostic("automatic-canplay-retry-rejected", video, describePlayError(error)),
               );
             }
-          }
+          }}
           onPlaying={(event) => {
             logIntroDiagnostic("playing", event.currentTarget);
             handleMobilePlaying(event.currentTarget);
