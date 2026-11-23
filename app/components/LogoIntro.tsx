@@ -96,6 +96,17 @@ export default function LogoIntro() {
     finish(false);
   }, [finish]);
 
+  const handleMobilePlaying = useCallback((video: HTMLVideoElement) => {
+    // Safari may reject the early play() call but still honor the native
+    // muted autoplay attribute once the media becomes ready.
+    awaitingManualPlay.current = false;
+    manualPlayPending.current = false;
+    manualPlaybackSucceeded.current = true;
+    setRetainMobileVideo(true);
+    setManualPlaybackStarted(true);
+    logIntroDiagnostic("native-autoplay-playing", video);
+  }, []);
+
   const completePlayback = useCallback((video?: HTMLVideoElement | null) => {
     logIntroDiagnostic("video-ended", video, { duration: video?.duration ?? null });
     setCrossfading(true);
@@ -303,7 +314,10 @@ export default function LogoIntro() {
           preload="auto"
           onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
           onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
-          onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
+          onPlaying={(event) => {
+            logIntroDiagnostic("playing", event.currentTarget);
+            handleMobilePlaying(event.currentTarget);
+          }}
           onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
           onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
           onEnded={(event) => completePlayback(event.currentTarget)}
