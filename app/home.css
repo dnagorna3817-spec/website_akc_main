@@ -1970,3 +1970,32 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
     transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
   }
 }
+
+
+/* Final iPhone layer order: never show the poster during the opening.
+   It is revealed only when the video finishes (crossfading) or playback
+   falls back to the final static state. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-poster {
+    opacity: 0 !important;
+    z-index: 0 !important;
+    transition: opacity 850ms cubic-bezier(.22, .61, .36, 1) !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster,
+  .logo-intro-layer[data-intro-mode="static"] .logo-intro-poster {
+    opacity: 1 !important;
+    z-index: 2 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-video--mobile,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    opacity: 1 !important;
+    z-index: 1 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video--mobile {
+    opacity: 0 !important;
+    transition: opacity 850ms cubic-bezier(.22, .61, .36, 1) !important;
+  }
+}
