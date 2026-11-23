@@ -142,7 +142,7 @@ export default function LogoIntro() {
 
     const timer = window.setTimeout(() => {
       if (finishState.current !== "pending") return;
-      logIntroDiagnostic("poster-fallback", mobileRef.current ?? desktopRef.current, {
+      logIntroDiagnostic("poster-fallback", desktopRef.current, {
         reason: "timeout",
         timeoutMs: 8500,
       });
@@ -155,29 +155,6 @@ export default function LogoIntro() {
       motion.removeEventListener("change", update);
     };
   }, [finish]);
-
-  useEffect(() => {
-    if (isMobile !== true || !retainMobileVideo || manualPlaybackStarted) return;
-
-    const startFromGesture = () => {
-      const video = mobileRef.current;
-      if (!video || !video.paused) return;
-      video.muted = true;
-      video.defaultMuted = true;
-      video.playsInline = true;
-      void video.play().then(
-        () => logIntroDiagnostic("gesture-play-resolved", video),
-        (error: unknown) => logIntroDiagnostic("gesture-play-rejected", video, describePlayError(error)),
-      );
-    };
-
-    window.addEventListener("pointerdown", startFromGesture, { capture: true, once: true });
-    window.addEventListener("touchstart", startFromGesture, { capture: true, once: true });
-    return () => {
-      window.removeEventListener("pointerdown", startFromGesture, true);
-      window.removeEventListener("touchstart", startFromGesture, true);
-    };
-  }, [isMobile, retainMobileVideo, manualPlaybackStarted]);
 
   useEffect(() => {
     if (isMobile === null) return;
@@ -207,7 +184,7 @@ export default function LogoIntro() {
       defaultMuted: video.defaultMuted,
       playsInline: video.playsInline,
       autoplay: video.autoplay,
-      strategy: isMobile ? "native-ios-autoplay" : "scripted-desktop-play",
+      strategy: "scripted-desktop-play",
     });
 
     // Request muted inline playback immediately on iOS, as in the earlier
@@ -218,12 +195,6 @@ export default function LogoIntro() {
       void playPromise.then(
         () => logIntroDiagnostic("play-resolved", video),
         (error: unknown) => {
-          if (isMobile && error instanceof DOMException && error.name === "NotAllowedError") {
-            // Keep the poster visible; do not remove the video element.
-            setRetainMobileVideo(true);
-            logIntroDiagnostic("autoplay-blocked-by-ios", video, describePlayError(error));
-            return;
-          }
           failPlayback(video, "autoplay-rejection", error);
         },
       );
@@ -232,8 +203,7 @@ export default function LogoIntro() {
     }
   }, [isMobile, reducedMotion, failPlayback, finish, completePlayback]);
 
-  // On iPhone, keep the poster visible until Safari confirms real playback.
-  // A pending play() request is not proof that frames are being rendered.
+  // On iPhone, the animated WebP plays without invoking the video autoplay policy.
   const introMode = crossfading
     ? "crossfading"
     : isMobile === true
