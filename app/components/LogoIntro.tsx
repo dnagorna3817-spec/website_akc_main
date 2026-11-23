@@ -194,15 +194,22 @@ export default function LogoIntro() {
       strategy: isMobile ? "native-ios-autoplay" : "scripted-desktop-play",
     });
 
-    // On iPhone, let Safari's native autoplay attribute start the muted,
-    // inline video as soon as it is ready. Calling play() too early (before
-    // media readiness) can reject with NotAllowedError and cancel autoplay.
-    if (isMobile) return;
-
+    // Request muted inline playback immediately on iOS, as in the earlier
+    // working implementation. Safari requires these properties before play().
     try {
-      void video.play().then(
+      const playPromise = video.play();
+      logIntroDiagnostic("play-request", video);
+      void playPromise.then(
         () => logIntroDiagnostic("play-resolved", video),
-        (error: unknown) => failPlayback(video, "autoplay-rejection", error),
+        (error: unknown) => {
+          if (isMobile && error instanceof DOMException && error.name === "NotAllowedError") {
+            // Keep the poster visible; do not remove the video element.
+            setRetainMobileVideo(true);
+            logIntroDiagnostic("autoplay-blocked-by-ios", video, describePlayError(error));
+            return;
+          }
+          failPlayback(video, "autoplay-rejection", error);
+        },
       );
     } catch (error) {
       failPlayback(video, "play-exception", error);
