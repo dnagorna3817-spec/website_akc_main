@@ -58,7 +58,6 @@ export default function LogoIntro() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
-  const [manualPlaybackStarted, setManualPlaybackStarted] = useState(false);
 
   const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
     if (animateMenu) {
@@ -96,7 +95,6 @@ export default function LogoIntro() {
     if (!crossfading) return;
     const timer = window.setTimeout(() => {
       setCrossfading(false);
-      setManualPlaybackStarted(false);
     }, 850);
     return () => window.clearTimeout(timer);
   }, [crossfading]);
@@ -166,7 +164,6 @@ export default function LogoIntro() {
 
     if (isMobile) {
       // Animated WebP avoids the HTML video autoplay policy on iOS.
-      setManualPlaybackStarted(true);
       const timer = window.setTimeout(() => completePlayback(null), 4150);
       return () => window.clearTimeout(timer);
     }
@@ -207,7 +204,7 @@ export default function LogoIntro() {
   const introMode = crossfading
     ? "crossfading"
     : isMobile === true
-      ? manualPlaybackStarted
+      ? playing
         ? "manual-playing"
         : "static"
       : playing && !reducedMotion
@@ -234,11 +231,13 @@ export default function LogoIntro() {
       )}
       {/* Animated WebP avoids iOS Safari's video autoplay gesture restriction. */}
       {!reducedMotion && (playing || crossfading) && isMobile === true && (
-        <img
+        <Image
           className="logo-intro-video logo-intro-video--mobile logo-intro-animation"
           src={MOBILE_ANIMATION}
           alt=""
           aria-hidden="true"
+          fill
+          unoptimized
           draggable={false}
         />
       )}
