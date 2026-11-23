@@ -53,15 +53,11 @@ function describePlayError(error: unknown) {
 
 export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
-  const mobileRef = useRef<HTMLVideoElement>(null);
   const finishState = useRef<"pending" | "fallback" | "success">("pending");
-  const manualPlaybackSucceeded = useRef(false);
-  const mobileCanPlayRetry = useRef(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
-  const [retainMobileVideo, setRetainMobileVideo] = useState(false);
   const [manualPlaybackStarted, setManualPlaybackStarted] = useState(false);
 
   const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
@@ -90,28 +86,17 @@ export default function LogoIntro() {
     finish(false);
   }, [finish]);
 
-  const handleMobilePlaying = useCallback((video: HTMLVideoElement) => {
-    // Safari may reject the early play() call but still honor the native
-    // muted autoplay attribute once the media becomes ready.
-    manualPlaybackSucceeded.current = true;
-    setRetainMobileVideo(true);
-    setManualPlaybackStarted(true);
-    logIntroDiagnostic("native-autoplay-playing", video);
-  }, []);
-
   const completePlayback = useCallback((video?: HTMLVideoElement | null) => {
     logIntroDiagnostic("video-ended", video, { duration: video?.duration ?? null });
     setCrossfading(true);
-    finish(true, manualPlaybackSucceeded.current);
+    finish(true);
   }, [finish]);
 
   useEffect(() => {
     if (!crossfading) return;
     const timer = window.setTimeout(() => {
       setCrossfading(false);
-      setRetainMobileVideo(false);
       setManualPlaybackStarted(false);
-      manualPlaybackSucceeded.current = false;
     }, 850);
     return () => window.clearTimeout(timer);
   }, [crossfading]);
@@ -171,9 +156,6 @@ export default function LogoIntro() {
     };
   }, [finish]);
 
-  // iOS Safari may block autoplay even for muted inline video.
-  // Keep the video mounted behind the poster and retry directly inside the
-  // first real user gesture, without adding a visible play button.
   useEffect(() => {
     if (isMobile !== true || !retainMobileVideo || manualPlaybackStarted) return;
 
@@ -207,7 +189,6 @@ export default function LogoIntro() {
 
     if (isMobile) {
       // Animated WebP avoids the HTML video autoplay policy on iOS.
-      setRetainMobileVideo(true);
       setManualPlaybackStarted(true);
       const timer = window.setTimeout(() => completePlayback(null), 4150);
       return () => window.clearTimeout(timer);
