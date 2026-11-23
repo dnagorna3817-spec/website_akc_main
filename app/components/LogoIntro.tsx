@@ -15,7 +15,7 @@ export default function LogoIntro() {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
-  const [showPoster, setShowPoster] = useState(false);
+  const [crossfading, setCrossfading] = useState(false);
 
   const finish = useCallback((animateMenu: boolean) => {
     if (finished.current) return;
@@ -27,14 +27,19 @@ export default function LogoIntro() {
   const failPlayback = useCallback((video?: HTMLVideoElement | null) => {
     if (finished.current) return;
     video?.pause();
-    setShowPoster(true);
     finish(false);
   }, [finish]);
 
   const completePlayback = useCallback(() => {
-    setShowPoster(true);
+    setCrossfading(true);
     finish(true);
   }, [finish]);
+
+  useEffect(() => {
+    if (!crossfading) return;
+    const timer = window.setTimeout(() => setCrossfading(false), 850);
+    return () => window.clearTimeout(timer);
+  }, [crossfading]);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -50,7 +55,6 @@ export default function LogoIntro() {
 
     const timer = window.setTimeout(() => {
       if (finished.current) return;
-      setShowPoster(true);
       finish(false);
     }, 8500);
 
@@ -86,10 +90,10 @@ export default function LogoIntro() {
   return (
     <div
       className="logo-intro-layer"
-      data-intro-mode={playing && !reducedMotion ? "playing" : "static"}
+      data-intro-mode={crossfading ? "crossfading" : playing && !reducedMotion ? "playing" : "static"}
       aria-label="Анімований логотип АКЦ"
     >
-      {(reducedMotion || showPoster) && isMobile !== null && (
+      {isMobile !== null && (
         <div className="logo-intro-poster" aria-hidden="true">
           <Image
             className={isMobile ? "logo-intro-poster--mobile" : "logo-intro-poster--desktop"}
@@ -101,7 +105,7 @@ export default function LogoIntro() {
           />
         </div>
       )}
-      {!reducedMotion && playing && isMobile === true && (
+      {!reducedMotion && (playing || crossfading) && isMobile === true && (
         <video
           ref={mobileRef}
           className="logo-intro-video logo-intro-video--mobile"
@@ -116,7 +120,7 @@ export default function LogoIntro() {
           aria-hidden="true"
         />
       )}
-      {!reducedMotion && playing && isMobile === false && (
+      {!reducedMotion && (playing || crossfading) && isMobile === false && (
         <video
           ref={desktopRef}
           className="logo-intro-video logo-intro-video--desktop"

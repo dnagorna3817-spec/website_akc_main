@@ -799,7 +799,7 @@ html { scroll-padding-top: 72px; }
   .brand:has(.menu-button.is-open) { z-index: 31; }
 }
 
-/* Portrait cinematic asset: mobile video must be the visible source, not landscape poster. */
+/* Keep the mobile poster layered under the video until a crossfade begins. */
 @media (max-width: 767px) {
   .logo-intro-layer {
     inset: 64px 0 auto;
@@ -809,7 +809,6 @@ html { scroll-padding-top: 72px; }
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 13%, #000 83%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 13%, #000 83%, transparent 100%);
   }
-  .logo-intro-layer:has(.logo-intro-video) .logo-intro-poster { display: none; }
   .logo-intro-video {
     position: absolute;
     inset: 0;
@@ -1798,4 +1797,45 @@ body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід
 .logo-intro-layer .logo-intro-video::-webkit-media-controls-overlay-play-button {
   display: none !important;
   -webkit-appearance: none;
+}
+
+/* Crossfade the final video frame into its matching static poster. */
+.logo-intro-layer .logo-intro-poster {
+  z-index: 0;
+  opacity: 0;
+}
+.logo-intro-layer .logo-intro-video {
+  z-index: 1;
+  opacity: 1;
+}
+.logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster {
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+}
+.logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video {
+  opacity: 0 !important;
+  transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+}
+.logo-intro-layer[data-intro-mode="static"] .logo-intro-poster {
+  z-index: 2;
+  opacity: 1;
+}
+
+/* The mobile poster portrait has a smaller source logo; scale and offset it
+   to match the final emblem size and center used by the mobile video frame. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-poster img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: translateY(-.8%) scale(1.52) !important;
+    transform-origin: center center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-intro-layer .logo-intro-poster,
+  .logo-intro-layer .logo-intro-video {
+    transition: none !important;
+  }
 }
