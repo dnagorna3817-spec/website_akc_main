@@ -9,10 +9,10 @@ import { ExpertiseHeader, expertiseFont } from "../expertise/ExpertiseView";
 import styles from "./insights.module.css";
 import EventRegistration from "./EventRegistration";
 
-import { articles, categories, type Category } from "./articles";
+import { categories, type Category, type Article } from "./articles";
 
 export default function InsightsPage() {
-  const [cmsArticles,setCmsArticles]=useState<typeof articles>([]);
+  const [cmsArticles,setCmsArticles]=useState<Article[]>([]);
   useEffect(()=>{
    const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
    if(!url||!key)return;
@@ -21,7 +21,7 @@ export default function InsightsPage() {
   },[]);
   const [category, setCategory] = useState<Category>("Усі");
   const [registrationTitle, setRegistrationTitle] = useState<string | null>(null);
-  const filtered = useMemo(() => category === "Усі" ? [...cmsArticles,...articles] : [...cmsArticles,...articles].filter(item => item.category === category), [category,cmsArticles]);
+  const filtered = useMemo(() => category === "Усі" ? cmsArticles : cmsArticles.filter(item => item.category === category), [category,cmsArticles]);
   const [lead, ...rest] = filtered;
   return (
     <div className={`${styles.page} ${expertiseFont}`}>
@@ -56,7 +56,7 @@ export default function InsightsPage() {
             {article.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <ArrowUpRight size={16} /></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <ArrowUpRight size={16} /></Link>}
           </article>)}
         </div>}
-        <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <ArrowUpRight size={16} /></Link></footer>
+        {filtered.length === 0 && <p className={styles.lead} role="status">Опублікованих новин поки немає.</p>}\n        <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <ArrowUpRight size={16} /></Link></footer>
       </main>
       {registrationTitle && <EventRegistration title={registrationTitle} onClose={() => setRegistrationTitle(null)} />}
     </div>
