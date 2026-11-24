@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   description:
     "Аудит, бухгалтерський супровід, юридичний консалтинг і цифрові рішення для бізнесу. Аудит Консалтинг Центр — професійна підтримка компаній в Україні.",
   applicationName: "Аудит Консалтинг Центр",
-  icons: { icon: [{ url: "/favicon-32x32.png?v=7", type: "image/png", sizes: "32x32" }], shortcut: "/favicon-32x32.png?v=7", apple: "/favicon-32x32.png?v=7" },
+  icons: { icon: "/akc-favicon.svg?v=6", shortcut: "/akc-favicon.svg?v=6", apple: "/akc-logo.png?v=6" },
   openGraph: {
     type: "website",
     locale: "uk_UA",
