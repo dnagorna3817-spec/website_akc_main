@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     "Аудит, бухгалтерський супровід, юридичний консалтинг і цифрові рішення для бізнесу. Аудит Консалтинг Центр — професійна підтримка компаній в Україні.",
   applicationName: "Аудит Консалтинг Центр",
   icons: {
-    icon: "/favicon.svg?v=4",
-    shortcut: "/favicon.svg?v=4",
-    apple: "/akc-logo.png?v=4",
+    icon: [{ url: "/akc-logo.png?v=5", type: "image/png" }],
+    shortcut: "/akc-logo.png?v=5",
+    apple: "/akc-logo.png?v=5",
   },
   openGraph: {
     type: "website",
