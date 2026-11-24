@@ -58,6 +58,7 @@ export default function LogoIntro() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
+  const [mobileAnimationReady, setMobileAnimationReady] = useState(false);
 
   const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
     if (animateMenu) {
@@ -163,6 +164,8 @@ export default function LogoIntro() {
     }
 
     if (isMobile) {
+      // Keep the poster visible until the animated WebP has fully loaded.
+      if (!mobileAnimationReady) return;
       // Animated WebP avoids the HTML video autoplay policy on iOS.
       const timer = window.setTimeout(() => completePlayback(null), 4150);
       return () => window.clearTimeout(timer);
@@ -198,13 +201,13 @@ export default function LogoIntro() {
     } catch (error) {
       failPlayback(video, "play-exception", error);
     }
-  }, [isMobile, reducedMotion, failPlayback, finish, completePlayback]);
+  }, [isMobile, reducedMotion, mobileAnimationReady, failPlayback, finish, completePlayback]);
 
   // On iPhone, the animated WebP plays without invoking the video autoplay policy.
   const introMode = crossfading
     ? "crossfading"
     : isMobile === true
-      ? playing
+      ? playing && mobileAnimationReady
         ? "manual-playing"
         : "static"
       : playing && !reducedMotion
@@ -217,18 +220,17 @@ export default function LogoIntro() {
       data-intro-mode={introMode}
       aria-label="Анімований логотип АКЦ"
     >
-      {isMobile !== null && (
-        <div className="logo-intro-poster" aria-hidden="true">
-          <Image
-            className={isMobile ? "logo-intro-poster--mobile" : "logo-intro-poster--desktop"}
-            src={isMobile ? MOBILE_POSTER : DESKTOP_POSTER}
-            alt=""
-            fill
-            sizes="(max-width: 767px) 100vw, 960px"
-            priority
-          />
-        </div>
-      )}
+      <picture className="logo-intro-poster" aria-hidden="true">
+        <source media="(max-width: 767px)" srcSet={MOBILE_POSTER} />
+        {/* The picture is present in the server-rendered HTML, so the correct
+            poster appears before React detects the device or loads the animation. */}
+        <img
+          src={DESKTOP_POSTER}
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
       {/* Animated WebP avoids iOS Safari's video autoplay gesture restriction. */}
       {!reducedMotion && (playing || crossfading) && isMobile === true && (
         <Image
@@ -239,6 +241,7 @@ export default function LogoIntro() {
           fill
           unoptimized
           draggable={false}
+          onLoad={() => setMobileAnimationReady(true)}
         />
       )}
       {!reducedMotion && (playing || crossfading) && isMobile === false && (
