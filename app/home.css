@@ -1,0 +1,2001 @@
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+          background: #020810;
+        }
+
+        body {
+          margin: 0;
+          background: #020810;
+          color: #f3f7fc;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .akc-page {
+          --header-height: 82px;
+          height: 100dvh;
+          min-height: 100svh;
+          overflow: clip;
+          position: relative;
+          background:
+            radial-gradient(ellipse at 50% 43%, #09294a 0%, #041525 35%, #020810 74%);
+        }
+
+        .akc-page::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.18;
+          background-image: linear-gradient(
+            rgba(65, 143, 213, 0.06) 1px,
+            transparent 1px
+          );
+          background-size: 100% 5px;
+        }
+
+        .brand {
+          position: relative;
+          z-index: 2;
+          height: var(--header-height);
+          padding: 0 5.5%;
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          color: #d7e0e9;
+          font-size: 14px;
+          letter-spacing: 0.04em;
+        }
+
+        .brand-symbol {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 40px;
+          width: 40px;
+          height: 40px;
+          text-decoration: none;
+        }
+
+        .brand-symbol img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
+        .menu-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 8;
+          border: 0;
+          background: rgba(0, 5, 17, 0.34);
+          cursor: default;
+          animation: akc-menu-dim 380ms ease both;
+        }
+
+        .brand:has(.menu-button.is-open) {
+          z-index: 11;
+        }
+
+        .menu-panel {
+          position: fixed;
+          z-index: 10;
+          top: calc(var(--header-height) + 12px);
+          right: clamp(12px, 4vw, 64px);
+          width: min(440px, calc(100vw - 24px));
+          max-height: calc(100dvh - var(--header-height) - 28px);
+          overflow-y: auto;
+          padding: 22px clamp(24px, 3vw, 38px) 28px;
+          background: rgba(9, 19, 34, 0.78);
+          -webkit-backdrop-filter: blur(24px);
+          backdrop-filter: blur(24px);
+          border: 0;
+          border-radius: 4px;
+          box-shadow: 0 20px 65px rgba(0, 0, 0, 0.22);
+          animation: akc-menu-float-in 540ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .menu-heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+          color: #92acc6;
+          font-size: 12px;
+          letter-spacing: 0.18em;
+        }
+
+        .menu-link {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          align-items: center;
+          width: 100%;
+          gap: 10px;
+          min-height: 62px;
+          padding: 12px 0;
+          border: 0;
+          border-bottom: 0;
+          position: relative;
+          isolation: isolate;
+          background: transparent;
+          color: rgba(230, 240, 252, 0.86);
+          text-align: left;
+          font: inherit;
+          font-size: clamp(15px, 1.3vw, 18px);
+          line-height: 1.4;
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 260ms ease, padding-left 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .menu-link::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          inset: 5px -14px;
+          border-radius: 3px;
+          background: rgba(187, 218, 246, 0.075);
+          opacity: 0;
+          transform: scaleX(0.94);
+          transform-origin: left center;
+          transition: opacity 300ms ease, transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+          pointer-events: none;
+        }
+
+        .menu-link:hover,
+        .menu-link:focus-visible {
+          color: #ffffff;
+          padding-left: 8px;
+        }
+
+        .menu-link:hover::before,
+        .menu-link:focus-visible::before {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+
+        .menu-link:focus-visible {
+          outline: 1px solid rgba(196, 223, 248, 0.65);
+          outline-offset: 3px;
+        }
+
+        .menu-panel .menu-link { animation: akc-menu-item-in 520ms both; }
+        .menu-panel .menu-link:nth-of-type(1) { animation-delay: 70ms; }
+        .menu-panel .menu-link:nth-of-type(2) { animation-delay: 110ms; }
+        .menu-panel .menu-link:nth-of-type(3) { animation-delay: 150ms; }
+        .menu-panel .menu-link:nth-of-type(4) { animation-delay: 190ms; }
+        .menu-panel .menu-link:nth-of-type(5) { animation-delay: 230ms; }
+        .menu-panel .menu-link:nth-of-type(6) { animation-delay: 270ms; }
+
+        @keyframes akc-menu-float-in {
+          from { opacity: 0; transform: translate3d(24px, -12px, 0) scale(0.96); filter: blur(6px); }
+          to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+        }
+        @keyframes akc-menu-item-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes akc-menu-dim {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .menu-panel, .menu-backdrop, .menu-panel .menu-link { animation: none !important; }
+        }
+
+        .menu-contact-info {
+          padding: 18px 0 8px;
+          color: #a9c4db;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+
+        .menu-button.is-open span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .menu-button.is-open span:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-button.is-open span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .menu-button {
+          margin-left: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          border: 0;
+          background: transparent;
+          padding: 10px 0 10px 10px;
+          cursor: pointer;
+        }
+
+        .menu-button span {
+          transition: transform 180ms ease, opacity 180ms ease;
+          width: 27px;
+          height: 2px;
+          background: #dce8f3;
+          display: block;
+        }
+
+        .logo-intro-layer {
+          position: absolute;
+          z-index: 0;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          background: transparent;
+          -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 14%, #000 27%, #000 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, transparent 14%, #000 27%, #000 100%);
+        }
+
+        .logo-intro-poster,
+        .logo-intro-poster img,
+        .logo-intro-video {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .logo-intro-video {
+          z-index: 1;
+          background: transparent;
+        }
+
+        /* Keep the logo tip clear of the top navigation marker on desktop. */
+        @media (min-width: 768px) {
+          .logo-intro-poster img,
+          .logo-intro-video {
+            transform: translateY(10%) scale(1);
+            transform-origin: center center;
+          }
+        }
+
+        .hero {
+          height: calc(100dvh - var(--header-height));
+          min-height: calc(100svh - var(--header-height));
+          position: relative;
+          display: grid;
+          grid-template-rows: minmax(0, 1fr) auto;
+          overflow: visible;
+          z-index: 1;
+        }
+
+        .network {
+          width: min(100%, 960px);
+          height: clamp(480px, 56vw, 580px);
+          min-height: 480px;
+          position: relative;
+          margin: 0 auto;
+        }
+
+        .network-frame {
+          --scene-scale: 1;
+          --scene-height: 0px;
+          --scene-top: 0px;
+          min-height: 0;
+          width: 100%;
+          height: var(--scene-height);
+          position: relative;
+          align-self: start;
+        }
+
+        .network-scale {
+          position: absolute;
+          top: var(--scene-top);
+          left: 50%;
+          width: 100%;
+          transform: translateX(-50%) scale(var(--scene-scale));
+          transform-origin: top center;
+          will-change: transform;
+        }
+
+        .nav-node {
+          position: absolute;
+          inset: 0;
+          color: #d8e5f2;
+          pointer-events: none;
+        }
+
+        .nav-list {
+          position: absolute;
+          z-index: 3;
+          inset: 0;
+          pointer-events: none;
+        }
+
+        .nav-line {
+          position: absolute;
+          height: 1px;
+          transform-origin: left center;
+          background: linear-gradient(90deg, rgba(29, 139, 234, 0.14), #4bb4ff 78%, #b8ecff);
+          box-shadow: 0 0 10px rgba(29, 139, 234, 0.38);
+          transition: background 220ms ease, box-shadow 220ms ease;
+        }
+
+        .nav-dot {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          margin: -4px 0 0 -4px;
+          border: 1px solid #d4f3ff;
+          border-radius: 50%;
+          background: #39aaff;
+          box-shadow: 0 0 14px 4px rgba(57, 170, 255, 0.58);
+          transition: background 220ms ease, box-shadow 220ms ease;
+        }
+
+        .nav-label {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          color: inherit;
+          text-align: center;
+          text-decoration: none;
+          white-space: nowrap;
+          font-size: clamp(16px, 1.65vw, 20px);
+          font-weight: 500;
+          letter-spacing: 0.02em;
+          text-shadow: 0 0 18px rgba(60, 151, 255, 0.2);
+          transition: color 220ms ease, text-shadow 220ms ease;
+          pointer-events: auto;
+        }
+
+        .nav-label-wide {
+          width: min(220px, 24vw);
+          white-space: normal;
+          line-height: 1.3;
+        }
+
+        .nav-node:hover .nav-label,
+        .nav-node:focus-visible .nav-label {
+          color: #78caff;
+          text-shadow: 0 0 18px rgba(36, 144, 255, 0.9), 0 0 36px rgba(36, 144, 255, 0.55);
+        }
+
+        .nav-node:hover .nav-line,
+        .nav-node:focus-visible .nav-line {
+          background: linear-gradient(90deg, #2c9eff, #bcefff);
+          box-shadow: 0 0 16px 2px rgba(73, 179, 255, 0.78);
+        }
+
+        .nav-node:hover .nav-dot,
+        .nav-node:focus-visible .nav-dot {
+          background: #d7f5ff;
+          box-shadow: 0 0 18px 6px rgba(57, 170, 255, 0.86);
+        }
+
+        .hero-bottom {
+          width: 100%;
+          margin-top: 0;
+          padding: 0 5.5% 28px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 24px;
+        }
+
+        .hero-bottom h1 {
+          margin: 0;
+          color: #dbe4ee;
+          font-size: clamp(25px, 3vw, 42px);
+          line-height: 1.22;
+          font-weight: 300;
+          letter-spacing: -0.035em;
+        }
+
+        .scroll-cue {
+          color: #a9c5df;
+          font-size: 34px;
+          line-height: 1;
+          text-decoration: none;
+          transition: transform 200ms ease;
+        }
+
+        .scroll-cue:hover {
+          transform: translateY(5px);
+        }
+
+        .hero-index {
+          color: #67819a;
+          font-size: 11px;
+          letter-spacing: 0.12em;
+        }
+
+        @media (min-width: 1200px) {
+          .network {
+            width: min(100%, 1160px);
+            height: clamp(580px, 52vw, 650px);
+            min-height: 580px;
+          }
+
+          .nav-node--about .nav-line,
+          .nav-node--about .nav-dot {
+            top: 12% !important;
+          }
+
+          .nav-node--about .nav-line {
+            width: 40px !important;
+            transform: rotate(-90deg) !important;
+          }
+
+          .nav-node--about .nav-label {
+            top: 3% !important;
+          }
+
+          .nav-label-wide {
+            width: 240px;
+          }
+
+          /* Keep the qualification label clear of its diagonal connector. */
+          .nav-node--qualification .nav-label {
+            top: 23% !important;
+          }
+        }
+
+        @media (min-width: 768px) and (max-width: 1199px) {
+          .network {
+            width: min(calc(100% - 48px), 960px);
+            height: clamp(500px, 58vw, 580px);
+            min-height: 500px;
+          }
+
+        }
+
+        @media (max-width: 767px) {
+          .akc-page {
+            --header-height: 68px;
+          }
+
+          .brand {
+            padding: 0 22px;
+            font-size: 12px;
+          }
+
+          .network {
+            width: 500px;
+            height: 430px;
+            min-height: 0;
+          }
+
+          .network-scale {
+            width: 500px;
+          }
+
+          .network-frame {
+            align-self: center;
+          }
+
+          .nav-label {
+            font-size: 18px;
+            line-height: 1.35;
+          }
+
+          .nav-label-wide {
+            width: 180px;
+          }
+
+          /* Compact navigation for narrow screens: keep links clear of the logo. */
+          .network {
+            width: min(calc(100vw - 32px), 500px);
+            height: min(56vh, 430px);
+          }
+
+          .network-scale {
+            width: 100%;
+          }
+
+          .nav-node {
+            width: 0;
+            height: 0;
+            inset: auto;
+          }
+
+          .nav-line,
+          .nav-dot {
+            left: 0 !important;
+            top: 0 !important;
+          }
+
+          .nav-line {
+            width: clamp(18px, 5vw, 30px) !important;
+          }
+
+          .nav-label {
+            top: auto !important;
+            transform: translateX(-50%);
+            font-size: clamp(14px, 3.4vw, 18px);
+          }
+
+          .nav-node--about {
+            left: 50%;
+            top: 6%;
+          }
+
+          .nav-node--about .nav-line {
+            transform: rotate(-90deg) !important;
+          }
+
+          .nav-node--about .nav-label {
+            left: 0 !important;
+            bottom: 39px;
+          }
+
+          .nav-node--expertise {
+            left: 12%;
+            top: 38%;
+          }
+
+          .nav-node--expertise .nav-line {
+            transform: rotate(0deg) !important;
+          }
+
+          .nav-node--expertise .nav-label {
+            left: 0 !important;
+            bottom: 20px;
+          }
+
+          .nav-node--qualification {
+            left: 88%;
+            top: 38%;
+          }
+
+          .nav-node--qualification .nav-line {
+            transform: rotate(180deg) !important;
+          }
+
+          .nav-node--qualification .nav-label {
+            left: 0 !important;
+            bottom: 20px;
+          }
+
+          .nav-node--industries {
+            left: 12%;
+            top: 83%;
+          }
+
+          .nav-node--industries .nav-line {
+            transform: rotate(0deg) !important;
+          }
+
+          .nav-node--industries .nav-label {
+            left: 0 !important;
+            bottom: 20px;
+          }
+
+          .nav-node--insights {
+            left: 88%;
+            top: 83%;
+          }
+
+          .nav-node--insights .nav-line {
+            transform: rotate(180deg) !important;
+          }
+
+          .nav-node--insights .nav-label {
+            left: 0 !important;
+            bottom: 20px;
+          }
+
+          .hero-bottom {
+            padding: 0 22px 24px;
+          }
+
+          .hero-bottom h1 {
+            font-size: 25px;
+          }
+
+          .hero-index {
+            display: none;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+          *,
+          *::before,
+          *::after {
+            transition-duration: 0.01ms !important;
+          }
+        }
+
+/* Mobile-first overrides: ensure the hero fits the actual viewport. */
+@media (max-width: 767px) {
+  .akc-page {
+    min-height: 100svh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .brand {
+    height: 64px;
+    padding: 0 18px;
+    gap: 9px;
+    font-size: 11px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .brand-symbol { width: 32px; height: 32px; flex-basis: 32px; }
+  .brand-symbol img { width: 32px; height: 32px; }
+  .menu-button { min-width: 40px; align-items: flex-end; padding: 10px 0 10px 8px; }
+  .hero {
+    height: calc(100dvh - 64px);
+    min-height: calc(100svh - 64px);
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .logo-intro-layer {
+    inset: 64px 0 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .logo-intro-poster img, .logo-intro-video {
+    object-fit: cover;
+    object-position: center;
+  }
+  .network-frame { align-self: center; }
+  .network { width: min(calc(100vw - 24px), 500px); height: min(48dvh, 420px); }
+  .hero-bottom {
+    padding: 0 18px max(24px, env(safe-area-inset-bottom));
+    align-items: end;
+    gap: 10px;
+  }
+  .hero-bottom h1 { font-size: clamp(20px, 5.3vw, 28px); line-height: 1.2; }
+  .scroll-cue { font-size: 28px; }
+  .menu-panel {
+    top: 72px;
+    right: 12px;
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 84px);
+    padding: 20px 24px;
+  }
+  .menu-link { min-height: 58px; font-size: 16px; }
+  .nav-label { font-size: clamp(12px, 3.4vw, 16px); }
+  .nav-label-wide { width: min(160px, 38vw); }
+}
+
+/* AKC mobile composition — desktop layout remains unchanged. */
+@media (max-width: 767px) {
+  .akc-page { --header-height: 64px; overflow: hidden; }
+  .logo-intro-layer { inset: 64px 0 0; overflow: hidden; }
+  .logo-intro-poster, .logo-intro-poster img, .logo-intro-video {
+    width: 100%; height: 100%; inset: 0;
+  }
+  /* The source poster is landscape: contain it instead of cropping its triangle. */
+  .logo-intro-poster img {
+    object-fit: contain;
+    object-position: center 42%;
+    transform: translateY(-3%) scale(0.97);
+  }
+  /* Portrait video uses the same stationary logo and keeps the entire frame visible. */
+  .logo-intro-video {
+    object-fit: contain;
+    object-position: center;
+    transform: translateY(-3%);
+  }
+  .hero {
+    display: block;
+    position: relative;
+    height: calc(100dvh - 64px);
+    min-height: calc(100svh - 64px);
+  }
+  .network-frame {
+    position: absolute;
+    inset: 0 0 115px;
+    width: 100%;
+    height: auto !important;
+    transform: none !important;
+  }
+  .network-scale {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100%;
+    transform: none !important;
+  }
+  .network {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0;
+    margin: 0;
+  }
+  .nav-list { position: absolute; inset: 0; }
+  .nav-node { position: absolute; width: 0; height: 0; inset: auto; }
+  .nav-line, .nav-dot { left: 0 !important; top: 0 !important; }
+  .nav-line { width: clamp(18px, 5vw, 28px) !important; }
+  .nav-label {
+    position: absolute;
+    left: 0 !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%);
+    font-size: clamp(12px, 3.1vw, 15px);
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+  .nav-label-wide { width: 140px; white-space: normal; }
+  .nav-node--about { left: 50%; top: 13%; }
+  .nav-node--about .nav-line { transform: rotate(-90deg) !important; }
+  .nav-node--about .nav-label { top: -36px !important; }
+  .nav-node--expertise { left: 16%; top: 36%; }
+  .nav-node--expertise .nav-line { transform: rotate(-18deg) !important; }
+  .nav-node--expertise .nav-label { top: -30px !important; left: -10px !important; }
+  .nav-node--qualification { left: 84%; top: 36%; }
+  .nav-node--qualification .nav-line { transform: rotate(198deg) !important; }
+  .nav-node--qualification .nav-label { top: -43px !important; left: 0 !important; }
+  .nav-node--industries { left: 16%; top: 77%; }
+  .nav-node--industries .nav-line { transform: rotate(18deg) !important; }
+  .nav-node--industries .nav-label { top: 32px !important; }
+  .nav-node--insights { left: 84%; top: 77%; }
+  .nav-node--insights .nav-line { transform: rotate(162deg) !important; }
+  .nav-node--insights .nav-label { top: 32px !important; }
+  .hero-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0 20px max(24px, env(safe-area-inset-bottom));
+  }
+  .hero-bottom h1 { font-size: clamp(21px, 5.3vw, 29px); }
+  .menu-panel { z-index: 20; }
+  .menu-backdrop { z-index: 18; }
+  .brand:has(.menu-button.is-open) { z-index: 21; }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .nav-node--about { top: 12%; }
+  .nav-node--industries, .nav-node--insights { top: 72%; }
+  .hero-bottom h1 { font-size: 20px; }
+}
+
+/* Complete responsive homepage and real scroll destinations. */
+html { scroll-padding-top: 72px; }
+.akc-page { height: auto; min-height: 100svh; overflow: visible; }
+.akc-page::before { bottom: auto; height: 100svh; }
+.hero { min-height: calc(100svh - var(--header-height)); }
+.logo-intro-layer { height: 100svh; bottom: auto; }
+.akc-sections { position: relative; z-index: 2; background: #020810; }
+.akc-content-section { min-height: 52vh; padding: clamp(70px, 10vw, 140px) max(6vw, 24px); border-top: 1px solid rgba(148,189,226,.12); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+.akc-eyebrow { font-size: 12px; letter-spacing: .18em; color: #83b8e2; margin: 0 0 24px; }
+.akc-content-section h2 { margin: 0 0 22px; font-size: clamp(30px, 5vw, 64px); font-weight: 300; letter-spacing: -.045em; }
+.akc-content-section p:not(.akc-eyebrow) { max-width: 660px; color: #b2c2d2; line-height: 1.7; font-size: clamp(16px, 1.7vw, 20px); }
+.akc-section-link { display: inline-flex; gap: 20px; margin-top: 28px; padding: 12px 0; color: #d3eaff; text-decoration: none; border-bottom: 1px solid #508cb7; }
+.akc-section-link:hover, .akc-section-link:focus-visible { color: white; border-color: white; }
+.akc-footer { display: flex; justify-content: space-between; gap: 20px; padding: 32px max(6vw,24px); color: #8da4ba; font-size: 13px; }
+.akc-footer a { color: #d3eaff; text-decoration: none; }
+@media (max-width: 767px) {
+  .akc-page { overflow: visible; height: auto; min-height: 100svh; }
+  .brand { position: relative; z-index: 12; }
+  .logo-intro-layer { position: absolute; inset: 64px 0 auto; height: calc(100svh - 64px); overflow: hidden; }
+  .logo-intro-poster img { object-fit: contain; transform: translateY(-12%) scale(1.04); }
+  .logo-intro-video { object-fit: contain; transform: translateY(-12%) scale(1.04); }
+  .hero { min-height: calc(100svh - 64px); height: calc(100dvh - 64px); }
+  .network-frame { inset: 0 0 100px; }
+  .nav-node--about { left: 50%; top: 28%; }
+  .nav-node--about .nav-label { top: -22px !important; }
+  .nav-node--expertise { left: 17%; top: 46%; }
+  .nav-node--expertise .nav-label { left: 0 !important; top: -36px !important; font-size: clamp(11px,3vw,14px); }
+  .nav-node--qualification { left: 83%; top: 46%; }
+  .nav-node--qualification .nav-label { left: 0 !important; top: -44px !important; width: 136px; font-size: clamp(11px,2.8vw,14px); }
+  .nav-node--industries { left: 17%; top: 67%; }
+  .nav-node--industries .nav-label { top: 27px !important; }
+  .nav-node--insights { left: 83%; top: 67%; }
+  .nav-node--insights .nav-label { top: 27px !important; }
+  .nav-label { padding: 9px 3px; touch-action: manipulation; }
+  .hero-bottom { bottom: 0; }
+  .akc-content-section { min-height: 48vh; padding: 74px 24px; }
+  .akc-footer { flex-direction: column; }
+  .menu-panel { position: fixed; z-index: 30; }
+  .menu-backdrop { z-index: 28; }
+  .brand:has(.menu-button.is-open) { z-index: 31; }
+}
+
+/* Keep the mobile poster layered under the video until a crossfade begins. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    inset: 64px 0 auto;
+    height: calc(100svh - 64px);
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 13%, #000 83%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 13%, #000 83%, transparent 100%);
+  }
+  .logo-intro-video {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: none;
+    background: transparent;
+  }
+  .logo-intro-poster img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: none;
+  }
+}
+
+/* Final compact mobile composition — portrait video with no cropping. */
+.akc-intro-replay { position: absolute; z-index: 5; bottom: 13%; right: 5%; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(166,207,238,.32); border-radius: 999px; padding: 8px 12px; background: rgba(2,13,28,.65); color: #dceaff; font: 12px Arial,sans-serif; cursor: pointer; pointer-events: auto; }
+.logo-intro-layer { pointer-events: none; }
+.akc-intro-replay { pointer-events: auto; }
+@media (max-width: 767px) {
+ .logo-intro-layer { inset: 64px 0 auto; height: calc(100svh - 64px); -webkit-mask-image: linear-gradient(to bottom,transparent 0%,#000 12%,#000 85%,transparent 100%); mask-image: linear-gradient(to bottom,transparent 0%,#000 12%,#000 85%,transparent 100%); }
+ .logo-intro-video { object-fit: contain; object-position: center center; transform: scale(.88); transform-origin: center center; }
+ .logo-intro-poster img { object-fit: contain; transform: scale(.88); }
+ .network-frame { inset: 0 0 105px; }
+ .nav-node--about { left: 50%; top: 23%; }
+ .nav-node--about .nav-label { top: -26px !important; }
+ .nav-node--expertise { left: 16%; top: 43%; }
+ .nav-node--qualification { left: 84%; top: 43%; }
+ .nav-node--industries { left: 16%; top: 67%; }
+ .nav-node--insights { left: 84%; top: 67%; }
+ .nav-node--expertise .nav-label { top: -42px !important; left: 0 !important; }
+ .nav-node--qualification .nav-label { top: -50px !important; left: 0 !important; }
+ .nav-node--industries .nav-label, .nav-node--insights .nav-label { top: 34px !important; }
+ .nav-label { z-index: 5; }
+ .akc-intro-replay { bottom: 14%; right: 5%; font-size: 20px; padding: 7px 10px; }
+ .akc-intro-replay span { display: none; }
+}
+
+/* Keep the portrait poster available when mobile playback is skipped or fails. */
+@media (max-width: 767px) {
+ .logo-intro-layer .logo-intro-video {
+   object-fit: contain !important;
+   object-position: center center !important;
+   transform: scale(.86) !important;
+ }
+ .logo-intro-layer { background: transparent; }
+}
+
+/* Explicit device video layers. The mobile MP4 is always rendered and never hidden on load errors. */
+.logo-intro-video--mobile { display: none !important; }
+.logo-intro-video--desktop { display: block !important; }
+@media (max-width: 767px) {
+  .logo-intro-video--desktop { display: none !important; }
+  .logo-intro-video--mobile {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .logo-intro-layer { opacity: 1 !important; visibility: visible !important; }
+}
+
+
+/* Mobile video polish: blend the portrait asset into the hero without touching desktop. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    isolation: isolate;
+  }
+
+  .logo-intro-layer .logo-intro-video--mobile {
+    /* Expand the emblem while keeping its proportions and avoiding crop. */
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(1.18) !important;
+    transform-origin: center center !important;
+
+    /* Fade the video's darker edges into the site's background. */
+    -webkit-mask-image: radial-gradient(ellipse 66% 43% at 50% 50%,
+      #000 0%, #000 57%, rgba(0,0,0,.86) 73%, transparent 100%);
+    mask-image: radial-gradient(ellipse 66% 43% at 50% 50%,
+      #000 0%, #000 57%, rgba(0,0,0,.86) 73%, transparent 100%);
+  }
+}
+
+
+/* Isolated mobile experiment: show the original desktop intro footage.
+   The portrait viewport crops the wide frame symmetrically around its central emblem. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 85%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 85%, transparent 100%) !important;
+  }
+  .logo-intro-layer .logo-intro-video--mobile {
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+    transform: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}
+
+
+
+/* Mobile video restored: keep the video visible and centered. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    display: block !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+  }
+  .logo-intro-layer .logo-intro-video--desktop {
+    display: none !important;
+  }
+}
+
+
+/* Mobile video seam polish — visual treatment only; playback untouched. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    isolation: isolate;
+  }
+  .logo-intro-layer .logo-intro-video--mobile {
+    /* Retain full frame and fade its rectangular perimeter into the hero. */
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    -webkit-mask-image: radial-gradient(ellipse 69% 41% at 50% 50%,
+      #000 0%, #000 52%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.34) 86%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 69% 41% at 50% 50%,
+      #000 0%, #000 52%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.34) 86%, transparent 100%) !important;
+    filter: brightness(.91) saturate(.88);
+  }
+}
+
+
+/* 2026-11 mobile hero alignment — single canvas, anchored navigation, no side panels.
+   Desktop is intentionally untouched. */
+@media (max-width: 767px) {
+  html, body { overflow-x: clip; background: #010910; }
+  .akc-page {
+    --header-height: 72px;
+    background: #010910 !important;
+    overflow-x: clip;
+  }
+  .akc-page::before { display: none !important; }
+  .brand {
+    height: var(--header-height);
+    padding-inline: 6%;
+    gap: 12px;
+    background: transparent;
+    position: relative;
+    z-index: 6;
+  }
+  .brand > span { font-size: clamp(11px, 3vw, 14px); letter-spacing: 0; }
+  .brand .menu-button { margin-left: auto; flex-shrink: 0; }
+  .hero {
+    height: calc(100svh - var(--header-height));
+    min-height: calc(100svh - var(--header-height));
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #010910 !important;
+  }
+  .logo-intro-layer {
+    inset: var(--header-height) 0 0 !important;
+    height: calc(100svh - var(--header-height)) !important;
+    width: 100% !important;
+    background: #010910 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    overflow: hidden;
+  }
+  .logo-intro-layer .logo-intro-video--mobile,
+  .logo-intro-layer .akc-mobile-final-frame {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+    transform: none !important;
+    filter: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .logo-intro-layer .akc-mobile-final-frame { z-index: 2; pointer-events: none; }
+  .logo-intro-layer .akc-intro-replay {
+    z-index: 5;
+    right: 6% !important;
+    bottom: 10% !important;
+  }
+  .network-frame {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    pointer-events: none;
+  }
+  .network-scale {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+  .network {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-width: none !important;
+  }
+  .nav-list { position: absolute; inset: 0; z-index: 4; }
+  .nav-node {
+    position: absolute !important;
+    inset: auto !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .nav-label {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: max-content;
+    max-width: 42vw;
+    white-space: normal !important;
+    text-align: center;
+    font-size: clamp(12px, 3.1vw, 15px) !important;
+    line-height: 1.3;
+    padding: 6px 2px;
+    pointer-events: auto;
+  }
+  .nav-node .nav-dot {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 9px;
+    height: 9px;
+  }
+  .nav-node .nav-line {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: clamp(22px, 9vw, 43px) !important;
+    transform-origin: left center !important;
+  }
+  .nav-node--about { left: 50% !important; top: 30% !important; }
+  .nav-node--about .nav-label { top: -38px !important; }
+  .nav-node--about .nav-line { transform: rotate(90deg) !important; width: 45px !important; }
+  .nav-node--expertise { left: 17% !important; top: 45% !important; }
+  .nav-node--expertise .nav-label { top: -35px !important; }
+  .nav-node--expertise .nav-line { transform: rotate(15deg) !important; }
+  .nav-node--qualification { left: 83% !important; top: 45% !important; }
+  .nav-node--qualification .nav-label { top: -42px !important; max-width: 38vw; }
+  .nav-node--qualification .nav-line { transform: rotate(165deg) !important; }
+  .nav-node--industries { left: 17% !important; top: 59% !important; }
+  .nav-node--industries .nav-label { top: -35px !important; }
+  .nav-node--industries .nav-line { transform: rotate(15deg) !important; }
+  .nav-node--insights { left: 83% !important; top: 59% !important; }
+  .nav-node--insights .nav-label { top: -35px !important; }
+  .nav-node--insights .nav-line { transform: rotate(165deg) !important; }
+  .hero-bottom {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    padding: 0 6% max(30px, env(safe-area-inset-bottom)) !important;
+    display: flex !important;
+    align-items: flex-end;
+    justify-content: space-between;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .hero-bottom h1 { font-size: clamp(22px, 5.2vw, 32px) !important; }
+  .hero-bottom .scroll-cue { pointer-events: auto; font-size: 32px; }
+  .hero-index { display: none !important; }
+  .menu-panel { z-index: 30 !important; }
+  .menu-backdrop { z-index: 28 !important; }
+  .brand:has(.menu-button.is-open) { z-index: 31 !important; }
+}
+
+
+/* Restore the intro media: the hero must not paint an opaque layer above it.
+   Keep all navigation interactive and keep the media beneath the labels. */
+@media (max-width: 767px) {
+  .akc-page { isolation: isolate; }
+  .logo-intro-layer {
+    z-index: 1 !important;
+    pointer-events: none;
+  }
+  .hero {
+    z-index: 2 !important;
+    background: transparent !important;
+  }
+  .network-frame,
+  .network-scale,
+  .network,
+  .nav-list { background: transparent !important; }
+  .brand { z-index: 4; }
+  .logo-intro-layer .akc-intro-replay {
+    pointer-events: auto !important;
+  }
+}
+
+
+/* Mobile final polish: diagram connectors, clickable navigation, functional menu overlay. */
+@media (max-width: 767px) {
+  /* Remove the circular replay control below the emblem (video still plays normally). */
+  .logo-intro-layer .akc-intro-replay { display: none !important; }
+
+  /* Allow the hero labels to receive taps while leaving the decorative layers inert. */
+  .network-frame, .network-scale, .network, .nav-list, .nav-node {
+    pointer-events: none !important;
+  }
+  .nav-node .nav-label {
+    pointer-events: auto !important;
+    position: absolute !important;
+    z-index: 7 !important;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .nav-node .nav-dot { z-index: 2; }
+  .nav-node .nav-line {
+    z-index: 1;
+    height: 1.5px !important;
+    background: linear-gradient(90deg, #4abaff, rgba(47,164,255,.82)) !important;
+  }
+
+  /* Extend the connectors from each glowing dot toward the actual triangle edge. */
+  .nav-node--about .nav-line {
+    width: clamp(45px, 6.5vh, 72px) !important;
+    transform: rotate(90deg) !important;
+  }
+  .nav-node--expertise .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(16deg) !important;
+  }
+  .nav-node--industries .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(16deg) !important;
+  }
+  .nav-node--qualification .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(164deg) !important;
+  }
+  .nav-node--insights .nav-line {
+    width: clamp(64px, 18vw, 110px) !important;
+    transform: rotate(164deg) !important;
+  }
+
+  /* The hamburger remains above the hero; its menu is a fixed tappable overlay. */
+  .brand { position: relative !important; z-index: 20 !important; }
+  .brand .menu-button {
+    position: relative;
+    z-index: 22;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+  .menu-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 30 !important;
+    pointer-events: auto !important;
+  }
+  .menu-panel {
+    position: fixed !important;
+    z-index: 32 !important;
+    top: calc(var(--header-height) + 8px) !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - var(--header-height) - 24px) !important;
+    overflow-y: auto;
+    pointer-events: auto !important;
+  }
+  .menu-panel .menu-link { pointer-events: auto !important; }
+  .brand:has(.menu-button.is-open) { z-index: 33 !important; }
+}
+
+
+/* Mobile navigation: elbow connectors stop at the triangle's outer edge.
+   Two-segment paths are drawn separately from the original straight lines. */
+@media (max-width: 767px) {
+  .nav-node--expertise .nav-line,
+  .nav-node--qualification .nav-line,
+  .nav-node--industries .nav-line,
+  .nav-node--insights .nav-line {
+    display: none !important;
+  }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after,
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: clamp(68px, 21vw, 104px);
+    height: clamp(32px, 9.5vw, 48px);
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: .95;
+  }
+  /* The line leaves the blue dot horizontally, then bends toward the logo. */
+  .nav-node--expertise::after,
+  .nav-node--industries::after {
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 45' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H53 L100 45' fill='none' stroke='%2348baff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  }
+  .nav-node--qualification::after,
+  .nav-node--insights::after {
+    right: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 45' preserveAspectRatio='none'%3E%3Cpath d='M100 0 H47 L0 45' fill='none' stroke='%2348baff' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  }
+  /* On the reference iPhone layout, the emblem is centered around 51% of hero height.
+     Keep both lower connector ends above the base and outside the blue outline. */
+  .nav-node--expertise { left: 17% !important; top: 45% !important; }
+  .nav-node--qualification { left: 83% !important; top: 45% !important; }
+  .nav-node--industries { left: 17% !important; top: 56.5% !important; }
+  .nav-node--insights { left: 83% !important; top: 56.5% !important; }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after { height: clamp(27px, 8vw, 40px); }
+  .nav-node--industries::after,
+  .nav-node--insights::after { height: clamp(19px, 5.5vw, 28px); }
+  .nav-node--about .nav-line {
+    width: clamp(35px, 5.3vh, 55px) !important;
+  }
+}
+
+
+/* Fine-tune the four mobile elbow connectors: terminate before the logo glow.
+   Keep dot positions, typography, video and desktop untouched. */
+@media (max-width: 767px) {
+  .nav-node--expertise::after,
+  .nav-node--qualification::after {
+    width: clamp(55px, 17vw, 86px) !important;
+    height: clamp(20px, 6.2vw, 31px) !important;
+  }
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    width: clamp(48px, 15vw, 76px) !important;
+    height: clamp(12px, 3.7vw, 19px) !important;
+  }
+}
+
+
+/* Hard stop: keep mobile elbow connectors entirely outside the triangle.
+   At phone widths, the left/right dots sit at 17%/83%; paths end within
+   the outer 12% of the viewport, well before the logo edges. */
+@media (max-width: 767px) {
+  .nav-node--expertise::after,
+  .nav-node--industries::after,
+  .nav-node--qualification::after,
+  .nav-node--insights::after {
+    width: 12vw !important;
+    max-width: 52px !important;
+    height: 13px !important;
+    background-size: 100% 100% !important;
+  }
+}
+
+
+/* Stable iPhone reveal: no JS visibility gate or competing GSAP timeline.
+   4.1s matches the portrait intro duration; opacity animation works in Safari. */
+@keyframes akc-mobile-reveal {
+  0%, 1% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@media (max-width: 767px) {
+  .nav-list,
+  .nav-list[data-mobile-intro-ready="false"],
+  .nav-list[data-mobile-intro-ready="true"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1;
+    animation: akc-mobile-reveal 650ms ease-out 4.1s both !important;
+  }
+  .nav-node,
+  .nav-node .nav-label,
+  .nav-node .nav-dot,
+  .nav-node .nav-line,
+  .nav-node::after {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .nav-node .nav-label { pointer-events: auto !important; }
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    width: 6.5vw !important;
+    max-width: 28px !important;
+    height: 0 !important;
+    border-top: 1.5px solid #48baff !important;
+    background-image: none !important;
+  }
+  .nav-node--expertise::after,
+  .nav-node--qualification::after {
+    width: 9vw !important;
+    max-width: 40px !important;
+    height: 8px !important;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .nav-list { animation: none !important; }
+}
+
+
+/* Hamburger overlay is portaled to document.body to escape the intro stacking context. */
+@media (max-width: 767px) {
+  body > .menu-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9998 !important;
+    background: rgba(0, 7, 18, .75);
+    pointer-events: auto !important;
+  }
+  body > .menu-panel {
+    position: fixed !important;
+    top: calc(64px + env(safe-area-inset-top, 0px)) !important;
+    right: 12px !important;
+    left: 12px !important;
+    width: auto !important;
+    max-height: calc(100dvh - 88px - env(safe-area-inset-top, 0px)) !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  body > .menu-panel .menu-link { pointer-events: auto !important; }
+  .akc-page:has(.menu-button.is-open) .brand {
+    z-index: 10000 !important;
+  }
+}
+
+
+/* Restore the original header hamburger and give it a reliable touch target.
+   The menu panel/backdrop remain portaled to body. */
+@media (max-width: 767px) {
+  .brand > .menu-button {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 100 !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    cursor: pointer !important;
+    touch-action: manipulation;
+  }
+  .brand > .menu-button span {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1;
+    background: #dce8f3 !important;
+  }
+  .brand > .menu-button.is-open span:nth-child(2) { opacity: 0 !important; }
+  .akc-page .brand { z-index: 10001 !important; }
+}
+
+
+/* Native HTML mobile menu: summary toggles without React or JS hydration. */
+.mobile-native-menu { display: none; }
+@media (max-width: 767px) {
+  .akc-page .brand {
+    position: relative !important;
+    z-index: 10001 !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+  }
+  .brand > .menu-button { display: none !important; }
+  .brand > .mobile-native-menu {
+    display: block !important;
+    position: relative !important;
+    margin-left: auto;
+    z-index: 10002 !important;
+    pointer-events: auto !important;
+  }
+  .mobile-native-menu-toggle {
+    display: flex !important;
+    width: 48px;
+    height: 48px;
+    padding: 12px 9px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    cursor: pointer;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-native-menu-toggle::-webkit-details-marker { display: none; }
+  .mobile-native-menu-toggle::marker { content: ""; }
+  .mobile-native-menu-toggle span {
+    display: block;
+    width: 27px;
+    height: 2px;
+    flex: 0 0 2px;
+    background: #dce8f3;
+    border-radius: 2px;
+    transition: transform 180ms ease, opacity 180ms ease;
+    pointer-events: none;
+  }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(2) { opacity: 0; }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-native-menu-panel {
+    position: fixed !important;
+    top: calc(64px + env(safe-area-inset-top, 0px)) !important;
+    left: 12px !important;
+    right: 12px !important;
+    z-index: 10003 !important;
+    max-height: calc(100dvh - 88px) !important;
+    overflow-y: auto;
+    padding: 18px 24px 24px;
+    border: 1px solid rgba(116, 176, 224, .22);
+    border-radius: 12px;
+    background: rgba(6, 19, 37, .97);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .5);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    pointer-events: auto !important;
+  }
+  .mobile-native-menu-link {
+    display: block;
+    padding: 17px 0;
+    color: #edf5ff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .035em;
+    border-bottom: 1px solid rgba(146, 192, 226, .16);
+    pointer-events: auto !important;
+  }
+  .mobile-native-menu-link:last-child { border-bottom: 0; }
+}
+
+
+/* Desktop: use the same reliable native hamburger as on iPhone.
+   Avoid the JS-controlled duplicate, whose overlay can be obscured by the scene. */
+@media (min-width: 768px) {
+  .brand > .menu-button { display: none !important; }
+  .brand > .mobile-native-menu {
+    display: block !important;
+    position: relative !important;
+    margin-left: auto;
+    z-index: 10002 !important;
+    pointer-events: auto !important;
+  }
+  .brand > .mobile-native-menu > .mobile-native-menu-toggle {
+    display: flex !important;
+    width: 48px;
+    height: 48px;
+    padding: 12px 9px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+    list-style: none;
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+  .brand > .mobile-native-menu > .mobile-native-menu-toggle::-webkit-details-marker { display: none; }
+  .brand > .mobile-native-menu > .mobile-native-menu-toggle::marker { content: ""; }
+  .mobile-native-menu-toggle span {
+    display: block;
+    width: 27px;
+    height: 2px;
+    flex: 0 0 2px;
+    border-radius: 2px;
+    background: #dce8f3;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(2) { opacity: 0; }
+  .mobile-native-menu[open] .mobile-native-menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-native-menu-panel {
+    position: fixed !important;
+    top: 94px !important;
+    right: clamp(18px, 5vw, 80px) !important;
+    left: auto !important;
+    width: min(440px, calc(100vw - 36px)) !important;
+    max-height: calc(100dvh - 112px) !important;
+    overflow-y: auto;
+    padding: 22px 30px;
+    z-index: 10003 !important;
+    border: 1px solid rgba(116,176,224,.22);
+    border-radius: 10px;
+    background: rgba(6,19,37,.97);
+    box-shadow: 0 20px 70px rgba(0,0,0,.5);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    pointer-events: auto !important;
+  }
+  .mobile-native-menu-link {
+    display: block;
+    padding: 17px 0;
+    color: #edf5ff;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(146,192,226,.16);
+  }
+  .mobile-native-menu-link:last-child { border-bottom: 0; }
+  .akc-page .brand { z-index: 10001 !important; overflow: visible !important; }
+}
+
+
+/* Industries: editorial split layout with an interactive industry constellation. */
+.akc-industries{position:relative;min-height:700px;display:grid;grid-template-columns:52% 48%;background:#020b12;color:#edf3fb;overflow:hidden;border-top:1px solid rgba(123,185,229,.18)}
+.akc-industries-art{min-height:700px;background:linear-gradient(90deg,rgba(0,8,19,.05),rgba(0,8,19,.2)),url('/akc-expertise-geometry.png') center/cover no-repeat}
+.akc-industries-content{position:relative;min-width:0;padding:clamp(36px,4vw,70px) clamp(25px,4vw,70px) 35px;display:flex;flex-direction:column}
+.akc-industries-eyebrow{font-size:13px;letter-spacing:.13em;color:#668aaa;margin:0 0 28px}
+.akc-industries h2{font-size:clamp(28px,2.5vw,44px);font-weight:600;line-height:1.18;letter-spacing:-.035em;margin:0 0 22px}
+.akc-industries h2 span{color:#73b9f3}
+.akc-industries-description{font-size:clamp(14px,1.1vw,17px);line-height:1.6;color:#9aaabc;max-width:420px;margin:0}
+.akc-industries-map{position:relative;flex:1;min-height:335px;margin:22px 0 8px}
+.akc-industries-track{position:absolute;left:9%;top:31%;width:76%;height:2px;background:linear-gradient(90deg,rgba(101,157,209,.16),rgba(115,183,235,.65));transform:rotate(18deg);transform-origin:left center}
+.akc-industry-point{position:absolute;display:flex;flex-direction:column;align-items:center;gap:9px;border:0;background:transparent;color:#8da8c1;cursor:pointer;padding:8px;font:inherit;transition:color .2s;min-width:95px;min-height:48px}
+.akc-industry-point:hover,.akc-industry-point.is-selected{color:#e7f4ff}
+.akc-industry-name{font-size:clamp(10px,.8vw,13px);letter-spacing:.02em;white-space:nowrap}
+.akc-industry-dot{height:12px;width:12px;background:#5b8cb6;border-radius:50%;box-shadow:0 0 0 3px rgba(72,151,217,.07);transition:background .2s,box-shadow .2s}
+.akc-industry-point.is-selected .akc-industry-dot{background:#6dc0ff;box-shadow:0 0 0 7px rgba(74,165,245,.12),0 0 18px #4eaeff}
+.akc-industry-point--1{left:0%;top:12%}.akc-industry-point--2{left:17%;top:23%}.akc-industry-point--3{left:36%;top:35%}.akc-industry-point--4{left:56%;top:46%}.akc-industry-point--5{left:75%;top:57%}
+.akc-industry-detail{position:absolute;right:0;bottom:0;width:min(285px,58%);border:1px solid rgba(74,153,222,.5);border-radius:12px;padding:16px 18px;background:rgba(3,16,31,.94);box-shadow:0 0 24px rgba(19,111,200,.22)}
+.akc-industry-detail strong{display:block;font-size:12px;letter-spacing:.05em;color:#e4f1ff}
+.akc-industry-detail p{font-size:12px;line-height:1.5;color:#a8b9cd;margin:10px 0}
+.akc-industry-detail a,.akc-industries-all{font-size:12px;color:#a9d6fb;text-decoration:none}
+.akc-industries-all{align-self:flex-end;letter-spacing:.06em;margin-top:15px}
+.akc-industries a:hover{text-decoration:underline}
+@media(max-width:900px){.akc-industries{grid-template-columns:1fr}.akc-industries-art{min-height:300px;background-position:center 45%}.akc-industries-content{min-height:560px}.akc-industries-map{min-height:340px}}
+@media(max-width:540px){.akc-industries-art{min-height:235px}.akc-industries-content{padding:30px 20px 35px;min-height:600px}.akc-industries-map{min-height:385px}.akc-industry-point{min-width:65px;padding:6px 2px}.akc-industry-name{font-size:9px;white-space:normal;text-align:center;max-width:85px}.akc-industry-point--1{left:0;top:9%}.akc-industry-point--2{left:17%;top:21%}.akc-industry-point--3{left:37%;top:33%}.akc-industry-point--4{left:57%;top:45%}.akc-industry-point--5{left:76%;top:57%}.akc-industry-detail{width:75%;bottom:0}.akc-industries-track{top:29%}}
+@media(prefers-reduced-motion:reduce){.akc-industry-point,.akc-industry-dot{transition:none}}
+
+
+/* Full-height About chapter directly after the cinematic home hero. */
+.akc-home-about{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(ellipse at 78% 48%,rgba(24,81,145,.17),transparent 46%),#020b14;border-top:1px solid rgba(116,178,224,.18);color:#eaf3fc}
+.akc-home-about__inner{width:100%;max-width:1600px;margin:0 auto;padding:clamp(96px,11vh,150px) clamp(24px,5vw,90px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);align-items:center;gap:clamp(36px,6vw,100px)}
+.akc-home-about__copy{position:relative;z-index:1}
+.akc-home-about__eyebrow{margin:0 0 32px;color:#72b9e8;font-size:clamp(11px,.9vw,14px);font-weight:600;letter-spacing:.19em}
+.akc-home-about h2{margin:0;font-size:clamp(42px,5.5vw,90px);font-weight:650;line-height:1.06;letter-spacing:-.055em}
+.akc-home-about h2 span{color:#70b9eb}
+.akc-home-about__lead{margin:32px 0 14px;font-size:clamp(19px,1.65vw,27px);font-weight:500;letter-spacing:-.02em}
+.akc-home-about__description{max-width:680px;margin:0;color:#9fb1c3;font-size:clamp(15px,1.12vw,18px);line-height:1.8}
+.akc-home-about__link{display:inline-flex;align-items:center;gap:30px;margin-top:42px;padding:17px 22px;border:1px solid rgba(116,188,235,.55);border-radius:5px;color:#d9f0ff;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.08em;transition:background .2s,border-color .2s,transform .2s}
+.akc-home-about__link:hover{background:rgba(67,149,212,.12);border-color:#77c5fa;transform:translateY(-2px)}
+.akc-home-about__link span{color:#7bc7f6;font-size:22px}
+.akc-home-about__art{position:relative;min-height:460px;display:grid;place-items:center;isolation:isolate}
+.akc-home-about__halo{position:absolute;width:min(100%,490px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(41,119,199,.25),rgba(19,64,125,.08) 40%,transparent 68%);filter:blur(18px)}
+.akc-home-about__outline{position:relative;width:min(75%,340px);aspect-ratio:1;display:grid;place-items:center;border:1px solid rgba(104,179,234,.32);border-radius:50%;box-shadow:0 0 0 52px rgba(61,130,196,.035),0 0 0 104px rgba(61,130,196,.018),inset 0 0 55px rgba(41,112,192,.08)}
+.akc-home-about__outline:before,.akc-home-about__outline:after{content:"";position:absolute;inset:17%;border:1px solid rgba(108,188,243,.18);border-radius:50%}
+.akc-home-about__outline:after{inset:35%;border-color:rgba(108,188,243,.28)}
+.akc-home-about__outline span{font-size:clamp(54px,7vw,115px);font-weight:700;letter-spacing:-.07em;color:rgba(129,202,251,.68);text-shadow:0 0 45px rgba(58,144,222,.35)}
+.akc-home-about__art-caption{position:absolute;bottom:0;color:#7194b1;font-size:11px;letter-spacing:.22em}
+.akc-home-about__next{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:28px;color:#8bbce2;text-decoration:none}
+@media(max-width:900px){.akc-home-about__inner{grid-template-columns:1fr;padding-top:110px;padding-bottom:110px}.akc-home-about__art{min-height:230px}.akc-home-about__outline{width:180px;box-shadow:0 0 0 35px rgba(61,130,196,.035),0 0 0 70px rgba(61,130,196,.018)}.akc-home-about__outline span{font-size:60px}.akc-home-about__art-caption{bottom:-20px}}
+@media(max-width:600px){.akc-home-about__inner{gap:38px;padding:90px 24px 95px}.akc-home-about h2{font-size:clamp(36px,9vw,58px)}.akc-home-about__lead{margin-top:25px}.akc-home-about__link{margin-top:28px;font-size:11px;gap:12px}.akc-home-about__art{min-height:190px}.akc-home-about__outline{width:145px}.akc-home-about__outline span{font-size:46px}}
+@media(prefers-reduced-motion:reduce){.akc-home-about__link{transition:none}}
+
+/* Mobile-only: reduce the visible intro video without affecting desktop. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    transform: scale(0.78) !important;
+    transform-origin: center center !important;
+    /* Fade the scaled video's rectangular edges into the existing hero. */
+    -webkit-mask-image: radial-gradient(ellipse 72% 65% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.88) 66%, transparent 96%) !important;
+    mask-image: radial-gradient(ellipse 72% 65% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.88) 66%, transparent 96%) !important;
+  }
+}
+
+/* Mobile finishing pass: keep the existing portrait film and desktop intact. */
+@media (max-width: 767px) {
+  .nav-node--about { top: 24% !important; }
+  .nav-node--about .nav-label { top: -38px !important; }
+  .nav-node--expertise { left: 15% !important; top: 44% !important; }
+  .nav-node--qualification { left: 85% !important; top: 44% !important; }
+  .nav-node--industries { left: 15% !important; top: 57% !important; }
+  .nav-node--insights { left: 85% !important; top: 57% !important; }
+  .nav-node--expertise .nav-label,
+  .nav-node--qualification .nav-label { top: -40px !important; }
+  .nav-node--industries .nav-label,
+  .nav-node--insights .nav-label { top: 30px !important; }
+  .nav-node .nav-label { font-size: clamp(11px, 2.9vw, 14px) !important; line-height: 1.3; }
+  .nav-node--qualification .nav-label { max-width: 38vw; }
+}
+@media (max-width: 375px) {
+  .nav-node .nav-label { font-size: 11px !important; }
+  .nav-node--qualification .nav-label { max-width: 35vw; }
+}
+
+/* Mobile-only: blend away the portrait video's visible rectangular edges.
+   No changes to its size, playback, navigation, or desktop layout. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    mix-blend-mode: screen !important;
+    -webkit-mask-image: radial-gradient(ellipse 76% 67% at 50% 50%, #000 0%, #000 38%, rgba(0,0,0,.94) 52%, rgba(0,0,0,.52) 70%, transparent 92%) !important;
+    mask-image: radial-gradient(ellipse 76% 67% at 50% 50%, #000 0%, #000 38%, rgba(0,0,0,.94) 52%, rgba(0,0,0,.52) 70%, transparent 92%) !important;
+  }
+}
+
+/* Mobile video: fit the entire portrait frame instead of cropping its sides.
+   Overrides legacy cover rules; desktop and navigation are untouched. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-video--mobile {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(0.78) !important;
+    transform-origin: center center !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
+
+/* Mobile navigation placement only: About nearer the apex;
+   Industries and News below the triangle instead of beside it. */
+@media (max-width: 767px) {
+  .nav-node--about { top: 31% !important; }
+  .nav-node--about .nav-label { top: -34px !important; }
+  .nav-node--industries { left: 28% !important; top: 66% !important; }
+  .nav-node--insights { left: 72% !important; top: 66% !important; }
+  .nav-node--industries .nav-line,
+  .nav-node--insights .nav-line {
+    width: 28px !important;
+    transform: rotate(-90deg) !important;
+  }
+  .nav-node--industries .nav-label,
+  .nav-node--insights .nav-label {
+    top: 29px !important;
+    left: 0 !important;
+  }
+}
+
+/* Mobile only: actual lower connectors are ::after pseudo-elements.
+   Draw a vertical line downward from each dot, leaving positions unchanged. */
+@media (max-width: 767px) {
+  .nav-node--industries::after,
+  .nav-node--insights::after {
+    left: 0 !important;
+    right: auto !important;
+    top: 0 !important;
+    width: 1px !important;
+    max-width: 1px !important;
+    height: 24px !important;
+    background-image: none !important;
+    background: linear-gradient(to bottom, #4abaff, rgba(72,186,255,.75)) !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile portrait video: dissolve its horizontal frame edges into the hero.
+   The gradient is vertical (full width), so no straight seam can remain. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    background: transparent !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .logo-intro-layer .logo-intro-video--mobile {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: scale(1.28) !important;
+    transform-origin: center center !important;
+    mix-blend-mode: screen !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,.12) 29%, rgba(0,0,0,.6) 36%, #000 43%, #000 63%, rgba(0,0,0,.88) 67%, rgba(0,0,0,.52) 71%, rgba(0,0,0,.16) 75%, transparent 79%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,.12) 29%, rgba(0,0,0,.6) 36%, #000 43%, #000 63%, rgba(0,0,0,.88) 67%, rgba(0,0,0,.52) 71%, rgba(0,0,0,.16) 75%, transparent 79%, transparent 100%) !important;
+  }
+}
+
+
+/* Seamless AKC hero video: eliminate the rectangular video/background seam.
+   This override is scoped to the landing intro and preserves the navigation. */
+.akc-page {
+  background-color: #020810;
+}
+.logo-intro-layer {
+  background: transparent !important;
+  -webkit-mask-image: radial-gradient(ellipse 78% 74% at 50% 52%, #000 43%, rgba(0,0,0,.96) 58%, rgba(0,0,0,.58) 77%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse 78% 74% at 50% 52%, #000 43%, rgba(0,0,0,.96) 58%, rgba(0,0,0,.58) 77%, transparent 100%) !important;
+}
+@media (max-width: 767px) {
+  .akc-page {
+    background: radial-gradient(ellipse 95% 54% at 50% 54%, #06152e 0%, #030d1d 43%, #020810 83%);
+  }
+  .logo-intro-layer {
+    -webkit-mask-image: radial-gradient(ellipse 83% 65% at 50% 51%, #000 41%, rgba(0,0,0,.97) 54%, rgba(0,0,0,.68) 72%, transparent 100%) !important;
+    mask-image: radial-gradient(ellipse 83% 65% at 50% 51%, #000 41%, rgba(0,0,0,.97) 54%, rgba(0,0,0,.68) 72%, transparent 100%) !important;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 8% 0 9%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 62% 40% at 50% 51%, rgba(22,103,219,.20), rgba(6,38,91,.10) 54%, transparent 100%);
+    animation: akc-ambient-breathe 5.5s ease-in-out infinite alternate;
+  }
+}
+@keyframes akc-ambient-breathe {
+  from { opacity: .65; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
+
+/* Fix visible bottom edge: blend the entire video layer into the exact
+   page base color, even when the video frame itself is brighter. */
+@media (max-width: 767px) {
+  .logo-intro-layer {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 52%, rgba(0,0,0,.94) 60%, rgba(0,0,0,.65) 70%, rgba(0,0,0,.22) 79%, transparent 89%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 52%, rgba(0,0,0,.94) 60%, rgba(0,0,0,.65) 70%, rgba(0,0,0,.22) 79%, transparent 89%) !important;
+  }
+  .akc-page {
+    background: #020810 !important;
+  }
+  .hero::before {
+    background: radial-gradient(ellipse 58% 34% at 50% 43%, rgba(19,83,172,.13), transparent 100%);
+  }
+}
+
+/* Keep the global brand/header and hamburger visible while the page scrolls.
+   Fixed positioning avoids Safari sticky failures inside clipped ancestors. */
+.akc-page > .brand {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10001 !important;
+  background: rgba(2, 8, 16, .92) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.akc-page {
+  padding-top: var(--header-height);
+}
+@media (max-width: 767px) {
+  .akc-page > .brand {
+    top: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .akc-page {
+    padding-top: 64px;
+  }
+}
+
+/* Open hamburger takes visual priority over the floating event notification.
+   Hide the toast only while the native menu is expanded; restore on close. */
+body:has(.mobile-native-menu[open]) [aria-label="Актуальний захід АКЦ"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Prevent browser playback overlays from appearing over the cinematic intro. */
+.logo-intro-layer .logo-intro-video::-webkit-media-controls,
+.logo-intro-layer .logo-intro-video::-webkit-media-controls-start-playback-button,
+.logo-intro-layer .logo-intro-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Crossfade the final video frame into its matching static poster. */
+.logo-intro-layer .logo-intro-poster {
+  z-index: 0;
+  opacity: 0;
+}
+.logo-intro-layer .logo-intro-video {
+  z-index: 1;
+  opacity: 1;
+}
+.logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster {
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+}
+.logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video {
+  opacity: 0 !important;
+  transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+}
+.logo-intro-layer[data-intro-mode="static"] .logo-intro-poster {
+  z-index: 2;
+  opacity: 1;
+}
+
+/* The mobile poster portrait has a smaller source logo; scale and offset it
+   to match the final emblem size and center used by the mobile video frame. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-poster img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: translateY(-.8%) scale(1.52) !important;
+    transform-origin: center center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-intro-layer .logo-intro-poster,
+  .logo-intro-layer .logo-intro-video {
+    transition: none !important;
+  }
+}
+
+
+/* Keep the mobile poster visible when autoplay is blocked, with a tappable
+   manual-play control above the hero and a short fade into successful playback. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="manual-prompt"] {
+    z-index: 2;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-prompt"] .logo-intro-poster {
+    z-index: 2;
+    opacity: 1;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-prompt"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-poster {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 420ms ease-out;
+  }
+
+  .logo-intro-play-control {
+    position: absolute;
+    z-index: 4;
+    top: 68%;
+    left: 50%;
+    width: min(88vw, 340px);
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto;
+    text-align: center;
+  }
+
+  .logo-intro-play-button {
+    min-height: 54px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 22px;
+    border: 1px solid rgba(112, 196, 255, .7);
+    border-radius: 999px;
+    background: rgba(4, 18, 38, .88);
+    box-shadow: 0 0 28px rgba(37, 143, 255, .28), inset 0 0 18px rgba(73, 164, 255, .1);
+    color: #f3f8ff;
+    font: 600 15px/1.2 Arial, sans-serif;
+    letter-spacing: .01em;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .logo-intro-play-button svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .logo-intro-play-button:focus-visible {
+    outline: 3px solid #8ed4ff;
+    outline-offset: 4px;
+  }
+
+  .logo-intro-play-error {
+    max-width: 34ch;
+    margin: 0;
+    color: #e5eef9;
+    font: 13px/1.45 Arial, sans-serif;
+    text-shadow: 0 1px 8px #020810;
+  }
+}
+
+
+/* iPhone fallback: no visible play control. Keep the triangle poster in place
+   until the first natural touch anywhere on the page starts the muted film. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="tap-to-play"] .logo-intro-poster {
+    z-index: 2;
+    opacity: 1;
+  }
+  .logo-intro-layer[data-intro-mode="tap-to-play"] .logo-intro-video--mobile {
+    z-index: 1;
+    opacity: 0;
+  }
+}
+
+
+/* Mobile sequence: start directly with the film; reveal the poster only
+   after the video ends, using a single smooth crossfade. */
+@media (max-width: 767px) {
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-poster,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-poster {
+    opacity: 0 !important;
+    z-index: 0 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-video--mobile,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    opacity: 1 !important;
+    z-index: 1 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster {
+    opacity: 1 !important;
+    z-index: 2 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video--mobile {
+    opacity: 0 !important;
+    z-index: 1 !important;
+    transition: opacity 800ms cubic-bezier(.22, .61, .36, 1);
+  }
+}
+
+
+/* Final iPhone layer order: never show the poster during the opening.
+   It is revealed only when the video finishes (crossfading) or playback
+   falls back to the final static state. */
+@media (max-width: 767px) {
+  .logo-intro-layer .logo-intro-poster {
+    opacity: 0 !important;
+    z-index: 0 !important;
+    transition: opacity 850ms cubic-bezier(.22, .61, .36, 1) !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-poster,
+  .logo-intro-layer[data-intro-mode="static"] .logo-intro-poster {
+    opacity: 1 !important;
+    z-index: 2 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="playing"] .logo-intro-video--mobile,
+  .logo-intro-layer[data-intro-mode="manual-playing"] .logo-intro-video--mobile {
+    opacity: 1 !important;
+    z-index: 1 !important;
+  }
+
+  .logo-intro-layer[data-intro-mode="crossfading"] .logo-intro-video--mobile {
+    opacity: 0 !important;
+    transition: opacity 850ms cubic-bezier(.22, .61, .36, 1) !important;
+  }
+}
