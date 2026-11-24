@@ -23,6 +23,7 @@ const siteUrl = "https://audit-centr.com.ua";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: {
     default: "Аудит Консалтинг Центр — аудит, консалтинг і бухгалтерський супровід",
     template: "%s | Аудит Консалтинг Центр",
