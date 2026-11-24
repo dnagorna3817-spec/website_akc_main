@@ -6,7 +6,7 @@ import Image from "next/image";
 const DESKTOP_VIDEO = "/media/desktop.mp4";
 const MOBILE_ANIMATION = "/media/akc-intro/mobile-animation.webp";
 const DESKTOP_POSTER = "/media/akc-intro/desktop-poster.png";
-const MOBILE_POSTER = "/media/akc-intro/mobile-poster.png";
+const MOBILE_POSTER = "/media/akc-intro/mobile-poster.webp";
 const INTRO_DIAGNOSTIC_PARAM = "akcIntroDebug";
 
 function logIntroDiagnostic(
