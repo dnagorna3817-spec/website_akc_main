@@ -1,4 +1,6 @@
 "use client";
+
+import ArrowUpRight from "../../components/ArrowUpRight";
 import { useMemo, useState } from "react";
 import { ExpertiseHeader, expertiseFont } from "../ExpertiseView";
 import styles from "./calculator.module.css";
@@ -86,7 +88,7 @@ export default function Calculator(){
     </div>
     <div className={styles.navigation}>{step>0?<button type="button" className={styles.prev} onClick={()=>setStep(step-1)}>← Назад</button>:<span/>}{step<2?<button type="button" className={styles.next} onClick={()=>setStep(step+1)}>Продовжити <span>→</span></button>:<button type="button" className={styles.next} onClick={()=>setStep(0)}>Почати заново <span>↺</span></button>}</div>
    </section>
-   <aside className={styles.summary}><div className={styles.summaryHeader}><span>ВАШ РОЗРАХУНОК</span><span className={styles.summaryDot}>●</span></div><p className={styles.totalLabel}>Орієнтовна вартість на місяць</p><div className={styles.total}>{money(total)}</div><p className={styles.summaryNote}>Сума змінюється разом із вашими відповідями</p><div className={styles.rule}/><p className={styles.breakdownTitle}>Деталі розрахунку</p><div className={styles.lines}>{rows.map(([label,value])=><div key={label}><span>{label}</span><strong>{money(value)}</strong></div>)}</div><button type="button" className={styles.copy} onClick={copy}>{copied?"✓ Скопійовано":"Скопіювати розрахунок"} <span aria-hidden="true">↗</span></button><p className={styles.disclaimer}>Попередній розрахунок за базовими тарифами. Остаточну вартість визначає спеціаліст АКЦ після уточнення деталей.</p></aside>
+   <aside className={styles.summary}><div className={styles.summaryHeader}><span>ВАШ РОЗРАХУНОК</span><span className={styles.summaryDot}>●</span></div><p className={styles.totalLabel}>Орієнтовна вартість на місяць</p><div className={styles.total}>{money(total)}</div><p className={styles.summaryNote}>Сума змінюється разом із вашими відповідями</p><div className={styles.rule}/><p className={styles.breakdownTitle}>Деталі розрахунку</p><div className={styles.lines}>{rows.map(([label,value])=><div key={label}><span>{label}</span><strong>{money(value)}</strong></div>)}</div><button type="button" className={styles.copy} onClick={copy}>{copied?"✓ Скопійовано":"Скопіювати розрахунок"} <ArrowUpRight size={16} /></button><p className={styles.disclaimer}>Попередній розрахунок за базовими тарифами. Остаточну вартість визначає спеціаліст АКЦ після уточнення деталей.</p></aside>
   </div>
  </div></main>;
 }

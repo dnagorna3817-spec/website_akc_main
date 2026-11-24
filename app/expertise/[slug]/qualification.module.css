@@ -803,3 +803,32 @@
     z-index: 5 !important;
   }
 }
+
+
+/* Mobile qualification hero: show the complete artwork without clipping. */
+@media (max-width: 600px) {
+  .qHero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .qHeroArt {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    overflow: visible;
+    margin: 8px auto 0;
+  }
+
+  .qHeroArt img {
+    display: block;
+    width: min(100%, 420px);
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    margin: 0 auto;
+  }
+}
