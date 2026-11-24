@@ -1,5 +1,6 @@
-import ArrowUpRight from "../../components/ArrowUpRight";
 "use client";
+
+import ArrowUpRight from "../../components/ArrowUpRight";
 import { useMemo, useState } from "react";
 import { ExpertiseHeader, expertiseFont } from "../ExpertiseView";
 import styles from "./calculator.module.css";
