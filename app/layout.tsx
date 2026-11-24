@@ -30,7 +30,6 @@ export const metadata: Metadata = {
   description:
     "Аудит, бухгалтерський супровід, юридичний консалтинг і цифрові рішення для бізнесу. Аудит Консалтинг Центр — професійна підтримка компаній в Україні.",
   applicationName: "Аудит Консалтинг Центр",
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "uk_UA",
@@ -59,7 +58,33 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col"><MobileSiteHeader /><ExpertiseTransition>{children}</ExpertiseTransition><GlobalSectionReveal /><SiteFooter /><GlobalLeadForm /><CmsPageText /></body>
+      <body className="min-h-full flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://audit-centr.com.ua/#organization",
+            name: "Аудит Консалтинг Центр",
+            url: "https://audit-centr.com.ua/",
+            email: "akc@audit-centr.com.ua",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "вул. Гоголя, 224",
+              addressLocality: "Черкаси",
+              postalCode: "18000",
+              addressCountry: "UA"
+            },
+            sameAs: [
+              "https://www.facebook.com/auditkonsaltingcentr/",
+              "https://www.instagram.com/audit_konsalting_centr/"
+            ]
+          })
+        }}
+      />
+      <MobileSiteHeader /><ExpertiseTransition>{children}</ExpertiseTransition><GlobalSectionReveal /><SiteFooter /><GlobalLeadForm /><CmsPageText />
+    </body>
     </html>
   );
 }
