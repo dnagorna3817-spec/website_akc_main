@@ -4,42 +4,121 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const DESKTOP_VIDEO = "/media/desktop.mp4";
-const MOBILE_VIDEO = "/media/mobile.mp4";
+const MOBILE_ANIMATION = "/media/akc-intro/mobile-animation.webp";
 const DESKTOP_POSTER = "/media/akc-intro/desktop-poster.png";
 const MOBILE_POSTER = "/media/akc-intro/mobile-poster.png";
+const INTRO_DIAGNOSTIC_PARAM = "akcIntroDebug";
+
+function logIntroDiagnostic(
+  event: string,
+  video?: HTMLVideoElement | null,
+  details: Record<string, unknown> = {},
+) {
+  if (
+    typeof window === "undefined" ||
+    new URLSearchParams(window.location.search).get(INTRO_DIAGNOSTIC_PARAM) !== "1"
+  ) return;
+
+  let videoPath: string | null = null;
+  const source = video?.currentSrc || video?.getAttribute("src");
+  if (source) {
+    try {
+      videoPath = new URL(source, window.location.href).pathname;
+    } catch {
+      videoPath = source.split("?")[0];
+    }
+  }
+
+  console.info("[AKC Intro diagnostic]", event, {
+    videoPath,
+    mediaErrorCode: video?.error?.code ?? null,
+    mediaErrorMessage: video?.error?.message ?? null,
+    readyState: video?.readyState ?? null,
+    networkState: video?.networkState ?? null,
+    currentTime: video ? Number(video.currentTime.toFixed(3)) : null,
+    ...details,
+  });
+}
+
+function describePlayError(error: unknown) {
+  if (typeof error === "object" && error !== null) {
+    const value = error as { name?: unknown; message?: unknown };
+    return {
+      ...(value.name === undefined ? {} : { errorName: String(value.name) }),
+      errorMessage: value.message === undefined ? String(error) : String(value.message),
+    };
+  }
+  return { errorMessage: String(error) };
+}
 
 export default function LogoIntro() {
   const desktopRef = useRef<HTMLVideoElement>(null);
-  const mobileRef = useRef<HTMLVideoElement>(null);
-  const finished = useRef(false);
+  const finishState = useRef<"pending" | "fallback" | "success">("pending");
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [crossfading, setCrossfading] = useState(false);
 
-  const finish = useCallback((animateMenu: boolean) => {
-    if (finished.current) return;
-    finished.current = true;
+  const finish = useCallback((animateMenu: boolean, allowFallbackPromotion = false) => {
+    if (animateMenu) {
+      if (finishState.current === "success" || (finishState.current === "fallback" && !allowFallbackPromotion)) return;
+      finishState.current = "success";
+    } else {
+      if (finishState.current !== "pending") return;
+      finishState.current = "fallback";
+    }
     setPlaying(false);
     window.dispatchEvent(new CustomEvent("akc:intro-ready", { detail: { animateMenu } }));
   }, []);
 
-  const failPlayback = useCallback((video?: HTMLVideoElement | null) => {
-    if (finished.current) return;
+  const failPlayback = useCallback((
+    video: HTMLVideoElement | null | undefined,
+    reason: "autoplay-rejection" | "media-error" | "play-exception",
+    error?: unknown,
+  ) => {
+    if (finishState.current !== "pending") return;
+    logIntroDiagnostic("poster-fallback", video, {
+      reason,
+      ...(error === undefined ? {} : describePlayError(error)),
+    });
     video?.pause();
     finish(false);
   }, [finish]);
 
-  const completePlayback = useCallback(() => {
+  const completePlayback = useCallback((video?: HTMLVideoElement | null) => {
+    logIntroDiagnostic("video-ended", video, { duration: video?.duration ?? null });
     setCrossfading(true);
     finish(true);
   }, [finish]);
 
   useEffect(() => {
     if (!crossfading) return;
-    const timer = window.setTimeout(() => setCrossfading(false), 850);
+    const timer = window.setTimeout(() => {
+      setCrossfading(false);
+    }, 850);
     return () => window.clearTimeout(timer);
   }, [crossfading]);
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get(INTRO_DIAGNOSTIC_PARAM) !== "1") return;
+
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.removedNodes) {
+          if (!(node instanceof Element)) continue;
+          const videos = node.matches("video") ? [node] : Array.from(node.querySelectorAll("video"));
+          for (const removedVideo of videos) {
+            logIntroDiagnostic("video-removed-from-dom", removedVideo as HTMLVideoElement, {
+              isConnected: removedVideo.isConnected,
+            });
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -47,6 +126,12 @@ export default function LogoIntro() {
     const update = () => {
       setIsMobile(media.matches);
       setReducedMotion(motion.matches);
+      logIntroDiagnostic("device-preferences", null, {
+        isMobile: media.matches,
+        prefersReducedMotion: motion.matches,
+        userAgent: navigator.userAgent,
+        visibilityState: document.visibilityState,
+      });
     };
 
     update();
@@ -54,7 +139,11 @@ export default function LogoIntro() {
     motion.addEventListener("change", update);
 
     const timer = window.setTimeout(() => {
-      if (finished.current) return;
+      if (finishState.current !== "pending") return;
+      logIntroDiagnostic("poster-fallback", desktopRef.current, {
+        reason: "timeout",
+        timeoutMs: 8500,
+      });
       finish(false);
     }, 8500);
 
@@ -68,11 +157,18 @@ export default function LogoIntro() {
   useEffect(() => {
     if (isMobile === null) return;
     if (reducedMotion) {
+      logIntroDiagnostic("poster-fallback", null, { reason: "prefers-reduced-motion" });
       finish(false);
       return;
     }
 
-    const video = isMobile ? mobileRef.current : desktopRef.current;
+    if (isMobile) {
+      // Animated WebP avoids the HTML video autoplay policy on iOS.
+      const timer = window.setTimeout(() => completePlayback(null), 4150);
+      return () => window.clearTimeout(timer);
+    }
+
+    const video = desktopRef.current;
     if (!video) return;
 
     // Set iOS autoplay requirements before requesting playback.
@@ -80,17 +176,45 @@ export default function LogoIntro() {
     video.defaultMuted = true;
     video.playsInline = true;
     video.autoplay = true;
+    logIntroDiagnostic("autoplay-ready", video, {
+      muted: video.muted,
+      defaultMuted: video.defaultMuted,
+      playsInline: video.playsInline,
+      autoplay: video.autoplay,
+      strategy: "scripted-desktop-play",
+    });
+
+    // Request muted inline playback immediately on iOS, as in the earlier
+    // working implementation. Safari requires these properties before play().
     try {
-      void video.play().catch(() => failPlayback(video));
-    } catch {
-      failPlayback(video);
+      const playPromise = video.play();
+      logIntroDiagnostic("play-request", video);
+      void playPromise.then(
+        () => logIntroDiagnostic("play-resolved", video),
+        (error: unknown) => {
+          failPlayback(video, "autoplay-rejection", error);
+        },
+      );
+    } catch (error) {
+      failPlayback(video, "play-exception", error);
     }
-  }, [isMobile, reducedMotion, failPlayback, finish]);
+  }, [isMobile, reducedMotion, failPlayback, finish, completePlayback]);
+
+  // On iPhone, the animated WebP plays without invoking the video autoplay policy.
+  const introMode = crossfading
+    ? "crossfading"
+    : isMobile === true
+      ? playing
+        ? "manual-playing"
+        : "static"
+      : playing && !reducedMotion
+        ? "playing"
+        : "static";
 
   return (
     <div
       className="logo-intro-layer"
-      data-intro-mode={crossfading ? "crossfading" : playing && !reducedMotion ? "playing" : "static"}
+      data-intro-mode={introMode}
       aria-label="Анімований логотип АКЦ"
     >
       {isMobile !== null && (
@@ -105,19 +229,16 @@ export default function LogoIntro() {
           />
         </div>
       )}
+      {/* Animated WebP avoids iOS Safari's video autoplay gesture restriction. */}
       {!reducedMotion && (playing || crossfading) && isMobile === true && (
-        <video
-          ref={mobileRef}
-          className="logo-intro-video logo-intro-video--mobile"
-          src={MOBILE_VIDEO}
-          muted
-          autoPlay
-          playsInline
-          controls={false}
-          preload="auto"
-          onEnded={completePlayback}
-          onError={(event) => failPlayback(event.currentTarget)}
+        <Image
+          className="logo-intro-video logo-intro-video--mobile logo-intro-animation"
+          src={MOBILE_ANIMATION}
+          alt=""
           aria-hidden="true"
+          fill
+          unoptimized
+          draggable={false}
         />
       )}
       {!reducedMotion && (playing || crossfading) && isMobile === false && (
@@ -130,11 +251,20 @@ export default function LogoIntro() {
           playsInline
           controls={false}
           preload="auto"
-          onEnded={completePlayback}
-          onError={(event) => failPlayback(event.currentTarget)}
+          onLoadedMetadata={(event) => logIntroDiagnostic("loadedmetadata", event.currentTarget, { duration: event.currentTarget.duration })}
+          onCanPlay={(event) => logIntroDiagnostic("canplay", event.currentTarget)}
+          onPlaying={(event) => logIntroDiagnostic("playing", event.currentTarget)}
+          onStalled={(event) => logIntroDiagnostic("stalled", event.currentTarget)}
+          onWaiting={(event) => logIntroDiagnostic("waiting", event.currentTarget)}
+          onEnded={(event) => completePlayback(event.currentTarget)}
+          onError={(event) => {
+            logIntroDiagnostic("error", event.currentTarget);
+            failPlayback(event.currentTarget, "media-error");
+          }}
           aria-hidden="true"
         />
       )}
+
     </div>
   );
 }
