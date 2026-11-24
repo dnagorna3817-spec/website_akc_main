@@ -1,3 +1,4 @@
+import ArrowUpRight from "../../components/ArrowUpRight";
 import { cmsText } from "../../lib/cms";
 import Link from "next/link";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
@@ -80,7 +81,7 @@ export default async function MedicalPage() {
       <section className={`${agro.cta} ${styles.medicalCta}`}>
         <div className={agro.ctaCopy}>
           <h2>Залиште заявку</h2>
-          <Link href="/#contacts" data-lead-cta>ЗАЛИШИТИ ЗАЯВКУ ↗</Link>
+          <Link href="/#contacts" data-lead-cta>ЗАЛИШИТИ ЗАЯВКУ <ArrowUpRight /></Link>
         </div>
       </section>
     </main>
