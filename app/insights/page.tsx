@@ -1,5 +1,6 @@
-import ArrowUpRight from "../components/ArrowUpRight";
 "use client";
+
+import ArrowUpRight from "../components/ArrowUpRight";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
