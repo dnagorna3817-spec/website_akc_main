@@ -1,3 +1,4 @@
+import ArrowUpRight from "../../components/ArrowUpRight";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -615,7 +616,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
         <section className={qualification.qSection} id="documents">
           <p className={qualification.qEyebrow}>ОФІЦІЙНІ ДОКУМЕНТИ</p><h2>Документи кваліфікаційного центру</h2><p>Офіційні документи, положення та матеріали кваліфікаційного центру. Натисніть на назву, щоб відкрити PDF. Зверніть увагу: посилання «Заява» на попередньому сайті веде до договору, а не до бланка заяви.</p>
-          <div className={qualification.qDocumentGroups}>{documentGroups.map((group, index)=><details key={group.title} className={qualification.qDocumentGroup} open={index===0}><summary><span className={qualification.qDocumentIndex}>{String(index+1).padStart(2,"0")}</span><span className={qualification.qDocumentGroupTitle}>{group.title}</span><span className={qualification.qDocumentCount}>{group.items.length} PDF</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary><div className={qualification.qDocumentGrid}>{group.items.map(([title,file])=><a key={file} href={`/documents/${file}`} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span className={qualification.qDocumentFileName}>{title}</span><span className={qualification.qDocumentFileArrow} aria-hidden="true">↗</span></a>)}</div></details>)}</div>
+          <div className={qualification.qDocumentGroups}>{documentGroups.map((group, index)=><details key={group.title} className={qualification.qDocumentGroup} open={index===0}><summary><span className={qualification.qDocumentIndex}>{String(index+1).padStart(2,"0")}</span><span className={qualification.qDocumentGroupTitle}>{group.title}</span><span className={qualification.qDocumentCount}>{group.items.length} PDF</span><span className={qualification.qDocumentChevron} aria-hidden="true">⌄</span></summary><div className={qualification.qDocumentGrid}>{group.items.map(([title,file])=><a key={file} href={`/documents/${file}`} target="_blank" rel="noopener noreferrer" aria-label={`Відкрити PDF: ${title}`}><span className={qualification.qDocumentFileName}>{title}</span><span className={qualification.qDocumentFileArrow}><ArrowUpRight size={16} /></span></a>)}</div></details>)}</div>
         </section>
         <section className={qualification.qSection}>
           <p className={qualification.qEyebrow}>НОРМАТИВНА ОСНОВА</p><h2>Професійні стандарти та акредитація</h2>
@@ -631,12 +632,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   ["Постанова КМУ № 576 — визнання іноземних професійних кваліфікацій", "https://zakon.rada.gov.ua/laws/show/576-2021-%D0%BF"],
                   ["Постанова КМУ № 1341 — Національна рамка кваліфікацій", "https://zakon.rada.gov.ua/laws/show/1341-2011-%D0%BF"],
                   ["Постанова КМУ № 986 — порядок визнання результатів навчання", "https://zakon.rada.gov.ua/laws/show/986-2021-%D0%BF"],
-                ] as const).map(([title,url])=><a key={url} href={url} target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span>{title}</a>)}
+                ] as const).map(([title,url])=><a key={url} href={url} target="_blank" rel="noopener noreferrer"><ArrowUpRight />{title}</a>)}
               </div>
             </details>
           </div>
         </section>
-        <section className={qualification.qFinal} id="next-step"><div className={qualification.qFinalContent}><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><button type="button" data-lead-cta aria-label="Подати заявку на професійну сертифікацію">ПОДАТИ ЗАЯВКУ ↗</button></div></section>
+        <section className={qualification.qFinal} id="next-step"><div className={qualification.qFinalContent}><p className={qualification.qEyebrow}>НАСТУПНИЙ КРОК</p><h2>Готові підтвердити професійну кваліфікацію?</h2><p>Зареєструйтеся на іспит або зверніться до центру, щоб уточнити порядок сертифікації, вимоги й документи.</p><button type="button" data-lead-cta aria-label="Подати заявку на професійну сертифікацію">ПОДАТИ ЗАЯВКУ <ArrowUpRight /></button></div></section>
       </main>
     </div>;
   }
