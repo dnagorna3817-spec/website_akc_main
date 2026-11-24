@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import { articles } from "../articles";
 import styles from "./article.module.css";
-import ArticleCover from "./ArticleCover";\nimport RegistrationAction from "./RegistrationAction";
+import ArticleCover from "./ArticleCover";
+import RegistrationAction from "./RegistrationAction";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -48,7 +49,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   let article = articles.find((item) => item.slug === slug);
   let body: string | undefined;
-  let coverUrl: string | null = null;\n  let registrationEnabled = false;
+  let coverUrl: string | null = null;
+  let registrationEnabled = false;
   if (/^[a-z0-9-]+$/.test(slug)) {
     const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if(url&&key) {
@@ -73,7 +75,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className={styles.status}><span className={styles.glow} /> {article.category}</div>
           <h1>{article.title}</h1>
           <p className={styles.description}>{article.summary}</p>
-          {body && <div className={styles.inlineBody}>{body}</div>}\n          {registrationEnabled && <RegistrationAction title={article.title} />}
+          {body && <div className={styles.inlineBody}>{body}</div>}
+          {registrationEnabled && <RegistrationAction title={article.title} />}
           <div className={styles.separator} />
           
           <nav className={styles.links} aria-label="Навігація публікації">
