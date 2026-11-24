@@ -1,3 +1,4 @@
+import ArrowUpRight from "../components/ArrowUpRight";
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -42,7 +43,7 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{lead.category}</span><span>{lead.date}</span></div>
             <h2><Link href={`/insights/${lead.slug}`} className={styles.titleLink}>{lead.title}</Link></h2>
             <p>{lead.summary}</p>
-            {lead.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(lead.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
+            {lead.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(lead.title)}>Зареєструватися <ArrowUpRight size={16} /></button> : <Link href={`/insights/${lead.slug}`} className={styles.readMore}>Детальніше <ArrowUpRight size={16} /></Link>}
           </div>
         </article>}
         {rest.length > 0 && <div className={styles.grid}>
@@ -51,10 +52,10 @@ export default function InsightsPage() {
             <div className={styles.meta}><span>{article.category}</span><span>{article.date}</span></div>
             <h3><Link href={`/insights/${article.slug}`} className={styles.titleLink}>{article.title}</Link></h3>
             <p>{article.summary}</p>
-            {article.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <span aria-hidden="true">↗</span></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <span aria-hidden="true">↗</span></Link>}
+            {article.category === "План заходів" ? <button type="button" className={styles.registrationButton} onClick={() => setRegistrationTitle(article.title)}>Зареєструватися <ArrowUpRight size={16} /></button> : <Link href={`/insights/${article.slug}`} className={styles.cardMore}>Детальніше <ArrowUpRight size={16} /></Link>}
           </article>)}
         </div>}
-        <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <span aria-hidden="true">↗</span></Link></footer>
+        <footer className={styles.footer}><span>АКЦ / НОВИНИ</span><Link href="/">На головну <ArrowUpRight size={16} /></Link></footer>
       </main>
       {registrationTitle && <EventRegistration title={registrationTitle} onClose={() => setRegistrationTitle(null)} />}
     </div>
