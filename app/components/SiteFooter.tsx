@@ -27,6 +27,17 @@ export default function SiteFooter() {
             <a href="https://www.instagram.com/audit_konsalting_centr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram АКЦ"><SocialIcon kind="instagram" /></a>
           </div>
         </div>
+        <nav className="akc-site-footer__column akc-site-footer__navigation" aria-label="Основні сторінки">
+          <h2>Навігація</h2>
+          <ul>
+            <li><Link href="/about">Про компанію</Link></li>
+            <li><Link href="/expertise">Послуги та експертиза</Link></li>
+            <li><Link href="/industries">Галузі</Link></li>
+            <li><Link href="/expertise/qualification">Кваліфікаційний центр</Link></li>
+            <li><Link href="/insights">Новини та аналітика</Link></li>
+            <li><Link href="/contacts">Контакти</Link></li>
+          </ul>
+        </nav>
         <div className="akc-site-footer__column">
           <h2>Наша адреса</h2>
           <address>18000, м. Черкаси,<br />вул. Гоголя, 224</address>
