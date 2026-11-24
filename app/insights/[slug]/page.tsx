@@ -1,9 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExpertiseHeader, expertiseFont } from "../../expertise/ExpertiseView";
 import { articles } from "../articles";
 import styles from "./article.module.css";
 import ArticleCover from "./ArticleCover";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  let article = articles.find((item) => item.slug === slug);
+  if (!article && /^[a-z0-9-]+$/.test(slug)) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (url && key) {
+      try {
+        const response = await fetch(
+          `${url}/rest/v1/cms_published_news?select=slug,title,summary&slug=eq.${encodeURIComponent(slug)}`,
+          { headers: { apikey: key, Authorization: `Bearer ${key}` }, next: { revalidate: 3600 } },
+        );
+        if (response.ok) {
+          const rows = await response.json() as { title: string; summary: string }[];
+          if (rows[0]) article = { id: 9999, slug, title: rows[0].title, summary: rows[0].summary, category: "Новини", date: "", visual: "lines" };
+        }
+      } catch {
+        // Fall back to the site-wide metadata when the CMS is unavailable.
+      }
+    }
+  }
+  return {
+    title: article?.title ?? "Новина",
+    description: article?.summary ?? "Новини та аналітика Аудит Консалтинг Центр.",
+    alternates: { canonical: `/insights/${slug}` },
+    openGraph: {
+      type: "article",
+      title: article?.title ?? "Новина",
+      description: article?.summary ?? "Новини та аналітика Аудит Консалтинг Центр.",
+      url: `/insights/${slug}`,
+    },
+  };
+}
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
