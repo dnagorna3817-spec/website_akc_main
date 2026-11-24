@@ -17,7 +17,16 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const service = services.find((item) => item.slug === slug);
-  return { title: `${service?.name ?? "Послуга"} — АКЦ`, description: service?.intro };
+  return {
+    title: `${service?.name ?? "Послуга"} — АКЦ`,
+    description: service?.intro,
+    alternates: { canonical: `/expertise/${slug}` },
+    openGraph: {
+      title: `${service?.name ?? "Послуга"} — Аудит Консалтинг Центр`,
+      description: service?.intro,
+      url: `/expertise/${slug}`,
+    },
+  };
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
