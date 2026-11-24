@@ -15,6 +15,14 @@ const links = [
   ["/contacts", "Контакти"],
 ] as const;
 
+function ExternalArrowIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function MobileSiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -51,7 +59,7 @@ export default function MobileSiteHeader() {
       <nav id="akc-global-mobile-nav" className={"akc-global-mobile-nav" + (open ? " is-open" : "")} aria-label="Мобільна навігація" inert={!open}>
         {links.map(([href, label]) => (
           <Link key={href} href={href} className={pathname === href || (href !== "/" && href !== "/expertise" && pathname.startsWith(href + "/")) ? "is-current" : ""} aria-current={pathname === href ? "page" : undefined} onClick={() => setOpen(false)}>
-            {label}<span aria-hidden="true">↗</span>
+            {label}<span className="akc-mobile-nav-arrow"><ExternalArrowIcon /></span>
           </Link>
         ))}
       </nav>
