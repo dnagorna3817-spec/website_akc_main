@@ -7,6 +7,9 @@ import styles from "./article.module.css";
 import ArticleCover from "./ArticleCover";
 import RegistrationAction from "./RegistrationAction";
 
+export const dynamicParams = true;
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   let article = articles.find((item) => item.slug === slug);
