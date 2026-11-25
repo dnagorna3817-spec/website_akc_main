@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./article.module.css";
 
-type CoverRecord = { image_url: string | null; banner_image_url: string | null };
+type CoverRecord = { image_url: string | null };
 export default function ArticleCover({ slug, initialUrl }: { slug: string; initialUrl: string | null }) {
   const [photo, setPhoto] = useState<string | null>(initialUrl);
   const [failed, setFailed] = useState(false);
@@ -18,14 +18,14 @@ export default function ArticleCover({ slug, initialUrl }: { slug: string; initi
       return;
     }
     const controller = new AbortController();
-    const endpoint = url + "/rest/v1/cms_published_news?select=image_url,banner_image_url&slug=eq." + encodeURIComponent(slug);
+    const endpoint = url + "/rest/v1/cms_published_news?select=image_url&slug=eq." + encodeURIComponent(slug);
     fetch(endpoint, { headers: { apikey: key, Authorization: "Bearer " + key }, cache: "no-store", signal: controller.signal })
       .then(async response => {
         if (!response.ok) throw new Error("AKC article photo: Supabase HTTP " + response.status + " " + (await response.text()).slice(0, 250));
         return response.json() as Promise<CoverRecord[]>;
       })
       .then(rows => {
-        const next = rows[0]?.image_url || rows[0]?.banner_image_url;
+        const next = rows[0]?.image_url;
         if (next) setPhoto(next);
         else console.warn("AKC article photo: no published image for slug", slug);
       })
