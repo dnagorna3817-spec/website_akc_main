@@ -1,72 +1,75 @@
+.backdrop{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:24px;background:rgba(0,6,12,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto}
+.dialog{position:relative;width:min(100%,540px);max-height:calc(100dvh - 48px);overflow-y:auto;background:linear-gradient(145deg,#071b2a 0%,#020d16 43%,#020a12 100%);border:1px solid rgba(126,185,224,.28);border-radius:3px;padding:clamp(26px,4vw,48px);color:#eaf3fa;box-shadow:0 32px 110px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.04);font-family:inherit}
+.dialog::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,#74b9e7 48%,transparent);opacity:.8;pointer-events:none}
+.close{position:absolute;top:22px;right:22px;display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(135,174,202,.25);border-radius:50%;background:transparent;color:#b7cedf;cursor:pointer;transition:background .2s,border-color .2s}
+.close:hover{background:#143349;border-color:#78bde9}
+.header{margin-bottom:28px}.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 25px;color:#84b8d7;letter-spacing:.18em;font-size:10px;font-weight:650}.eyebrowLine{display:inline-block;width:22px;height:1px;background:#79b8df}
+.dialog h2{margin:0 0 24px;font-size:clamp(35px,4vw,48px);line-height:1.03;letter-spacing:-.055em;font-weight:500}.dialog h2 span{color:#86b8d7}
+.eventBlock{border-left:2px solid #69b5e4;padding:1px 0 2px 17px;margin-bottom:20px}.eventTag{font-size:9px;letter-spacing:.16em;color:#7094ac;font-weight:650}.eventTitle{margin:7px 0 0;color:#f1f7fc;font-size:15px;line-height:1.4;font-weight:500}.description{margin:0;color:#8da5b6;font-size:13px;line-height:1.6}
+.dialog form{display:grid;gap:18px}.dialog label:not(.consent){display:grid;gap:9px;font-size:11px;letter-spacing:.035em;font-weight:550;color:#b9cbd8}.dialog input:not([type=checkbox]){width:100%;height:50px;border:1px solid #28475c;border-radius:2px;background:rgba(1,11,20,.52);padding:0 16px;color:#f3f8fb;font:inherit;font-size:14px;letter-spacing:normal;outline:none;transition:border-color .2s,box-shadow .2s}.dialog input:not([type=checkbox]):hover{border-color:#537b96}.dialog input:not([type=checkbox]):focus-visible{border-color:#8fc9f0;box-shadow:0 0 0 2px rgba(91,166,218,.13)}.dialog input::placeholder{color:#688398}.consent{display:flex;gap:12px;align-items:flex-start;margin:7px 0 2px;color:#8ca4b6;font-size:11px;line-height:1.5;cursor:pointer}.consent input{flex:none;width:17px;height:17px;margin:1px 0 0;accent-color:#78b9e5}
+.submit{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:54px;padding:0 19px 0 22px;border:1px solid #76b6e1;border-radius:2px;background:linear-gradient(105deg,#204966,#306b91);color:#fff;font:inherit;font-size:13px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:background .2s,transform .2s}.submit:hover{background:linear-gradient(105deg,#28628a,#418bb8);transform:translateY(-1px)}.buttonArrow{display:grid;place-items:center;width:30px;height:30px;border:1px solid rgba(255,255,255,.35);border-radius:50%;font-size:18px;font-weight:400}.note,.notice{margin:17px 0 0;color:#7994a6;font-size:11px;line-height:1.6}.notice{padding-left:12px;border-left:2px solid #7bbfe8;color:#b9d1e0}
+@media(max-width:560px){.backdrop{padding:10px}.dialog{max-height:calc(100dvh - 20px);padding:27px 22px}.dialog h2{font-size:36px}.eyebrow{margin-bottom:20px}.header{margin-bottom:23px}}
+@media(prefers-reduced-motion:reduce){.submit,.close,.dialog input{transition:none}}
+
+/* Compact, softly rounded registration card */
+.dialog{width:min(100%,450px);padding:clamp(22px,3vw,32px);border-radius:18px}
+.dialog::before{border-radius:18px 18px 0 0}
+.close{top:16px;right:16px;border-radius:50%}
+.header{margin-bottom:20px}
+.eyebrow{margin-bottom:16px}
+.dialog h2{font-size:clamp(29px,3vw,36px);margin-bottom:18px}
+.eventBlock{margin-bottom:13px}
+.description{font-size:12px}
+.dialog form{gap:12px}
+.dialog label:not(.consent){gap:6px}
+.dialog input:not([type=checkbox]){height:42px;border-radius:9px}
+.consent{margin:4px 0 0}
+.submit{min-height:46px;border-radius:11px}
+.note,.notice{margin-top:12px}
+@media(max-width:560px){.dialog{width:min(100%,420px);padding:23px 20px;border-radius:16px}.dialog h2{font-size:30px}.header{margin-bottom:18px}}
+
+/* Consistent inner alignment, including Safari form controls */
+.dialog,.dialog *,.dialog *::before,.dialog *::after{box-sizing:border-box}
+.dialog form,.dialog form label,.dialog form input,.dialog .header,.dialog .eventBlock{min-width:0;max-width:100%}
+.dialog form{width:100%}
+.dialog label:not(.consent){width:100%}
+.dialog input:not([type=checkbox]){display:block;width:100%;max-width:100%;margin:0}
+.submit{justify-content:center;text-align:center;padding-inline:18px}
+
+/* Telegram registration confirmation and submission states */
+.submit:disabled{cursor:wait;opacity:.7;transform:none}
+.success{text-align:center;padding:34px 0 10px}
+.success .eyebrow{justify-content:center;margin:0 0 18px}
+.successIcon{width:64px;height:64px;border:1px solid #6bb9ed;border-radius:50%;display:grid;place-items:center;color:#89c9f1;margin:0 auto 25px;font-size:31px;box-shadow:0 0 35px rgba(74,160,226,.1)}
+.success h2{margin:0 0 20px}
+.success p{color:#afc4d3;font-size:13px;line-height:1.65;margin:0 0 12px}
+.success .submit{margin-top:30px}
+
+
+/* iOS Safari: keep the dialog itself scrollable and the close control reachable. */
 .backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  min-width: 0;
-  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
-  padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
-  background: rgba(0, 6, 12, .78);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  touch-action: pan-y;
 }
 .dialog {
   position: relative;
-  flex: 0 1 450px;
-  width: min(450px, calc(100vw - 16px));
-  max-width: calc(100vw - 16px);
-  min-width: 0;
-  max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
-  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
-  margin: auto;
-  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: min(100%, 450px);
+  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px);
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
-}
-.dialog,
-.dialog *,
-.dialog *::before,
-.dialog *::after {
-  box-sizing: border-box;
-}
-.dialog form,
-.dialog form label,
-.dialog form input,
-.dialog .header,
-.dialog .eventBlock {
-  min-width: 0;
-  max-width: 100%;
-}
-.dialog form,
-.dialog label:not(.consent),
-.dialog input:not([type="checkbox"]) {
-  width: 100%;
-}
-.dialog input:not([type="checkbox"]) {
-  display: block;
-  min-width: 0;
-  max-width: 100%;
-}
-.eventBlock,
-.eventTitle,
-.description,
-.dialog label,
-.dialog .note,
-.dialog .notice {
-  min-width: 0;
-  overflow-wrap: anywhere;
+  margin: auto 0;
 }
 .close {
   position: sticky;
@@ -74,6 +77,7 @@
   z-index: 5;
   float: right;
   margin: 0 0 -34px auto;
+  flex: 0 0 auto;
   background: rgba(2, 13, 22, .94);
   -webkit-tap-highlight-color: transparent;
 }
@@ -83,22 +87,53 @@
 }
 @media (max-width: 560px) {
   .backdrop {
-    align-items: flex-start;
     padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
   }
   .dialog {
-    flex: 0 1 auto;
-    width: calc(100vw - 16px);
+    width: 100%;
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
+    padding: 23px 20px;
+  }
+}
+
+
+/* iOS Safari: preserve the original card design without automatic page zoom. */
+@media (max-width: 560px) {
+  .backdrop {
+    align-items: flex-start;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+  }
+  .dialog {
+    width: min(100%, 420px);
     max-width: calc(100vw - 16px);
     max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
     max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
-    margin: auto;
-    padding: 23px 20px;
+    margin: auto 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
   }
-  .dialog h2 {
-    font-size: 30px;
+  .dialog input:not([type=checkbox]) {
+    font-size: 16px;
+    min-width: 0;
+    max-width: 100%;
   }
-  .eventTitle {
-    font-size: clamp(13px, 3.8vw, 15px);
+  .dialog form,
+  .dialog label:not(.consent),
+  .dialog .eventBlock,
+  .dialog .eventTitle {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .eventTitle,
+  .description,
+  .dialog label,
+  .dialog .note {
+    overflow-wrap: anywhere;
   }
 }
