@@ -96,7 +96,8 @@ export default function NewsEditor({token,uid,getAccessToken,refreshAccessToken}
     <label style={{fontWeight:600}}>Тип публікації</label>
     <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>{["Новини","Статті","План заходів"].map(x=><button type="button" key={x} aria-pressed={current.category===x} onClick={()=>setCurrent({...current,category:x})} style={current.category===x?primary:secondary}>{x==="Новини"?"Новина":x==="Статті"?"Стаття":"План заходу"}</button>)}</div>
    </div>
-   <label style={{display:"flex",alignItems:"center",gap:12,padding:16,border:"1px solid #34536b",borderRadius:12,cursor:"pointer"}}><input type="checkbox" checked={current.registration_enabled===true} onChange={e=>setCurrent({...current,registration_enabled:e.target.checked})} style={{width:20,height:20}}/><span><strong>Додати форму реєстрації</strong><br/><small style={{color:"#a5bed0"}}>Показувати кнопку реєстрації на сторінці цієї новини. Заявки надходитимуть у Telegram.</small></span></label>\n   {(["horizontal","vertical"] as const).map(kind=>{
+   <label style={{display:"flex",alignItems:"center",gap:12,padding:16,border:"1px solid #34536b",borderRadius:12,cursor:"pointer"}}><input type="checkbox" checked={current.registration_enabled===true} onChange={e=>setCurrent({...current,registration_enabled:e.target.checked})} style={{width:20,height:20}}/><span><strong>Додати форму реєстрації</strong><br/><small style={{color:"#a5bed0"}}>Показувати кнопку реєстрації на сторінці цієї новини. Заявки надходитимуть у Telegram.</small></span></label>
+   {(["horizontal","vertical"] as const).map(kind=>{
     const isWide=kind==="horizontal";const value=previews[kind]||(isWide?current.banner_image_url:current.image_url);
     return <div key={kind} style={{display:"grid",gap:12,padding:18,border:"1px solid #34536b",borderRadius:14}}>
      <strong>{isWide?"Горизонтальне фото — банер і список новин":"Вертикальне фото — сторінка новини"}</strong>
