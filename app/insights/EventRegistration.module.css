@@ -44,3 +44,54 @@
 .success h2{margin:0 0 20px}
 .success p{color:#afc4d3;font-size:13px;line-height:1.65;margin:0 0 12px}
 .success .submit{margin-top:30px}
+
+
+/* iOS Safari: keep the dialog itself scrollable and the close control reachable. */
+.backdrop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  touch-action: pan-y;
+}
+.dialog {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(100%, 450px);
+  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  margin: auto 0;
+}
+.close {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  float: right;
+  margin: 0 0 -34px auto;
+  flex: 0 0 auto;
+  background: rgba(2, 13, 22, .94);
+  -webkit-tap-highlight-color: transparent;
+}
+.dialog .header {
+  clear: both;
+  padding-top: 2px;
+}
+@media (max-width: 560px) {
+  .backdrop {
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+  }
+  .dialog {
+    width: 100%;
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 16px);
+    padding: 23px 20px;
+  }
+}
